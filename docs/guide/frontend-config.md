@@ -15,16 +15,9 @@
 ```html
 <script>
   const comments = new CWDComments({
-    el: '#comments',
-    apiBaseUrl: 'https://your-api.example.com',
-    postSlug: 'my-post',
-    postTitle: '文章标题',
-    postUrl: 'https://example.com/my-post',
-    theme: 'light',
-    pageSize: 20,
-    avatarPrefix: 'https://gravatar.com/avatar',
-    adminEmail: 'admin@example.com',
-    adminBadge: '博主'
+    el: '#comments', // 容器 id
+    apiBaseUrl: 'https://your-api.example.com', // 你部署的api地址
+    postSlug: 'my-post', // 当前页面路径，可使用博客程序支持的 url 模板路径
   });
   comments.mount();
 </script>
