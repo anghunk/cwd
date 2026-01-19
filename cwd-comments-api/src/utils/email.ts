@@ -121,7 +121,7 @@ export async function sendCommentNotification(
     <div style="background-color:#f4f4f5;padding:24px 0;">
       <div style="max-width:640px;margin:0 auto;background:#ffffff;border-radius:12px;border:1px solid #e5e7eb;overflow:hidden;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;color:#111827;">
         <div style="padding:20px 28px;border-bottom:1px solid #e5e7eb;background:linear-gradient(135deg,#0f766e,#059669);">
-          <h1 style="margin:0;font-size:18px;line-height:1.4;color:#f9fafb;">新评论提醒 - ${postTitle}</h1>
+          <h1 style="margin:0;font-size:18px;line-height:1.4;color:#f9fafb;">新评论提醒</h1>
           <p style="margin:4px 0 0;font-size:12px;color:#d1fae5;">你的文章收到了新的评论</p>
         </div>
         <div style="padding:24px 28px;">

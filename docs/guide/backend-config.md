@@ -102,7 +102,6 @@ npm install
 | `ADMIN_NAME`     | 管理员登录名称                                                       |
 | `ADMIN_PASSWORD` | 管理员登录密码                                                       |
 | `CF_FROM_EMAIL`  | 作为发件人显示的邮箱地址（需在 Cloudflare Email 路由中预先配置）选填 |
-| `EMAIL_ADDRESS`  | 管理员接收通知邮件的默认邮箱（可在后台设置中覆盖）选填               |
 
 **注：** 需要在 Cloudflare 控制面板中为 Email 路由开启发送权限并配置发件人域和地址，并在 `wrangler.jsonc` 中为 Worker 添加 `send_email` 绑定，以便在代码中通过 `env.SEND_EMAIL.send()` 直接发信。
 
@@ -115,12 +114,11 @@ npm install
   ...
   "send_email": [
     {
-      "name": "SEND_EMAIL",
-      "destination_address": "xxx"
+      "name": "SEND_EMAIL"
     }
   ],
   ...
 }
 ```
 
-`destination_address` 和参数 `CF_FROM_EMAIL` 这里填写的邮箱是你绑定域名后，创建的 email 路由，两者需保持一致
+参数 `CF_FROM_EMAIL` 这里填写的邮箱是你绑定域名后，创建的 email 路由，两者需保持一致

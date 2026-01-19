@@ -28,6 +28,12 @@ export class CWDComments {
    */
   constructor(config) {
     this.config = { ...config };
+    if (!this.config.postTitle && typeof document !== 'undefined') {
+      this.config.postTitle = document.title || this.config.postSlug;
+    }
+    if (!this.config.postUrl && typeof window !== 'undefined') {
+      this.config.postUrl = window.location.href;
+    }
     this.hostElement = this._resolveElement(config.el);
     this.shadowRoot = null;
     this.mountPoint = null;

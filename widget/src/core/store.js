@@ -102,7 +102,7 @@ export function createCommentStore(config, fetchComments, submitComment) {
   const store = new Store({
     // 评论数据
     comments: [],
-    loading: false,
+    loading: true,
     error: null,
 
     // 分页
