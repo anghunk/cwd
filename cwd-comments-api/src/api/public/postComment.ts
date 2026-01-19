@@ -1,7 +1,7 @@
 import { Context } from 'hono';
 import { UAParser } from 'ua-parser-js';
 import { Bindings } from '../../bindings';
-import { sendCommentNotification, sendCommentReplyNotification, isValidEmail } from '../../utils/email';
+import { sendCommentNotification, sendCommentReplyNotification, isValidEmail, getAdminNotifyEmail } from '../../utils/email';
 
 // 检查内容，将<script>标签之间的内容删除
 export function checkContent(content: string): string {
@@ -69,8 +69,7 @@ export const postComment = async (c: Context<{ Bindings: Bindings }>) => {
     email,
     ip,
     hasSendEmailBinding: !!c.env.SEND_EMAIL,
-    fromEmail: c.env.CF_FROM_EMAIL,
-    emailAddressEnv: c.env.EMAIL_ADDRESS
+    fromEmail: c.env.CF_FROM_EMAIL
   });
   const uaParser = new UAParser(userAgent);
   const uaResult = uaParser.getResult();
@@ -121,35 +120,53 @@ export const postComment = async (c: Context<{ Bindings: Bindings }>) => {
             ).bind(data.parent_id).first<{ author: string, email: string, content_text: string }>();
 
             if (parentComment && parentComment.email !== data.email) {
-              const recentUserMail = await c.env.CWD_DB.prepare(
-                "SELECT created_at FROM EmailLog WHERE recipient = ? AND type = 'user-reply' ORDER BY created_at DESC LIMIT 1"
-              ).bind(parentComment.email).first<{ created_at: string }>();
-              const canSendUserMail = !recentUserMail || (Date.now() - new Date(recentUserMail.created_at).getTime() > 60 * 1000);
-              
-              if (canSendUserMail && isValidEmail(parentComment.email)) {
-                console.log('PostComment:mailDispatch:userReply:send', {
-                  toEmail: parentComment.email,
-                  toName: parentComment.author
-                });
-                await sendCommentReplyNotification(c.env, {
-                  toEmail: parentComment.email,
-                  toName: parentComment.author,
-                  postTitle: data.post_title,
-                  parentComment: parentComment.content_text,
-                  replyAuthor: author,
-                  replyContent: content,
-                  postUrl: data.post_url,
-                });
-                await c.env.CWD_DB.prepare(
-                  "INSERT INTO EmailLog (recipient, type, ip_address, created_at) VALUES (?, ?, ?, ?)"
-                ).bind(parentComment.email, 'user-reply', ip, new Date().toISOString()).run();
-                console.log('PostComment:mailDispatch:userReply:logInserted', {
-                  toEmail: parentComment.email
-                });
+              let adminEmail: string | null = null;
+              try {
+                adminEmail = await getAdminNotifyEmail(c.env);
+              } catch (e) {
+                console.error('PostComment:mailDispatch:userReply:getAdminEmailFailed', e);
               }
-              if (!canSendUserMail) {
-                console.log('PostComment:mailDispatch:userReply:skippedByRateLimit', {
-                  toEmail: parentComment.email
+
+              const isAdminReply = !!adminEmail && email === adminEmail;
+              const isParentThirdParty = !!adminEmail && parentComment.email !== adminEmail;
+
+              if (isAdminReply && isParentThirdParty) {
+                const recentUserMail = await c.env.CWD_DB.prepare(
+                  "SELECT created_at FROM EmailLog WHERE recipient = ? AND type = 'user-reply' ORDER BY created_at DESC LIMIT 1"
+                ).bind(parentComment.email).first<{ created_at: string }>();
+                const canSendUserMail = !recentUserMail || (Date.now() - new Date(recentUserMail.created_at).getTime() > 60 * 1000);
+                
+                if (canSendUserMail && isValidEmail(parentComment.email)) {
+                  console.log('PostComment:mailDispatch:userReply:send', {
+                    toEmail: parentComment.email,
+                    toName: parentComment.author
+                  });
+                  await sendCommentReplyNotification(c.env, {
+                    toEmail: parentComment.email,
+                    toName: parentComment.author,
+                    postTitle: data.post_title,
+                    parentComment: parentComment.content_text,
+                    replyAuthor: author,
+                    replyContent: content,
+                    postUrl: data.post_url,
+                  });
+                  await c.env.CWD_DB.prepare(
+                    "INSERT INTO EmailLog (recipient, type, ip_address, created_at) VALUES (?, ?, ?, ?)"
+                  ).bind(parentComment.email, 'user-reply', ip, new Date().toISOString()).run();
+                  console.log('PostComment:mailDispatch:userReply:logInserted', {
+                    toEmail: parentComment.email
+                  });
+                }
+                if (!canSendUserMail) {
+                  console.log('PostComment:mailDispatch:userReply:skippedByRateLimit', {
+                    toEmail: parentComment.email
+                  });
+                }
+              } else {
+                console.log('PostComment:mailDispatch:userReply:skipNonAdminReply', {
+                  adminEmail,
+                  currentEmail: email,
+                  parentEmail: parentComment.email
                 });
               }
             }

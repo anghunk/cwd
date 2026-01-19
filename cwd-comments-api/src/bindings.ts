@@ -5,8 +5,7 @@ export type Bindings = {
   CF_FROM_EMAIL?: string
   SEND_EMAIL?: {
     send: (message: any) => Promise<any>
-  }
-  EMAIL_ADDRESS?: string
+  } 
   ADMIN_NAME: string
   ADMIN_PASSWORD: string
 }

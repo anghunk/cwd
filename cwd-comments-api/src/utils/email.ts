@@ -30,25 +30,45 @@ export async function sendCommentReplyNotification(
   });
 
   const html = `
-      <div style="font-family: sans-serif; line-height: 1.6; color: #333;">
-        <p>Hi <b>${toName}</b>，</p>
-        <p>${replyAuthor} 回复了你在 <b>${postTitle}</b> 中的评论：</p>
-        <blockquote style="margin: 10px 0; padding: 10px; border-left: 4px solid #e2e8f0; background: #f8fafc;">
-          ${parentComment}
-        </blockquote>
-        <p>最新回复：</p>
-        <blockquote style="margin: 10px 0; padding: 10px; border-left: 4px solid #3b82f6; background: #eff6ff;">
-          ${replyContent}
-        </blockquote>
-        <p style="margin-top: 20px;">
-          <a href="${postUrl}" style="background: #3b82f6; color: white; padding: 10px 20px; text-decoration: none; border-radius: 6px; display: inline-block;">
-            查看完整回复
-          </a>
-        </p>
-        <hr style="border: none; border-top: 1px solid #eee; margin-top: 30px;">
-        <p style="font-size: 12px; color: #999;">此邮件由系统自动发送，请勿直接回复。</p>
+    <div style="background-color:#f4f4f5;padding:24px 0;">
+      <div style="max-width:640px;margin:0 auto;background:#ffffff;border-radius:12px;border:1px solid #e5e7eb;overflow:hidden;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;color:#111827;">
+        <div style="padding:20px 28px;border-bottom:1px solid #e5e7eb;background:linear-gradient(135deg,#2563eb,#4f46e5);">
+          <h1 style="margin:0;font-size:18px;line-height:1.4;color:#f9fafb;">评论回复 - ${postTitle}</h1>
+          <p style="margin:4px 0 0;font-size:12px;color:#e5e7eb;">你在文章下的评论收到了新的回复</p>
+        </div>
+        <div style="padding:24px 28px;">
+          <p style="margin:0 0 8px 0;font-size:14px;color:#374151;">Hi <span style="font-weight:600;">${toName}</span>，</p>
+          <p style="margin:0 0 16px 0;font-size:14px;color:#4b5563;">
+            <span style="font-weight:600;">${replyAuthor}</span> 回复了你在
+            <span style="font-weight:600;">《${postTitle}》</span>
+            中的评论：
+          </p>
+          <div style="margin:0 0 18px 0;padding:14px 16px;border-radius:10px;background:#f3f4f6;border:1px solid #e5e7eb;">
+            <div style="font-size:12px;color:#6b7280;margin-bottom:6px;">你之前的评论</div>
+            <div style="font-size:14px;color:#374151;white-space:pre-wrap;">${parentComment}</div>
+          </div>
+          <div style="margin:0 0 24px 0;padding:14px 16px;border-radius:10px;background:#eff6ff;border:1px solid #bfdbfe;">
+            <div style="font-size:12px;color:#1d4ed8;margin-bottom:6px;">最新回复</div>
+            <div style="font-size:14px;color:#1f2937;white-space:pre-wrap;">${replyContent}</div>
+          </div>
+          <div style="text-align:center;margin-bottom:8px;">
+            <a href="${postUrl}" style="display:inline-block;padding:10px 22px;border-radius:999px;background:#2563eb;color:#ffffff;font-size:14px;font-weight:500;text-decoration:none;">
+              打开文章查看完整对话
+            </a>
+          </div>
+          <p style="margin:0;font-size:12px;color:#9ca3af;text-align:center;">
+            如果按钮无法点击，可以将链接复制到浏览器中打开：<br />
+            <span style="word-break:break-all;color:#6b7280;">${postUrl}</span>
+          </p>
+        </div>
+        <div style="padding:14px 20px;border-top:1px solid #e5e7eb;background:#f9fafb;text-align:center;">
+          <p style="margin:0;font-size:11px;line-height:1.6;color:#9ca3af;">
+            此邮件由系统自动发送，请勿直接回复。
+          </p>
+        </div>
       </div>
-    `;
+    </div>
+  `;
 
   if (!env.SEND_EMAIL || !env.CF_FROM_EMAIL) {
     console.error('EmailReplyNotification:missingBinding', {
@@ -66,7 +86,7 @@ export async function sendCommentReplyNotification(
   await env.SEND_EMAIL.send({
     to: [{ email: toEmail }],
     from: { email: env.CF_FROM_EMAIL },
-    subject: `你在 example.com 上的评论有了新回复`,
+    subject: `评论回复 - ${postTitle}`,
     html
   });
 
@@ -98,12 +118,38 @@ export async function sendCommentNotification(
   });
 
   const html = `
-    <div style="font-family: sans-serif;">
-      <p><b>${commentAuthor}</b> 在文章《${postTitle}》下发表了评论：</p>
-      <div style="padding: 15px; border: 1px solid #ddd; border-radius: 8px;">
-        ${commentContent}
+    <div style="background-color:#f4f4f5;padding:24px 0;">
+      <div style="max-width:640px;margin:0 auto;background:#ffffff;border-radius:12px;border:1px solid #e5e7eb;overflow:hidden;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;color:#111827;">
+        <div style="padding:20px 28px;border-bottom:1px solid #e5e7eb;background:linear-gradient(135deg,#0f766e,#059669);">
+          <h1 style="margin:0;font-size:18px;line-height:1.4;color:#f9fafb;">新评论提醒 - ${postTitle}</h1>
+          <p style="margin:4px 0 0;font-size:12px;color:#d1fae5;">你的文章收到了新的评论</p>
+        </div>
+        <div style="padding:24px 28px;">
+          <p style="margin:0 0 10px 0;font-size:14px;color:#374151;">
+            <span style="font-weight:600;">${commentAuthor}</span> 在文章
+            <span style="font-weight:600;">《${postTitle}》</span>
+            下发表了新评论：
+          </p>
+          <div style="margin:0 0 18px 0;padding:14px 16px;border-radius:10px;background:#f9fafb;border:1px solid #e5e7eb;">
+            <div style="font-size:12px;color:#6b7280;margin-bottom:6px;">评论内容</div>
+            <div style="font-size:14px;color:#374151;white-space:pre-wrap;">${commentContent}</div>
+          </div>
+          <div style="margin:0 0 8px 0;">
+            <a href="${postUrl}" style="display:inline-block;padding:10px 22px;border-radius:999px;background:#047857;color:#ffffff;font-size:14px;font-weight:500;text-decoration:none;">
+              打开后台查看并管理评论
+            </a>
+          </div>
+          <p style="margin:0;font-size:12px;color:#9ca3af;">
+            如果按钮无法点击，可以将链接复制到浏览器中打开：<br />
+            <span style="word-break:break-all;color:#6b7280;">${postUrl}</span>
+          </p>
+        </div>
+        <div style="padding:14px 20px;border-top:1px solid #e5e7eb;background:#f9fafb;text-align:center;">
+          <p style="margin:0;font-size:11px;line-height:1.6;color:#9ca3af;">
+            此邮件由系统自动发送，如非本人操作可忽略本邮件。
+          </p>
+        </div>
       </div>
-      <p><a href="${postUrl}">点击跳转到文章</a></p>
     </div>
   `;
 
@@ -128,7 +174,7 @@ export async function sendCommentNotification(
     await env.SEND_EMAIL.send({
       to: [toEmail],
       from: env.CF_FROM_EMAIL,
-      subject: `新评论通知：${postTitle}`,
+      subject: `新评论提醒 - ${postTitle}`,
       html
     });
   } catch (sendError: any) {
@@ -145,7 +191,7 @@ export async function sendCommentNotification(
   });
 }
 
-async function getAdminNotifyEmail(env: Bindings): Promise<string> {
+export async function getAdminNotifyEmail(env: Bindings): Promise<string> {
   await env.CWD_DB.prepare(
     'CREATE TABLE IF NOT EXISTS Settings (key TEXT PRIMARY KEY, value TEXT NOT NULL)'
   ).run();
@@ -161,18 +207,8 @@ async function getAdminNotifyEmail(env: Bindings): Promise<string> {
     });
     return cleanEmail;
   }
-  if (env.EMAIL_ADDRESS && isValidEmail(env.EMAIL_ADDRESS)) {
-    const cleanEmail = env.EMAIL_ADDRESS.trim();
-    console.log('EmailAdminNotification:useEnvEmail', {
-      email: cleanEmail,
-      originalLength: env.EMAIL_ADDRESS.length,
-      cleanLength: cleanEmail.length
-    });
-    return cleanEmail;
-  }
   console.error('EmailAdminNotification:noAdminEmail', {
-    dbValue: row?.value,
-    envValue: env.EMAIL_ADDRESS
+    dbValue: row?.value
   });
   throw new Error('未配置管理员通知邮箱或格式不正确');
 }
