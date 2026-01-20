@@ -89,6 +89,10 @@
         <div class="form-item">
           <label class="form-label">授权码/密码</label>
           <input v-model="smtpPass" class="form-input" type="password" placeholder="QQ邮箱请使用授权码" />
+          <div v-if="smtpProvider === 'qq'" class="form-hint">
+            注意：QQ邮箱必须使用<a href="https://service.mail.qq.com/detail/0/75" target="_blank">授权码</a>，而非QQ密码。<br/>
+            请登录QQ邮箱网页版，在【设置-账户】中开启 POP3/SMTP 服务并生成授权码。
+          </div>
         </div>
 
         <div
@@ -97,7 +101,11 @@
         >
           {{ message }}
         </div>
-        <div class="card-actions">
+        <div class="card-actions" style="justify-content: space-between;">
+           <button class="card-button secondary" :disabled="testingEmail" @click="testEmail">
+            <span v-if="testingEmail">发送中...</span>
+            <span v-else>发送测试邮件</span>
+          </button>
           <button class="card-button" :disabled="savingEmail" @click="saveEmail">
             <span v-if="savingEmail">保存中...</span>
             <span v-else>保存配置</span>
@@ -117,6 +125,7 @@ import {
   saveCommentSettings,
   fetchEmailNotifySettings,
   saveEmailNotifySettings,
+  sendTestEmail
 } from "../api/admin";
 
 const email = ref("");
@@ -126,6 +135,7 @@ const commentAdminBadge = ref("");
 const avatarPrefix = ref("");
 const commentAdminEnabled = ref(false);
 const savingEmail = ref(false);
+const testingEmail = ref(false);
 const savingComment = ref(false);
 const loading = ref(false);
 const message = ref("");
@@ -222,6 +232,49 @@ async function saveEmail() {
     messageType.value = "error";
   } finally {
     savingEmail.value = false;
+  }
+}
+
+async function testEmail() {
+  if (!email.value) {
+    message.value = "请输入管理员通知邮箱作为测试接收邮箱";
+    messageType.value = "error";
+    return;
+  }
+  if (!smtpUser.value || !smtpPass.value) {
+    message.value = "请先填写 SMTP 账号和密码";
+    messageType.value = "error";
+    return;
+  }
+  
+  testingEmail.value = true;
+  message.value = "";
+  try {
+    const res = await sendTestEmail({
+        toEmail: email.value,
+        smtp: {
+            host: smtpHost.value,
+            port: smtpPort.value,
+            user: smtpUser.value,
+            pass: smtpPass.value,
+            secure: smtpSecure.value
+        }
+    });
+    showToast(res.message || "发送成功，请查收邮件", "success");
+  } catch (e: any) {
+    // 显示详细错误信息
+    console.error(e);
+    let errorMsg = e.message || "发送失败";
+    
+    // 针对 QQ 邮箱 535 错误的友好提示
+    if (errorMsg.includes('535') && (errorMsg.includes('Login fail') || errorMsg.includes('authentication failed'))) {
+        errorMsg = "验证失败 (535)：请检查 1. QQ邮箱是否已开启 POP3/SMTP 服务；2. 密码栏是否填写了“授权码”（非QQ密码）。";
+    }
+
+    message.value = errorMsg;
+    messageType.value = "error";
+  } finally {
+    testingEmail.value = false;
   }
 }
 
@@ -400,6 +453,16 @@ onMounted(() => {
   cursor: pointer;
 }
 
+.card-button.secondary {
+    background-color: #f6f8fa;
+    color: #24292f;
+    border: 1px solid #d0d7de;
+}
+.card-button.secondary:hover {
+    background-color: #f3f4f6;
+    border-color: #d0d7de;
+}
+
 .card-button:disabled {
   opacity: 0.7;
   cursor: default;
@@ -452,5 +515,18 @@ onMounted(() => {
 .page-hint {
   font-size: 14px;
   color: #57606a;
+}
+.form-hint {
+  font-size: 12px;
+  color: #57606a;
+  margin-top: 4px;
+  line-height: 1.5;
+}
+.form-hint a {
+    color: #0969da;
+    text-decoration: none;
+}
+.form-hint a:hover {
+    text-decoration: underline;
 }
 </style>

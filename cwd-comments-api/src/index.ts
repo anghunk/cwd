@@ -16,6 +16,7 @@ import { listComments } from './api/admin/listComments';
 import { updateStatus } from './api/admin/updateStatus';
 import { getAdminEmail } from './api/admin/getAdminEmail';
 import { setAdminEmail } from './api/admin/setAdminEmail';
+import { testEmail } from './api/admin/testEmail';
 
 const app = new Hono<{ Bindings: Bindings }>();
 const VERSION = 'v0.0.1';
@@ -176,6 +177,8 @@ app.put('/admin/settings/email-notify', async (c) => {
 		return c.json({ message: e.message || '保存失败' }, 500);
 	}
 });
+
+app.post('/admin/settings/email-test', testEmail);
 app.get('/admin/settings/comments', async (c) => {
 	try {
 		const settings = await loadCommentSettings(c.env);

@@ -99,6 +99,19 @@ export function saveEmailNotifySettings(data: {
 	return put<{ message: string }>('/admin/settings/email-notify', data);
 }
 
+export function sendTestEmail(data: {
+	toEmail: string;
+	smtp?: {
+		host?: string;
+		port?: number;
+		user?: string;
+		pass?: string;
+		secure?: boolean;
+	};
+}): Promise<{ message: string }> {
+	return post<{ message: string }>('/admin/settings/email-test', data);
+}
+
 export function fetchCommentSettings(): Promise<CommentSettingsResponse> {
 	return get<CommentSettingsResponse>('/admin/settings/comments');
 }

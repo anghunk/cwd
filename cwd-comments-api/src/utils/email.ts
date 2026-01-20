@@ -94,6 +94,47 @@ async function dispatchMail(
   }
 }
 
+export async function sendTestEmail(
+    env: Bindings,
+    to: string,
+    smtp: EmailNotificationSettings['smtp']
+): Promise<{ success: boolean; message?: string }> {
+    if (!smtp || !smtp.user || !smtp.pass) {
+        return { success: false, message: 'SMTP 配置不完整' };
+    }
+    
+    try {
+        const transporter = createTransport({
+            host: smtp.host,
+            port: smtp.port,
+            secure: smtp.secure,
+            auth: { user: smtp.user, pass: smtp.pass }
+        });
+        
+        // 尝试验证连接配置
+        await transporter.verify();
+        
+        await transporter.sendMail({
+            from: `"Test" <${smtp.user}>`,
+            to: to,
+            subject: 'CWD Comments 邮件配置测试',
+            html: `
+            <div style="padding: 20px; font-family: sans-serif;">
+              <h2 style="color: #059669;">配置成功！</h2>
+              <p>这就是一封来自 CWD Comments 的测试邮件。</p>
+              <p>如果您收到了这封邮件，说明您的 SMTP 配置是正确的。</p>
+              <hr style="border: none; border-top: 1px solid #eee; margin: 20px 0;">
+              <p style="font-size: 12px; color: #666;">发送时间：${new Date().toLocaleString()}</p>
+            </div>
+            `
+        });
+        return { success: true };
+    } catch (e: any) {
+        console.error('TestEmail:error', e);
+        return { success: false, message: e.message || String(e) };
+    }
+}
+
 function parseEnabled(raw: string | undefined, defaultValue: boolean) {
   if (raw === undefined) return defaultValue;
   return raw === '1';
