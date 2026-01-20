@@ -2,7 +2,36 @@
 
 管理后台用于审核评论、删除评论和管理评论设置。
 
-使用时可选择自部署，也可以使用官方提供的管理后台（最新版本）https://cwd-comments.zishu.me。
+## 设置
+
+### 头像服务前缀
+
+常用的 Gravatar 镜像服务：
+
+| 服务            | 前缀地址                         |
+| --------------- | -------------------------------- |
+| Gravatar 官方   | `https://gravatar.com/avatar`    |
+| Cravatar (国内) | `https://cravatar.cn/avatar`     |
+| 自定义镜像      | `https://your-mirror.com/avatar` |
+
+### 显示博主标签
+
+开启是否显示博主标签，配置博主邮箱和标签文字，即可在评论中显示博主标签；关闭为不显示。
+
+### 邮箱提醒服务
+
+目前接入了 QQ 邮箱提醒，后续会添加其他邮箱服务。
+
+1. QQ 邮箱
+   - 登录 QQ 邮箱，进入“设置” > “账户”
+   - 开启“POP3/IMAP/SMTP/Exchange/CardDAV/CalDAV服务”，并获取授权码
+   - 在管理后台设置中配置 QQ 邮箱账号和授权码
+
+## 使用官方管理后台
+
+使用官方提供的管理后台（最新版本）https://cwd-comments.zishu.me。
+
+## 自部署
 
 ```bash
 cd cwd-comments-admin
@@ -54,12 +83,3 @@ cp .env.example .env
 - `VITE_ADMIN_NAME` 和 `VITE_ADMIN_PASSWORD` 仅用于自动填充登录表单，真正的认证信息以后端环境变量 `ADMIN_NAME`、`ADMIN_PASSWORD` 为准。
 
 
-## 头像服务前缀
-
-常用的 Gravatar 镜像服务：
-
-| 服务            | 前缀地址                         |
-| --------------- | -------------------------------- |
-| Gravatar 官方   | `https://gravatar.com/avatar`    |
-| Cravatar (国内) | `https://cravatar.cn/avatar`     |
-| 自定义镜像      | `https://your-mirror.com/avatar` |
