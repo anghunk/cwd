@@ -5,6 +5,13 @@
       <div class="layout-actions">
         <a
           class="layout-button"
+          href="https://cwd-comments-docs.zishu.me"
+          target="_blank"
+        >
+          文档
+        </a>
+        <a
+          class="layout-button"
           href="https://github.com/anghunk/cwd-comments"
           target="_blank"
         >

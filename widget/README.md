@@ -2,4 +2,4 @@
 
 ## 使用方法
 
-文档：[https://cwd-comments.zishu.me/guide/frontend-config.html](https://cwd-comments.zishu.me/guide/frontend-config.html)
+文档：https://cwd-comments-docs.zishu.me/guide/frontend-config.html
