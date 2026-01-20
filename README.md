@@ -1,7 +1,7 @@
 > [!WARNING]  
 > 目前仍处于 Beta 测试阶段，欢迎反馈测试结果。
 
-<img src="https://github.com/anghunk/cwd-comments/blob/main/icon.png?raw=true" width="128" />
+<img src="https://github.com/anghunk/cwd-comments/blob/main/icon.png?raw=true" width="72" />
 
 # cwd-comments
 

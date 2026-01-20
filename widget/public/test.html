@@ -1,0 +1,9 @@
+<script src="./cwd-comments.js"></script>
+<div id="comments"></div>
+<script>
+	const comments = new CWDComments({
+		el: '#comments',
+		apiBaseUrl: 'https://cwd-comments-api.anghunk.workers.dev',
+	});
+	comments.mount();
+</script>

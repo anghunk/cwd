@@ -17,21 +17,24 @@ export class CWDComments {
    * @param {Object} config - 配置对象
    * @param {string|HTMLElement} config.el - 挂载元素选择器或 DOM 元素
    * @param {string} config.apiBaseUrl - API 基础地址
-   * @param {string} config.postSlug - 文章标识符
-   * @param {string} config.postTitle - 文章标题（可选）
-   * @param {string} config.postUrl - 文章 URL（可选）
-   * @param {'light'|'dark'} config.theme - 主题
-   * @param {number} config.pageSize - 每页评论数
-   * @param {string} config.avatarPrefix - 头像服务前缀（可选，默认 https://gravatar.com/avatar/）
-   * @param {string} config.adminEmail - 博主邮箱（可选，用于显示博主标识）
-   * @param {string} config.adminBadge - 博主标识文字（可选，默认"博主"）
+   * @param {'light'|'dark'} [config.theme] - 主题（可选）
+   * @param {number} [config.pageSize] - 每页评论数（可选，默认 20）
+   *
+   * 以下字段由组件自动推导或从后端读取，无需通过 config 传入：
+   * - postSlug：window.location.origin + window.location.pathname
+   * - postTitle：document.title 或 postSlug
+   * - postUrl：window.location.href
+   * - avatarPrefix/adminEmail/adminBadge：通过 /api/config/comments 接口获取
    */
   constructor(config) {
     this.config = { ...config };
-    if (!this.config.postTitle && typeof document !== 'undefined') {
+    if (typeof window !== 'undefined') {
+      this.config.postSlug = window.location.origin + window.location.pathname;
+    }
+    if (typeof document !== 'undefined') {
       this.config.postTitle = document.title || this.config.postSlug;
     }
-    if (!this.config.postUrl && typeof window !== 'undefined') {
+    if (typeof window !== 'undefined') {
       this.config.postUrl = window.location.href;
     }
     this.hostElement = this._resolveElement(config.el);
@@ -64,6 +67,30 @@ export class CWDComments {
     return el;
   }
 
+  async _loadServerConfig() {
+    try {
+      const base = this.config.apiBaseUrl;
+      if (!base) {
+        return {};
+      }
+      const apiBaseUrl = base.replace(/\/$/, '');
+      const res = await fetch(`${apiBaseUrl}/api/config/comments`);
+      if (!res.ok) {
+        return {};
+      }
+      const data = await res.json();
+      return {
+        adminEmail: data.adminEmail || '',
+        adminBadge: data.adminBadge || '',
+        adminEnabled: !!data.adminEnabled,
+        avatarPrefix: data.avatarPrefix || ''
+      };
+    } catch (e) {
+      console.warn('[CWDComments] 加载服务端评论配置失败:', e);
+      return {};
+    }
+  }
+
   /**
    * 挂载组件
    */
@@ -94,24 +121,35 @@ export class CWDComments {
       this.mountPoint.setAttribute('data-theme', this.config.theme);
     }
 
-    // 创建 API 客户端和 Store
-    const api = createApiClient(this.config);
-    this.store = createCommentStore(
-      this.config,
-      api.fetchComments.bind(api),
-      api.submitComment.bind(api)
-    );
+    (async () => {
+      const serverConfig = await this._loadServerConfig();
+      if (!this._mounted) {
+        return;
+      }
+      if (serverConfig.avatarPrefix) {
+        this.config.avatarPrefix = serverConfig.avatarPrefix;
+      }
+      if (serverConfig.adminEnabled && serverConfig.adminEmail) {
+        this.config.adminEmail = serverConfig.adminEmail;
+      }
+      if (serverConfig.adminEnabled && serverConfig.adminBadge) {
+        this.config.adminBadge = serverConfig.adminBadge;
+      }
 
-    // 订阅状态变化
-    this.unsubscribe = this.store.store.subscribe((state) => {
-      this._onStateChange(state);
-    });
+      const api = createApiClient(this.config);
+      this.store = createCommentStore(
+        this.config,
+        api.fetchComments.bind(api),
+        api.submitComment.bind(api)
+      );
 
-    // 渲染组件
-    this._render();
+      this.unsubscribe = this.store.store.subscribe((state) => {
+        this._onStateChange(state);
+      });
 
-    // 加载评论
-    this.store.loadComments();
+      this._render();
+      this.store.loadComments();
+    })();
 
     this._mounted = true;
   }
@@ -339,35 +377,43 @@ export class CWDComments {
     const prevConfig = { ...this.config };
 
     Object.assign(this.config, newConfig);
+    if (typeof window !== 'undefined') {
+      this.config.postSlug = window.location.origin + window.location.pathname;
+    }
+    if (typeof document !== 'undefined') {
+      this.config.postTitle = document.title || this.config.postSlug;
+    }
+    if (typeof window !== 'undefined') {
+      this.config.postUrl = window.location.href;
+    }
 
     // 更新主题
     if (newConfig.theme && this.mountPoint) {
       this.mountPoint.setAttribute('data-theme', newConfig.theme);
     }
 
-    // 如果 postSlug 变化，重新加载评论
-    if (newConfig.postSlug && newConfig.postSlug !== prevConfig.postSlug) {
-      // 重新创建 API 客户端和 Store
+    const shouldReload =
+      this.config.apiBaseUrl !== prevConfig.apiBaseUrl ||
+      this.config.pageSize !== prevConfig.pageSize ||
+      this.config.postSlug !== prevConfig.postSlug;
+
+    if (shouldReload) {
       const api = createApiClient(this.config);
 
-      // 取消旧订阅
       if (this.unsubscribe) {
         this.unsubscribe();
       }
 
-      // 创建新 store
       this.store = createCommentStore(
         this.config,
         api.fetchComments.bind(api),
         api.submitComment.bind(api)
       );
 
-      // 重新订阅
       this.unsubscribe = this.store.store.subscribe((state) => {
         this._onStateChange(state);
       });
 
-      // 加载评论
       this.store.loadComments();
     }
   }

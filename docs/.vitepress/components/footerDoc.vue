@@ -1,0 +1,38 @@
+<template>
+  <div id="zcomments" ref="commentsRoot"></div>
+</template>
+
+<script setup>
+import { onMounted, ref } from "vue";
+
+const commentsRoot = ref(null);
+
+onMounted(async () => {
+  if (!commentsRoot.value || typeof window === "undefined") return;
+
+  const apiBaseUrl = "https://cwd-comments-api.anghunk.workers.dev";
+
+  if (!apiBaseUrl) return;
+
+  if (!window.CWDComments) {
+    await new Promise((resolve, reject) => {
+      const script = document.createElement("script");
+      script.src = "https://cwd-comments.zishu.me/cwd-comments.js";
+      script.async = true;
+      script.onload = () => resolve();
+      script.onerror = (e) => reject(e);
+      document.head.appendChild(script);
+    }).catch(() => {});
+  }
+
+  if (!window.CWDComments) return;
+
+  const comments = new window.CWDComments({
+    el: commentsRoot.value,
+    apiBaseUrl,
+    postSlug: window.location.pathname,
+  });
+
+  comments.mount();
+});
+</script>

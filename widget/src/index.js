@@ -8,8 +8,7 @@
  * <script>
  *   new CWDComments({
  *     el: '#comments',
- *     apiBaseUrl: 'https://api.example.com',
- *     postSlug: 'my-post'
+ *     apiBaseUrl: 'https://api.example.com'
  *   }).mount();
  * </script>
  * ```

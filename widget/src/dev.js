@@ -11,7 +11,6 @@ const STORAGE_KEY = 'cwd-dev-config';
 const DEFAULT_CONFIG = {
 	el: '#comments',
 	apiBaseUrl: 'http://localhost:8788',
-	postSlug: window.location.origin + window.location.pathname,
 	theme: 'light', // 默认 light / dark
 };
 
@@ -48,12 +47,10 @@ function saveConfigToStorage(config) {
  */
 function populateInputs(config) {
 	const apiBaseUrlInput = document.getElementById('apiBaseUrl');
-	const postSlugInput = document.getElementById('postSlug');
 	const themeSelect = document.getElementById('theme');
 	const avatarPrefixInput = document.getElementById('avatarPrefix');
 
 	if (apiBaseUrlInput) apiBaseUrlInput.value = config.apiBaseUrl || DEFAULT_CONFIG.apiBaseUrl;
-	if (postSlugInput) postSlugInput.value = config.postSlug || DEFAULT_CONFIG.postSlug;
 	if (themeSelect) themeSelect.value = config.theme || DEFAULT_CONFIG.theme;
 	if (avatarPrefixInput) avatarPrefixInput.value = config.avatarPrefix || DEFAULT_CONFIG.avatarPrefix;
 }
@@ -63,29 +60,8 @@ function populateInputs(config) {
  */
 function getConfigFromInputs() {
 	const apiBaseUrl = document.getElementById('apiBaseUrl')?.value || DEFAULT_CONFIG.apiBaseUrl;
-	const postSlug = document.getElementById('postSlug')?.value || DEFAULT_CONFIG.postSlug;
 	const theme = document.getElementById('theme')?.value || DEFAULT_CONFIG.theme;
-	const avatarPrefix = document.getElementById('avatarPrefix')?.value || DEFAULT_CONFIG.avatarPrefix;
-	return { apiBaseUrl, postSlug, theme, avatarPrefix };
-}
-
-async function loadServerCommentConfig(apiBaseUrl) {
-	try {
-		const res = await fetch(`${apiBaseUrl}/api/config/comments`);
-		if (!res.ok) {
-			return {};
-		}
-		const data = await res.json();
-		return {
-			adminEmail: data.adminEmail || '',
-			adminBadge: data.adminBadge || '',
-			adminEnabled: !!data.adminEnabled,
-			avatarPrefix: data.avatarPrefix || '',
-		};
-	} catch (e) {
-		console.warn('[CWDComments] 加载服务端评论配置失败:', e);
-		return {};
-	}
+	return { apiBaseUrl, theme };
 }
 
 /**
@@ -111,21 +87,11 @@ async function initWidget() {
 
 	// 创建新实例
 	try {
-		const serverConfig = await loadServerCommentConfig(config.apiBaseUrl);
-
 		widgetInstance = new CWDComments({
 			el: '#comments',
 			apiBaseUrl: config.apiBaseUrl,
-			postSlug: config.postSlug,
 			theme: config.theme,
-			avatarPrefix: serverConfig.avatarPrefix || config.avatarPrefix,
 			pageSize: 20,
-			...(serverConfig.adminEnabled && serverConfig.adminEmail
-				? { adminEmail: serverConfig.adminEmail }
-				: {}),
-			...(serverConfig.adminEnabled && serverConfig.adminBadge
-				? { adminBadge: serverConfig.adminBadge }
-				: {}),
 		});
 		widgetInstance.mount();
 		console.log('[CWDComments] Widget 初始化成功', config);
@@ -193,7 +159,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // 监听输入框变化，实时保存
 document.addEventListener('DOMContentLoaded', () => {
-	const inputs = ['apiBaseUrl', 'postSlug', 'theme', 'avatarPrefix'];
+	const inputs = ['apiBaseUrl', 'theme'];
 	inputs.forEach((id) => {
 		const element = document.getElementById(id);
 		if (element) {

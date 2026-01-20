@@ -24,6 +24,7 @@ export default defineConfig({
           { text: '快速开始', link: '/guide/getting-started' },
           { text: '后端配置', link: '/guide/backend-config' },
           { text: '前端配置', link: '/guide/frontend-config' },
+          { text: '管理后台', link: '/guide/admin-panel' },
         ]
       },
       {

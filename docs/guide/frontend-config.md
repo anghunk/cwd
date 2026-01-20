@@ -13,7 +13,6 @@
 	const comments = new CWDComments({
 		el: '#comments',
 		apiBaseUrl: 'https://your-api.example.com',
-		postSlug: window.location.origin + window.location.pathname,
 	});
 	comments.mount();
 </script>
@@ -25,9 +24,10 @@
 | ------------ | ----------------------- | ---- | ---------------------------------------------------------------- | ------------------------- |
 | `el`         | `string \| HTMLElement` | 是   | -                                                                | 挂载元素选择器或 DOM 元素 |
 | `apiBaseUrl` | `string`                | 是   | -                                                                | API 基础地址              |
-| `postSlug`   | `string`                | 是   | 当前页面 URL `window.location.origin + window.location.pathname` | 文章唯一标识符            |
 | `theme`      | `'light' \| 'dark'`     | 否   | `'light'`                                                        | 主题模式                  |
 | `pageSize`   | `number`                | 否   | `20`                                                             | 每页显示评论数            |
+
+头像前缀、博主邮箱和标识等信息由后端接口 `/api/config/comments` 提供，无需在前端进行配置。
 
 ## 实例方法
 
@@ -43,7 +43,4 @@
 ```javascript
 // 动态切换主题
 comments.updateConfig({ theme: 'dark' });
-
-// 切换文章
-comments.updateConfig({ postSlug: 'another-post' });
 ```
