@@ -11,7 +11,7 @@ export default defineConfig({
 			'link',
 			{
 				rel: 'icon',
-				href: 'https://github.com/anghunk/cwd/blob/main/icon.png?raw=true',
+				href: 'https://github.com/anghunk/CWD/blob/main/icon.png?raw=true',
 			},
 		],
 	],
@@ -23,10 +23,10 @@ export default defineConfig({
 			label: 'On this page',
 		},
 		editLink: {
-			pattern: 'https://github.com/anghunk/cwd/blob/main/docs/:path',
+			pattern: 'https://github.com/anghunk/CWD/blob/main/docs/:path',
 			text: '在 GitHub 上编辑此页面',
 		},
-		socialLinks: [{ icon: 'github', link: 'https://github.com/anghunk/cwd' }],
+		socialLinks: [{ icon: 'github', link: 'https://github.com/anghunk/CWD' }],
 
 		lastUpdated: true,
 		lastUpdatedText: '最后更新于',

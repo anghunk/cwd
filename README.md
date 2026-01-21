@@ -3,7 +3,7 @@
 > 
 > 目前处于内测阶段，欢迎参与测试。
 
-<img src="https://github.com/anghunk/cwd/blob/main/icon.png?raw=true" width="72" />
+<img src="https://github.com/anghunk/CWD/blob/main/icon.png?raw=true" width="72" />
 
 # CWD (Cloudflare Workers Discuss)
 

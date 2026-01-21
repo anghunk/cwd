@@ -20,7 +20,7 @@
           <a class="layout-button" href="https://cwd-docs.zishu.me" target="_blank">
             使用文档
           </a>
-          <a class="layout-button" href="https://github.com/anghunk/cwd" target="_blank">
+          <a class="layout-button" href="https://github.com/anghunk/CWD" target="_blank">
             Github
           </a>
           <button class="layout-button" @click="handleLogout">退出</button>
@@ -144,7 +144,7 @@ function openDocs() {
 }
 
 function openGithub() {
-  window.open("https://github.com/anghunk/cwd", "_blank");
+  window.open("https://github.com/anghunk/CWD", "_blank");
   closeActions();
 }
 
