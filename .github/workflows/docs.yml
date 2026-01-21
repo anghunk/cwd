@@ -13,5 +13,5 @@ jobs:
         ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
         TARGET_REPO: anghunk/CWD
         TARGET_BRANCH: gh-pages
-        BUILD_SCRIPT: cd docs && yarn && yarn build
+        BUILD_SCRIPT: yarn --cwd docs && yarn --cwd docs build
         BUILD_DIR: docs/.vitepress/dist/
