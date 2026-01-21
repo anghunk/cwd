@@ -349,4 +349,10 @@ onBeforeUnmount(() => {
   background-color: #d1242f;
   color: #ffffff;
 }
+
+@media(max-width: 768px) {
+  .stats-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
 </style>
