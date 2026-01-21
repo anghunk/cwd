@@ -2,6 +2,7 @@
   "name": "docs",
   "description": "CWD 评论系统文档",
   "type": "module",
+  "license": "Apache-2.0",
   "scripts": {
     "dev": "vitepress dev",
     "build": "vitepress build",
