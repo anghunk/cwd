@@ -103,6 +103,7 @@
               >
                 拒绝
               </button>
+              <button class="table-action" @click="openEdit(item)">编辑</button>
               <button
                 class="table-action table-action-danger"
                 @click="removeComment(item)"
@@ -187,6 +188,55 @@
         </div>
       </div>
     </div>
+    <div v-if="editVisible" class="modal-overlay" @click.self="closeEdit">
+      <div class="modal">
+        <h3 class="modal-title">编辑评论</h3>
+        <div v-if="editForm" class="modal-body">
+          <div class="form-item">
+            <label class="form-label">访客昵称</label>
+            <input v-model="editForm.name" class="form-input" type="text" />
+          </div>
+          <div class="form-item">
+            <label class="form-label">访客邮箱</label>
+            <input v-model="editForm.email" class="form-input" type="email" />
+          </div>
+          <div class="form-item">
+            <label class="form-label">访客网址</label>
+            <input v-model="editForm.url" class="form-input" type="text" />
+          </div>
+          <div class="form-item">
+            <label class="form-label">评论内容</label>
+            <textarea
+              v-model="editForm.contentText"
+              class="form-input"
+              rows="4"
+            ></textarea>
+          </div>
+          <div class="form-item">
+            <label class="form-label">评论状态</label>
+            <select v-model="editForm.status" class="form-input">
+              <option value="approved">已通过</option>
+              <option value="pending">待审核</option>
+              <option value="rejected">已拒绝</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-actions">
+          <button class="modal-btn secondary" type="button" @click="closeEdit">
+            取消
+          </button>
+          <button
+            class="modal-btn primary"
+            type="button"
+            :disabled="editSaving"
+            @click="submitEdit"
+          >
+            <span v-if="editSaving">保存中...</span>
+            <span v-else>保存</span>
+          </button>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -200,6 +250,7 @@ import {
   fetchCommentStats,
   deleteComment,
   updateCommentStatus,
+  updateComment,
   blockIp,
   blockEmail,
 } from "../api/admin";
@@ -214,6 +265,16 @@ const error = ref("");
 const statusFilter = ref("");
 const domainFilter = ref("");
 const jumpPageInput = ref("");
+const editVisible = ref(false);
+const editSaving = ref(false);
+const editForm = ref<{
+  id: number;
+  name: string;
+  email: string;
+  url: string;
+  contentText: string;
+  status: string;
+} | null>(null);
 
 const domainOptions = ref<string[]>([]);
 
@@ -368,6 +429,65 @@ async function handleBlockEmail(item: CommentItem) {
     window.alert(res.message || "已加入邮箱黑名单");
   } catch (e: any) {
     error.value = e.message || "屏蔽邮箱失败";
+  }
+}
+
+function openEdit(item: CommentItem) {
+  editForm.value = {
+    id: item.id,
+    name: item.name,
+    email: item.email,
+    url: item.url || "",
+    contentText: item.contentText,
+    status: item.status,
+  };
+  editVisible.value = true;
+}
+
+function closeEdit() {
+  if (editSaving.value) {
+    return;
+  }
+  editVisible.value = false;
+  editForm.value = null;
+}
+
+async function submitEdit() {
+  if (!editForm.value || editSaving.value) {
+    return;
+  }
+  const current = editForm.value;
+  if (!current.name.trim() || !current.email.trim() || !current.contentText.trim()) {
+    error.value = "昵称、邮箱和内容不能为空";
+    return;
+  }
+  editSaving.value = true;
+  error.value = "";
+  try {
+    await updateComment({
+      id: current.id,
+      name: current.name.trim(),
+      email: current.email.trim(),
+      url: current.url.trim() || null,
+      contentText: current.contentText,
+      status: current.status,
+    });
+    const index = comments.value.findIndex((c) => c.id === current.id);
+    if (index !== -1) {
+      comments.value[index] = {
+        ...comments.value[index],
+        name: current.name.trim(),
+        email: current.email.trim(),
+        url: current.url.trim() || null,
+        contentText: current.contentText,
+        status: current.status,
+      };
+    }
+    closeEdit();
+  } catch (e: any) {
+    error.value = e.message || "更新评论失败";
+  } finally {
+    editSaving.value = false;
   }
 }
 
@@ -746,5 +866,109 @@ onMounted(() => {
 
 .cell-ip-text:hover {
   text-decoration: underline;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: stretch;
+  justify-content: flex-end;
+  z-index: 2000;
+}
+
+.modal {
+  background-color: #ffffff;
+  border-radius: 0;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 600px;
+  height: 100vh;
+  padding: 20px 20px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  transform: translateX(0);
+  animation: drawer-in 0.2s ease-out;
+}
+
+.modal-title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #24292f;
+}
+
+.modal-body {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.modal-btn {
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+
+.modal-btn.primary {
+  background-color: #0969da;
+  color: #ffffff;
+}
+
+.modal-btn.secondary {
+  background-color: #f6f8fa;
+  border-color: #d0d7de;
+  color: #24292f;
+}
+
+.modal-btn:hover {
+  opacity: 0.9;
+}
+
+.form-item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-label {
+  font-size: 13px;
+  color: #57606a;
+}
+
+.form-input {
+  padding: 8px 10px;
+  border-radius: 4px;
+  border: 1px solid #d0d7de;
+  font-size: 13px;
+  outline: none;
+}
+
+.form-input:focus {
+  border-color: #0969da;
+  box-shadow: 0 0 0 1px rgba(9, 105, 218, 0.2);
+}
+
+@keyframes drawer-in {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
 }
 </style>

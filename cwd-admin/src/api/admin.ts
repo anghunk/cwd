@@ -110,6 +110,24 @@ export function updateCommentStatus(id: number, status: string): Promise<{ messa
 	return put<{ message: string }>(`/admin/comments/status?id=${id}&status=${encodeURIComponent(status)}`);
 }
 
+export function updateComment(data: {
+	id: number;
+	name: string;
+	email: string;
+	url?: string | null;
+	contentText: string;
+	status?: string;
+}): Promise<{ message: string }> {
+	return put<{ message: string }>('/admin/comments/update', {
+		id: data.id,
+		name: data.name,
+		email: data.email,
+		url: data.url ?? null,
+		content: data.contentText,
+		status: data.status
+	});
+}
+
 export function fetchAdminEmail(): Promise<AdminEmailResponse> {
 	return get<AdminEmailResponse>('/admin/settings/email');
 }
