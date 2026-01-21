@@ -27,7 +27,7 @@ export const listComments = async (c: Context<{ Bindings: Bindings }>) => {
 		.first<{ count: number }>();
 
 	const { results } = await c.env.CWD_DB.prepare(
-		`SELECT * FROM Comment ${whereSql} ORDER BY priority DESC, created DESC LIMIT ? OFFSET ?`
+		`SELECT * FROM Comment ${whereSql} ORDER BY created DESC LIMIT ? OFFSET ?`
 	)
 		.bind(...params, limit, offset)
 		.all();

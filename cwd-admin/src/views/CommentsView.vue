@@ -921,13 +921,13 @@ onMounted(() => {
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
   width: 100%;
   max-width: 600px;
-  height: 100vh;
   padding: 20px 20px 24px;
   display: flex;
   flex-direction: column;
   gap: 16px;
   transform: translateX(0);
   animation: drawer-in 0.2s ease-out;
+  overflow-y: auto;
 }
 
 .modal-title {
