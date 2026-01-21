@@ -36,7 +36,15 @@
               />
               <div class="cell-author-main">
                 <div class="cell-author-name">{{ item.name }}</div>
-                <div class="cell-author-email">{{ item.email }}</div>
+                <div class="cell-author-email">
+                  <span
+                    class="cell-email-text"
+                    @click="handleBlockEmail(item)"
+                    title="屏蔽该邮箱"
+                  >
+                    {{ item.email }}
+                  </span>
+                </div>
                 <span class="cell-time">{{ formatDate(item.created) }}</span>
                 <div v-if="item.ipAddress" class="cell-author-ip">
                   <span class="cell-ip-text" @click="handleBlockIp(item)" title="屏蔽该 IP">{{ item.ipAddress }}</span>
@@ -180,6 +188,7 @@ import {
   deleteComment,
   updateCommentStatus,
   blockIp,
+  blockEmail,
 } from "../api/admin";
 
 const comments = ref<CommentItem[]>([]);
@@ -308,6 +317,21 @@ async function handleBlockIp(item: CommentItem) {
     window.alert(res.message || "已加入 IP 黑名单");
   } catch (e: any) {
     error.value = e.message || "屏蔽 IP 失败";
+  }
+}
+
+async function handleBlockEmail(item: CommentItem) {
+  if (!item.email) {
+    return;
+  }
+  if (!window.confirm(`确认将邮箱 ${item.email} 加入黑名单吗？`)) {
+    return;
+  }
+  try {
+    const res = await blockEmail(item.email);
+    window.alert(res.message || "已加入邮箱黑名单");
+  } catch (e: any) {
+    error.value = e.message || "屏蔽邮箱失败";
   }
 }
 
@@ -477,6 +501,14 @@ onMounted(() => {
   color: #57606a;
   word-break: break-all;
   margin-bottom: 2px;
+}
+
+.cell-email-text {
+  cursor: pointer;
+}
+
+.cell-email-text:hover {
+  text-decoration: underline;
 }
 
 .cell-content-text {

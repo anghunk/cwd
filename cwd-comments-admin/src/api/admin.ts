@@ -44,6 +44,7 @@ export type CommentSettingsResponse = {
 	adminKeySet?: boolean;
 	requireReview?: boolean;
 	blockedIps?: string[];
+	blockedEmails?: string[];
 };
 
 export type EmailNotifySettingsResponse = {
@@ -139,12 +140,17 @@ export function saveCommentSettings(data: {
 	adminKey?: string;
 	requireReview?: boolean;
 	blockedIps?: string[];
+	blockedEmails?: string[];
 }): Promise<{ message: string }> {
 	return put<{ message: string }>('/admin/settings/comments', data);
 }
 
 export function blockIp(ip: string): Promise<{ message: string }> {
 	return post<{ message: string }>('/admin/comments/block-ip', { ip });
+}
+
+export function blockEmail(email: string): Promise<{ message: string }> {
+	return post<{ message: string }>('/admin/comments/block-email', { email });
 }
 
 export function exportComments(): Promise<any[]> {

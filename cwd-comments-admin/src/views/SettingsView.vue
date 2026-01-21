@@ -40,26 +40,8 @@
         </div>
         <h3 class="card-title">安全设置</h3>
         <div class="form-item">
-          <label class="form-label">允许调用的域名（多个域名用逗号分隔，留空则不限制。设置后仅匹配域名可调用前台评论组件。）</label>
-          <textarea
-            v-model="allowedDomains"
-            class="form-input"
-            rows="3"
-            placeholder="例如: example.com, test.com"
-          ></textarea>
-        </div>
-      <div class="form-item">
-        <label class="form-label">IP 黑名单（多个 IP 用逗号或换行分隔，留空则不限制）</label>
-        <textarea
-          v-model="blockedIps"
-          class="form-input"
-          rows="3"
-          placeholder="例如: 1.1.1.1, 2.2.2.2"
-        ></textarea>
-      </div>
-        <div class="form-item">
           <label class="form-label">管理员评论密钥</label>
-          <div class="form-hint" style="margin-bottom: 4px;">
+          <div class="form-hint" style="margin-bottom: 4px">
             设置后前台使用管理员邮箱评论需输入此密钥。
           </div>
           <input
@@ -69,6 +51,40 @@
             autocomplete="new-password"
           />
         </div>
+        <div class="form-item">
+          <label class="form-label"
+            >允许调用的域名（多个域名用逗号分隔，留空则不限制。设置后仅匹配域名可调用前台评论组件。）</label
+          >
+          <textarea
+            v-model="allowedDomains"
+            class="form-input"
+            rows="3"
+            placeholder="例如: example.com, test.com"
+          ></textarea>
+        </div>
+        <div class="form-item">
+          <label class="form-label"
+            >IP 黑名单（多个 IP 用逗号或换行分隔，留空则不限制）</label
+          >
+          <textarea
+            v-model="blockedIps"
+            class="form-input"
+            rows="3"
+            placeholder="例如: 1.1.1.1, 2.2.2.2"
+          ></textarea>
+        </div>
+        <div class="form-item">
+          <label class="form-label"
+            >邮箱黑名单（多个邮箱用逗号或换行分隔，留空则不限制）</label
+          >
+          <textarea
+            v-model="blockedEmails"
+            class="form-input"
+            rows="3"
+            placeholder="例如: spam@example.com, bot@test.com"
+          ></textarea>
+        </div>
+
         <div class="card-actions">
           <button class="card-button" :disabled="savingComment" @click="saveComment">
             <span v-if="savingComment">保存中...</span>
@@ -205,7 +221,7 @@
           </button>
           <button
             class="card-button secondary"
-            style="margin-left: auto;"
+            style="margin-left: auto"
             @click="resetTemplatesToDefault"
           >
             恢复默认模板
@@ -315,6 +331,7 @@ const avatarPrefix = ref("");
 const commentAdminEnabled = ref(false);
 const allowedDomains = ref("");
 const blockedIps = ref("");
+const blockedEmails = ref("");
 const commentAdminKey = ref("");
 const adminKeySet = ref(false);
 const requireReview = ref(false);
@@ -375,8 +392,9 @@ async function load() {
     allowedDomains.value = commentRes.allowedDomains
       ? commentRes.allowedDomains.join(", ")
       : "";
-    blockedIps.value = commentRes.blockedIps
-      ? commentRes.blockedIps.join(", ")
+    blockedIps.value = commentRes.blockedIps ? commentRes.blockedIps.join(", ") : "";
+    blockedEmails.value = commentRes.blockedEmails
+      ? commentRes.blockedEmails.join(", ")
       : "";
     commentAdminKey.value = commentRes.adminKey || "";
     adminKeySet.value = !!commentRes.adminKeySet;
@@ -384,10 +402,8 @@ async function load() {
     emailGlobalEnabled.value = !!emailNotifyRes.globalEnabled;
 
     if (emailNotifyRes.templates) {
-      templateAdmin.value =
-        emailNotifyRes.templates.admin || DEFAULT_ADMIN_TEMPLATE;
-      templateReply.value =
-        emailNotifyRes.templates.reply || DEFAULT_REPLY_TEMPLATE;
+      templateAdmin.value = emailNotifyRes.templates.admin || DEFAULT_ADMIN_TEMPLATE;
+      templateReply.value = emailNotifyRes.templates.reply || DEFAULT_REPLY_TEMPLATE;
     } else {
       templateAdmin.value = DEFAULT_ADMIN_TEMPLATE;
       templateReply.value = DEFAULT_REPLY_TEMPLATE;
@@ -512,6 +528,10 @@ async function saveComment() {
       adminKey: commentAdminKey.value || undefined,
       requireReview: requireReview.value,
       blockedIps: blockedIps.value
+        .split(/[,，\n]/)
+        .map((d) => d.trim())
+        .filter(Boolean),
+      blockedEmails: blockedEmails.value
         .split(/[,，\n]/)
         .map((d) => d.trim())
         .filter(Boolean),

@@ -33,6 +33,7 @@ const COMMENT_ALLOWED_DOMAINS_KEY = 'comment_allowed_domains';
 const COMMENT_ADMIN_KEY_HASH_KEY = 'comment_admin_key_hash';
 const COMMENT_REQUIRE_REVIEW_KEY = 'comment_require_review';
 const COMMENT_BLOCKED_IPS_KEY = 'comment_blocked_ips';
+const COMMENT_BLOCKED_EMAILS_KEY = 'comment_blocked_emails';
 
 
 async function loadCommentSettings(env: Bindings) {
@@ -47,10 +48,11 @@ async function loadCommentSettings(env: Bindings) {
 		COMMENT_ALLOWED_DOMAINS_KEY,
 		COMMENT_ADMIN_KEY_HASH_KEY,
 		COMMENT_REQUIRE_REVIEW_KEY,
-		COMMENT_BLOCKED_IPS_KEY
+		COMMENT_BLOCKED_IPS_KEY,
+		COMMENT_BLOCKED_EMAILS_KEY
 	];
 	const { results } = await env.CWD_DB.prepare(
-		'SELECT key, value FROM Settings WHERE key IN (?, ?, ?, ?, ?, ?, ?, ?)'
+		'SELECT key, value FROM Settings WHERE key IN (?, ?, ?, ?, ?, ?, ?, ?, ?)'
 	)
 		.bind(...keys)
 		.all<{ key: string; value: string }>();
@@ -73,6 +75,11 @@ async function loadCommentSettings(env: Bindings) {
 		? blockedIpsRaw.split(',').map((d) => d.trim()).filter(Boolean)
 		: [];
 
+	const blockedEmailsRaw = map.get(COMMENT_BLOCKED_EMAILS_KEY) ?? '';
+	const blockedEmails = blockedEmailsRaw
+		? blockedEmailsRaw.split(',').map((d) => d.trim()).filter(Boolean)
+		: [];
+
 	// 解析允许的域名列表
 	const allowedDomainsRaw = map.get(COMMENT_ALLOWED_DOMAINS_KEY) ?? '';
 	const allowedDomains = allowedDomainsRaw
@@ -87,6 +94,7 @@ async function loadCommentSettings(env: Bindings) {
 		allowedDomains,
 		requireReview,
 		blockedIps,
+		blockedEmails,
 		adminKey: map.get(COMMENT_ADMIN_KEY_HASH_KEY) ?? null,
 		adminKeySet: !!map.get(COMMENT_ADMIN_KEY_HASH_KEY)
 	};
@@ -103,6 +111,7 @@ async function saveCommentSettings(
 		adminKey?: string;
 		requireReview?: boolean;
 		blockedIps?: string[];
+		blockedEmails?: string[];
 	}
 ) {
 	await env.CWD_DB.prepare(
@@ -147,6 +156,10 @@ async function saveCommentSettings(
 		{
 			key: COMMENT_BLOCKED_IPS_KEY,
 			value: settings.blockedIps ? settings.blockedIps.join(',') : undefined
+		},
+		{
+			key: COMMENT_BLOCKED_EMAILS_KEY,
+			value: settings.blockedEmails ? settings.blockedEmails.join(',') : undefined
 		}
 	];
 
@@ -206,6 +219,7 @@ app.get('/api/config/comments', async (c) => {
 			adminKey,
 			adminKeySet,
 			blockedIps,
+			blockedEmails,
 			...publicSettings
 		} = settings as any;
 
@@ -272,6 +286,7 @@ app.put('/admin/settings/comments', async (c) => {
 		const rawAdminKey = typeof body.adminKey === 'string' ? body.adminKey : undefined;
 		const rawRequireReview = body.requireReview;
 		const rawBlockedIps = Array.isArray(body.blockedIps) ? body.blockedIps : [];
+		const rawBlockedEmails = Array.isArray(body.blockedEmails) ? body.blockedEmails : [];
 
 		const adminEmail = rawAdminEmail.trim();
 		const adminBadge = rawAdminBadge.trim();
@@ -291,6 +306,9 @@ app.put('/admin/settings/comments', async (c) => {
 		const blockedIps = rawBlockedIps
 			.map((d: any) => (typeof d === 'string' ? d.trim() : ''))
 			.filter(Boolean);
+		const blockedEmails = rawBlockedEmails
+			.map((d: any) => (typeof d === 'string' ? d.trim() : ''))
+			.filter(Boolean);
 
 		if (adminEmail && !isValidEmail(adminEmail)) {
 			return c.json({ message: '邮箱格式不正确' }, 400);
@@ -304,7 +322,8 @@ app.put('/admin/settings/comments', async (c) => {
 			allowedDomains,
 			adminKey,
 			requireReview,
-			blockedIps
+			blockedIps,
+			blockedEmails
 		});
 
 		return c.json({ message: '保存成功' });
@@ -347,6 +366,49 @@ app.post('/admin/comments/block-ip', async (c) => {
 		}
 
 		return c.json({ message: '已加入 IP 黑名单' });
+	} catch (e: any) {
+		return c.json({ message: e.message || '操作失败' }, 500);
+	}
+});
+
+app.post('/admin/comments/block-email', async (c) => {
+	try {
+		const body = await c.req.json();
+		const rawEmail = typeof body.email === 'string' ? body.email : '';
+		const email = rawEmail.trim();
+
+		if (!email) {
+			return c.json({ message: '邮箱不能为空' }, 400);
+		}
+
+		if (!isValidEmail(email)) {
+			return c.json({ message: '邮箱格式不正确' }, 400);
+		}
+
+		await c.env.CWD_DB.prepare(
+			'CREATE TABLE IF NOT EXISTS Settings (key TEXT PRIMARY KEY, value TEXT NOT NULL)'
+		).run();
+
+		const row = await c.env.CWD_DB.prepare('SELECT value FROM Settings WHERE key = ?')
+			.bind(COMMENT_BLOCKED_EMAILS_KEY)
+			.first<{ value: string }>();
+
+		const existing = row?.value || '';
+		const list = existing
+			? existing.split(',').map((d) => d.trim()).filter(Boolean)
+			: [];
+
+		if (!list.includes(email)) {
+			list.push(email);
+			const joined = list.join(',');
+			await c.env.CWD_DB.prepare(
+				'REPLACE INTO Settings (key, value) VALUES (?, ?)'
+			)
+				.bind(COMMENT_BLOCKED_EMAILS_KEY, joined)
+				.run();
+		}
+
+		return c.json({ message: '已加入邮箱黑名单' });
 	} catch (e: any) {
 		return c.json({ message: e.message || '操作失败' }, 500);
 	}

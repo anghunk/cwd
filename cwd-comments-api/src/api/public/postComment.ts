@@ -63,6 +63,17 @@ export const postComment = async (c: Context<{ Bindings: Bindings }>) => {
     return c.json({ message: '当前 IP 已被限制评论，请联系站长进行处理' }, 403);
   }
 
+  const blockedEmailsRow = await c.env.CWD_DB.prepare('SELECT value FROM Settings WHERE key = ?')
+    .bind('comment_blocked_emails')
+    .first<{ value: string }>();
+  const blockedEmailsValue = blockedEmailsRow?.value || '';
+  const blockedEmails = blockedEmailsValue
+    ? blockedEmailsValue.split(',').map((d) => d.trim()).filter(Boolean)
+    : [];
+  if (blockedEmails.length && blockedEmails.includes(email)) {
+    return c.json({ message: '当前邮箱已被限制评论，请联系站长进行处理' }, 403);
+  }
+
   let isAdminComment = false;
 
   if (adminEmail && email === adminEmail) {
