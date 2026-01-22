@@ -23,7 +23,7 @@ export class CWDComments {
 	 * 以下字段由组件自动推导或从后端读取，无需通过 config 传入：
 	 * - postSlug：window.location.origin + window.location.pathname
 	 * - postTitle：document.title 或 postSlug
-	 * - postUrl：window.location.href
+	 * - postUrl：window.location.origin + window.location.pathname
 	 * - avatarPrefix/adminEmail/adminBadge：通过 /api/config/comments 接口获取
 	 */
 	constructor(config) {
@@ -35,7 +35,7 @@ export class CWDComments {
 			this.config.postTitle = document.title || this.config.postSlug;
 		}
 		if (typeof window !== 'undefined') {
-			this.config.postUrl = window.location.href;
+			this.config.postUrl = window.location.origin + window.location.pathname;
 		}
 		this.hostElement = this._resolveElement(config.el);
 		this.shadowRoot = null;
@@ -522,7 +522,7 @@ export class CWDComments {
 			this.config.postTitle = document.title || this.config.postSlug;
 		}
 		if (typeof window !== 'undefined') {
-			this.config.postUrl = window.location.href;
+			this.config.postUrl = window.location.origin + window.location.pathname;
 		}
 
 		// 更新主题

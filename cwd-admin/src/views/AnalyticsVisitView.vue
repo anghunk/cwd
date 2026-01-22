@@ -95,12 +95,55 @@
             </div>
             <div class="domain-cell domain-cell-url">
               <a
-                v-if="item.postUrl"
-                :href="item.postUrl"
+                v-if="item.postSlug"
+                :href="item.postSlug"
                 target="_blank"
                 rel="noreferrer"
               >
-                {{ item.postUrl }}
+                {{ item.postSlug }}
+              </a>
+              <span v-else>-</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3 class="card-title">点赞页面排行榜</h3>
+      <div v-if="loading" class="page-hint">加载中...</div>
+      <div v-else-if="error" class="page-error">{{ error }}</div>
+      <div v-else-if="likeStatsItems.length === 0" class="page-hint">暂无点赞数据</div>
+      <div v-else class="domain-table-wrapper">
+        <div class="domain-table">
+          <div class="domain-table-header">
+            <div class="domain-cell domain-cell-rank">排名</div>
+            <div class="domain-cell domain-cell-title">页面标题</div>
+            <div class="domain-cell domain-cell-like">点赞数</div>
+            <div class="domain-cell domain-cell-url">页面地址</div>
+          </div>
+          <div
+            v-for="(item, index) in likeStatsItems"
+            :key="item.pageSlug"
+            class="domain-table-row"
+          >
+            <div class="domain-cell domain-cell-rank">
+              {{ index + 1 }}
+            </div>
+            <div class="domain-cell domain-cell-title">
+              {{ item.pageTitle || item.pageSlug }}
+            </div>
+            <div class="domain-cell domain-cell-like">
+              {{ item.likes }}
+            </div>
+            <div class="domain-cell domain-cell-url">
+              <a
+                v-if="item.pageSlug"
+                :href="item.pageSlug"
+                target="_blank"
+                rel="noreferrer"
+              >
+                {{ item.pageSlug }}
               </a>
               <span v-else>-</span>
             </div>
@@ -120,6 +163,8 @@ import {
   fetchVisitPages,
   type VisitOverviewResponse,
   type VisitPageItem,
+  fetchLikeStats,
+  type LikeStatsItem,
 } from "../api/admin";
 
 const loading = ref(false);
@@ -133,6 +178,7 @@ const overview = ref<VisitOverviewResponse>({
   monthPv: 0,
   last30Days: [],
 });
+
 const items = ref<VisitPageItem[]>([]);
 const visitTab = ref<"pv" | "latest">("pv");
 const visitTabStorageKey = "cwd-analytics-visit-tab";
@@ -140,6 +186,7 @@ const visitTabStorageKey = "cwd-analytics-visit-tab";
 const injectedDomainFilter = inject<Ref<string> | null>("domainFilter", null);
 const domainFilter = injectedDomainFilter ?? ref("");
 const last30Days = ref<{ date: string; total: number }[]>([]);
+const likeStatsItems = ref<LikeStatsItem[]>([]);
 
 const toastMessage = ref("");
 const toastType = ref<"success" | "error">("success");
@@ -213,6 +260,20 @@ function getVisitOrderParam(): "pv" | "latest" | undefined {
   return undefined;
 }
 
+function filterLikeStatsByDomain(list: LikeStatsItem[], domain: string | undefined): LikeStatsItem[] {
+  if (!domain) {
+    return list;
+  }
+  return list.filter((item) => {
+    const source = item.pageUrl || item.pageSlug;
+    const d = extractDomain(source);
+    if (!d) {
+      return false;
+    }
+    return d === domain;
+  });
+}
+
 function loadVisitTabFromStorage() {
   if (typeof window === "undefined") {
     return;
@@ -243,9 +304,10 @@ async function loadData() {
   try {
     const domain = domainFilter.value || undefined;
     const order = getVisitOrderParam();
-    const [overviewRes, pagesRes] = await Promise.all([
+    const [overviewRes, pagesRes, likeStatsRes] = await Promise.all([
       fetchVisitOverview(domain),
       fetchVisitPages(domain, order),
+      fetchLikeStats(),
     ]);
     overview.value = {
       totalPv: overviewRes.totalPv,
@@ -257,7 +319,10 @@ async function loadData() {
         ? overviewRes.last30Days
         : [],
     };
-    items.value = pagesRes.items || [];
+    const likeItemsRaw = Array.isArray(likeStatsRes.items) ? likeStatsRes.items : [];
+    likeStatsItems.value = filterLikeStatsByDomain(likeItemsRaw, domain);
+    const pageItems = Array.isArray(pagesRes.items) ? pagesRes.items : [];
+    items.value = pageItems;
     last30Days.value = Array.isArray(overviewRes.last30Days)
       ? overviewRes.last30Days
       : [];
@@ -282,7 +347,8 @@ async function loadVisitPagesOnly() {
     const domain = domainFilter.value || undefined;
     const order = getVisitOrderParam();
     const pagesRes = await fetchVisitPages(domain, order);
-    items.value = pagesRes.items || [];
+    const pageItems = Array.isArray(pagesRes.items) ? pagesRes.items : [];
+    items.value = pageItems;
   } catch (e: any) {
     const msg = e.message || "加载访问统计数据失败";
     error.value = msg;
@@ -514,6 +580,21 @@ watch(domainFilter, () => {
   text-align: center;
 }
 
+.domain-cell-rank {
+  flex: 0 0 60px;
+  text-align: center;
+}
+
+.domain-cell-like {
+  flex: 0 0 80px;
+  text-align: center;
+}
+
+.domain-cell-like-rate {
+  flex: 0 0 90px;
+  text-align: center;
+}
+
 .domain-cell-time {
   flex: 0 0 170px;
 }
@@ -537,6 +618,18 @@ watch(domainFilter, () => {
 
   .domain-cell-pv {
     width: 100px;
+  }
+
+  .domain-cell-rank {
+    width: 60px;
+  }
+
+  .domain-cell-like {
+    width: 80px;
+  }
+
+  .domain-cell-like-rate {
+    width: 90px;
   }
 
   .domain-cell-time {

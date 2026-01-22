@@ -111,6 +111,17 @@ export type DomainListResponse = {
 	domains: string[];
 };
 
+export type LikeStatsItem = {
+	pageSlug: string;
+	pageTitle: string | null;
+	pageUrl: string | null;
+	likes: number;
+};
+
+export type LikeStatsResponse = {
+	items: LikeStatsItem[];
+};
+
 export async function loginAdmin(name: string, password: string): Promise<string> {
 	const res = await post<AdminLoginResponse>('/admin/login', { name, password });
 	const key = res.data.key;
@@ -272,4 +283,8 @@ export function fetchVisitPages(domain?: string, order?: 'pv' | 'latest'): Promi
 
 export function fetchDomainList(): Promise<DomainListResponse> {
 	return get<DomainListResponse>('/admin/stats/domains');
+}
+
+export function fetchLikeStats(): Promise<LikeStatsResponse> {
+	return get<LikeStatsResponse>('/admin/likes/stats');
 }
