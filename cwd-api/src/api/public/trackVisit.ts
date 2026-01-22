@@ -43,7 +43,7 @@ export const trackVisit = async (c: Context<{ Bindings: Bindings }>) => {
 		).run();
 
 		await c.env.CWD_DB.prepare(
-			'CREATE TABLE IF NOT EXISTS page_visit_daily (id INTEGER PRIMARY KEY AUTOINCREMENT, date TEXT NOT NULL, domain TEXT, count INTEGER NOT NULL DEFAULT 0, created_at TEXT NOT NULL, updated_at TEXT NOT NULL)'
+			'CREATE TABLE IF NOT EXISTS page_visit_daily (id INTEGER PRIMARY KEY AUTOINCREMENT, date TEXT NOT NULL, domain TEXT, count INTEGER NOT NULL DEFAULT 0, created_at INTEGER NOT NULL, updated_at INTEGER NOT NULL)'
 		).run();
 
 		const nowDate = new Date();
@@ -117,14 +117,14 @@ export const trackVisit = async (c: Context<{ Bindings: Bindings }>) => {
 			await c.env.CWD_DB.prepare(
 				'INSERT INTO page_visit_daily (date, domain, count, created_at, updated_at) VALUES (?, ?, ?, ?, ?)'
 			)
-				.bind(today, domain, 1, nowIso, nowIso)
+				.bind(today, domain, 1, nowTs, nowTs)
 				.run();
 		} else {
 			const newCount = (dailyRow.count || 0) + 1;
 			await c.env.CWD_DB.prepare(
 				'UPDATE page_visit_daily SET count = ?, updated_at = ? WHERE id = ?'
 			)
-				.bind(newCount, nowIso, dailyRow.id)
+				.bind(newCount, nowTs, dailyRow.id)
 				.run();
 		}
 
