@@ -15,6 +15,8 @@ export const rootSidebar = [
 			{ text: '通知邮箱', link: '/function/email-reminder' },
 			{ text: '安全设置', link: '/function/security-settings' },
 			{ text: '数据迁移', link: '/function/data-migration' },
+			{ text: '点赞开关', link: '/function/feature-settings' },
+			{ text: '数据统计', link: '/function/data-statistics' },
 		],
 	},
 	{ text: '反馈', link: '/guide/feedback' },
