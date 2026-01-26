@@ -20,12 +20,12 @@ GET /api/comments
 
 **查询参数**
 
-| 名称            | 位置  | 类型    | 必填 | 说明                                                |
-| --------------- | ----- | ------- | ---- | --------------------------------------------------- |
-| `post_slug`     | query | string  | 是   | `window.location.origin + window.location.pathname` |
-| `page`          | query | integer | 否   | 页码，默认 `1`                                      |
-| `limit`         | query | integer | 否   | 每页数量，默认 `20`，最大 `50`                      |
-| `nested`        | query | string  | 否   | 是否返回嵌套结构，默认 `'true'`                     |
+| 名称        | 位置  | 类型    | 必填 | 说明                                                                                         |
+| ----------- | ----- | ------- | ---- | -------------------------------------------------------------------------------------------- |
+| `post_slug` | query | string  | 是   | 使用 `window.location.origin + window.location.pathname`，获取带域名的链接，否则后台无法识别 |
+| `page`      | query | integer | 否   | 页码，默认 `1`                                                                               |
+| `limit`     | query | integer | 否   | 每页数量，默认 `20`，最大 `50`                                                               |
+| `nested`    | query | string  | 否   | 是否返回嵌套结构，默认 `'true'`                                                              |
 
 **成功响应**
 
