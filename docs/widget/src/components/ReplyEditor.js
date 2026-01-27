@@ -136,7 +136,6 @@ export class ReplyEditor extends Component {
               this.createElement('div', {
                 className: 'cwd-preview-container',
                 children: [
-                  this.createTextElement('div', '预览效果：', 'cwd-preview-title'),
                   this.createElement('div', {
                     className: 'cwd-preview-content cwd-comment-content',
                     // 直接设置 innerHTML
