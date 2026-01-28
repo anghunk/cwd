@@ -179,8 +179,8 @@ export class CWDComments {
 					typeof api.likeComment === 'function' ? api.likeComment.bind(api) : undefined,
 				);
 
-				this.unsubscribe = this.store.store.subscribe((state) => {
-					this._onStateChange(state);
+				this.unsubscribe = this.store.store.subscribe((state, prevState) => {
+					this._onStateChange(state, prevState);
 				});
 
 				this._render();
@@ -496,6 +496,17 @@ export class CWDComments {
 				currentUser: state.form,
 			});
 		}
+
+		const pageChanged =
+			prevState &&
+			prevState.pagination &&
+			state &&
+			state.pagination &&
+			state.pagination.page !== prevState.pagination.page;
+
+		if (pageChanged) {
+			this._scrollToCommentsTop();
+		}
 	}
 
 	/**
@@ -553,13 +564,24 @@ export class CWDComments {
 
 			this.store = createCommentStore(this.config, api.fetchComments.bind(api), api.submitComment.bind(api));
 
-			this.unsubscribe = this.store.store.subscribe((state) => {
-				this._onStateChange(state);
+			this.unsubscribe = this.store.store.subscribe((state, prevState) => {
+				this._onStateChange(state, prevState);
 			});
 
 			this.store.loadComments();
 		}
 		this._applyCustomCss();
+	}
+
+	_scrollToCommentsTop() {
+		if (typeof window === 'undefined') {
+			return;
+		}
+		const target = this.hostElement || this.mountPoint;
+		if (!target || typeof target.scrollIntoView !== 'function') {
+			return;
+		}
+		target.scrollIntoView({ behavior: 'smooth', block: 'start' });
 	}
 
 	_applyCustomCss() {
