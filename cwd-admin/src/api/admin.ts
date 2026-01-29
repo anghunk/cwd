@@ -254,6 +254,30 @@ export function importComments(data: any[]): Promise<{ message: string }> {
 	return post<{ message: string }>('/admin/comments/import', data);
 }
 
+export function exportConfig(): Promise<any[]> {
+	return get<any[]>('/admin/export/config');
+}
+
+export function importConfig(data: any[]): Promise<{ message: string }> {
+	return post<{ message: string }>('/admin/import/config', data);
+}
+
+export function exportStats(): Promise<any> {
+	return get<any>('/admin/export/stats');
+}
+
+export function importStats(data: any): Promise<{ message: string }> {
+	return post<{ message: string }>('/admin/import/stats', data);
+}
+
+export function exportBackup(): Promise<any> {
+	return get<any>('/admin/export/backup');
+}
+
+export function importBackup(data: any): Promise<{ message: string }> {
+	return post<{ message: string }>('/admin/import/backup', data);
+}
+
 export function fetchCommentStats(domain?: string): Promise<CommentStatsResponse> {
 	const searchParams = new URLSearchParams();
 	if (domain) {

@@ -653,6 +653,7 @@ watch(domainFilter, () => {
 
 .domain-cell-pv {
   text-align: center;
+  flex: 0 0 220px;
 }
 
 .domain-cell-rank {
