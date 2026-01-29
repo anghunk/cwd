@@ -12,7 +12,7 @@
     <!-- 1. 评论数据 -->
     <div class="card">
       <h3 class="card-title">评论数据</h3>
-      <p class="card-desc">管理评论内容，支持从 Twikoo / Artalk 迁移数据。</p>
+      <p class="card-desc">管理评论内容，支持从其他评论框架迁移数据。</p>
       
       <div class="action-row">
         <span class="action-label">导出:</span>
@@ -24,7 +24,8 @@
 
       <div class="action-row">
         <span class="action-label">导入:</span>
-        <select v-model="importSource" class="form-select" style="margin-right: 8px; width: 140px;">
+        <select v-model="importSource" class="form-select" style="margin-right: 8px; width: 160px;">
+          <option value="cwd">CWD (.json)</option>
           <option value="twikoo">Twikoo (.json)</option>
           <option value="artalk">Artalk (.json)</option>
         </select>
@@ -123,7 +124,7 @@ import {
 
 const exporting = ref(false);
 const importing = ref(false);
-const importSource = ref("twikoo");
+const importSource = ref("cwd");
 const fileInput = ref<HTMLInputElement | null>(null);
 const toastMessage = ref("");
 const toastType = ref<"success" | "error">("success");
