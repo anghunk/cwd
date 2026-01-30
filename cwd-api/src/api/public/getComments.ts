@@ -53,18 +53,25 @@ export const getComments = async (c: Context<{ Bindings: Bindings }>) => {
       `
     }
     
-    // 并行获取评论和管理员邮箱
-    // 对 adminEmail 查询进行错误捕获，防止因 Settings 表不存在导致整个接口失败
-    const [commentsResult, adminEmailRow] = await Promise.all([
-       c.env.CWD_DB.prepare(query).bind(...slugList).all(),
-       c.env.CWD_DB.prepare('SELECT value FROM Settings WHERE key = ?')
-         .bind('admin_notify_email')
-         .first<{ value: string }>()
-         .catch(() => null)
+    const [commentsResult, adminEmailRows] = await Promise.all([
+      c.env.CWD_DB.prepare(query).bind(...slugList).all(),
+      c.env.CWD_DB.prepare('SELECT key, value FROM Settings WHERE key IN (?, ?)')
+        .bind('comment_admin_email', 'admin_notify_email')
+        .all<{ key: string; value: string }>()
+        .catch(() => null)
     ]);
-    
+
     const results = commentsResult.results;
-    const adminEmail = adminEmailRow?.value || null;
+    let adminEmail: string | null = null;
+    if (adminEmailRows && Array.isArray(adminEmailRows.results)) {
+      const commentEmailRow = adminEmailRows.results.find(
+        (row) => row.key === 'comment_admin_email'
+      );
+      const legacyEmailRow = adminEmailRows.results.find(
+        (row) => row.key === 'admin_notify_email'
+      );
+      adminEmail = commentEmailRow?.value || legacyEmailRow?.value || null;
+    }
 
     // 2. 批量处理头像并格式化
     const allComments = await Promise.all(results.map(async (row: any) => ({

@@ -43,7 +43,7 @@ GET /admin/settings/comments
 
 | 字段名           | 类型            | 说明                                                      |
 | ---------------- | --------------- | --------------------------------------------------------- |
-| `adminEmail`     | string          | 博主邮箱地址，用于显示"博主"标识以及管理员身份验证        |
+| `adminEmail`     | string          | 博主邮箱地址，用于显示"博主"标识、管理员身份验证以及接收新评论邮件通知 |
 | `adminBadge`     | string          | 博主标识文字，例如 `"博主"`                               |
 | `avatarPrefix`   | string          | 头像地址前缀，如 Gravatar 或 Cravatar 镜像地址            |
 | `adminEnabled`   | boolean         | 是否启用博主标识相关展示                                  |

@@ -13,6 +13,7 @@ export const rootSidebar = [
 		items: [
 			{ text: '后台设置', link: '/function/admin-panel' },
 			{ text: '通知邮箱', link: '/function/email-reminder' },
+			{ text: 'Telegram 通知', link: '/function/telegram-notify' },
 			{ text: '安全设置', link: '/function/security-settings' },
 			{ text: '数据管理', link: '/function/data-migration' },
 			{ text: '点赞开关', link: '/function/feature-settings' },
@@ -37,6 +38,7 @@ export const apiSidebar = [
 					{ text: '数据管理', link: '/api/admin/data-migration' },
 					{ text: '评论设置', link: '/api/admin/settings' },
 					{ text: '邮件通知', link: '/api/admin/email-notify' },
+					{ text: 'Telegram 通知', link: '/api/admin/telegram-notify' },
 					{ text: '统计数据', link: '/api/admin/stats' },
 					{ text: '访问统计', link: '/api/admin/analytics' },
 					{ text: '点赞开关', link: '/api/admin/feature-settings' },

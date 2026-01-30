@@ -329,3 +329,29 @@ export function saveFeatureSettings(data: {
 }): Promise<{ message: string }> {
 	return put<{ message: string }>('/admin/settings/features', data);
 }
+
+export type TelegramSettingsResponse = {
+	botToken: string | null;
+	chatId: string | null;
+	notifyEnabled: boolean;
+};
+
+export function fetchTelegramSettings(): Promise<TelegramSettingsResponse> {
+	return get<TelegramSettingsResponse>('/admin/settings/telegram');
+}
+
+export function saveTelegramSettings(data: {
+	botToken?: string;
+	chatId?: string;
+	notifyEnabled?: boolean;
+}): Promise<{ message: string }> {
+	return put<{ message: string }>('/admin/settings/telegram', data);
+}
+
+export function setupTelegramWebhook(): Promise<{ message: string; webhookUrl: string }> {
+	return post<{ message: string; webhookUrl: string }>('/admin/settings/telegram/setup', {});
+}
+
+export function sendTelegramTestMessage(): Promise<{ message: string }> {
+	return post<{ message: string }>('/admin/settings/telegram/test', {});
+}

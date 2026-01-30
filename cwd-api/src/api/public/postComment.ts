@@ -11,6 +11,7 @@ import {
   loadEmailNotificationSettings,
   EmailNotificationSettings
 } from '../../utils/email';
+import { loadTelegramSettings, sendTelegramMessage } from '../../utils/telegram';
 
 // 检查内容，将<script>标签之间的内容删除
 export function checkContent(content: string): string {
@@ -156,7 +157,7 @@ export const postComment = async (c: Context<{ Bindings: Bindings }>) => {
   const defaultStatus = requireReview && !isAdminComment ? "pending" : "approved";
 
   try {
-    const { success } = await c.env.CWD_DB.prepare(`
+    const result = await c.env.CWD_DB.prepare(`
       INSERT INTO Comment (
         created, post_slug, name, email, url, ip_address, 
         os, browser, device, ua, content_text, content_html, 
@@ -179,12 +180,14 @@ export const postComment = async (c: Context<{ Bindings: Bindings }>) => {
       defaultStatus
     ).run();
 
-    if (!success) throw new Error("Database insert failed");
+    if (!result.success) throw new Error("Database insert failed");
+    const commentId = result.meta?.last_row_id;
 
     console.log('PostComment:inserted', {
       postSlug: post_slug,
       hasParent: parentId !== null && parentId !== undefined,
-      ip
+      ip,
+      commentId
     });
 
     let notifySettings: EmailNotificationSettings = {
@@ -196,14 +199,19 @@ export const postComment = async (c: Context<{ Bindings: Bindings }>) => {
       console.error('PostComment:mailDispatch:loadEmailSettingsFailed', e);
     }
 
-    if (!notifySettings.globalEnabled) {
-      console.log('PostComment:mailDispatch:disabledByGlobalConfig');
-    } else {
-      console.log('PostComment:mailDispatch:start', {
-        hasParent: parentId !== null && parentId !== undefined
-      });
-      c.executionCtx.waitUntil((async () => {
-        try {
+    console.log('PostComment:notify:start', {
+      hasParent: parentId !== null && parentId !== undefined,
+      emailEnabled: notifySettings.globalEnabled
+    });
+
+    c.executionCtx.waitUntil((async () => {
+      try {
+        if (!notifySettings.globalEnabled) {
+          console.log('PostComment:mailDispatch:disabledByGlobalConfig');
+        } else {
+          console.log('PostComment:mailDispatch:start', {
+            hasParent: parentId !== null && parentId !== undefined
+          });
           if (parentId !== null && parentId !== undefined) {
             let adminEmail: string | null = null;
             try {
@@ -247,11 +255,44 @@ export const postComment = async (c: Context<{ Bindings: Bindings }>) => {
             }, notifySettings.smtp, notifySettings.templates?.admin);
             console.log('PostComment:mailDispatch:admin:sent');
           }
-        } catch (mailError) {
-          console.error("Mail Notification Failed:", mailError);
         }
-      })());
-    }
+      } catch (mailError) {
+        console.error("Mail Notification Failed:", mailError);
+      }
+
+      try {
+        const tgSettings = await loadTelegramSettings(c.env);
+        if (tgSettings.notifyEnabled && tgSettings.botToken && tgSettings.chatId && commentId) {
+          const buttons: { text: string; callback_data: string }[] = [];
+
+          if (defaultStatus === 'pending') {
+            buttons.push({ text: "批准", callback_data: `approve:${commentId}` });
+            buttons.push({ text: "删除", callback_data: `delete:${commentId}` });
+          } else {
+            buttons.push({ text: "删除", callback_data: `delete:${commentId}` });
+          }
+
+          const message = `
+💬 *新评论*
+文章: [${data.post_title || 'Untitled'}](${data.post_url || '#'})
+作者: ${name} (${email})
+状态: ${defaultStatus === 'pending' ? '⏳ 待审核' : '✅ 已通过'}
+
+${contentText}
+
+#ID:${commentId}
+          `.trim();
+
+          await sendTelegramMessage(tgSettings.botToken, tgSettings.chatId, message, {
+            reply_markup: {
+              inline_keyboard: [buttons]
+            }
+          });
+        }
+      } catch (tgError) {
+        console.error('Telegram Notification Failed:', tgError);
+      }
+    })());
 
     if (defaultStatus === "pending") {
       return c.json({

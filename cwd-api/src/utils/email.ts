@@ -409,12 +409,22 @@ export async function getAdminNotifyEmail(env: Bindings): Promise<string> {
   await env.CWD_DB.prepare(
     'CREATE TABLE IF NOT EXISTS Settings (key TEXT PRIMARY KEY, value TEXT NOT NULL)'
   ).run();
-  const row = await env.CWD_DB.prepare('SELECT value FROM Settings WHERE key = ?')
-    .bind('admin_notify_email')
-    .first<{ value: string }>();
-  if (row?.value && isValidEmail(row.value)) {
-    const cleanEmail = row.value.trim();
-    return cleanEmail;
+  const rows = await env.CWD_DB.prepare(
+    'SELECT key, value FROM Settings WHERE key IN (?, ?)'
+  )
+    .bind('comment_admin_email', 'admin_notify_email')
+    .all<{ key: string; value: string }>();
+
+  let email: string | null = null;
+  if (rows && Array.isArray(rows.results)) {
+    const commentEmailRow = rows.results.find((row) => row.key === 'comment_admin_email');
+    const legacyEmailRow = rows.results.find((row) => row.key === 'admin_notify_email');
+    email = commentEmailRow?.value || legacyEmailRow?.value || null;
   }
+
+  if (email && isValidEmail(email)) {
+    return email.trim();
+  }
+
   throw new Error('未配置管理员通知邮箱或格式不正确');
 }

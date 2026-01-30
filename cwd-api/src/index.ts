@@ -47,6 +47,13 @@ import {
 	getFeatureSettings,
 	updateFeatureSettings
 } from './api/admin/featureSettings';
+import {
+	getTelegramSettings,
+	updateTelegramSettings,
+	setupTelegramWebhook,
+	testTelegramMessage
+} from './api/admin/telegramSettings';
+import { telegramWebhook } from './api/telegram/webhook';
 
 const app = new Hono<{ Bindings: Bindings }>();
 const VERSION = `v${packageJson.version}`;
@@ -242,6 +249,7 @@ app.post('/api/analytics/visit', trackVisit);
 app.get('/api/like', getLikeStatus);
 app.post('/api/like', likePage);
 app.post('/api/comments/like', likeComment);
+app.post('/api/telegram/webhook', telegramWebhook);
 app.get('/api/config/comments', async (c) => {
 	try {
 		const settings = await loadCommentSettings(c.env);
@@ -313,6 +321,12 @@ app.put('/admin/settings/email-notify', async (c) => {
 });
 
 app.post('/admin/settings/email-test', testEmail);
+
+app.get('/admin/settings/telegram', getTelegramSettings);
+app.put('/admin/settings/telegram', updateTelegramSettings);
+app.post('/admin/settings/telegram/setup', setupTelegramWebhook);
+app.post('/admin/settings/telegram/test', testTelegramMessage);
+
 app.get('/admin/settings/comments', async (c) => {
 	try {
 		const settings = await loadCommentSettings(c.env);

@@ -151,15 +151,6 @@
                 <span class="slider" />
               </label>
             </div>
-            <div class="form-item">
-              <label class="form-label">管理员通知邮箱</label>
-              <input
-                v-model="email"
-                class="form-input"
-                type="email"
-                placeholder="接收新评论提醒的邮箱"
-              />
-            </div>
 
             <div class="divider"></div>
             <h4 class="card-subtitle">1. SMTP 发件配置</h4>
@@ -216,7 +207,7 @@
               <input
                 v-model="smtpPass"
                 class="form-input"
-                type="password"
+                type="text"
                 placeholder="QQ邮箱请使用授权码"
               />
               <div v-if="smtpProvider === 'qq'" class="form-hint">
@@ -291,6 +282,80 @@
           </div>
         </transition>
       </div>
+
+      <div class="card">
+        <div class="card-header" @click="toggleCard('telegram')">
+          <div class="card-title">Telegram 通知设置</div>
+          <div class="card-icon" :class="{ expanded: cardsExpanded.telegram }">▼</div>
+        </div>
+        <transition name="collapse">
+          <div v-show="cardsExpanded.telegram" class="card-body">
+            <div class="form-item">
+              <label class="form-label">开启 Telegram 通知</label>
+              <label class="switch">
+                <input v-model="telegramNotifyEnabled" type="checkbox" />
+                <span class="slider" />
+              </label>
+            </div>
+            <div class="form-item">
+              <label class="form-label">Bot Token</label>
+              <input
+                v-model="telegramBotToken"
+                class="form-input"
+                type="text"
+                placeholder="123456:ABC-DEF1234ghIkl-zyx57W2v1u123ew11"
+              />
+              <div class="form-hint">
+                在 Telegram 中搜索
+                <a href="https://t.me/BotFather" target="_blank">@BotFather</a>
+                创建机器人获取 Token
+              </div>
+            </div>
+            <div class="form-item">
+              <label class="form-label">Chat ID</label>
+              <input
+                v-model="telegramChatId"
+                class="form-input"
+                type="text"
+                placeholder="123456789"
+              />
+              <div class="form-hint">
+                这是接收通知的用户 ID 或群组 ID。可以先给机器人发消息，然后通过 API 获取
+                ID，或者使用
+                <a href="https://t.me/userinfobot" target="_blank">@userinfobot</a> 查询。
+              </div>
+            </div>
+
+            <div class="card-actions" style="justify-content: space-between">
+              <button
+                class="card-button secondary"
+                :disabled="settingUpWebhook"
+                @click="doSetupWebhook"
+              >
+                <span v-if="settingUpWebhook">设置中...</span>
+                <span v-else>一键设置 Webhook</span>
+              </button>
+              <button
+                class="card-button secondary"
+                :disabled="testingTelegram"
+                @click="testTelegram"
+                style="margin-right:auto;"
+              >
+                <span v-if="testingTelegram">发送中...</span>
+                <span v-else>发送测试消息</span>
+              </button>
+              <button
+                class="card-button"
+                :disabled="savingTelegram"
+                @click="saveTelegram"
+              >
+                <span v-if="savingTelegram">保存中...</span>
+                <span v-else>保存</span>
+              </button>
+            </div>
+          </div>
+        </transition>
+      </div>
     </div>
   </div>
 </template>
@@ -298,8 +363,6 @@
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
 import {
-  fetchAdminEmail,
-  saveAdminEmail,
   fetchCommentSettings,
   saveCommentSettings,
   fetchEmailNotifySettings,
@@ -307,6 +370,10 @@ import {
   sendTestEmail,
   fetchFeatureSettings,
   saveFeatureSettings,
+  fetchTelegramSettings,
+  saveTelegramSettings,
+  setupTelegramWebhook,
+  sendTelegramTestMessage,
 } from "../api/admin";
 
 const DEFAULT_REPLY_TEMPLATE = `<div style="background-color:#f4f4f5;padding:24px 0;">
@@ -384,7 +451,6 @@ const DEFAULT_ADMIN_TEMPLATE = `<div style="background-color:#f4f4f5;padding:24p
     </div>
   `;
 
-const email = ref("");
 const emailGlobalEnabled = ref(true);
 const commentAdminEmail = ref("");
 const commentAdminBadge = ref("");
@@ -398,6 +464,13 @@ const adminKeySet = ref(false);
 const requireReview = ref(false);
 const enableArticleLike = ref(true);
 const enableCommentLike = ref(true);
+const telegramBotToken = ref("");
+const telegramChatId = ref("");
+const telegramNotifyEnabled = ref(false);
+const savingTelegram = ref(false);
+const settingUpWebhook = ref(false);
+const testingTelegram = ref(false);
+
 const savingEmail = ref(false);
 const testingEmail = ref(false);
 const savingComment = ref(false);
@@ -420,7 +493,7 @@ function loadCardsExpanded() {
   } catch {
     // 忽略错误
   }
-  return { comment: true, feature: false, email: false };
+  return { comment: true, feature: false, email: false, telegram: false };
 }
 
 const cardsExpanded = ref(loadCardsExpanded());
@@ -472,13 +545,12 @@ function resetTemplatesToDefault() {
 async function load() {
   loading.value = true;
   try {
-    const [notifyRes, commentRes, emailNotifyRes, featureRes] = await Promise.all([
-      fetchAdminEmail(),
+    const [commentRes, emailNotifyRes, featureRes, telegramRes] = await Promise.all([
       fetchCommentSettings(),
       fetchEmailNotifySettings(),
       fetchFeatureSettings(),
+      fetchTelegramSettings(),
     ]);
-    email.value = notifyRes.email || "";
     commentAdminEmail.value = commentRes.adminEmail || "";
     commentAdminBadge.value = commentRes.adminBadge ?? "";
     avatarPrefix.value = commentRes.avatarPrefix || "";
@@ -496,6 +568,10 @@ async function load() {
     emailGlobalEnabled.value = !!emailNotifyRes.globalEnabled;
     enableArticleLike.value = featureRes.enableArticleLike;
     enableCommentLike.value = featureRes.enableCommentLike;
+
+    telegramBotToken.value = telegramRes.botToken || "";
+    telegramChatId.value = telegramRes.chatId || "";
+    telegramNotifyEnabled.value = telegramRes.notifyEnabled;
 
     if (emailNotifyRes.templates) {
       templateAdmin.value = emailNotifyRes.templates.admin || DEFAULT_ADMIN_TEMPLATE;
@@ -527,32 +603,24 @@ async function load() {
 }
 
 async function saveEmail() {
-  if (!email.value) {
-    message.value = "请输入邮箱";
-    messageType.value = "error";
-    return;
-  }
   savingEmail.value = true;
   message.value = "";
   try {
-    const [emailRes] = await Promise.all([
-      saveAdminEmail(email.value),
-      saveEmailNotifySettings({
-        globalEnabled: emailGlobalEnabled.value,
-        smtp: {
-          host: smtpHost.value,
-          port: smtpPort.value,
-          user: smtpUser.value,
-          pass: smtpPass.value,
-          secure: smtpSecure.value,
-        },
-        templates: {
-          reply: templateReply.value,
-          admin: templateAdmin.value,
-        },
-      }),
-    ]);
-    showToast(emailRes.message || "保存成功", "success");
+    const res = await saveEmailNotifySettings({
+      globalEnabled: emailGlobalEnabled.value,
+      smtp: {
+        host: smtpHost.value,
+        port: smtpPort.value,
+        user: smtpUser.value,
+        pass: smtpPass.value,
+        secure: smtpSecure.value,
+      },
+      templates: {
+        reply: templateReply.value,
+        admin: templateAdmin.value,
+      },
+    });
+    showToast(res.message || "保存成功", "success");
   } catch (e: any) {
     message.value = e.message || "保存失败";
     messageType.value = "error";
@@ -562,8 +630,8 @@ async function saveEmail() {
 }
 
 async function testEmail() {
-  if (!email.value) {
-    message.value = "请输入管理员通知邮箱作为测试接收邮箱";
+  if (!commentAdminEmail.value) {
+    message.value = "请先在上方“评论显示配置”中设置管理员邮箱";
     messageType.value = "error";
     return;
   }
@@ -577,7 +645,7 @@ async function testEmail() {
   message.value = "";
   try {
     const res = await sendTestEmail({
-      toEmail: email.value,
+      toEmail: commentAdminEmail.value,
       smtp: {
         host: smtpHost.value,
         port: smtpPort.value,
@@ -661,6 +729,68 @@ async function saveFeature() {
     messageType.value = "error";
   } finally {
     savingFeature.value = false;
+  }
+}
+
+async function saveTelegram() {
+  savingTelegram.value = true;
+  message.value = "";
+  try {
+    const res = await saveTelegramSettings({
+      botToken: telegramBotToken.value,
+      chatId: telegramChatId.value,
+      notifyEnabled: telegramNotifyEnabled.value,
+    });
+    showToast(res.message || "保存成功", "success");
+  } catch (e: any) {
+    message.value = e.message || "保存失败";
+    messageType.value = "error";
+  } finally {
+    savingTelegram.value = false;
+  }
+}
+
+async function testTelegram() {
+  if (!telegramBotToken.value || !telegramChatId.value) {
+    showToast("请先填写 Bot Token 和 Chat ID 并保存", "error");
+    return;
+  }
+  testingTelegram.value = true;
+  try {
+    await saveTelegramSettings({
+      botToken: telegramBotToken.value,
+      chatId: telegramChatId.value,
+      notifyEnabled: telegramNotifyEnabled.value,
+    });
+    const res = await sendTelegramTestMessage();
+    showToast(res.message || "测试消息已发送", "success");
+  } catch (e: any) {
+    showToast(e.message || "发送失败", "error");
+  } finally {
+    testingTelegram.value = false;
+  }
+}
+
+async function doSetupWebhook() {
+  if (!telegramBotToken.value) {
+    showToast("请先填写 Bot Token 并保存", "error");
+    return;
+  }
+  settingUpWebhook.value = true;
+  try {
+    // First save settings to ensure backend has latest token
+    await saveTelegramSettings({
+      botToken: telegramBotToken.value,
+      chatId: telegramChatId.value,
+      notifyEnabled: telegramNotifyEnabled.value,
+    });
+
+    const res = await setupTelegramWebhook();
+    showToast(res.message || "Webhook 设置成功", "success");
+  } catch (e: any) {
+    showToast(e.message || "设置失败", "error");
+  } finally {
+    settingUpWebhook.value = false;
   }
 }
 

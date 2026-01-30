@@ -2,6 +2,8 @@
 
 邮件通知配置接口用于获取和更新 SMTP 配置、邮件模板以及测试邮件发送功能。
 
+新评论的邮件通知会发送到「评论设置」(`/admin/settings/comments`) 中配置的管理员邮箱（`adminEmail`），无需在本接口中单独设置收件邮箱。
+
 所有接口都需要在请求头中携带 Bearer Token。
 
 ```http
@@ -194,10 +196,10 @@ POST /admin/settings/email-test
 
 字段说明：
 
-| 字段名      | 类型   | 必填 | 说明                                 |
-| ----------- | ------ | ---- | ------------------------------------ |
-| `toEmail`   | string | 是   | 接收测试邮件的邮箱地址              |
-| `smtp`      | object  | 是   | SMTP 配置对象（与更新配置接口相同） |
+| 字段名    | 类型   | 必填 | 说明                                 |
+| --------- | ------ | ---- | ------------------------------------ |
+| `toEmail` | string | 是   | 接收测试邮件的邮箱地址              |
+| `smtp`    | object | 是   | SMTP 配置对象（与更新配置接口相同） |
 
 **成功响应**
 
@@ -247,7 +249,7 @@ GET /admin/settings/email
 获取当前通知邮箱配置。
 
 > [!NOTE]
-> 此接口已被 `/admin/settings/email-notify` 替代，建议使用新接口获取完整的邮件通知配置。
+> 此接口已被 `/admin/settings/email-notify` 替代，且管理员通知邮箱已统一由 `/admin/settings/comments` 中的 `adminEmail` 提供，不再推荐使用本接口。
 
 - 方法：`GET`
 - 路径：`/admin/settings/email`
@@ -282,7 +284,7 @@ PUT /admin/settings/email
 设置通知邮箱，用于接收新评论提醒。
 
 > [!NOTE]
-> 此接口已被 `/admin/settings/email-notify` 替代，建议使用新接口获取完整的邮件通知配置。
+> 此接口已被 `/admin/settings/email-notify` 替代，且通知收件邮箱已统一使用评论配置中的 `adminEmail`，不再推荐调用本接口。
 
 - 方法：`PUT`
 - 路径：`/admin/settings/email`
