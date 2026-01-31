@@ -54,7 +54,7 @@ jobs:
       - name: Install dependencies
         if: steps.decision.outputs.should_publish == 'true'
         working-directory: docs/widget
-        run: npm ci
+        run: npm install
 
       - name: Build widget
         if: steps.decision.outputs.should_publish == 'true'
