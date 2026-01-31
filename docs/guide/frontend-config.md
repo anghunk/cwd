@@ -17,9 +17,13 @@ CWD 评论组件采用 **Shadow DOM** 技术构建，基于独立根节点渲染
 
 在初始化 `CWDComments` 实例时，可以传入以下配置参数：
 
+建议使用 cdn 锁版本，防止组件版本升级导致的兼容性问题，更新时只需要修改版本号即可。
+
 ```html
 <div id="comments"></div>
-<script src="https://cwd.js.org/cwd.js"></script>
+<script src="https://unpkg.com/cwd-widget@0.0.x/dist/cwd.js"></script>
+<!-- <script src="https://cdn.jsdelivr.net/npm/cwd-widget@0.0.x/dist/cwd.js"></script> -->
+
 <script>
 	const comments = new CWDComments({
 		el: '#comments',
@@ -29,15 +33,27 @@ CWD 评论组件采用 **Shadow DOM** 技术构建，基于独立根节点渲染
 </script>
 ```
 
+**cdn 链接（推荐使用）**
+
+```
+https://unpkg.com/cwd-widget@0.0.x/dist/cwd.js
+https://cdn.jsdelivr.net/npm/cwd-widget@0.0.x/dist/cwd.js
+```
+
+*最新版本链接（不建议使用）*
+```
+https://cwd.js.org/cwd.js
+```
+
 ### 参数说明
 
-| 参数           | 类型                    | 必填 | 默认值    | 说明                                       |
-| -------------- | ----------------------- | ---- | --------- | ------------------------------------------ |
-| `el`           | `string \| HTMLElement` | 是   | -         | 挂载元素选择器或 DOM 元素                  |
-| `apiBaseUrl`   | `string`                | 是   | -         | API 基础地址                               |
-| `theme`        | `'light' \| 'dark'`     | 否   | `'light'` | 主题模式                                   |
-| `pageSize`     | `number`                | 否   | `20`      | 每页显示评论数                             |
-| `customCssUrl` | `string`                | 否   | -         | 自定义样式表 URL，追加到 Shadow DOM 底部   |
+| 参数           | 类型                    | 必填 | 默认值    | 说明                                     |
+| -------------- | ----------------------- | ---- | --------- | ---------------------------------------- |
+| `el`           | `string \| HTMLElement` | 是   | -         | 挂载元素选择器或 DOM 元素                |
+| `apiBaseUrl`   | `string`                | 是   | -         | API 基础地址                             |
+| `theme`        | `'light' \| 'dark'`     | 否   | `'light'` | 主题模式                                 |
+| `pageSize`     | `number`                | 否   | `20`      | 每页显示评论数                           |
+| `customCssUrl` | `string`                | 否   | -         | 自定义样式表 URL，追加到 Shadow DOM 底部 |
 
 头像前缀、博主邮箱和标识等信息由后端接口 `/api/config/comments` 提供，无需在前端进行配置。
 
@@ -80,7 +96,7 @@ comments.updateConfig({
 
 ```html
 <div id="comments"></div>
-<script src="https://cwd.js.org/cwd.js"></script>
+<script src="https://unpkg.com/cwd-widget@0.0.x/dist/cwd.js"></script>
 
 <!-- 实例调用 -->
 <script>
@@ -105,7 +121,8 @@ comments.updateConfig({
 
 ```astro
 <div id="comments"></div>
-<script src="https://cwd.js.org/cwd.js" is:inline></script>
+<script src="https://unpkg.com/cwd-widget@0.0.x/dist/cwd.js" is:inline></script>
+
 <script is:inline>
   document.addEventListener('DOMContentLoaded', () => {
     const comments = new window.CWDComments({
@@ -136,7 +153,7 @@ comments.updateConfig({
 
 	onMounted(async () => {
 		if (!window.CWDComments) {
-			await loadScript('https://cwd.js.org/cwd.js');
+			await loadScript('https://unpkg.com/cwd-widget@0.0.x/dist/cwd.js');
 		}
 
 		instance = new window.CWDComments({

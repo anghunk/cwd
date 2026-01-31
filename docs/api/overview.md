@@ -27,8 +27,11 @@
 ## 版本信息
 部署成功后，直接访问 Base URL，成功时返回 HTML，其中包含类似文案：
 
-```text
-CWD 评论部署成功，当前版本...
+```json
+{
+  "version": "0.0.0",
+  "data": "成功部署 CWD 评论系统 API！文档地址 https://cwd.js.org"
+}
 ```
 
 ## 鉴权方式
