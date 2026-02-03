@@ -12,7 +12,9 @@
     </div>
 
     <div class="card">
-      <h3 class="card-title">整体概览</h3>
+      <div class="card-title-row">
+        <h3 class="card-title">整体概览</h3>
+      </div>
       <div v-if="statsLoading" class="page-hint">加载中...</div>
       <div v-else-if="statsError" class="page-error">{{ statsError }}</div>
       <div v-else>
@@ -71,7 +73,9 @@
     </div>
 
     <div class="card">
-      <h3 class="card-title">按域名统计</h3>
+      <div class="card-title-row">
+        <h3 class="card-title">按域名统计</h3>
+      </div>
       <div v-if="statsLoading" class="page-hint">加载中...</div>
       <div v-else-if="statsError" class="page-error">{{ statsError }}</div>
       <div v-else-if="domainStats.length === 0" class="page-hint">暂无评论数据</div>

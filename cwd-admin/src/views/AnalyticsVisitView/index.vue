@@ -12,7 +12,9 @@
     </div>
 
     <div class="card">
-      <h3 class="card-title">整体概览</h3>
+      <div class="card-title-row">
+        <h3 class="card-title">整体概览</h3>
+      </div>
       <div v-if="loading" class="page-hint">加载中...</div>
       <div v-else-if="error" class="page-error">{{ error }}</div>
       <div v-else>

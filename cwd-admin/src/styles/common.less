@@ -40,3 +40,110 @@ button {
     transform: translate(-50%, 0);
   }
 }
+
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.page-title {
+  margin: 0;
+  font-size: 18px;
+  color: var(--text-primary);
+}
+
+.page-hint {
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+.page-error {
+  font-size: 14px;
+  color: var(--color-danger);
+}
+
+
+
+.card {
+  background-color: var(--bg-card);
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+  padding: 12px 18px;
+  margin-bottom: 1em;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 0;
+  transition: background-color 0.2s;
+}
+
+.card-title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.card-icon {
+  font-size: 12px;
+  color: var(--text-secondary);
+  transition: transform 0.2s ease;
+}
+
+.card-icon.expanded {
+  transform: rotate(180deg);
+}
+
+.card-subtitle {
+  margin: 0 0 12px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+
+.card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+.card-button {
+  padding: 8px 14px;
+  border-radius: 4px;
+  border: none;
+  background-color: var(--primary-color);
+  color: var(--text-inverse);
+  font-size: 14px;
+  cursor: pointer;
+  min-width: 100px;
+}
+
+.card-button.secondary {
+  background-color: var(--bg-sider);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+}
+
+.card-button.secondary:hover {
+  background-color: var(--bg-hover);
+  border-color: var(--border-color);
+}
+
+.card-button:disabled {
+  opacity: 0.7;
+  cursor: default;
+}
+
+.card-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}

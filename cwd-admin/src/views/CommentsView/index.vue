@@ -214,68 +214,13 @@
         </div>
       </div>
     </div>
-    <div v-if="editVisible" class="modal-overlay">
-      <div class="modal">
-        <h3 class="modal-title">编辑评论</h3>
-        <div v-if="editForm" class="modal-body">
-          <div class="form-item">
-            <label class="form-label">访客昵称</label>
-            <input v-model="editForm.name" class="form-input" type="text" />
-          </div>
-          <div class="form-item">
-            <label class="form-label">访客邮箱</label>
-            <input v-model="editForm.email" class="form-input" type="email" />
-          </div>
-          <div class="form-item">
-            <label class="form-label">访客网址</label>
-            <input v-model="editForm.url" class="form-input" type="text" />
-          </div>
-          <div class="form-item">
-            <label class="form-label">评论地址</label>
-            <input v-model="editForm.postSlug" class="form-input" type="text" />
-          </div>
-          <div class="form-item">
-            <label class="form-label">评论内容</label>
-            <textarea
-              v-model="editForm.contentText"
-              class="form-input"
-              rows="4"
-            ></textarea>
-          </div>
-          <div class="form-item">
-            <label class="form-label">评论状态</label>
-            <select v-model="editForm.status" class="form-input">
-              <option value="approved">已通过</option>
-              <option value="pending">待审核</option>
-              <option value="rejected">已拒绝</option>
-            </select>
-          </div>
-          <div class="form-item">
-            <label class="form-label">置顶权重（1 为不置顶，数值越大越靠前）</label>
-            <input
-              v-model.number="editForm.priority"
-              class="form-input"
-              type="number"
-              min="1"
-            />
-          </div>
-        </div>
-        <div class="modal-actions">
-          <button class="modal-btn secondary" type="button" @click="closeEdit">
-            取消
-          </button>
-          <button
-            class="modal-btn primary"
-            type="button"
-            :disabled="editSaving"
-            @click="submitEdit"
-          >
-            <span v-if="editSaving">保存中...</span>
-            <span v-else>保存</span>
-          </button>
-        </div>
-      </div>
-    </div>
+    <ModalEdit
+      :visible="editVisible"
+      :form="editForm"
+      :saving="editSaving"
+      @close="closeEdit"
+      @submit="submitEdit"
+    />
   </div>
 </template>
 
@@ -295,6 +240,7 @@ import {
   blockEmail,
   fetchDomainList,
 } from "../../api/admin";
+import ModalEdit from "./components/ModalEdit.vue";
 
 const route = useRoute();
 const router = useRouter();
