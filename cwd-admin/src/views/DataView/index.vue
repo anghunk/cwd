@@ -24,7 +24,7 @@
 
       <div class="action-row">
         <span class="action-label">导入:</span>
-        <select v-model="importSource" class="form-select" style="margin-right: 8px; width: 160px;">
+        <select v-model="importSource" class="form-select" style="min-width:120px;">
           <option value="cwd">CWD (.json)</option>
           <option value="twikoo">Twikoo (.json)</option>
           <option value="artalk">Artalk (.json)</option>

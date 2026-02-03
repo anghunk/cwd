@@ -38,10 +38,18 @@
         <button
           type="button"
           class="settings-tab"
-          :class="{ 'settings-tab-active': activeTab === 'notify' }"
-          @click="activeTab = 'notify'"
+          :class="{ 'settings-tab-active': activeTab === 'emailNotify' }"
+          @click="activeTab = 'emailNotify'"
         >
-          通知设置
+          邮箱提醒
+        </button>
+        <button
+          type="button"
+          class="settings-tab"
+          :class="{ 'settings-tab-active': activeTab === 'telegramNotify' }"
+          @click="activeTab = 'telegramNotify'"
+        >
+          Telegram 通知
         </button>
       </div>
       <transition name="tab-fade" mode="out-in">
@@ -258,7 +266,7 @@
               </div>
             </div>
           </template>
-          <template v-else-if="activeTab === 'notify'">
+          <template v-else-if="activeTab === 'emailNotify'">
             <div class="card">
               <div class="card-header">
                 <div class="card-title">通知邮箱设置</div>
@@ -402,6 +410,8 @@
                 </div>
               </div>
             </div>
+          </template>
+          <template v-else-if="activeTab === 'telegramNotify'">
             <div class="card">
               <div class="card-header">
                 <div class="card-title">Telegram 通知设置</div>
@@ -597,7 +607,9 @@ const savingTelegram = ref(false);
 const settingUpWebhook = ref(false);
 const testingTelegram = ref(false);
 
-const activeTab = ref<"comment" | "feature" | "display" | "notify">("comment");
+const activeTab = ref<"comment" | "feature" | "display" | "emailNotify" | "telegramNotify">(
+  "comment",
+);
 
 function addAllowedDomainsFromInput() {
   const raw = allowedDomainInput.value;
