@@ -8,6 +8,7 @@ on:
 
 jobs:
   check-release:
+    if: github.repository == 'anghunk/cwd'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code

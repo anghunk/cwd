@@ -8,6 +8,7 @@ on:
 
 jobs:
   publish:
+    if: github.repository == 'anghunk/cwd'
     runs-on: ubuntu-latest
 
     permissions:

@@ -2,6 +2,7 @@ name: Build and Deploy Docs
 on: [push]
 jobs:
   build-and-deploy:
+    if: github.repository == 'anghunk/cwd'
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
