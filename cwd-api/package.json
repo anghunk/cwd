@@ -1,6 +1,6 @@
 {
 	"name": "cwd-api",
-	"version": "0.0.16",
+	"version": "0.0.17",
 	"scripts": {
 		"deploy": "wrangler deploy",
 		"dev": "wrangler dev",

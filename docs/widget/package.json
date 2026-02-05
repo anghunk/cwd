@@ -1,6 +1,6 @@
 {
   "name": "cwd-widget",
-  "version": "0.0.16",
+  "version": "0.0.17",
   "description": "Server-free, extremely fast and secure, plug-and-play commenting system based on Cloudflare Workers and the Global Edge Network.",
   "type": "module",
   "author": "anghunk",

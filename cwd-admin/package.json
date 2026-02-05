@@ -1,6 +1,6 @@
 {
   "name": "cwd-admin",
-  "version": "0.0.16",
+  "version": "0.0.17",
   "type": "module",
   "scripts": {
     "dev": "vite",
