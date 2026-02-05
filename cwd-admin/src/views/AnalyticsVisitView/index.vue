@@ -21,12 +21,12 @@
         <div class="stats-grid">
           <div class="stats-item">
             <div class="stats-label">全站总访问量</div>
-            <div class="stats-value">{{ overview.totalPv }}</div>
+            <div class="stats-value"><CountTo :end-val="overview.totalPv" /></div>
           </div>
           <div class="stats-item">
             <div class="stats-label">今日访问量</div>
             <div class="stats-value">
-              {{ overview.todayPv }}
+              <CountTo :end-val="overview.todayPv" />
               <span
                 v-if="overview.yesterdayPv !== undefined"
                 class="trend"
@@ -41,7 +41,7 @@
           <div class="stats-item">
             <div class="stats-label">本周访问量</div>
             <div class="stats-value">
-              {{ overview.weekPv }}
+              <CountTo :end-val="overview.weekPv" />
               <span
                 v-if="overview.lastWeekPv !== undefined"
                 class="trend"
@@ -56,7 +56,7 @@
           <div class="stats-item">
             <div class="stats-label">本月访问量</div>
             <div class="stats-value">
-              {{ overview.monthPv }}
+              <CountTo :end-val="overview.monthPv" />
               <span
                 v-if="overview.lastMonthPv !== undefined"
                 class="trend"
@@ -70,7 +70,7 @@
           </div>
           <div class="stats-item">
             <div class="stats-label">有访问记录的页面数</div>
-            <div class="stats-value">{{ overview.totalPages }}</div>
+            <div class="stats-value"><CountTo :end-val="overview.totalPages" /></div>
           </div>
         </div>
       </div>
@@ -215,6 +215,7 @@
 import { onMounted, onBeforeUnmount, ref, nextTick, watch, inject, computed } from "vue";
 import type { Ref } from "vue";
 import * as echarts from "echarts";
+import CountTo from "../../components/CountTo.vue";
 import {
   fetchVisitOverview,
   fetchVisitPages,

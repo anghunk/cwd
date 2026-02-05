@@ -46,6 +46,10 @@
   color: var(--text-primary);
   display: flex;
   align-items: baseline;
+  /* 使用等宽数字，防止数字滚动时宽度抖动 */
+  font-variant-numeric: tabular-nums;
+  /* 确保数字字体回退到系统等宽字体，增强兼容性 */
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
 .trend {
