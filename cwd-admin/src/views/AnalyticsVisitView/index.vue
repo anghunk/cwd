@@ -25,15 +25,48 @@
           </div>
           <div class="stats-item">
             <div class="stats-label">今日访问量</div>
-            <div class="stats-value">{{ overview.todayPv }}</div>
+            <div class="stats-value">
+              {{ overview.todayPv }}
+              <span
+                v-if="overview.yesterdayPv !== undefined"
+                class="trend"
+                :class="percentageChange >= 0 ? 'up' : 'down'"
+                :title="`对比昨日 ${percentageChange >= 0 ? '增加' : '减少'} ${Math.abs(percentageChange).toFixed(1)}%`"
+              >
+                <span class="trend-arrow">{{ percentageChange >= 0 ? '↑' : '↓' }}</span>
+                {{ Math.abs(percentageChange).toFixed(1) }}%
+              </span>
+            </div>
           </div>
           <div class="stats-item">
             <div class="stats-label">本周访问量</div>
-            <div class="stats-value">{{ overview.weekPv }}</div>
+            <div class="stats-value">
+              {{ overview.weekPv }}
+              <span
+                v-if="overview.lastWeekPv !== undefined"
+                class="trend"
+                :class="weekPercentageChange >= 0 ? 'up' : 'down'"
+                :title="`对比上周 ${weekPercentageChange >= 0 ? '增加' : '减少'} ${Math.abs(weekPercentageChange).toFixed(1)}%`"
+              >
+                <span class="trend-arrow">{{ weekPercentageChange >= 0 ? '↑' : '↓' }}</span>
+                {{ Math.abs(weekPercentageChange).toFixed(1) }}%
+              </span>
+            </div>
           </div>
           <div class="stats-item">
             <div class="stats-label">本月访问量</div>
-            <div class="stats-value">{{ overview.monthPv }}</div>
+            <div class="stats-value">
+              {{ overview.monthPv }}
+              <span
+                v-if="overview.lastMonthPv !== undefined"
+                class="trend"
+                :class="monthPercentageChange >= 0 ? 'up' : 'down'"
+                :title="`对比上月 ${monthPercentageChange >= 0 ? '增加' : '减少'} ${Math.abs(monthPercentageChange).toFixed(1)}%`"
+              >
+                <span class="trend-arrow">{{ monthPercentageChange >= 0 ? '↑' : '↓' }}</span>
+                {{ Math.abs(monthPercentageChange).toFixed(1) }}%
+              </span>
+            </div>
           </div>
           <div class="stats-item">
             <div class="stats-label">有访问记录的页面数</div>
@@ -198,9 +231,31 @@ const overview = ref<VisitOverviewResponse>({
   totalPv: 0,
   totalPages: 0,
   todayPv: 0,
+  yesterdayPv: 0,
   weekPv: 0,
+  lastWeekPv: 0,
   monthPv: 0,
+  lastMonthPv: 0,
   last30Days: [],
+});
+
+function calculateChange(current: number, previous: number) {
+  if (previous === 0) {
+    return current > 0 ? 100 : 0;
+  }
+  return ((current - previous) / previous) * 100;
+}
+
+const percentageChange = computed(() => {
+  return calculateChange(overview.value.todayPv, overview.value.yesterdayPv || 0);
+});
+
+const weekPercentageChange = computed(() => {
+  return calculateChange(overview.value.weekPv, overview.value.lastWeekPv || 0);
+});
+
+const monthPercentageChange = computed(() => {
+  return calculateChange(overview.value.monthPv, overview.value.lastMonthPv || 0);
 });
 
 const rawItems = ref<VisitPageItem[]>([]);
@@ -390,8 +445,11 @@ async function loadData() {
       totalPv: overviewRes.totalPv,
       totalPages: overviewRes.totalPages,
       todayPv: overviewRes.todayPv ?? 0,
+      yesterdayPv: overviewRes.yesterdayPv ?? 0,
       weekPv: overviewRes.weekPv ?? 0,
+      lastWeekPv: overviewRes.lastWeekPv ?? 0,
       monthPv: overviewRes.monthPv ?? 0,
+      lastMonthPv: overviewRes.lastMonthPv ?? 0,
       last30Days: Array.isArray(overviewRes.last30Days)
         ? overviewRes.last30Days
         : [],

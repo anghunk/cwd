@@ -5,8 +5,11 @@ type VisitOverview = {
 	totalPv: number;
 	totalPages: number;
 	todayPv: number;
+	yesterdayPv: number;
 	weekPv: number;
+	lastWeekPv: number;
 	monthPv: number;
+	lastMonthPv: number;
 	last30Days: {
 		date: string;
 		total: number;
@@ -101,9 +104,31 @@ export const getVisitOverview = async (
 		const monthStartDate = new Date(Date.UTC(year, month, 1));
 		const monthStartKey = toKey(monthStartDate);
 
+		// Calculate date ranges for last month and last week queries
+		const lastMonthStartDate = new Date(Date.UTC(year, month - 1, 1));
+		const lastMonthEndDate = new Date(monthStartDate.getTime() - 24 * 60 * 60 * 1000);
+
+		// For last week, we need the start date of last week.
+		// weekStartDate is the start of current week.
+		// So lastWeekStartDate is weekStartDate - 7 days.
+		const weekStartDate = (() => {
+			const d = new Date(Date.UTC(year, month, day));
+			const weekday = d.getUTCDay();
+			const offset = (weekday + 6) % 7;
+			return new Date(d.getTime() - offset * 24 * 60 * 60 * 1000);
+		})();
+
+		const lastWeekStartDate = new Date(weekStartDate.getTime() - 7 * 24 * 60 * 60 * 1000);
+		const lastWeekEndDate = new Date(weekStartDate.getTime() - 24 * 60 * 60 * 1000);
+
+		// We need to fetch enough history for last month.
+		// The earliest date could be either startDate30 or lastMonthStartDate.
 		let earliestDate = startDate30;
-		if (monthStartKey < earliestDate) {
-			earliestDate = monthStartKey;
+		if (toKey(lastMonthStartDate) < earliestDate) {
+			earliestDate = toKey(lastMonthStartDate);
+		}
+		if (toKey(lastWeekStartDate) < earliestDate) {
+			earliestDate = toKey(lastWeekStartDate);
 		}
 
 		let dailySql =
@@ -140,33 +165,54 @@ export const getVisitOverview = async (
 		}
 
 		const todayKey = toKey(now);
+		const yesterdayKey = toKey(new Date(now.getTime() - 24 * 60 * 60 * 1000));
 
-		const weekStartDate = (() => {
-			const d = new Date(Date.UTC(year, month, day));
-			const weekday = d.getUTCDay();
-			const offset = (weekday + 6) % 7;
-			return new Date(d.getTime() - offset * 24 * 60 * 60 * 1000);
-		})();
+		// weekStartDate is already calculated above
 		const weekStartKey = toKey(weekStartDate);
 
 		let todayPv = dailyMap.get(todayKey) || 0;
+		let yesterdayPv = dailyMap.get(yesterdayKey) || 0;
 		let weekPv = 0;
+		let lastWeekPv = 0;
 		let monthPv = 0;
+		let lastMonthPv = 0;
 
+		// Calculate Week PV
 		{
 			let cursor = new Date(weekStartDate.getTime());
 			while (cursor.getTime() <= now.getTime()) {
 				const key = toKey(cursor);
 				weekPv += dailyMap.get(key) || 0;
-				cursor = new Date(cursor.getTime() - 0 + 24 * 60 * 60 * 1000);
+				cursor = new Date(cursor.getTime() + 24 * 60 * 60 * 1000);
 			}
 		}
 
+		// Calculate Last Week PV
+		{
+			let cursor = new Date(lastWeekStartDate.getTime());
+			while (cursor.getTime() <= lastWeekEndDate.getTime()) {
+				const key = toKey(cursor);
+				lastWeekPv += dailyMap.get(key) || 0;
+				cursor = new Date(cursor.getTime() + 24 * 60 * 60 * 1000);
+			}
+		}
+
+		// Calculate Month PV
 		{
 			let cursor = new Date(monthStartDate.getTime());
 			while (cursor.getTime() <= now.getTime()) {
 				const key = toKey(cursor);
 				monthPv += dailyMap.get(key) || 0;
+				cursor = new Date(cursor.getTime() + 24 * 60 * 60 * 1000);
+			}
+		}
+
+		// Calculate Last Month PV
+		{
+			let cursor = new Date(lastMonthStartDate.getTime());
+			while (cursor.getTime() <= lastMonthEndDate.getTime()) {
+				const key = toKey(cursor);
+				lastMonthPv += dailyMap.get(key) || 0;
 				cursor = new Date(cursor.getTime() + 24 * 60 * 60 * 1000);
 			}
 		}
@@ -195,8 +241,11 @@ export const getVisitOverview = async (
 			totalPv,
 			totalPages,
 			todayPv,
+			yesterdayPv,
 			weekPv,
+			lastWeekPv,
 			monthPv,
+			lastMonthPv,
 			last30Days
 		};
 

@@ -88,8 +88,11 @@ export type VisitOverviewResponse = {
 	totalPv: number;
 	totalPages: number;
 	todayPv: number;
+	yesterdayPv?: number;
 	weekPv: number;
+	lastWeekPv?: number;
 	monthPv: number;
+	lastMonthPv?: number;
 	last30Days?: {
 		date: string;
 		total: number;

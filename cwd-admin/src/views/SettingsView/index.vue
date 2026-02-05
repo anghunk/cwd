@@ -305,6 +305,7 @@
                     @change="onProviderChange"
                   >
                     <option value="qq">QQ 邮箱</option>
+                    <option value="163">163 邮箱</option>
                     <option value="custom">自定义 SMTP</option>
                   </select>
                 </div>
@@ -360,6 +361,10 @@
                     >，而非 QQ 密码。<br />
                     请登录 QQ 邮箱网页版，在【设置 - 账户】中开启 POP3/SMTP
                     服务并生成授权码。
+                  </div>
+                  <div v-else-if="smtpProvider === '163'" class="form-hint">
+                    注意：163 邮箱必须使用授权码，而非登录密码。<br />
+                    请登录 163 邮箱网页版，在【设置 - POP3/SMTP/IMAP】中开启服务并生成授权码。
                   </div>
                 </div>
 
@@ -816,6 +821,10 @@ function onProviderChange() {
     smtpHost.value = "smtp.qq.com";
     smtpPort.value = 465;
     smtpSecure.value = true;
+  } else if (smtpProvider.value === "163") {
+    smtpHost.value = "smtp.163.com";
+    smtpPort.value = 465;
+    smtpSecure.value = true;
   }
 }
 
@@ -893,6 +902,8 @@ async function load() {
 
       if (emailNotifyRes.smtp.host === "smtp.qq.com") {
         smtpProvider.value = "qq";
+      } else if (emailNotifyRes.smtp.host === "smtp.163.com") {
+        smtpProvider.value = "163";
       } else {
         smtpProvider.value = "custom";
       }

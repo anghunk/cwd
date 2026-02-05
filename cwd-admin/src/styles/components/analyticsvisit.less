@@ -44,6 +44,29 @@
   font-size: 26px;
   font-weight: 600;
   color: var(--text-primary);
+  display: flex;
+  align-items: baseline;
+}
+
+.trend {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 8px;
+  font-size: 14px;
+  font-weight: 500;
+
+  &.up {
+    color: #10b981;
+  }
+
+  &.down {
+    color: #ef4444;
+  }
+}
+
+.trend-arrow {
+  margin-right: 2px;
+  font-family: sans-serif;
 }
 
 .domain-table-wrapper {
