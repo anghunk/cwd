@@ -1,6 +1,6 @@
 {
 	"name": "cwd-api",
-	"version": "0.1.1-beta",
+	"version": "0.1.2-beta",
 	"scripts": {
 		"deploy": "node scripts/index.js && wrangler deploy",
 		"dev": "wrangler dev",
