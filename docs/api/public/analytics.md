@@ -30,6 +30,13 @@ POST /api/analytics/visit
 }
 ```
 
+**请求头**
+
+| 名称           | 必填 | 示例                         |
+| -------------- | ---- | ---------------------------- |
+| `Content-Type` | 是   | `application/json`          |
+| `X-Site-Id`    | 否   | `blog`                       |
+
 字段说明：
 
 | 字段名      | 类型   | 必填 | 说明                                                                 |
@@ -37,6 +44,12 @@ POST /api/analytics/visit
 | `postSlug`  | string | 是   | 文章唯一标识符，`window.location.origin + window.location.pathname`     |
 | `postTitle` | string | 否   | 文章标题，用于后台展示页面名称                                        |
 | `postUrl`   | string | 否   | 文章 URL，用于后台展示页面链接和域名统计                              |
+
+**请求头说明：**
+
+| 名称       | 必填 | 说明                       |
+| ---------- | ---- | -------------------------- |
+| `X-Site-Id` | 否   | 站点 ID，用于多站点数据隔离，默认 `default` |
 
 **成功响应**
 

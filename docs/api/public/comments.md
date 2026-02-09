@@ -19,6 +19,7 @@ GET /api/comments
 | 名称        | 位置  | 类型    | 必填 | 说明                                       |
 | ----------- | ----- | ------- | ---- | ------------------------------------------ |
 | `post_slug` | query | string  | 是   | 文章 slug，与前端 `CWDComments` 的 `postSlug` 参数对应 |
+| `siteId`    | query | string  | 否   | 站点 ID，用于多站点数据隔离，默认 `default` |
 | `page`      | query | integer | 否   | 页码，默认 `1`                             |
 | `limit`     | query | integer | 否   | 每页数量，默认 `20`，最大 `50`             |
 | `nested`    | query | string  | 否   | 是否返回嵌套结构，默认 `'true'`            |
@@ -136,6 +137,13 @@ POST /api/comments
 | -------------- | ---- | ---------------------------- |
 | `Content-Type` | 是   | `application/json`          |
 
+**请求头**
+
+| 名称           | 必填 | 示例                         |
+| -------------- | ---- | ---------------------------- |
+| `Content-Type` | 是   | `application/json`          |
+| `X-Site-Id`    | 否   | `blog`                       |
+
 **请求体（Request Body）**
 
 ```json
@@ -160,11 +168,17 @@ POST /api/comments
 | `post_title` | string | 否   | 文章标题，用于邮件通知内容                                             |
 | `post_url`   | string | 否   | 文章完整 URL，用于邮件通知中的跳转链接                                  |
 | `name`       | string | 是   | 评论者昵称                                                           |
-| `email`      | string | | 是   | 评论者邮箱，需为合法邮箱格式                                         |
+| `email`      | string | 是   | 评论者邮箱，需为合法邮箱格式                                         |
 | `url`        | string | 否   | 评论者个人主页或站点地址                                             |
 | `content`    | string | 是   | 评论内容，内部会过滤 `<script>...</script>` 片段                     |
 | `parent_id`  | number | 否   | 父评论 ID，用于回复功能；缺省或 `null` 表示根评论                    |
 | `adminToken` | string | 否   | 管理员评论密钥，博主发布评论时需要先通过 `/api/verify-admin` 验证密钥后将密钥传入此字段，评论将直接通过且不受审核设置影响 |
+
+**请求头说明：**
+
+| 名称       | 必填 | 说明                       |
+| ---------- | ---- | -------------------------- |
+| `X-Site-Id` | 否   | 站点 ID，用于多站点数据隔离，默认 `default` |
 
 **成功响应**
 

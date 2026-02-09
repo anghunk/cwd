@@ -28,7 +28,7 @@ CWD 评论组件采用 **Shadow DOM** 技术构建，基于独立根节点渲染
 	const comments = new CWDComments({
 		el: '#comments',
 		apiBaseUrl: 'https://your-api.example.com', // 换成你的 API 地址
-		siteId: 'your-site-id', // 换成你的站点 ID（关键词），比如 blog
+		siteId: 'blog', // 换成你的站点 ID（可选），如需多站点隔离请配置
 	});
 	comments.mount();
 </script>
@@ -52,6 +52,7 @@ https://cwd.js.org/cwd.js
 | -------------- | ----------------------- | ---- | --------- | ---------------------------------------- |
 | `el`           | `string \| HTMLElement` | 是   | -         | 挂载元素选择器或 DOM 元素                |
 | `apiBaseUrl`   | `string`                | 是   | -         | API 基础地址                             |
+| `siteId`       | `string`                | 否   | `default` | 站点 ID，用于多站点数据隔离              |
 | `theme`        | `'light' \| 'dark'`     | 否   | `'light'` | 主题模式                                 |
 | `pageSize`     | `number`                | 否   | `20`      | 每页显示评论数                           |
 | `customCssUrl` | `string`                | 否   | -         | 自定义样式表 URL，追加到 Shadow DOM 底部 |
