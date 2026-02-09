@@ -217,11 +217,11 @@ function cycleTheme() {
 
 type SiteOption = { label: string; value: string };
 const siteOptions = ref<SiteOption[]>([]);
-const defaultSiteId = "";
+const defaultSiteId = "default";
 
 function getSiteLabel(value: string) {
-  if (!value) {
-    return "默认站点 (Default)";
+  if (!value || value === "default") {
+    return "默认站点";
   }
   return value;
 }

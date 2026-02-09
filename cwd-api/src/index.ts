@@ -292,6 +292,7 @@ app.get('/admin/export/config', exportConfig);
 app.post('/admin/import/config', importConfig);
 app.get('/admin/export/stats', exportStats);
 app.post('/admin/import/stats', importStats);
+app.get('/admin/stats/comments', getStats);
 app.get('/admin/export/backup', exportBackup);
 app.post('/admin/import/backup', importBackup);
 app.put('/admin/comments/status', updateStatus);

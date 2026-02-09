@@ -14,7 +14,7 @@ Authorization: Bearer <token>
 GET /admin/stats/comments
 ```
 
-用于管理后台「数据看板」展示评论整体统计、按域名统计以及最近 30 天评论趋势。
+用于管理后台「数据看板」展示评论整体统计、按站点统计以及最近 30 天评论趋势。
 
 - 方法：`GET`
 - 路径：`/admin/stats/comments`

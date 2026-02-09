@@ -74,7 +74,7 @@
 
     <div class="card">
       <div class="card-title-row">
-        <h3 class="card-title">按域名统计</h3>
+        <h3 class="card-title">按站点统计</h3>
       </div>
       <div v-if="statsLoading" class="page-hint">加载中...</div>
       <div v-else-if="statsError" class="page-error">{{ statsError }}</div>
