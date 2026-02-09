@@ -11,6 +11,7 @@ type LikeRequestBody = {
 	postSlug?: string;
 	postTitle?: string;
 	postUrl?: string;
+	siteId?: string;
 };
 
 function getUserIdFromRequest(c: Context<{ Bindings: Bindings }>): string {
@@ -30,24 +31,13 @@ function getUserIdFromRequest(c: Context<{ Bindings: Bindings }>): string {
 	return 'anonymous';
 }
 
-async function ensureLikesTable(env: Bindings) {
-	await env.CWD_DB.prepare(
-		'CREATE TABLE IF NOT EXISTS Likes (id INTEGER PRIMARY KEY AUTOINCREMENT, page_slug TEXT NOT NULL, user_id TEXT NOT NULL, created_at INTEGER NOT NULL, UNIQUE(page_slug, user_id))'
-	).run();
-}
-
-async function ensurePageStatsTable(env: Bindings) {
-	await env.CWD_DB.prepare(
-		'CREATE TABLE IF NOT EXISTS page_stats (id INTEGER PRIMARY KEY AUTOINCREMENT, post_slug TEXT UNIQUE NOT NULL, post_title TEXT, post_url TEXT, pv INTEGER NOT NULL DEFAULT 0, last_visit_at INTEGER, created_at INTEGER NOT NULL, updated_at INTEGER NOT NULL)'
-	).run();
-}
-
 export const getLikeStatus = async (
 	c: Context<{ Bindings: Bindings }>
 ): Promise<Response> => {
 	try {
 		const rawPostSlug = c.req.query('post_slug') || '';
 		const postSlug = rawPostSlug.trim();
+		const siteId = c.req.query('siteId') || '';
 
 		if (!postSlug) {
 			return c.json({ message: 'post_slug is required' }, 400);
@@ -59,20 +49,18 @@ export const getLikeStatus = async (
 			'';
 		const userId = userIdHeader.trim();
 
-		await ensureLikesTable(c.env);
-
 		const totalRow = await c.env.CWD_DB.prepare(
-			'SELECT COUNT(*) AS count FROM Likes WHERE page_slug = ?'
+			'SELECT COUNT(*) AS count FROM Likes WHERE page_slug = ? AND site_id = ?'
 		)
-			.bind(postSlug)
+			.bind(postSlug, siteId)
 			.first<{ count: number }>();
 
 		let liked = false;
 		if (userId) {
 			const row = await c.env.CWD_DB.prepare(
-				'SELECT id FROM Likes WHERE page_slug = ? AND user_id = ?'
+				'SELECT id FROM Likes WHERE page_slug = ? AND user_id = ? AND site_id = ?'
 			)
-				.bind(postSlug, userId)
+				.bind(postSlug, userId, siteId)
 				.first<{ id: number }>();
 			liked = !!row;
 		}
@@ -108,6 +96,7 @@ export const likePage = async (
 			typeof body.postTitle === 'string' ? body.postTitle.trim() : '';
 		const rawPostUrl =
 			typeof body.postUrl === 'string' ? body.postUrl.trim() : '';
+		const siteId = typeof body.siteId === 'string' ? body.siteId.trim() : '';
 
 		if (!rawPostSlug) {
 			return c.json({ message: 'postSlug is required' }, 400);
@@ -115,38 +104,35 @@ export const likePage = async (
 
 		const userId = getUserIdFromRequest(c);
 
-		await ensureLikesTable(c.env);
-		await ensurePageStatsTable(c.env);
-
 		const now = Date.now();
 
 		const existingLike = await c.env.CWD_DB.prepare(
-			'SELECT id FROM Likes WHERE page_slug = ? AND user_id = ?'
+			'SELECT id FROM Likes WHERE page_slug = ? AND user_id = ? AND site_id = ?'
 		)
-			.bind(rawPostSlug, userId)
+			.bind(rawPostSlug, userId, siteId)
 			.first<{ id: number }>();
 
 		let alreadyLiked = false;
 
 		if (!existingLike) {
 			await c.env.CWD_DB.prepare(
-				'INSERT INTO Likes (page_slug, user_id, created_at) VALUES (?, ?, ?)'
+				'INSERT INTO Likes (page_slug, user_id, created_at, site_id) VALUES (?, ?, ?, ?)'
 			)
-				.bind(rawPostSlug, userId, now)
+				.bind(rawPostSlug, userId, now, siteId)
 				.run();
 		} else {
 			alreadyLiked = true;
 		}
 
 		const pageStatsRow = await c.env.CWD_DB.prepare(
-			'SELECT id FROM page_stats WHERE post_slug = ?'
+			'SELECT id FROM page_stats WHERE post_slug = ? AND site_id = ?'
 		)
-			.bind(rawPostSlug)
+			.bind(rawPostSlug, siteId)
 			.first<{ id: number }>();
 
 		if (!pageStatsRow) {
 			await c.env.CWD_DB.prepare(
-				'INSERT INTO page_stats (post_slug, post_title, post_url, pv, last_visit_at, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?)'
+				'INSERT INTO page_stats (post_slug, post_title, post_url, pv, last_visit_at, created_at, updated_at, site_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)'
 			)
 				.bind(
 					rawPostSlug,
@@ -155,7 +141,8 @@ export const likePage = async (
 					0,
 					now,
 					now,
-					now
+					now,
+					siteId
 				)
 				.run();
 		} else if (rawPostTitle || rawPostUrl) {
@@ -172,9 +159,9 @@ export const likePage = async (
 		}
 
 		const totalRow = await c.env.CWD_DB.prepare(
-			'SELECT COUNT(*) AS count FROM Likes WHERE page_slug = ?'
+			'SELECT COUNT(*) AS count FROM Likes WHERE page_slug = ? AND site_id = ?'
 		)
-			.bind(rawPostSlug)
+			.bind(rawPostSlug, siteId)
 			.first<{ count: number }>();
 
 		const totalLikes = totalRow?.count || 0;
@@ -193,4 +180,3 @@ export const likePage = async (
 		);
 	}
 };
-

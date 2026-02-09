@@ -23,6 +23,7 @@ export type CommentItem = {
 	likes?: number;
 	ua?: string | null;
 	isAdmin?: boolean;
+	siteId?: string;
 };
 
 export type CommentListResponse = {
@@ -115,8 +116,8 @@ export type VisitPagesResponse = {
 	itemsByLatest?: VisitPageItem[];
 };
 
-export type DomainListResponse = {
-	domains: string[];
+export type SiteListResponse = {
+	sites: string[];
 };
 
 export type LikeStatsItem = {
@@ -153,11 +154,11 @@ export function logoutAdmin(): void {
 	localStorage.removeItem('cwd_admin_token');
 }
 
-export function fetchComments(page: number, domain?: string): Promise<CommentListResponse> {
+export function fetchComments(page: number, siteId?: string): Promise<CommentListResponse> {
 	const searchParams = new URLSearchParams();
 	searchParams.set('page', String(page));
-	if (domain) {
-		searchParams.set('domain', domain);
+	if (siteId && siteId !== 'default') {
+		searchParams.set('siteId', siteId);
 	}
 	return get<CommentListResponse>(`/admin/comments/list?${searchParams.toString()}`);
 }
@@ -262,8 +263,13 @@ export function blockEmail(email: string): Promise<{ message: string }> {
 	return post<{ message: string }>('/admin/comments/block-email', { email });
 }
 
-export function exportComments(): Promise<any[]> {
-	return get<any[]>('/admin/comments/export');
+export function exportComments(siteId?: string): Promise<any[]> {
+	const searchParams = new URLSearchParams();
+	if (siteId && siteId !== 'default') {
+		searchParams.set('siteId', siteId);
+	}
+	const query = searchParams.toString();
+	return get<any[]>(query ? `/admin/comments/export?${query}` : '/admin/comments/export');
 }
 
 export function importComments(data: any[]): Promise<{ message: string }> {
@@ -278,8 +284,13 @@ export function importConfig(data: any[]): Promise<{ message: string }> {
 	return post<{ message: string }>('/admin/import/config', data);
 }
 
-export function exportStats(): Promise<any> {
-	return get<any>('/admin/export/stats');
+export function exportStats(siteId?: string): Promise<any> {
+	const searchParams = new URLSearchParams();
+	if (siteId && siteId !== 'default') {
+		searchParams.set('siteId', siteId);
+	}
+	const query = searchParams.toString();
+	return get<any>(query ? `/admin/export/stats?${query}` : '/admin/export/stats');
 }
 
 export function importStats(data: any): Promise<{ message: string }> {
@@ -294,30 +305,30 @@ export function importBackup(data: any): Promise<{ message: string }> {
 	return post<{ message: string }>('/admin/import/backup', data);
 }
 
-export function fetchCommentStats(domain?: string): Promise<CommentStatsResponse> {
+export function fetchCommentStats(siteId?: string): Promise<CommentStatsResponse> {
 	const searchParams = new URLSearchParams();
-	if (domain) {
-		searchParams.set('domain', domain);
+	if (siteId && siteId !== 'default') {
+		searchParams.set('siteId', siteId);
 	}
 	const query = searchParams.toString();
 	const url = query ? `/admin/stats/comments?${query}` : '/admin/stats/comments';
 	return get<CommentStatsResponse>(url);
 }
 
-export function fetchVisitOverview(domain?: string): Promise<VisitOverviewResponse> {
+export function fetchVisitOverview(siteId?: string): Promise<VisitOverviewResponse> {
 	const searchParams = new URLSearchParams();
-	if (domain) {
-		searchParams.set('domain', domain);
+	if (siteId && siteId !== 'default') {
+		searchParams.set('siteId', siteId);
 	}
 	const query = searchParams.toString();
 	const url = query ? `/admin/analytics/overview?${query}` : '/admin/analytics/overview';
 	return get<VisitOverviewResponse>(url);
 }
 
-export function fetchVisitPages(domain?: string, order?: 'pv' | 'latest'): Promise<VisitPagesResponse> {
+export function fetchVisitPages(siteId?: string, order?: 'pv' | 'latest'): Promise<VisitPagesResponse> {
 	const searchParams = new URLSearchParams();
-	if (domain) {
-		searchParams.set('domain', domain);
+	if (siteId && siteId !== 'default') {
+		searchParams.set('siteId', siteId);
 	}
 	if (order) {
 		searchParams.set('order', order);
@@ -327,8 +338,8 @@ export function fetchVisitPages(domain?: string, order?: 'pv' | 'latest'): Promi
 	return get<VisitPagesResponse>(url);
 }
 
-export function fetchDomainList(): Promise<DomainListResponse> {
-	return get<DomainListResponse>('/admin/stats/domains');
+export function fetchSiteList(): Promise<SiteListResponse> {
+	return get<SiteListResponse>('/admin/stats/sites');
 }
 
 export function fetchLikeStats(): Promise<LikeStatsResponse> {

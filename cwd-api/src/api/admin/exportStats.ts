@@ -1,26 +1,24 @@
 import { Context } from 'hono';
 import { Bindings } from '../../bindings';
 
-async function ensureStatsTables(env: Bindings) {
-	await env.CWD_DB.prepare(
-		'CREATE TABLE IF NOT EXISTS page_stats (id INTEGER PRIMARY KEY AUTOINCREMENT, post_slug TEXT UNIQUE NOT NULL, post_title TEXT, post_url TEXT, pv INTEGER NOT NULL DEFAULT 0, last_visit_at INTEGER, created_at INTEGER NOT NULL, updated_at INTEGER NOT NULL)'
-	).run();
+export const getStatsData = async (env: Bindings, siteId?: string) => {
+	// Tables are ensured by dbMigration on startup
 
-	await env.CWD_DB.prepare(
-		'CREATE TABLE IF NOT EXISTS page_visit_daily (id INTEGER PRIMARY KEY AUTOINCREMENT, date TEXT NOT NULL, domain TEXT, count INTEGER NOT NULL DEFAULT 0, created_at INTEGER NOT NULL, updated_at INTEGER NOT NULL)'
-	).run();
+	let statsQuery = 'SELECT * FROM page_stats';
+	let dailyQuery = 'SELECT * FROM page_visit_daily';
+	let likesQuery = 'SELECT * FROM Likes';
+	const params: any[] = [];
 
-	await env.CWD_DB.prepare(
-		'CREATE TABLE IF NOT EXISTS Likes (id INTEGER PRIMARY KEY AUTOINCREMENT, page_slug TEXT NOT NULL, user_id TEXT NOT NULL, created_at INTEGER NOT NULL, UNIQUE(page_slug, user_id))'
-	).run();
-}
+	if (siteId) {
+		statsQuery += ' WHERE site_id = ?';
+		dailyQuery += ' WHERE site_id = ?';
+		likesQuery += ' WHERE site_id = ?';
+		params.push(siteId);
+	}
 
-export const getStatsData = async (env: Bindings) => {
-	await ensureStatsTables(env);
-
-	const { results: pageStats } = await env.CWD_DB.prepare('SELECT * FROM page_stats').all();
-	const { results: dailyVisits } = await env.CWD_DB.prepare('SELECT * FROM page_visit_daily').all();
-	const { results: likes } = await env.CWD_DB.prepare('SELECT * FROM Likes').all();
+	const { results: pageStats } = await env.CWD_DB.prepare(statsQuery).bind(...params).all();
+	const { results: dailyVisits } = await env.CWD_DB.prepare(dailyQuery).bind(...params).all();
+	const { results: likes } = await env.CWD_DB.prepare(likesQuery).bind(...params).all();
 
 	return {
 		page_stats: pageStats,
@@ -31,7 +29,8 @@ export const getStatsData = async (env: Bindings) => {
 
 export const exportStats = async (c: Context<{ Bindings: Bindings }>) => {
 	try {
-		const data = await getStatsData(c.env);
+		const siteId = c.req.query('siteId');
+		const data = await getStatsData(c.env, siteId);
 		return c.json(data);
 	} catch (e: any) {
 		return c.json({ message: e.message || '导出统计数据失败' }, 500);

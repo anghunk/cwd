@@ -38,10 +38,10 @@
         <button
           type="button"
           class="settings-tab"
-          :class="{ 'settings-tab-active': activeTab === 'domain' }"
-          @click="activeTab = 'domain'"
+          :class="{ 'settings-tab-active': activeTab === 'site' }"
+          @click="activeTab = 'site'"
         >
-          域名管理
+          站点管理
         </button>
         <button
           type="button"
@@ -238,13 +238,13 @@
               </div>
             </div>
           </template>
-          <template v-else-if="activeTab === 'domain'">
+          <template v-else-if="activeTab === 'site'">
             <div class="card">
               <div class="card-header">
-                <div class="card-title">域名选择管理</div>
+                <div class="card-title">站点列表管理</div>
               </div>
               <div class="card-body">
-                <DomainSettings />
+                <SiteManager />
               </div>
             </div>
           </template>
@@ -497,7 +497,7 @@ import {
   sendTelegramTestMessage,
 } from "../../api/admin";
 
-import DomainSettings from "./components/DomainSettings.vue";
+import SiteManager from "./components/SiteManager.vue";
 import TagInput from "../../components/TagInput.vue";
 
 const DEFAULT_REPLY_TEMPLATE = `<div style="background-color:#f4f4f5;padding:24px 0;">
@@ -607,14 +607,14 @@ type TabKey =
   | "display"
   | "emailNotify"
   | "telegramNotify"
-  | "domain";
+  | "site";
 const validTabs: TabKey[] = [
   "comment",
   "feature",
   "display",
   "emailNotify",
   "telegramNotify",
-  "domain",
+  "site",
 ];
 
 const activeTab = ref<TabKey>(
@@ -661,11 +661,12 @@ function loadCardsExpanded() {
         feature: parsed.feature ?? false,
         email: parsed.email ?? false,
         telegram: parsed.telegram ?? false,
+        site: parsed.site ?? false,
       };
     }
   } catch {
   }
-  return { comment: true, display: false, feature: false, email: false, telegram: false };
+  return { comment: true, display: false, feature: false, email: false, telegram: false, site: false };
 }
 
 const cardsExpanded = ref(loadCardsExpanded());
@@ -822,7 +823,7 @@ async function testEmail() {
     message.value = "请先在上方“评论显示配置”中设置管理员邮箱";
     messageType.value = "error";
     return;
-  }
+    }
   if (!smtpUser.value || !smtpPass.value) {
     message.value = "请先填写 SMTP 账号和密码";
     messageType.value = "error";

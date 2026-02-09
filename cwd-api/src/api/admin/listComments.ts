@@ -10,25 +10,14 @@ export const listComments = async (c: Context<{ Bindings: Bindings }>) => {
 	const limit = 10;
 	const offset = (page - 1) * limit;
 
-	const rawDomain = c.req.query('domain') || '';
-	const domain = rawDomain.trim();
-	const rawSiteId = c.req.query('site_id') || '';
-	const siteId = rawSiteId.trim();
+	const rawSiteId = c.req.query('siteId'); // Changed from site_id to siteId to be consistent
+	const siteId = rawSiteId && rawSiteId !== 'default' ? rawSiteId : null;
 
 	let whereSql = '';
 	const params: (string | number)[] = [];
-	if (domain) {
-		const pattern = `%://${domain}/%`;
-		whereSql = 'WHERE post_slug LIKE ? OR post_url LIKE ?';
-		params.push(pattern, pattern);
-	}
 
 	if (siteId) {
-		if (whereSql) {
-			whereSql += ' AND site_id = ?';
-		} else {
-			whereSql = 'WHERE site_id = ?';
-		}
+		whereSql = 'WHERE site_id = ?';
 		params.push(siteId);
 	}
 

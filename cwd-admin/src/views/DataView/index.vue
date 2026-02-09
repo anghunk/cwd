@@ -121,6 +121,7 @@ import {
   exportStats, importStats,
   exportBackup, importBackup
 } from "../../api/admin";
+import { useSite } from "../../composables/useSite";
 
 const exporting = ref(false);
 const importing = ref(false);
@@ -130,6 +131,7 @@ const toastMessage = ref("");
 const toastType = ref<"success" | "error">("success");
 const toastVisible = ref(false);
 const importLogs = ref<string[]>([]);
+const { currentSiteId } = useSite();
 
 // 当前导入模式: comments | config | stats | backup
 const currentImportMode = ref<string>('comments');
@@ -178,9 +180,9 @@ async function executeExport(apiFunc: () => Promise<any>, fileNamePrefix: string
 }
 
 // 导出处理
-const handleExportComments = () => executeExport(exportComments, 'comments-export');
+const handleExportComments = () => executeExport(() => exportComments(currentSiteId.value), 'comments-export');
 const handleExportConfig = () => executeExport(exportConfig, 'cwd-config');
-const handleExportStats = () => executeExport(exportStats, 'cwd-stats');
+const handleExportStats = () => executeExport(() => exportStats(currentSiteId.value), 'cwd-stats');
 const handleExportBackup = () => executeExport(exportBackup, 'cwd-full-backup');
 
 // 触发文件选择

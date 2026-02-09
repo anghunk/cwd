@@ -21,46 +21,25 @@ type VisitPageItem = {
 	postTitle: string | null;
 	postUrl: string | null;
 	pv: number;
-	lastVisitAt: string | null;
+	lastVisitAt: number | null;
 };
-
-function extractDomain(source: string | null | undefined): string | null {
-	if (!source) {
-		return null;
-	}
-	const value = source.trim();
-	if (!value) {
-		return null;
-	}
-	if (!/^https?:\/\//i.test(value)) {
-		return null;
-	}
-	try {
-		const url = new URL(value);
-		return url.hostname.toLowerCase();
-	} catch {
-		return null;
-	}
-}
 
 export const getVisitOverview = async (
 	c: Context<{ Bindings: Bindings }>
 ) => {
 	try {
-		const rawDomain = c.req.query('domain') || '';
-		const domainFilter = rawDomain.trim().toLowerCase();
+		const rawSiteId = c.req.query('siteId');
+		const siteId = rawSiteId && rawSiteId !== 'default' ? rawSiteId : null;
 
-		await c.env.CWD_DB.prepare(
-			'CREATE TABLE IF NOT EXISTS page_stats (id INTEGER PRIMARY KEY AUTOINCREMENT, post_slug TEXT UNIQUE NOT NULL, post_title TEXT, post_url TEXT, pv INTEGER NOT NULL DEFAULT 0, last_visit_at INTEGER, created_at INTEGER NOT NULL, updated_at INTEGER NOT NULL)'
-		).run();
+		let statsSql = 'SELECT post_slug, post_title, post_url, pv, last_visit_at FROM page_stats';
+		const statsParams: any[] = [];
 
-		await c.env.CWD_DB.prepare(
-			'CREATE TABLE IF NOT EXISTS page_visit_daily (id INTEGER PRIMARY KEY AUTOINCREMENT, date TEXT NOT NULL, domain TEXT, count INTEGER NOT NULL DEFAULT 0, created_at INTEGER NOT NULL, updated_at INTEGER NOT NULL)'
-		).run();
+		if (siteId) {
+			statsSql += ' WHERE site_id = ?';
+			statsParams.push(siteId);
+		}
 
-		const { results } = await c.env.CWD_DB.prepare(
-			'SELECT post_slug, post_title, post_url, pv, last_visit_at FROM page_stats'
-		).all<{
+		const { results } = await c.env.CWD_DB.prepare(statsSql).bind(...statsParams).all<{
 			post_slug: string;
 			post_title: string | null;
 			post_url: string | null;
@@ -72,15 +51,6 @@ export const getVisitOverview = async (
 		let totalPages = 0;
 
 		for (const row of results) {
-			const domain =
-				extractDomain(row.post_url) ||
-				extractDomain(row.post_slug) ||
-				null;
-
-			if (domainFilter && domain !== domainFilter) {
-				continue;
-			}
-
 			totalPv += row.pv || 0;
 			totalPages += 1;
 		}
@@ -108,9 +78,6 @@ export const getVisitOverview = async (
 		const lastMonthStartDate = new Date(Date.UTC(year, month - 1, 1));
 		const lastMonthEndDate = new Date(monthStartDate.getTime() - 24 * 60 * 60 * 1000);
 
-		// For last week, we need the start date of last week.
-		// weekStartDate is the start of current week.
-		// So lastWeekStartDate is weekStartDate - 7 days.
 		const weekStartDate = (() => {
 			const d = new Date(Date.UTC(year, month, day));
 			const weekday = d.getUTCDay();
@@ -121,8 +88,6 @@ export const getVisitOverview = async (
 		const lastWeekStartDate = new Date(weekStartDate.getTime() - 7 * 24 * 60 * 60 * 1000);
 		const lastWeekEndDate = new Date(weekStartDate.getTime() - 24 * 60 * 60 * 1000);
 
-		// We need to fetch enough history for last month.
-		// The earliest date could be either startDate30 or lastMonthStartDate.
 		let earliestDate = startDate30;
 		if (toKey(lastMonthStartDate) < earliestDate) {
 			earliestDate = toKey(lastMonthStartDate);
@@ -132,19 +97,18 @@ export const getVisitOverview = async (
 		}
 
 		let dailySql =
-			'SELECT date, domain, count FROM page_visit_daily WHERE date >= ?';
+			'SELECT date, count FROM page_visit_daily WHERE date >= ?';
 		const params: string[] = [earliestDate];
 
-		if (domainFilter) {
-			dailySql += ' AND domain = ?';
-			params.push(domainFilter);
+		if (siteId) {
+			dailySql += ' AND site_id = ?';
+			params.push(siteId);
 		}
 
 		const { results: dailyRows } = await c.env.CWD_DB.prepare(dailySql)
 			.bind(...params)
 			.all<{
 				date: string;
-				domain: string | null;
 				count: number;
 			}>();
 
@@ -159,6 +123,7 @@ export const getVisitOverview = async (
 			dailyMap.set(key, (dailyMap.get(key) || 0) + value);
 		}
 
+		// Fallback if no daily data but totalPv exists (rare edge case or initial migration)
 		if (dailyMap.size === 0 && totalPv > 0) {
 			const fallbackDate = now.toISOString().slice(0, 10);
 			dailyMap.set(fallbackDate, totalPv);
@@ -166,9 +131,6 @@ export const getVisitOverview = async (
 
 		const todayKey = toKey(now);
 		const yesterdayKey = toKey(new Date(now.getTime() - 24 * 60 * 60 * 1000));
-
-		// weekStartDate is already calculated above
-		const weekStartKey = toKey(weekStartDate);
 
 		let todayPv = dailyMap.get(todayKey) || 0;
 		let yesterdayPv = dailyMap.get(yesterdayKey) || 0;
@@ -260,18 +222,21 @@ export const getVisitOverview = async (
 
 export const getVisitPages = async (c: Context<{ Bindings: Bindings }>) => {
 	try {
-		const rawDomain = c.req.query('domain') || '';
-		const domainFilter = rawDomain.trim().toLowerCase();
+		const rawSiteId = c.req.query('siteId');
+		const siteId = rawSiteId && rawSiteId !== 'default' ? rawSiteId : null;
+		
 		const rawOrder = c.req.query('order') || '';
 		const order = rawOrder.trim().toLowerCase() === 'latest' ? 'latest' : 'pv';
 
-		await c.env.CWD_DB.prepare(
-			'CREATE TABLE IF NOT EXISTS page_stats (id INTEGER PRIMARY KEY AUTOINCREMENT, post_slug TEXT UNIQUE NOT NULL, post_title TEXT, post_url TEXT, pv INTEGER NOT NULL DEFAULT 0, last_visit_at INTEGER, created_at INTEGER NOT NULL, updated_at INTEGER NOT NULL)'
-		).run();
+		let sql = 'SELECT post_slug, post_title, post_url, pv, last_visit_at FROM page_stats';
+		const params: any[] = [];
 
-		const { results } = await c.env.CWD_DB.prepare(
-			'SELECT post_slug, post_title, post_url, pv, last_visit_at FROM page_stats'
-		).all<{
+		if (siteId) {
+			sql += ' WHERE site_id = ?';
+			params.push(siteId);
+		}
+
+		const { results } = await c.env.CWD_DB.prepare(sql).bind(...params).all<{
 			post_slug: string;
 			post_title: string | null;
 			post_url: string | null;
@@ -282,15 +247,6 @@ export const getVisitPages = async (c: Context<{ Bindings: Bindings }>) => {
 		let items: VisitPageItem[] = [];
 
 		for (const row of results) {
-			const domain =
-				extractDomain(row.post_url) ||
-				extractDomain(row.post_slug) ||
-				null;
-
-			if (domainFilter && domain !== domainFilter) {
-				continue;
-			}
-
 			items.push({
 				postSlug: row.post_slug,
 				postTitle: row.post_title,

@@ -1,74 +1,53 @@
 import type { Context } from 'hono';
 import type { Bindings } from '../../bindings';
 
-function extractDomain(source: string | null | undefined): string | null {
-	if (!source) {
-		return null;
-	}
-	const value = source.trim();
-	if (!value) {
-		return null;
-	}
-	if (!/^https?:\/\//i.test(value)) {
-		return null;
-	}
+export const getSites = async (c: Context<{ Bindings: Bindings }>) => {
 	try {
-		const url = new URL(value);
-		return url.hostname.toLowerCase();
-	} catch {
-		return null;
-	}
-}
+		const sites = new Set<string>();
 
-export const getDomains = async (c: Context<{ Bindings: Bindings }>) => {
-	try {
-		const domains = new Set<string>();
-
+		// 1. Get sites from Comment
 		const { results: commentRows } = await c.env.CWD_DB.prepare(
-			'SELECT post_slug, post_url FROM Comment'
-		).all<{
-			post_slug: string;
-			post_url: string | null;
-		}>();
+			'SELECT DISTINCT site_id FROM Comment'
+		).all<{ site_id: string }>();
 
 		for (const row of commentRows) {
-			const domain =
-				extractDomain(row.post_url) || extractDomain(row.post_slug);
-			if (domain) {
-				domains.add(domain);
+			if (row.site_id !== undefined && row.site_id !== null) {
+				sites.add(row.site_id);
 			}
 		}
 
-		await c.env.CWD_DB.prepare(
-			'CREATE TABLE IF NOT EXISTS page_stats (id INTEGER PRIMARY KEY AUTOINCREMENT, post_slug TEXT UNIQUE NOT NULL, post_title TEXT, post_url TEXT, pv INTEGER NOT NULL DEFAULT 0, last_visit_at INTEGER, created_at INTEGER NOT NULL, updated_at INTEGER NOT NULL)'
-		).run();
-
+		// 2. Get sites from page_stats
 		const { results: pageRows } = await c.env.CWD_DB.prepare(
-			'SELECT post_slug, post_url FROM page_stats'
-		).all<{
-			post_slug: string;
-			post_url: string | null;
-		}>();
+			'SELECT DISTINCT site_id FROM page_stats'
+		).all<{ site_id: string }>();
 
 		for (const row of pageRows) {
-			const domain =
-				extractDomain(row.post_url) || extractDomain(row.post_slug);
-			if (domain) {
-				domains.add(domain);
+			if (row.site_id !== undefined && row.site_id !== null) {
+				sites.add(row.site_id);
 			}
 		}
 
-		const list = Array.from(domains);
+        // 3. Get sites from page_visit_daily
+        const { results: dailyRows } = await c.env.CWD_DB.prepare(
+            'SELECT DISTINCT site_id FROM page_visit_daily'
+        ).all<{ site_id: string }>();
+
+        for (const row of dailyRows) {
+            if (row.site_id !== undefined && row.site_id !== null) {
+                sites.add(row.site_id);
+            }
+        }
+
+		const list = Array.from(sites);
 		list.sort();
 
 		return c.json({
-			domains: list
+			sites: list
 		});
 	} catch (e: any) {
 		return c.json(
-			{ message: e.message || '获取域名列表失败' },
+			{ message: e.message || '获取站点列表失败' },
 			500
 		);
 	}
 };
-

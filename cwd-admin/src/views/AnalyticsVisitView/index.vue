@@ -224,6 +224,7 @@ import {
   fetchLikeStats,
   type LikeStatsItem,
 } from "../../api/admin";
+import { useSite } from "../../composables/useSite";
 
 const loading = ref(false);
 const listLoading = ref(false);
@@ -239,6 +240,8 @@ const overview = ref<VisitOverviewResponse>({
   lastMonthPv: 0,
   last30Days: [],
 });
+
+const { currentSiteId } = useSite();
 
 function calculateChange(current: number, previous: number) {
   if (previous === 0) {
@@ -271,8 +274,6 @@ const visitTab = ref<"pv" | "latest">("pv");
 const visitTabStorageKey = "cwd-analytics-visit-tab";
 const chartRangeStorageKey = "cwd-analytics-visit-chart-range";
 
-const injectedDomainFilter = inject<Ref<string> | null>("domainFilter", null);
-const domainFilter = injectedDomainFilter ?? ref("");
 const last30Days = ref<{ date: string; total: number }[]>([]);
 const likeStatsItems = ref<LikeStatsItem[]>([]);
 const chartRange = ref<"7" | "30">("7");
@@ -424,7 +425,7 @@ async function loadData() {
   listLoading.value = true;
   error.value = "";
   try {
-    const domain = domainFilter.value || undefined;
+    const domain = currentSiteId.value;
     const order = getVisitOrderParam();
     const [overviewRes, pagesRes, likeStatsRes] = await Promise.all([
       fetchVisitOverview(domain),
@@ -589,7 +590,7 @@ onBeforeUnmount(() => {
   }
 });
 
-watch(domainFilter, () => {
+watch(currentSiteId, () => {
   loadData();
 });
 </script>

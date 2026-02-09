@@ -5,6 +5,7 @@ type TrackVisitBody = {
 	postSlug?: string;
 	postTitle?: string;
 	postUrl?: string;
+	siteId?: string;
 };
 
 function extractDomain(source: string | null | undefined): string | null {
@@ -33,18 +34,11 @@ export const trackVisit = async (c: Context<{ Bindings: Bindings }>) => {
 		const rawPostSlug = typeof body.postSlug === 'string' ? body.postSlug.trim() : '';
 		const rawPostTitle = typeof body.postTitle === 'string' ? body.postTitle.trim() : '';
 		const rawPostUrl = typeof body.postUrl === 'string' ? body.postUrl.trim() : '';
+		const rawSiteId = typeof body.siteId === 'string' ? body.siteId.trim() : '';
 
 		if (!rawPostSlug) {
 			return c.json({ message: 'postSlug is required' }, 400);
 		}
-
-		await c.env.CWD_DB.prepare(
-			'CREATE TABLE IF NOT EXISTS page_stats (id INTEGER PRIMARY KEY AUTOINCREMENT, post_slug TEXT UNIQUE NOT NULL, post_title TEXT, post_url TEXT, pv INTEGER NOT NULL DEFAULT 0, last_visit_at INTEGER, created_at INTEGER NOT NULL, updated_at INTEGER NOT NULL)'
-		).run();
-
-		await c.env.CWD_DB.prepare(
-			'CREATE TABLE IF NOT EXISTS page_visit_daily (id INTEGER PRIMARY KEY AUTOINCREMENT, date TEXT NOT NULL, domain TEXT, count INTEGER NOT NULL DEFAULT 0, created_at INTEGER NOT NULL, updated_at INTEGER NOT NULL)'
-		).run();
 
 		const nowDate = new Date();
 		const nowTs = nowDate.getTime();
@@ -56,68 +50,51 @@ export const trackVisit = async (c: Context<{ Bindings: Bindings }>) => {
 			extractDomain(rawPostSlug) ||
 			null;
 
-		const existing = await c.env.CWD_DB.prepare(
-			'SELECT id, pv FROM page_stats WHERE post_slug = ?'
+		// Upsert page_stats using ON CONFLICT (site_id, post_slug)
+		await c.env.CWD_DB.prepare(
+			`INSERT INTO page_stats (site_id, post_slug, post_title, post_url, pv, last_visit_at, created_at, updated_at) 
+			 VALUES (?, ?, ?, ?, 1, ?, ?, ?)
+			 ON CONFLICT(site_id, post_slug) DO UPDATE SET 
+			 pv = pv + 1, 
+			 last_visit_at = ?, 
+			 updated_at = ?, 
+			 post_title = excluded.post_title, 
+			 post_url = excluded.post_url`
 		)
-			.bind(rawPostSlug)
-			.first<{ id: number; pv: number }>();
-
-		if (!existing) {
-			await c.env.CWD_DB.prepare(
-				'INSERT INTO page_stats (post_slug, post_title, post_url, pv, last_visit_at, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?)'
+			.bind(
+				rawSiteId,
+				rawPostSlug,
+				rawPostTitle || null,
+				rawPostUrl || null,
+				nowTs,
+				nowTs,
+				nowTs,
+				nowTs,
+				nowTs
 			)
-				.bind(
-					rawPostSlug,
-					rawPostTitle || null,
-					rawPostUrl || null,
-					1,
-					nowTs,
-					nowTs,
-					nowTs
-				)
-				.run();
-		} else {
-			const newPv = (existing.pv || 0) + 1;
-			await c.env.CWD_DB.prepare(
-				'UPDATE page_stats SET post_title = ?, post_url = ?, pv = ?, last_visit_at = ?, updated_at = ? WHERE id = ?'
-			)
-				.bind(
-					rawPostTitle || null,
-					rawPostUrl || null,
-					newPv,
-					nowTs,
-					nowTs,
-					existing.id
-				)
-				.run();
-		}
+			.run();
 
-		let dailyRow:
-			| {
-					id: number;
-					count: number;
-			  }
-			| null = null;
+		// Update page_visit_daily
+		// We try to find a row for (date, site_id, domain)
+		let dailySql = 'SELECT id, count FROM page_visit_daily WHERE date = ? AND site_id = ?';
+		const params: any[] = [today, rawSiteId];
 
 		if (domain) {
-			dailyRow = await c.env.CWD_DB.prepare(
-				'SELECT id, count FROM page_visit_daily WHERE date = ? AND domain = ?'
-			)
-				.bind(today, domain)
-				.first<{ id: number; count: number }>();
+			dailySql += ' AND domain = ?';
+			params.push(domain);
 		} else {
-			dailyRow = await c.env.CWD_DB.prepare(
-				'SELECT id, count FROM page_visit_daily WHERE date = ? AND domain IS NULL'
-			)
-				.bind(today)
-				.first<{ id: number; count: number }>();
+			dailySql += ' AND domain IS NULL';
 		}
+
+		const dailyRow = await c.env.CWD_DB.prepare(dailySql)
+			.bind(...params)
+			.first<{ id: number; count: number }>();
 
 		if (!dailyRow) {
 			await c.env.CWD_DB.prepare(
-				'INSERT INTO page_visit_daily (date, domain, count, created_at, updated_at) VALUES (?, ?, ?, ?, ?)'
+				'INSERT INTO page_visit_daily (date, site_id, domain, count, created_at, updated_at) VALUES (?, ?, ?, 1, ?, ?)'
 			)
-				.bind(today, domain, 1, nowTs, nowTs)
+				.bind(today, rawSiteId, domain, nowTs, nowTs)
 				.run();
 		} else {
 			const newCount = (dailyRow.count || 0) + 1;
@@ -133,4 +110,3 @@ export const trackVisit = async (c: Context<{ Bindings: Bindings }>) => {
 		return c.json({ message: e.message || '记录访问数据失败' }, 500);
 	}
 };
-

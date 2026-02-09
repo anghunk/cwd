@@ -12,10 +12,10 @@
       <div class="layout-title">{{ layoutTitle }}</div>
       <div class="layout-actions-wrapper">
         <div class="layout-domain-filter layout-domain-filter-header">
-          <select v-model="domainFilter" class="layout-domain-select">
-            <option value="">全部域名</option>
-            <option v-for="item in domainOptions" :key="item" :value="item">
-              {{ item }}
+          <select v-model="currentSiteId" class="layout-domain-select">
+            <option value="default">所有站点</option>
+            <option v-for="item in siteOptions" :key="item.value" :value="item.value">
+              {{ item.label }}
             </option>
           </select>
         </div>
@@ -70,10 +70,10 @@
         :class="{ 'layout-sider-mobile-open': isMobileSiderOpen }"
       >
         <div class="layout-sider-domain-filter">
-          <select v-model="domainFilter" class="layout-domain-select">
-            <option value="">全部域名</option>
-            <option v-for="item in domainOptions" :key="item" :value="item">
-              {{ item }}
+          <select v-model="currentSiteId" class="layout-domain-select">
+            <option value="default">所有站点</option>
+            <option v-for="item in siteOptions" :key="item.value" :value="item.value">
+              {{ item.label }}
             </option>
           </select>
         </div>
@@ -171,19 +171,20 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, watch, provide, computed } from "vue";
+import { ref, onMounted, provide, computed } from "vue";
 import { useRouter, useRoute } from "vue-router";
-import { logoutAdmin, fetchDomainList, fetchAdminDisplaySettings, fetchFeatureSettings } from "../../api/admin";
+import { logoutAdmin, fetchSiteList, fetchAdminDisplaySettings } from "../../api/admin";
 import { useTheme } from "../../composables/useTheme";
+import { useSite } from "../../composables/useSite";
 import packageJson from "../../../package.json";
 
-const DOMAIN_STORAGE_KEY = "cwd_admin_domain_filter";
 const API_BASE_URL_KEY = "cwd_admin_api_base_url";
 const SITE_TITLE_KEY = "cwd_admin_site_title";
 
 const router = useRouter();
 const route = useRoute();
 const { theme, setTheme } = useTheme();
+const { currentSiteId } = useSite();
 
 const isMobileSiderOpen = ref(false);
 const isActionsOpen = ref(false);
@@ -206,34 +207,20 @@ function cycleTheme() {
   else setTheme("system");
 }
 
-const storedDomain =
-  typeof window !== "undefined"
-    ? window.localStorage.getItem(DOMAIN_STORAGE_KEY) || ""
-    : "";
-const domainFilter = ref(storedDomain);
-const domainOptions = ref<string[]>([]);
+type SiteOption = { label: string; value: string };
+const siteOptions = ref<SiteOption[]>([]);
 
-async function loadDomains() {
+async function loadSites() {
   try {
-    const [domainRes, settingsRes] = await Promise.all([
-      fetchDomainList(),
-      fetchFeatureSettings().catch(() => ({ visibleDomains: undefined }))
-    ]);
+    const res = await fetchSiteList();
+    const sites = Array.isArray(res.sites) ? res.sites : [];
     
-    let domains = Array.isArray(domainRes.domains) ? domainRes.domains : [];
-    
-    // 如果配置了显示域名，则仅显示配置的域名
-    if (settingsRes.visibleDomains && Array.isArray(settingsRes.visibleDomains) && settingsRes.visibleDomains.length > 0) {
-        domains = settingsRes.visibleDomains;
-    }
-
-    const set = new Set(domains);
-    if (domainFilter.value && !set.has(domainFilter.value)) {
-      set.add(domainFilter.value);
-    }
-    domainOptions.value = Array.from(set);
+    siteOptions.value = sites.map(s => ({
+        label: s === '' ? '默认站点 (Default)' : s,
+        value: s
+    }));
   } catch {
-    domainOptions.value = [];
+    siteOptions.value = [];
   }
 }
 
@@ -287,19 +274,12 @@ async function loadDisplaySettings() {
   }
 }
 
-provide("domainFilter", domainFilter);
 provide("updateSiteTitle", updateTitle);
 
 onMounted(() => {
-  loadDomains();
+  loadSites();
   loadVersion();
   loadDisplaySettings();
-});
-
-watch(domainFilter, (value) => {
-  if (typeof window !== "undefined") {
-    window.localStorage.setItem(DOMAIN_STORAGE_KEY, value || "");
-  }
 });
 
 function isRouteActive(name: string) {

@@ -115,6 +115,7 @@ import { onMounted, onBeforeUnmount, ref, nextTick, watch, inject } from "vue";
 import type { Ref } from "vue";
 import * as echarts from "echarts";
 import { fetchCommentStats } from "../../api/admin";
+import { useSite } from "../../composables/useSite";
 
 type DomainStat = {
   domain: string;
@@ -137,8 +138,7 @@ const last7Days = ref<{ date: string; total: number }[]>([]);
 const chartRange = ref<"7" | "30">("7");
 const chartRangeStorageKey = "cwd-stats-chart-range";
 
-const injectedDomainFilter = inject<Ref<string> | null>("domainFilter", null);
-const domainFilter = injectedDomainFilter ?? ref("");
+const { currentSiteId } = useSite();
 
 const toastMessage = ref("");
 const toastType = ref<"success" | "error">("success");
@@ -185,7 +185,7 @@ async function loadStats() {
   statsLoading.value = true;
   statsError.value = "";
   try {
-    const res = await fetchCommentStats(domainFilter.value || undefined);
+    const res = await fetchCommentStats(currentSiteId.value);
     statsSummary.value = {
       total: res.summary.total,
       approved: res.summary.approved,
@@ -330,7 +330,7 @@ onMounted(() => {
   window.addEventListener("resize", handleResize);
 });
 
-watch(domainFilter, () => {
+watch(currentSiteId, () => {
   loadStats();
 });
 

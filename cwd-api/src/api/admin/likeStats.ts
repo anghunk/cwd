@@ -10,17 +10,24 @@ type LikeStatsItem = {
 
 export const getLikeStats = async (c: Context<{ Bindings: Bindings }>) => {
 	try {
-		await c.env.CWD_DB.prepare(
-			'CREATE TABLE IF NOT EXISTS Likes (id INTEGER PRIMARY KEY AUTOINCREMENT, page_slug TEXT NOT NULL, user_id TEXT NOT NULL, created_at INTEGER NOT NULL, UNIQUE(page_slug, user_id))'
-		).run();
+		const siteId = c.req.query('siteId');
 
-		await c.env.CWD_DB.prepare(
-			'CREATE TABLE IF NOT EXISTS page_stats (id INTEGER PRIMARY KEY AUTOINCREMENT, post_slug TEXT UNIQUE NOT NULL, post_title TEXT, post_url TEXT, pv INTEGER NOT NULL DEFAULT 0, last_visit_at INTEGER, created_at INTEGER NOT NULL, updated_at INTEGER NOT NULL)'
-		).run();
+		let query = `
+			SELECT l.page_slug, COALESCE(p.post_title, NULL) AS page_title, COALESCE(p.post_url, NULL) AS page_url, COUNT(*) AS likes 
+			FROM Likes l 
+			LEFT JOIN page_stats p ON p.post_slug = l.page_slug AND p.site_id = l.site_id
+		`;
+		
+		const params: any[] = [];
 
-		const { results } = await c.env.CWD_DB.prepare(
-			'SELECT l.page_slug, COALESCE(p.post_title, NULL) AS page_title, COALESCE(p.post_url, NULL) AS page_url, COUNT(*) AS likes FROM Likes l LEFT JOIN page_stats p ON p.post_slug = l.page_slug GROUP BY l.page_slug, p.post_title, p.post_url ORDER BY likes DESC LIMIT 50'
-		).all<LikeStatsItem>();
+		if (siteId) {
+			query += ' WHERE l.site_id = ?';
+			params.push(siteId);
+		}
+
+		query += ' GROUP BY l.page_slug, l.site_id, p.post_title, p.post_url ORDER BY likes DESC LIMIT 50';
+
+		const { results } = await c.env.CWD_DB.prepare(query).bind(...params).all<LikeStatsItem>();
 
 		const items = results.map((row) => ({
 			pageSlug: row.page_slug,

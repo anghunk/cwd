@@ -26,7 +26,7 @@ import { getAdminEmail } from './api/admin/getAdminEmail';
 import { setAdminEmail } from './api/admin/setAdminEmail';
 import { testEmail } from './api/admin/testEmail';
 import { getStats } from './api/admin/getStats';
-import { getDomains } from './api/admin/getDomains';
+import { getSites } from './api/admin/getDomains';
 import { trackVisit } from './api/public/trackVisit';
 import { getVisitOverview, getVisitPages } from './api/admin/visitAnalytics';
 import { getLikeStatus, likePage } from './api/public/like';
@@ -36,9 +36,12 @@ import { getLikeStats } from './api/admin/likeStats';
 import { getFeatureSettings, updateFeatureSettings } from './api/admin/featureSettings';
 import { getTelegramSettings, updateTelegramSettings, setupTelegramWebhook, testTelegramMessage } from './api/admin/telegramSettings';
 import { telegramWebhook } from './api/telegram/webhook';
+import { ensureSchema } from './utils/dbMigration';
 
 const app = new Hono<{ Bindings: Bindings }>();
 const VERSION = `${packageJson.version}`;
+
+let MIGRATION_CHECKED = false;
 
 const COMMENT_ADMIN_EMAIL_KEY = 'comment_admin_email';
 const COMMENT_ADMIN_BADGE_KEY = 'comment_admin_badge';
@@ -226,6 +229,10 @@ async function saveCommentSettings(
 }
 
 app.use('*', async (c, next) => {
+	if (!MIGRATION_CHECKED) {
+		await ensureSchema(c.env);
+		MIGRATION_CHECKED = true;
+	}
 	console.log('Request:start', {
 		method: c.req.method,
 		path: c.req.path,
@@ -290,7 +297,7 @@ app.post('/admin/import/backup', importBackup);
 app.put('/admin/comments/status', updateStatus);
 app.put('/admin/comments/update', updateComment);
 app.get('/admin/stats/comments', getStats);
-app.get('/admin/stats/domains', getDomains);
+app.get('/admin/stats/sites', getSites);
 app.get('/admin/analytics/overview', getVisitOverview);
 app.get('/admin/analytics/pages', getVisitPages);
 app.get('/admin/likes/list', listLikes);

@@ -240,9 +240,9 @@ import {
   updateComment,
   blockIp,
   blockEmail,
-  fetchDomainList,
 } from "../../api/admin";
 import ModalEdit from "./components/ModalEdit.vue";
+import { useSite } from "../../composables/useSite";
 
 const route = useRoute();
 const router = useRouter();
@@ -252,8 +252,7 @@ const pagination = ref<{ page: number; total: number }>({ page: 1, total: 1 });
 const loading = ref(false);
 const error = ref("");
 const statusFilter = ref("");
-const injectedDomainFilter = inject<Ref<string> | null>("domainFilter", null);
-const domainFilter = injectedDomainFilter ?? ref("");
+const { currentSiteId } = useSite();
 const jumpPageInput = ref("");
 const editVisible = ref(false);
 const editSaving = ref(false);
@@ -325,7 +324,7 @@ async function loadComments(page?: number) {
   loading.value = true;
   error.value = "";
   try {
-    const res = await fetchComments(targetPage, domainFilter.value || undefined);
+    const res = await fetchComments(targetPage, currentSiteId.value);
     comments.value = res.data;
     pagination.value = { page: res.pagination.page, total: res.pagination.total };
   } catch (e: any) {
@@ -342,11 +341,9 @@ function updateRoutePage(page: number) {
   } else {
     query.p = String(page);
   }
-  if (domainFilter.value) {
-    query.domain = domainFilter.value;
-  } else {
-    delete query.domain;
-  }
+  // Removed domain from query as it's now global state
+  delete query.domain;
+  
   router.push({ query });
 }
 
@@ -530,15 +527,11 @@ onMounted(() => {
       initialPage = Math.floor(value);
     }
   }
-  const d = route.query.domain;
-  if (typeof d === "string" && d.trim()) {
-    domainFilter.value = d.trim();
-  }
 
   loadComments(initialPage);
 });
 
-watch(domainFilter, () => {
+watch(currentSiteId, () => {
   updateRoutePage(1);
   loadComments(1);
 });

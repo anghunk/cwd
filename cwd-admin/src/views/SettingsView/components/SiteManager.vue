@@ -1,14 +1,14 @@
 <template>
   <div class="domain-settings">
     <div class="domain-settings-desc">
-      配置后台可见的域名。左侧为后台下拉框中显示的域名，右侧为数据库中发现的所有域名。支持拖拽或点击按钮移动。
+      配置后台可见的站点。左侧为后台下拉框中显示的站点，右侧为数据库中发现的所有站点。支持拖拽或点击按钮移动。
     </div>
 
     <div class="domain-transfer">
       <!-- Visible Domains (Left) -->
       <div class="transfer-panel">
         <div class="transfer-header">
-          后台显示域名 ({{ visibleList.length }})
+          后台显示站点 ({{ visibleList.length }})
         </div>
         <div 
           class="transfer-body"
@@ -19,7 +19,7 @@
             v-if="visibleList.length === 0" 
             class="transfer-empty"
           >
-            无域名 (默认显示全部)
+            无站点 (默认显示全部)
           </div>
           <div
             v-for="domain in visibleList"
@@ -50,7 +50,7 @@
       <!-- Hidden/All Domains (Right) -->
       <div class="transfer-panel">
         <div class="transfer-header">
-          其他域名 ({{ hiddenList.length }})
+          其他站点 ({{ hiddenList.length }})
         </div>
         <div 
           class="transfer-body"
@@ -61,7 +61,7 @@
             v-if="hiddenList.length === 0" 
             class="transfer-empty"
           >
-            无更多域名
+            无更多站点
           </div>
           <div
             v-for="domain in hiddenList"
