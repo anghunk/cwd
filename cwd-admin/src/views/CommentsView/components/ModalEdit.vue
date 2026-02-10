@@ -115,6 +115,7 @@ function handleSubmit() {
 }
 
 .modal {
+  margin: 0;
   background-color: var(--bg-card);
   border-radius: 0;
   box-shadow: var(--shadow-card);
