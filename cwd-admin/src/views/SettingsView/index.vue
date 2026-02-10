@@ -1,6 +1,6 @@
 <template>
   <div class="page">
-    <h2 class="page-title">{{ t('settings.title') }}</h2>
+    <h2 class="page-title">{{ t("settings.title") }}</h2>
     <div
       v-if="toastVisible"
       class="toast"
@@ -8,7 +8,7 @@
     >
       {{ toastMessage }}
     </div>
-    <div v-if="loading" class="page-hint">{{ t('common.loading') }}</div>
+    <div v-if="loading" class="page-hint">{{ t("common.loading") }}</div>
     <div v-else>
       <div class="settings-tabs">
         <button
@@ -17,7 +17,7 @@
           :class="{ 'settings-tab-active': activeTab === 'comment' }"
           @click="activeTab = 'comment'"
         >
-          {{ t('settings.tabs.comment') }}
+          {{ t("settings.tabs.comment") }}
         </button>
         <button
           type="button"
@@ -25,7 +25,7 @@
           :class="{ 'settings-tab-active': activeTab === 'feature' }"
           @click="activeTab = 'feature'"
         >
-          {{ t('settings.tabs.feature') }}
+          {{ t("settings.tabs.feature") }}
         </button>
         <button
           type="button"
@@ -33,7 +33,7 @@
           :class="{ 'settings-tab-active': activeTab === 'emailNotify' }"
           @click="activeTab = 'emailNotify'"
         >
-          {{ t('settings.tabs.emailNotify') }}
+          {{ t("settings.tabs.emailNotify") }}
         </button>
         <button
           type="button"
@@ -41,7 +41,7 @@
           :class="{ 'settings-tab-active': activeTab === 'telegramNotify' }"
           @click="activeTab = 'telegramNotify'"
         >
-          {{ t('settings.tabs.telegramNotify') }}
+          {{ t("settings.tabs.telegramNotify") }}
         </button>
         <button
           type="button"
@@ -49,7 +49,7 @@
           :class="{ 'settings-tab-active': activeTab === 'display' }"
           @click="activeTab = 'display'"
         >
-          {{ t('settings.tabs.display') }}
+          {{ t("settings.tabs.display") }}
         </button>
       </div>
       <transition name="tab-fade" mode="out-in">
@@ -57,33 +57,37 @@
           <template v-if="activeTab === 'comment'">
             <div class="card">
               <div class="card-header">
-                <div class="card-title">{{ t('settings.comment.title') }}</div>
+                <div class="card-title">{{ t("settings.comment.title") }}</div>
               </div>
               <div class="card-body">
                 <div class="form-item">
-                  <label class="form-label">{{ t('settings.comment.adminEmail') }}</label>
+                  <label class="form-label">{{ t("settings.comment.adminEmail") }}</label>
                   <input v-model="commentAdminEmail" class="form-input" type="email" />
                 </div>
                 <div class="form-item">
-                  <label class="form-label">{{ t('settings.comment.adminBadge') }}</label>
+                  <label class="form-label">{{ t("settings.comment.adminBadge") }}</label>
                   <input v-model="commentAdminBadge" class="form-input" type="text" />
                 </div>
                 <div class="form-item">
-                  <label class="form-label">{{ t('settings.comment.adminEnabled') }}</label>
+                  <label class="form-label">{{
+                    t("settings.comment.adminEnabled")
+                  }}</label>
                   <label class="switch">
                     <input v-model="commentAdminEnabled" type="checkbox" />
                     <span class="slider" />
                   </label>
                 </div>
                 <div class="form-item">
-                  <label class="form-label"
-                    >{{ t('settings.comment.avatarPrefix') }}</label
-                  >
+                  <label class="form-label">{{
+                    t("settings.comment.avatarPrefix")
+                  }}</label>
                   <input v-model="avatarPrefix" class="form-input" type="text" />
                 </div>
-                <h3 class="card-title">{{ t('settings.comment.securityTitle') }}</h3>
+                <h3 class="card-title">{{ t("settings.comment.securityTitle") }}</h3>
                 <div class="form-item">
-                  <label class="form-label">{{ t('settings.comment.requireReview') }}</label>
+                  <label class="form-label">{{
+                    t("settings.comment.requireReview")
+                  }}</label>
                   <label class="switch">
                     <input v-model="requireReview" type="checkbox" />
                     <span class="slider" />
@@ -91,7 +95,7 @@
                 </div>
                 <div class="form-item">
                   <label class="form-label">
-                    {{ t('settings.comment.adminKey') }}
+                    {{ t("settings.comment.adminKey") }}
                   </label>
 
                   <input
@@ -103,20 +107,20 @@
                 </div>
                 <div class="form-item">
                   <label class="form-label">
-                    {{ t('settings.comment.allowedDomains') }}
+                    {{ t("settings.comment.allowedDomains") }}
                   </label>
                   <TagInput v-model="allowedDomainTags" />
                 </div>
                 <div class="form-item">
                   <label class="form-label">
-                    {{ t('settings.comment.blockedIps') }}
+                    {{ t("settings.comment.blockedIps") }}
                   </label>
                   <TagInput v-model="blockedIpTags" />
                 </div>
                 <div class="form-item">
-                  <label class="form-label"
-                    >{{ t('settings.comment.blockedEmails') }}</label
-                  >
+                  <label class="form-label">{{
+                    t("settings.comment.blockedEmails")
+                  }}</label>
                   <TagInput v-model="blockedEmailTags" />
                 </div>
 
@@ -126,8 +130,8 @@
                     :disabled="savingComment"
                     @click="saveComment"
                   >
-                    <span v-if="savingComment">{{ t('settings.comment.saving') }}</span>
-                    <span v-else>{{ t('settings.comment.save') }}</span>
+                    <span v-if="savingComment">{{ t("settings.comment.saving") }}</span>
+                    <span v-else>{{ t("settings.comment.save") }}</span>
                   </button>
                 </div>
               </div>
@@ -136,47 +140,57 @@
           <template v-else-if="activeTab === 'feature'">
             <div class="card feature">
               <div class="card-header">
-                <div class="card-title">{{ t('settings.feature.title') }}</div>
+                <div class="card-title">{{ t("settings.feature.title") }}</div>
               </div>
               <div class="card-body">
                 <div class="form-item bg">
                   <div class="form-item-flex">
-                    <label class="form-label">{{ t('settings.feature.articleLike') }}</label>
+                    <label class="form-label">{{
+                      t("settings.feature.articleLike")
+                    }}</label>
                     <label class="switch">
                       <input v-model="enableArticleLike" type="checkbox" />
                       <span class="slider" />
                     </label>
                   </div>
                   <div class="form-hint">
-                    {{ t('settings.feature.articleLikeHint') }}
+                    {{ t("settings.feature.articleLikeHint") }}
                   </div>
                 </div>
                 <div class="form-item bg">
                   <div class="form-item-flex">
-                    <label class="form-label">{{ t('settings.feature.commentLike') }}</label>
+                    <label class="form-label">{{
+                      t("settings.feature.commentLike")
+                    }}</label>
                     <label class="switch">
                       <input v-model="enableCommentLike" type="checkbox" />
                       <span class="slider" />
                     </label>
                   </div>
                   <div class="form-hint">
-                    {{ t('settings.feature.commentLikeHint') }}
+                    {{ t("settings.feature.commentLikeHint") }}
                   </div>
                 </div>
 
                 <div class="form-item bg">
                   <div class="form-item-flex">
-                    <label class="form-label">{{ t('settings.feature.imageLightbox') }}</label>
+                    <label class="form-label">{{
+                      t("settings.feature.imageLightbox")
+                    }}</label>
                     <label class="switch">
                       <input v-model="enableImageLightbox" type="checkbox" />
                       <span class="slider" />
                     </label>
                   </div>
-                  <div class="form-hint">{{ t('settings.feature.imageLightboxHint') }}</div>
+                  <div class="form-hint">
+                    {{ t("settings.feature.imageLightboxHint") }}
+                  </div>
                 </div>
 
                 <div class="form-item">
-                  <label class="form-label">{{ t('settings.feature.placeholder') }}</label>
+                  <label class="form-label">{{
+                    t("settings.feature.placeholder")
+                  }}</label>
                   <textarea
                     v-model="commentPlaceholder"
                     class="form-input"
@@ -185,20 +199,26 @@
                     :placeholder="t('settings.feature.placeholderHint')"
                   ></textarea>
                   <div class="form-hint">
-                    {{ t('settings.feature.placeholderHint') }}
+                    {{ t("settings.feature.placeholderHint") }}
                   </div>
                 </div>
 
                 <div class="form-item">
-                  <label class="form-label">{{ t('settings.feature.widgetLanguage') }}</label>
+                  <label class="form-label">{{
+                    t("settings.feature.widgetLanguage")
+                  }}</label>
                   <select v-model="widgetLanguage" class="form-input">
                     <option value="auto">Auto (Browser Default)</option>
-                    <option v-for="lang in languageOptions" :key="lang.value" :value="lang.value">
-                        {{ lang.label }}
+                    <option
+                      v-for="lang in languageOptions"
+                      :key="lang.value"
+                      :value="lang.value"
+                    >
+                      {{ lang.label }}
                     </option>
                   </select>
                   <div class="form-hint">
-                    {{ t('settings.feature.widgetLanguageHint') }}
+                    {{ t("settings.feature.widgetLanguageHint") }}
                   </div>
                 </div>
 
@@ -208,8 +228,8 @@
                     :disabled="savingFeature"
                     @click="saveFeature"
                   >
-                    <span v-if="savingFeature">{{ t('settings.feature.saving') }}</span>
-                    <span v-else>{{ t('settings.feature.save') }}</span>
+                    <span v-if="savingFeature">{{ t("settings.feature.saving") }}</span>
+                    <span v-else>{{ t("settings.feature.save") }}</span>
                   </button>
                 </div>
               </div>
@@ -218,28 +238,38 @@
           <template v-else-if="activeTab === 'display'">
             <div class="card">
               <div class="card-header">
-                <div class="card-title">{{ t('settings.display.title') }}</div>
+                <div class="card-title">{{ t("settings.display.title") }}</div>
               </div>
               <div class="card-body">
                 <div class="form-item">
-                  <label class="form-label">{{ t('settings.display.layoutTitle') }}</label>
+                  <label class="form-label">{{
+                    t("settings.display.layoutTitle")
+                  }}</label>
                   <input
                     v-model="adminLayoutTitle"
                     class="form-input"
                     type="text"
                     placeholder="CWD 评论系统"
                   />
-                  <div class="form-hint">{{ t('settings.display.layoutTitleHint') }}</div>
+                  <div class="form-hint">{{ t("settings.display.layoutTitleHint") }}</div>
                 </div>
 
                 <div class="form-item">
-                  <label class="form-label">{{ t('settings.display.adminLanguage') }}</label>
+                  <label class="form-label">{{
+                    t("settings.display.adminLanguage")
+                  }}</label>
                   <select v-model="adminLanguage" class="form-input">
-                    <option v-for="lang in languageOptions" :key="lang.value" :value="lang.value">
-                        {{ lang.label }}
+                    <option
+                      v-for="lang in languageOptions"
+                      :key="lang.value"
+                      :value="lang.value"
+                    >
+                      {{ lang.label }}
                     </option>
                   </select>
-                  <div class="form-hint">{{ t('settings.display.adminLanguageHint') }}</div>
+                  <div class="form-hint">
+                    {{ t("settings.display.adminLanguageHint") }}
+                  </div>
                 </div>
 
                 <div class="card-actions">
@@ -248,8 +278,8 @@
                     :disabled="savingDisplay"
                     @click="saveDisplay"
                   >
-                    <span v-if="savingDisplay">{{ t('settings.display.saving') }}</span>
-                    <span v-else>{{ t('settings.display.save') }}</span>
+                    <span v-if="savingDisplay">{{ t("settings.display.saving") }}</span>
+                    <span v-else>{{ t("settings.display.save") }}</span>
                   </button>
                 </div>
               </div>
@@ -258,11 +288,11 @@
           <template v-else-if="activeTab === 'emailNotify'">
             <div class="card">
               <div class="card-header">
-                <div class="card-title">{{ t('settings.emailNotify.title') }}</div>
+                <div class="card-title">{{ t("settings.emailNotify.title") }}</div>
               </div>
               <div class="card-body">
                 <div class="form-item">
-                  <label class="form-label">{{ t('settings.emailNotify.enable') }}</label>
+                  <label class="form-label">{{ t("settings.emailNotify.enable") }}</label>
                   <label class="switch">
                     <input v-model="emailGlobalEnabled" type="checkbox" />
                     <span class="slider" />
@@ -270,10 +300,12 @@
                 </div>
 
                 <div class="divider"></div>
-                <h4 class="card-subtitle">{{ t('settings.emailNotify.smtpTitle') }}</h4>
+                <h4 class="card-subtitle">{{ t("settings.emailNotify.smtpTitle") }}</h4>
 
                 <div class="form-item">
-                  <label class="form-label">{{ t('settings.emailNotify.provider') }}</label>
+                  <label class="form-label">{{
+                    t("settings.emailNotify.provider")
+                  }}</label>
                   <select
                     v-model="smtpProvider"
                     class="form-input"
@@ -287,7 +319,7 @@
 
                 <div v-if="smtpProvider === 'custom'">
                   <div class="form-item">
-                    <label class="form-label">{{ t('settings.emailNotify.host') }}</label>
+                    <label class="form-label">{{ t("settings.emailNotify.host") }}</label>
                     <input
                       v-model="smtpHost"
                       class="form-input"
@@ -295,7 +327,7 @@
                     />
                   </div>
                   <div class="form-item">
-                    <label class="form-label">{{ t('settings.emailNotify.port') }}</label>
+                    <label class="form-label">{{ t("settings.emailNotify.port") }}</label>
                     <input
                       v-model="smtpPort"
                       class="form-input"
@@ -304,7 +336,9 @@
                     />
                   </div>
                   <div class="form-item">
-                    <label class="form-label">{{ t('settings.emailNotify.secure') }}</label>
+                    <label class="form-label">{{
+                      t("settings.emailNotify.secure")
+                    }}</label>
                     <label class="switch">
                       <input v-model="smtpSecure" type="checkbox" />
                       <span class="slider" />
@@ -313,7 +347,7 @@
                 </div>
 
                 <div class="form-item">
-                  <label class="form-label">{{ t('settings.emailNotify.user') }}</label>
+                  <label class="form-label">{{ t("settings.emailNotify.user") }}</label>
                   <input
                     v-model="smtpUser"
                     class="form-input"
@@ -321,24 +355,36 @@
                   />
                 </div>
                 <div class="form-item">
-                  <label class="form-label">{{ t('settings.emailNotify.pass') }}</label>
+                  <label class="form-label">{{ t("settings.emailNotify.pass") }}</label>
                   <input
                     v-model="smtpPass"
                     class="form-input"
                     type="text"
                     placeholder="QQ邮箱请使用授权码"
                   />
-                  <div v-if="smtpProvider === 'qq'" class="form-hint" v-html="t('settings.emailNotify.qqHint')"></div>
-                  <div v-else-if="smtpProvider === '163'" class="form-hint" v-html="t('settings.emailNotify.163Hint')"></div>
+                  <div
+                    v-if="smtpProvider === 'qq'"
+                    class="form-hint"
+                    v-html="t('settings.emailNotify.qqHint')"
+                  ></div>
+                  <div
+                    v-else-if="smtpProvider === '163'"
+                    class="form-hint"
+                    v-html="t('settings.emailNotify.163Hint')"
+                  ></div>
                 </div>
 
                 <div class="divider"></div>
-                <h4 class="card-subtitle">{{ t('settings.emailNotify.templateTitle') }}</h4>
+                <h4 class="card-subtitle">
+                  {{ t("settings.emailNotify.templateTitle") }}
+                </h4>
 
                 <div class="form-item">
-                  <label class="form-label">{{ t('settings.emailNotify.adminTemplate') }}</label>
+                  <label class="form-label">{{
+                    t("settings.emailNotify.adminTemplate")
+                  }}</label>
                   <div class="form-hint">
-                    {{ t('settings.emailNotify.adminTemplateHint') }}
+                    {{ t("settings.emailNotify.adminTemplateHint") }}
                   </div>
                   <textarea
                     v-model="templateAdmin"
@@ -349,9 +395,11 @@
                 </div>
 
                 <div class="form-item">
-                  <label class="form-label">{{ t('settings.emailNotify.replyTemplate') }}</label>
+                  <label class="form-label">{{
+                    t("settings.emailNotify.replyTemplate")
+                  }}</label>
                   <div class="form-hint">
-                    {{ t('settings.emailNotify.replyTemplateHint') }}
+                    {{ t("settings.emailNotify.replyTemplateHint") }}
                   </div>
                   <textarea
                     v-model="templateReply"
@@ -373,19 +421,21 @@
                     :disabled="testingEmail"
                     @click="testEmail"
                   >
-                    <span v-if="testingEmail">{{ t('settings.emailNotify.testingBtn') }}</span>
-                    <span v-else>{{ t('settings.emailNotify.testBtn') }}</span>
+                    <span v-if="testingEmail">{{
+                      t("settings.emailNotify.testingBtn")
+                    }}</span>
+                    <span v-else>{{ t("settings.emailNotify.testBtn") }}</span>
                   </button>
                   <button
                     class="card-button secondary"
                     style="margin-left: auto"
                     @click="resetTemplatesToDefault"
                   >
-                    {{ t('settings.emailNotify.resetBtn') }}
+                    {{ t("settings.emailNotify.resetBtn") }}
                   </button>
                   <button class="card-button" :disabled="savingEmail" @click="saveEmail">
-                    <span v-if="savingEmail">{{ t('settings.emailNotify.saving') }}</span>
-                    <span v-else>{{ t('settings.emailNotify.save') }}</span>
+                    <span v-if="savingEmail">{{ t("settings.emailNotify.saving") }}</span>
+                    <span v-else>{{ t("settings.emailNotify.save") }}</span>
                   </button>
                 </div>
               </div>
@@ -394,18 +444,22 @@
           <template v-else-if="activeTab === 'telegramNotify'">
             <div class="card">
               <div class="card-header">
-                <div class="card-title">{{ t('settings.telegramNotify.title') }}</div>
+                <div class="card-title">{{ t("settings.telegramNotify.title") }}</div>
               </div>
               <div class="card-body">
                 <div class="form-item">
-                  <label class="form-label">{{ t('settings.telegramNotify.enable') }}</label>
+                  <label class="form-label">{{
+                    t("settings.telegramNotify.enable")
+                  }}</label>
                   <label class="switch">
                     <input v-model="telegramNotifyEnabled" type="checkbox" />
                     <span class="slider" />
                   </label>
                 </div>
                 <div class="form-item">
-                  <label class="form-label">{{ t('settings.telegramNotify.botToken') }}</label>
+                  <label class="form-label">{{
+                    t("settings.telegramNotify.botToken")
+                  }}</label>
                   <input
                     v-model="telegramBotToken"
                     class="form-input"
@@ -413,17 +467,25 @@
                     placeholder="123456:ABC-DEF1234ghIkl-zyx57W2v1u123ew11"
                     autocomplete="new-password"
                   />
-                  <div class="form-hint" v-html="t('settings.telegramNotify.botTokenHint')"></div>
+                  <div
+                    class="form-hint"
+                    v-html="t('settings.telegramNotify.botTokenHint')"
+                  ></div>
                 </div>
                 <div class="form-item">
-                  <label class="form-label">{{ t('settings.telegramNotify.chatId') }}</label>
+                  <label class="form-label">{{
+                    t("settings.telegramNotify.chatId")
+                  }}</label>
                   <input
                     v-model="telegramChatId"
                     class="form-input"
                     type="text"
                     placeholder="123456789"
                   />
-                  <div class="form-hint" v-html="t('settings.telegramNotify.chatIdHint')"></div>
+                  <div
+                    class="form-hint"
+                    v-html="t('settings.telegramNotify.chatIdHint')"
+                  ></div>
                 </div>
 
                 <div class="card-actions" style="justify-content: space-between">
@@ -432,8 +494,10 @@
                     :disabled="settingUpWebhook"
                     @click="doSetupWebhook"
                   >
-                    <span v-if="settingUpWebhook">{{ t('settings.telegramNotify.webhookSetting') }}</span>
-                    <span v-else>{{ t('settings.telegramNotify.webhookBtn') }}</span>
+                    <span v-if="settingUpWebhook">{{
+                      t("settings.telegramNotify.webhookSetting")
+                    }}</span>
+                    <span v-else>{{ t("settings.telegramNotify.webhookBtn") }}</span>
                   </button>
                   <button
                     class="card-button secondary"
@@ -441,16 +505,20 @@
                     @click="testTelegram"
                     style="margin-right: auto"
                   >
-                    <span v-if="testingTelegram">{{ t('settings.telegramNotify.testingBtn') }}</span>
-                    <span v-else>{{ t('settings.telegramNotify.testBtn') }}</span>
+                    <span v-if="testingTelegram">{{
+                      t("settings.telegramNotify.testingBtn")
+                    }}</span>
+                    <span v-else>{{ t("settings.telegramNotify.testBtn") }}</span>
                   </button>
                   <button
                     class="card-button"
                     :disabled="savingTelegram"
                     @click="saveTelegram"
                   >
-                    <span v-if="savingTelegram">{{ t('settings.telegramNotify.saving') }}</span>
-                    <span v-else>{{ t('settings.telegramNotify.save') }}</span>
+                    <span v-if="savingTelegram">{{
+                      t("settings.telegramNotify.saving")
+                    }}</span>
+                    <span v-else>{{ t("settings.telegramNotify.save") }}</span>
                   </button>
                 </div>
               </div>
@@ -463,7 +531,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref, type Ref, inject, watch } from "vue";
+import { onMounted, ref, inject, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useI18n } from "vue-i18n";
 import {
@@ -582,21 +650,21 @@ const settingUpWebhook = ref(false);
 const testingTelegram = ref(false);
 
 const languageOptions = [
-  { value: 'en-US', label: 'English' },
-  { value: 'zh-CN', label: '简体中文' },
-  { value: 'zh-TW', label: '繁體中文' },
-  { value: 'es', label: 'Español' },
-  { value: 'pt', label: 'Português' },
-  { value: 'fr', label: 'Français' },
-  { value: 'de', label: 'Deutsch' },
-  { value: 'ja', label: '日本語' },
-  { value: 'ko', label: '한국어' },
-  { value: 'ru', label: 'Русский' },
-  { value: 'it', label: 'Italiano' },
-  { value: 'nl', label: 'Nederlands' },
-  { value: 'ar', label: 'العربية' },
-  { value: 'hi', label: 'हिन्दी' },
-  { value: 'id', label: 'Bahasa Indonesia' },
+  { value: "en-US", label: "English" },
+  { value: "zh-CN", label: "简体中文" },
+  { value: "zh-TW", label: "繁體中文" },
+  { value: "es", label: "Español" },
+  { value: "pt", label: "Português" },
+  { value: "fr", label: "Français" },
+  { value: "de", label: "Deutsch" },
+  { value: "ja", label: "日本語" },
+  { value: "ko", label: "한국어" },
+  { value: "ru", label: "Русский" },
+  { value: "it", label: "Italiano" },
+  { value: "nl", label: "Nederlands" },
+  { value: "ar", label: "العربية" },
+  { value: "hi", label: "हिन्दी" },
+  { value: "id", label: "Bahasa Indonesia" },
 ];
 
 const { t, locale } = useI18n();
@@ -606,12 +674,7 @@ const widgetLanguage = ref("auto");
 const route = useRoute();
 const router = useRouter();
 
-type TabKey =
-  | "comment"
-  | "feature"
-  | "display"
-  | "emailNotify"
-  | "telegramNotify";
+type TabKey = "comment" | "feature" | "display" | "emailNotify" | "telegramNotify";
 const validTabs: TabKey[] = [
   "comment",
   "feature",
@@ -621,9 +684,7 @@ const validTabs: TabKey[] = [
 ];
 
 const activeTab = ref<TabKey>(
-  validTabs.includes(route.query.tab as TabKey)
-    ? (route.query.tab as TabKey)
-    : "comment",
+  validTabs.includes(route.query.tab as TabKey) ? (route.query.tab as TabKey) : "comment"
 );
 
 watch(activeTab, (newTab) => {
@@ -636,7 +697,7 @@ watch(
     if (newTab && validTabs.includes(newTab as TabKey)) {
       activeTab.value = newTab as TabKey;
     }
-  },
+  }
 );
 
 const savingEmail = ref(false);
@@ -667,9 +728,15 @@ function loadCardsExpanded() {
         site: parsed.site ?? false,
       };
     }
-  } catch {
-  }
-  return { comment: true, display: false, feature: false, email: false, telegram: false, site: false };
+  } catch {}
+  return {
+    comment: true,
+    display: false,
+    feature: false,
+    email: false,
+    telegram: false,
+    site: false,
+  };
 }
 
 const cardsExpanded = ref(loadCardsExpanded());
@@ -725,7 +792,13 @@ function resetTemplatesToDefault() {
 async function load() {
   loading.value = true;
   try {
-    const [commentRes, emailNotifyRes, featureRes, telegramRes, displayRes] = await Promise.all([
+    const [
+      commentRes,
+      emailNotifyRes,
+      featureRes,
+      telegramRes,
+      displayRes,
+    ] = await Promise.all([
       fetchCommentSettings(),
       fetchEmailNotifySettings(),
       fetchFeatureSettings(),
@@ -758,11 +831,11 @@ async function load() {
     commentPlaceholder.value = featureRes.commentPlaceholder || "";
     adminLanguage.value = featureRes.adminLanguage || "zh-CN";
     widgetLanguage.value = featureRes.widgetLanguage || "auto";
-    
+
     // Sync locale
     if (featureRes.adminLanguage) {
       locale.value = featureRes.adminLanguage;
-      localStorage.setItem('admin_language', featureRes.adminLanguage);
+      localStorage.setItem("admin_language", featureRes.adminLanguage);
     }
 
     telegramBotToken.value = telegramRes.botToken || "";
@@ -834,7 +907,7 @@ async function testEmail() {
     message.value = "请先在上方“评论显示配置”中设置管理员邮箱";
     messageType.value = "error";
     return;
-    }
+  }
   if (!smtpUser.value || !smtpPass.value) {
     message.value = "请先填写 SMTP 账号和密码";
     messageType.value = "error";
@@ -894,9 +967,9 @@ async function saveComment() {
       }),
     ]);
 
-    showToast(commentRes.message || t('common.saveSuccess'), "success");
+    showToast(commentRes.message || t("common.saveSuccess"), "success");
   } catch (e: any) {
-    showToast(e.message || t('common.saveFailed'), "error");
+    showToast(e.message || t("common.saveFailed"), "error");
   } finally {
     savingComment.value = false;
   }
@@ -916,9 +989,9 @@ async function saveFeature() {
       }),
     ]);
 
-    showToast(featureRes.message || t('common.saveSuccess'), "success");
+    showToast(featureRes.message || t("common.saveSuccess"), "success");
   } catch (e: any) {
-    showToast(e.message || t('common.saveFailed'), "error");
+    showToast(e.message || t("common.saveFailed"), "error");
   } finally {
     savingFeature.value = false;
   }
@@ -933,19 +1006,19 @@ async function saveDisplay() {
     const res = await saveAdminDisplaySettings({
       layoutTitle: adminLayoutTitle.value,
     });
-    
+
     // Also save admin language to feature settings as it's a global preference
     await saveFeatureSettings({
-      adminLanguage: adminLanguage.value
+      adminLanguage: adminLanguage.value,
     });
 
     if (updateSiteTitle) {
       updateSiteTitle(adminLayoutTitle.value);
     }
-    
+
     // Update local locale
     locale.value = adminLanguage.value;
-    localStorage.setItem('admin_language', adminLanguage.value);
+    localStorage.setItem("admin_language", adminLanguage.value);
 
     showToast(res.message || "保存成功", "success");
   } catch (e: any) {

@@ -1,7 +1,7 @@
 <template>
   <div class="page">
     <div style="display: flex; align-items: center; gap: 20px">
-      <h2 class="page-title">{{ t('analytics.title') }}</h2>
+      <h2 class="page-title">{{ t("analytics.title") }}</h2>
     </div>
     <div
       v-if="toastVisible"
@@ -13,63 +13,73 @@
 
     <div class="card">
       <div class="card-title-row">
-        <h3 class="card-title">{{ t('analytics.overview') }}</h3>
+        <h3 class="card-title">{{ t("analytics.overview") }}</h3>
       </div>
-      <div v-if="loading" class="page-hint">{{ t('common.loading') }}</div>
+      <div v-if="loading" class="page-hint">{{ t("common.loading") }}</div>
       <div v-else-if="error" class="page-error">{{ error }}</div>
       <div v-else>
         <div class="stats-grid">
           <div class="stats-item">
-            <div class="stats-label">{{ t('analytics.totalPv') }}</div>
+            <div class="stats-label">{{ t("analytics.totalPv") }}</div>
             <div class="stats-value"><CountTo :end-val="overview.totalPv" /></div>
           </div>
           <div class="stats-item">
-            <div class="stats-label">{{ t('analytics.todayPv') }}</div>
+            <div class="stats-label">{{ t("analytics.todayPv") }}</div>
             <div class="stats-value">
               <CountTo :end-val="overview.todayPv" />
               <span
                 v-if="overview.yesterdayPv !== undefined"
                 class="trend"
                 :class="percentageChange >= 0 ? 'up' : 'down'"
-                :title="`对比昨日 ${percentageChange >= 0 ? '增加' : '减少'} ${Math.abs(percentageChange).toFixed(1)}%`"
+                :title="`对比昨日 ${percentageChange >= 0 ? '增加' : '减少'} ${Math.abs(
+                  percentageChange
+                ).toFixed(1)}%`"
               >
-                <span class="trend-arrow">{{ percentageChange >= 0 ? '↑' : '↓' }}</span>
+                <span class="trend-arrow">{{ percentageChange >= 0 ? "↑" : "↓" }}</span>
                 {{ Math.abs(percentageChange).toFixed(1) }}%
               </span>
             </div>
           </div>
           <div class="stats-item">
-            <div class="stats-label">{{ t('analytics.weekPv') }}</div>
+            <div class="stats-label">{{ t("analytics.weekPv") }}</div>
             <div class="stats-value">
               <CountTo :end-val="overview.weekPv" />
               <span
                 v-if="overview.lastWeekPv !== undefined"
                 class="trend"
                 :class="weekPercentageChange >= 0 ? 'up' : 'down'"
-                :title="`对比上周 ${weekPercentageChange >= 0 ? '增加' : '减少'} ${Math.abs(weekPercentageChange).toFixed(1)}%`"
+                :title="`对比上周 ${
+                  weekPercentageChange >= 0 ? '增加' : '减少'
+                } ${Math.abs(weekPercentageChange).toFixed(1)}%`"
               >
-                <span class="trend-arrow">{{ weekPercentageChange >= 0 ? '↑' : '↓' }}</span>
+                <span class="trend-arrow">{{
+                  weekPercentageChange >= 0 ? "↑" : "↓"
+                }}</span>
                 {{ Math.abs(weekPercentageChange).toFixed(1) }}%
               </span>
             </div>
           </div>
           <div class="stats-item">
-            <div class="stats-label">{{ t('analytics.monthPv') }}</div>
+            <div class="stats-label">{{ t("analytics.monthPv") }}</div>
             <div class="stats-value">
               <CountTo :end-val="overview.monthPv" />
               <span
                 v-if="overview.lastMonthPv !== undefined"
                 class="trend"
                 :class="monthPercentageChange >= 0 ? 'up' : 'down'"
-                :title="`对比上月 ${monthPercentageChange >= 0 ? '增加' : '减少'} ${Math.abs(monthPercentageChange).toFixed(1)}%`"
+                :title="`对比上月 ${
+                  monthPercentageChange >= 0 ? '增加' : '减少'
+                } ${Math.abs(monthPercentageChange).toFixed(1)}%`"
               >
-                <span class="trend-arrow">{{ monthPercentageChange >= 0 ? '↑' : '↓' }}</span>
+                <span class="trend-arrow">{{
+                  monthPercentageChange >= 0 ? "↑" : "↓"
+                }}</span>
                 {{ Math.abs(monthPercentageChange).toFixed(1) }}%
               </span>
             </div>
           </div>
           <div class="stats-item">
-            <div class="stats-label">{{ t('analytics.totalPages') }}</div>
+            <div class="stats-label">{{ t("analytics.totalPages") }}</div>
             <div class="stats-value"><CountTo :end-val="overview.totalPages" /></div>
           </div>
         </div>
@@ -78,7 +88,7 @@
 
     <div class="card">
       <div class="card-title-row">
-        <h3 class="card-title">{{ t('analytics.trend') }}</h3>
+        <h3 class="card-title">{{ t("analytics.trend") }}</h3>
         <div class="visit-tabs">
           <button
             class="visit-tab"
@@ -86,7 +96,7 @@
             type="button"
             @click="changeChartRange('7')"
           >
-            {{ t('analytics.last7Days') }}
+            {{ t("analytics.last7Days") }}
           </button>
           <button
             class="visit-tab"
@@ -94,11 +104,11 @@
             type="button"
             @click="changeChartRange('30')"
           >
-            {{ t('analytics.last30Days') }}
+            {{ t("analytics.last30Days") }}
           </button>
         </div>
       </div>
-      <div v-if="loading" class="page-hint">{{ t('common.loading') }}</div>
+      <div v-if="loading" class="page-hint">{{ t("common.loading") }}</div>
       <div v-else-if="error" class="page-error">{{ error }}</div>
       <div class="chart-wrapper">
         <div ref="chartEl" class="chart"></div>
@@ -107,7 +117,7 @@
 
     <div class="card">
       <div class="card-title-row">
-        <h3 class="card-title">{{ t('analytics.pageDetail') }}</h3>
+        <h3 class="card-title">{{ t("analytics.pageDetail") }}</h3>
         <div class="visit-tabs">
           <button
             class="visit-tab"
@@ -115,7 +125,7 @@
             type="button"
             @click="changeVisitTab('pv')"
           >
-            {{ t('analytics.sort.pv') }}
+            {{ t("analytics.sort.pv") }}
           </button>
           <button
             class="visit-tab"
@@ -123,22 +133,28 @@
             type="button"
             @click="changeVisitTab('latest')"
           >
-            {{ t('analytics.sort.latest') }}
+            {{ t("analytics.sort.latest") }}
           </button>
         </div>
       </div>
-      <div v-if="listLoading" class="page-hint">{{ t('common.loading') }}</div>
+      <div v-if="listLoading" class="page-hint">{{ t("common.loading") }}</div>
       <div v-else-if="error" class="page-error">{{ error }}</div>
-      <div v-else-if="items.length === 0" class="page-hint">{{ t('analytics.noData') }}</div>
+      <div v-else-if="items.length === 0" class="page-hint">
+        {{ t("analytics.noData") }}
+      </div>
       <div v-else class="domain-table-wrapper">
         <div class="domain-table">
           <div class="domain-table-header">
-            <div class="domain-cell domain-cell-title">{{ t('analytics.table.title') }}</div>
-            <div class="domain-cell domain-cell-pv">{{ t('analytics.table.pv') }}</div>
-            <div class="domain-cell domain-cell-time">{{ t('analytics.table.time') }}</div>
-            <div class="domain-cell domain-cell-url">{{ t('analytics.table.url') }}</div>
+            <div class="domain-cell domain-cell-title">
+              {{ t("analytics.table.title") }}
+            </div>
+            <div class="domain-cell domain-cell-pv">{{ t("analytics.table.pv") }}</div>
+            <div class="domain-cell domain-cell-time">
+              {{ t("analytics.table.time") }}
+            </div>
+            <div class="domain-cell domain-cell-url">{{ t("analytics.table.url") }}</div>
           </div>
-          <div v-for="item in items" :key="item.postSlug" class="domain-table-row">
+          <div v-for="(item, index) in items" :key="index" class="domain-table-row">
             <div class="domain-cell domain-cell-title">
               {{ item.postTitle || item.postSlug }}
             </div>
@@ -166,22 +182,30 @@
 
     <div class="card">
       <div class="card-title-row">
-        <h3 class="card-title">{{ t('analytics.likeRank') }}</h3>
+        <h3 class="card-title">{{ t("analytics.likeRank") }}</h3>
       </div>
-      <div v-if="loading" class="page-hint">{{ t('common.loading') }}</div>
+      <div v-if="loading" class="page-hint">{{ t("common.loading") }}</div>
       <div v-else-if="error" class="page-error">{{ error }}</div>
-      <div v-else-if="likeStatsItems.length === 0" class="page-hint">{{ t('analytics.noLikeData') }}</div>
+      <div v-else-if="likeStatsItems.length === 0" class="page-hint">
+        {{ t("analytics.noLikeData") }}
+      </div>
       <div v-else class="domain-table-wrapper">
         <div class="domain-table">
           <div class="domain-table-header">
-            <div class="domain-cell domain-cell-rank">{{ t('analytics.table.rank') }}</div>
-            <div class="domain-cell domain-cell-title">{{ t('analytics.table.title') }}</div>
-            <div class="domain-cell domain-cell-like">{{ t('analytics.table.like') }}</div>
-            <div class="domain-cell domain-cell-url">{{ t('analytics.table.url') }}</div>
+            <div class="domain-cell domain-cell-rank">
+              {{ t("analytics.table.rank") }}
+            </div>
+            <div class="domain-cell domain-cell-title">
+              {{ t("analytics.table.title") }}
+            </div>
+            <div class="domain-cell domain-cell-like">
+              {{ t("analytics.table.like") }}
+            </div>
+            <div class="domain-cell domain-cell-url">{{ t("analytics.table.url") }}</div>
           </div>
           <div
             v-for="(item, index) in likeStatsItems"
-            :key="item.pageSlug"
+            :key="index"
             class="domain-table-row"
           >
             <div class="domain-cell domain-cell-rank">
@@ -212,8 +236,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, onBeforeUnmount, ref, nextTick, watch, inject, computed } from "vue";
-import type { Ref } from "vue";
+import { onMounted, onBeforeUnmount, ref, nextTick, watch, computed } from "vue";
 import { useI18n } from "vue-i18n";
 import * as echarts from "echarts";
 import CountTo from "../../components/CountTo.vue";

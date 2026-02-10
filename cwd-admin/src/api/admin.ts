@@ -137,6 +137,8 @@ export type FeatureSettingsResponse = {
 	enableImageLightbox: boolean;
 	commentPlaceholder?: string;
 	visibleDomains?: string[];
+	adminLanguage?: string;
+	widgetLanguage?: string;
 };
 
 export type AdminDisplaySettingsResponse = {
@@ -351,7 +353,7 @@ export function fetchFeatureSettings(): Promise<FeatureSettingsResponse> {
 	return get<FeatureSettingsResponse>('/admin/settings/features');
 }
 
-export function saveFeatureSettings(data: { enableCommentLike?: boolean; enableArticleLike?: boolean; enableImageLightbox?: boolean; commentPlaceholder?: string; visibleDomains?: string[] }): Promise<{ message: string }> {
+export function saveFeatureSettings(data: { enableCommentLike?: boolean; enableArticleLike?: boolean; enableImageLightbox?: boolean; commentPlaceholder?: string; visibleDomains?: string[]; adminLanguage?: string; widgetLanguage?: string }): Promise<{ message: string }> {
 	return put<{ message: string }>('/admin/settings/features', data);
 }
 

@@ -7,18 +7,9 @@
     <div class="domain-transfer">
       <!-- Visible Domains (Left) -->
       <div class="transfer-panel">
-        <div class="transfer-header">
-          后台显示站点 ({{ visibleList.length }})
-        </div>
-        <div 
-          class="transfer-body"
-          @dragover.prevent
-          @drop="onDrop($event, 'visible')"
-        >
-          <div 
-            v-if="visibleList.length === 0" 
-            class="transfer-empty"
-          >
+        <div class="transfer-header">后台显示站点 ({{ visibleList.length }})</div>
+        <div class="transfer-body" @dragover.prevent @drop="onDrop($event, 'visible')">
+          <div v-if="visibleList.length === 0" class="transfer-empty">
             无站点 (默认显示全部)
           </div>
           <div
@@ -43,26 +34,15 @@
           <PhCaretDoubleLeft />
         </button>
         <button class="action-btn" @click="moveAllToHidden" title="全部右移">
-          <PhCaretDoubleRight  />
+          <PhCaretDoubleRight />
         </button>
       </div>
 
       <!-- Hidden/All Domains (Right) -->
       <div class="transfer-panel">
-        <div class="transfer-header">
-          其他站点 ({{ hiddenList.length }})
-        </div>
-        <div 
-          class="transfer-body"
-          @dragover.prevent
-          @drop="onDrop($event, 'hidden')"
-        >
-           <div 
-            v-if="hiddenList.length === 0" 
-            class="transfer-empty"
-          >
-            无更多站点
-          </div>
+        <div class="transfer-header">其他站点 ({{ hiddenList.length }})</div>
+        <div class="transfer-body" @dragover.prevent @drop="onDrop($event, 'hidden')">
+          <div v-if="hiddenList.length === 0" class="transfer-empty">无更多站点</div>
           <div
             v-for="domain in hiddenList"
             :key="domain"
@@ -89,8 +69,12 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, computed } from 'vue';
-import { fetchSiteList, fetchFeatureSettings, saveFeatureSettings } from '../../../api/admin';
+import { ref, onMounted, computed } from "vue";
+import {
+  fetchSiteList,
+  fetchFeatureSettings,
+  saveFeatureSettings,
+} from "../../../api/admin";
 
 const loading = ref(false);
 const allDomains = ref<string[]>([]);
@@ -98,12 +82,12 @@ const visibleList = ref<string[]>([]);
 
 const hiddenList = computed(() => {
   const visibleSet = new Set(visibleList.value);
-  return allDomains.value.filter(d => !visibleSet.has(d));
+  return allDomains.value.filter((d) => !visibleSet.has(d));
 });
 
 function getSiteLabel(value: string) {
   if (!value) {
-    return '默认站点 (Default)';
+    return "默认站点 (Default)";
   }
   return value;
 }
@@ -112,14 +96,14 @@ async function loadData() {
   try {
     const [siteRes, settingsRes] = await Promise.all([
       fetchSiteList(),
-      fetchFeatureSettings()
+      fetchFeatureSettings(),
     ]);
-    
+
     allDomains.value = siteRes.sites || [];
     if (settingsRes.visibleDomains) {
       visibleList.value = settingsRes.visibleDomains;
     } else {
-        visibleList.value = [];
+      visibleList.value = [];
     }
   } catch (e) {
     console.error(e);
@@ -127,7 +111,7 @@ async function loadData() {
 }
 
 function moveToHidden(domain: string) {
-  visibleList.value = visibleList.value.filter(d => d !== domain);
+  visibleList.value = visibleList.value.filter((d) => d !== domain);
 }
 
 function moveToVisible(domain: string) {
@@ -138,7 +122,7 @@ function moveToVisible(domain: string) {
 
 function moveAllToVisible() {
   const current = new Set(visibleList.value);
-  hiddenList.value.forEach(d => current.add(d));
+  hiddenList.value.forEach((d) => current.add(d));
   visibleList.value = Array.from(current);
 }
 
@@ -146,20 +130,20 @@ function moveAllToHidden() {
   visibleList.value = [];
 }
 
-function onDragStart(event: DragEvent, domain: string, source: 'visible' | 'hidden') {
+function onDragStart(event: DragEvent, domain: string, source: "visible" | "hidden") {
   if (event.dataTransfer) {
-    event.dataTransfer.setData('text/plain', JSON.stringify({ domain, source }));
-    event.dataTransfer.effectAllowed = 'move';
+    event.dataTransfer.setData("text/plain", JSON.stringify({ domain, source }));
+    event.dataTransfer.effectAllowed = "move";
   }
 }
 
-function onDrop(event: DragEvent, target: 'visible' | 'hidden') {
-  const data = event.dataTransfer?.getData('text/plain');
+function onDrop(event: DragEvent, target: "visible" | "hidden") {
+  const data = event.dataTransfer?.getData("text/plain");
   if (data) {
     try {
       const { domain, source } = JSON.parse(data);
       if (source !== target) {
-        if (target === 'visible') {
+        if (target === "visible") {
           moveToVisible(domain);
         } else {
           moveToHidden(domain);
@@ -175,12 +159,12 @@ async function handleSave() {
   loading.value = true;
   try {
     await saveFeatureSettings({
-      visibleDomains: visibleList.value
+      visibleDomains: visibleList.value,
     });
     // 保存成功后刷新页面以应用更改（LayoutView 重新加载）
     window.location.reload();
   } catch (e) {
-    alert('保存失败');
+    alert("保存失败");
   } finally {
     loading.value = false;
   }
@@ -208,7 +192,7 @@ onMounted(() => {
   gap: 20px;
   align-items: flex-start;
   height: 400px;
-  
+
   @media (max-width: 768px) {
     flex-direction: column;
     height: auto;
@@ -267,15 +251,15 @@ onMounted(() => {
   &:hover {
     background: var(--bg-hover);
   }
-  
+
   &:active {
-      cursor: grabbing;
+    cursor: grabbing;
   }
-  
+
   .domain-text {
-      flex: 1;
-      margin: 0 10px;
-      word-break: break-all;
+    flex: 1;
+    margin: 0 10px;
+    word-break: break-all;
   }
 }
 
@@ -288,7 +272,7 @@ onMounted(() => {
   border-radius: 4px;
   display: flex;
   align-items: center;
-  
+
   &:hover {
     background: var(--bg-active);
     color: var(--primary-color);
@@ -300,7 +284,7 @@ onMounted(() => {
   flex-direction: column;
   gap: 10px;
   align-self: center;
-  
+
   @media (max-width: 768px) {
     flex-direction: row;
   }
@@ -318,7 +302,7 @@ onMounted(() => {
   justify-content: center;
   cursor: pointer;
   transition: all 0.2s;
-  
+
   &:hover {
     border-color: var(--primary-color);
     color: var(--primary-color);
@@ -339,7 +323,7 @@ onMounted(() => {
   border-radius: 6px;
   cursor: pointer;
   font-size: 14px;
-  
+
   &:disabled {
     opacity: 0.7;
     cursor: not-allowed;

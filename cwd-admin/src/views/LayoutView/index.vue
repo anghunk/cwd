@@ -14,18 +14,14 @@
         <div class="layout-domain-filter layout-domain-filter-header">
           <select v-model="currentSiteId" class="layout-domain-select">
             <option :value="defaultSiteId">{{ getSiteLabel(defaultSiteId) }}</option>
-            <option
-              v-for="item in siteOptions"
-              :key="item.value"
-              :value="item.value"
-            >
+            <option v-for="item in siteOptions" :key="item.value" :value="item.value">
               {{ getSiteLabel(item.value) }}
             </option>
           </select>
         </div>
         <div class="layout-actions">
           <a class="layout-button" href="https://cwd.js.org" target="_blank">
-            {{ t('layout.docs') }}
+            {{ t("layout.docs") }}
           </a>
           <a class="layout-button" href="https://github.com/anghunk/cwd" target="_blank">
             Github
@@ -40,7 +36,9 @@
             <PhMoon v-else-if="theme === 'dark'" :size="16" />
             <PhAirplay v-else :size="16" />
           </button>
-          <button class="layout-button" @click="handleLogout">{{ t('layout.logout') }}</button>
+          <button class="layout-button" @click="handleLogout">
+            {{ t("layout.logout") }}
+          </button>
         </div>
 
         <button
@@ -53,7 +51,7 @@
         </button>
         <div v-if="isActionsOpen" class="layout-actions-dropdown">
           <button class="layout-actions-item" type="button" @click="openDocs">
-            {{ t('layout.docs') }}
+            {{ t("layout.docs") }}
           </button>
           <button class="layout-actions-item" type="button" @click="openGithub">
             Github
@@ -63,7 +61,7 @@
             type="button"
             @click="handleLogoutFromActions"
           >
-            {{ t('layout.logout') }}
+            {{ t("layout.logout") }}
           </button>
         </div>
       </div>
@@ -76,11 +74,7 @@
         <div class="layout-sider-domain-filter">
           <select v-model="currentSiteId" class="layout-domain-select">
             <option :value="defaultSiteId">{{ getSiteLabel(defaultSiteId) }}</option>
-            <option
-              v-for="item in siteOptions"
-              :key="item.value"
-              :value="item.value"
-            >
+            <option v-for="item in siteOptions" :key="item.value" :value="item.value">
               {{ getSiteLabel(item.value) }}
             </option>
           </select>
@@ -92,7 +86,7 @@
             @click="goComments"
           >
             <PhChatCircleDots class="menu-item-icon" :size="18" />
-            <span>{{ t('menu.comments') }}</span>
+            <span>{{ t("menu.comments") }}</span>
           </li>
           <li
             class="menu-item"
@@ -100,7 +94,7 @@
             @click="goStats"
           >
             <PhSquaresFour class="menu-item-icon" :size="18" />
-            <span>{{ t('menu.stats') }}</span>
+            <span>{{ t("menu.stats") }}</span>
           </li>
           <li
             class="menu-item"
@@ -108,7 +102,7 @@
             @click="goAnalytics"
           >
             <PhChartBar class="menu-item-icon" :size="18" />
-            <span>{{ t('menu.analytics') }}</span>
+            <span>{{ t("menu.analytics") }}</span>
           </li>
           <li
             class="menu-item"
@@ -116,7 +110,7 @@
             @click="goSettings"
           >
             <PhGear class="menu-item-icon" :size="18" />
-            <span>{{ t('menu.settings') }}</span>
+            <span>{{ t("menu.settings") }}</span>
           </li>
           <li
             class="menu-item"
@@ -124,7 +118,7 @@
             @click="goData"
           >
             <PhDatabase class="menu-item-icon" :size="18" />
-            <span>{{ t('menu.data') }}</span>
+            <span>{{ t("menu.data") }}</span>
           </li>
         </ul>
         <div class="layout-sider-footer" @click="openVersionModal">
@@ -141,35 +135,42 @@
     </div>
     <div v-if="versionModalVisible" class="modal-overlay" @click.self="closeVersionModal">
       <div class="modal">
-        <h3 class="modal-title">{{ t('layout.version.title') }}</h3>
+        <h3 class="modal-title">{{ t("layout.version.title") }}</h3>
         <div class="modal-body">
           <p class="modal-row">
-            <span class="modal-label">{{ t('layout.version.apiAddress') }}</span>
-            <span class="modal-value">{{ checkedApiBaseUrl || t('layout.version.notConfigured') }}</span>
+            <span class="modal-label">{{ t("layout.version.apiAddress") }}</span>
+            <span class="modal-value">{{
+              checkedApiBaseUrl || t("layout.version.notConfigured")
+            }}</span>
           </p>
           <p class="modal-row">
-            <span class="modal-label">{{ t('layout.version.apiVersion') }}</span>
+            <span class="modal-label">{{ t("layout.version.apiVersion") }}</span>
             <span class="modal-value">
-              {{ apiVersion || (apiVersionError ? t('layout.version.notFetched') : t('layout.version.loading')) }}
+              {{
+                apiVersion ||
+                (apiVersionError
+                  ? t("layout.version.notFetched")
+                  : t("layout.version.loading"))
+              }}
             </span>
           </p>
           <p class="modal-row">
-            <span class="modal-label">{{ t('layout.version.adminVersion') }}</span>
+            <span class="modal-label">{{ t("layout.version.adminVersion") }}</span>
             <span class="modal-value">{{ adminVersion }}</span>
           </p>
           <p v-if="apiVersion && apiVersion === adminVersion" class="modal-status">
-            {{ t('layout.version.match') }}
+            {{ t("layout.version.match") }}
           </p>
           <p v-else-if="apiVersion && apiVersion !== adminVersion" class="modal-status">
-            {{ t('layout.version.mismatch') }}
+            {{ t("layout.version.mismatch") }}
           </p>
           <p v-else-if="apiVersionError" class="modal-status">
-            {{ t('layout.version.fetchError') }} {{ apiVersionError }}
+            {{ t("layout.version.fetchError") }} {{ apiVersionError }}
           </p>
         </div>
         <div class="modal-actions">
           <button class="modal-btn" type="button" @click="closeVersionModal">
-            {{ t('layout.version.ok') }}
+            {{ t("layout.version.ok") }}
           </button>
         </div>
       </div>
@@ -205,9 +206,9 @@ const versionModalVisible = ref(false);
 const layoutTitle = ref(localStorage.getItem(SITE_TITLE_KEY) || "CWD 评论系统");
 
 const themeTitle = computed(() => {
-  if (theme.value === "light") return t('layout.theme.light');
-  if (theme.value === "dark") return t('layout.theme.dark');
-  return t('layout.theme.system');
+  if (theme.value === "light") return t("layout.theme.light");
+  if (theme.value === "dark") return t("layout.theme.dark");
+  return t("layout.theme.system");
 });
 
 function cycleTheme() {
@@ -222,7 +223,7 @@ const defaultSiteId = "default";
 
 function getSiteLabel(value: string) {
   if (!value || value === "default") {
-    return t('layout.defaultSite');
+    return t("layout.defaultSite");
   }
   return value;
 }
@@ -232,10 +233,12 @@ async function loadSites() {
     const res = await fetchSiteList();
     const sites = Array.isArray(res.sites) ? res.sites : [];
     const unique = Array.from(new Set(sites));
-    siteOptions.value = unique.filter((s) => s !== "").map((s) => ({
-      label: s,
-      value: s,
-    }));
+    siteOptions.value = unique
+      .filter((s) => s !== "")
+      .map((s) => ({
+        label: s,
+        value: s,
+      }));
   } catch {
     siteOptions.value = [];
   }

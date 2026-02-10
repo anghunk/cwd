@@ -1,42 +1,42 @@
 <template>
   <div v-if="visible" class="modal-overlay">
     <div class="modal">
-      <h3 class="modal-title">{{ t('comments.editModal.title') }}</h3>
+      <h3 class="modal-title">{{ t("comments.editModal.title") }}</h3>
       <div v-if="form" class="modal-body">
         <div class="form-item">
-          <label class="form-label">{{ t('comments.editModal.name') }}</label>
+          <label class="form-label">{{ t("comments.editModal.name") }}</label>
           <input v-model="form.name" class="form-input" type="text" />
         </div>
         <div class="form-item">
-          <label class="form-label">{{ t('comments.editModal.email') }}</label>
+          <label class="form-label">{{ t("comments.editModal.email") }}</label>
           <input v-model="form.email" class="form-input" type="email" />
         </div>
         <div class="form-item">
-          <label class="form-label">{{ t('comments.editModal.url') }}</label>
+          <label class="form-label">{{ t("comments.editModal.url") }}</label>
           <input v-model="form.url" class="form-input" type="text" />
         </div>
         <div class="form-item">
-          <label class="form-label">{{ t('comments.editModal.postSlug') }}</label>
+          <label class="form-label">{{ t("comments.editModal.postSlug") }}</label>
           <input v-model="form.postSlug" class="form-input" type="text" />
         </div>
         <div class="form-item">
-          <label class="form-label">{{ t('comments.editModal.postUrl') }}</label>
+          <label class="form-label">{{ t("comments.editModal.postUrl") }}</label>
           <input v-model="form.postUrl" class="form-input" type="text" />
         </div>
         <div class="form-item">
-          <label class="form-label">{{ t('comments.editModal.content') }}</label>
+          <label class="form-label">{{ t("comments.editModal.content") }}</label>
           <textarea v-model="form.contentText" class="form-input" rows="4"></textarea>
         </div>
         <div class="form-item">
-          <label class="form-label">{{ t('comments.editModal.status') }}</label>
+          <label class="form-label">{{ t("comments.editModal.status") }}</label>
           <select v-model="form.status" class="form-input">
-            <option value="approved">{{ t('comments.statusFilter.approved') }}</option>
-            <option value="pending">{{ t('comments.statusFilter.pending') }}</option>
-            <option value="rejected">{{ t('comments.statusFilter.rejected') }}</option>
+            <option value="approved">{{ t("comments.statusFilter.approved") }}</option>
+            <option value="pending">{{ t("comments.statusFilter.pending") }}</option>
+            <option value="rejected">{{ t("comments.statusFilter.rejected") }}</option>
           </select>
         </div>
         <div class="form-item">
-          <label class="form-label">{{ t('comments.editModal.priority') }}</label>
+          <label class="form-label">{{ t("comments.editModal.priority") }}</label>
           <input
             v-model.number="form.priority"
             class="form-input"
@@ -47,7 +47,7 @@
       </div>
       <div class="modal-actions">
         <button class="modal-btn secondary" type="button" @click="handleClose">
-          {{ t('comments.editModal.cancel') }}
+          {{ t("comments.editModal.cancel") }}
         </button>
         <button
           class="modal-btn primary"
@@ -55,8 +55,8 @@
           :disabled="saving"
           @click="handleSubmit"
         >
-          <span v-if="saving">{{ t('comments.editModal.saving') }}</span>
-          <span v-else>{{ t('comments.editModal.save') }}</span>
+          <span v-if="saving">{{ t("comments.editModal.saving") }}</span>
+          <span v-else>{{ t("comments.editModal.save") }}</span>
         </button>
       </div>
     </div>

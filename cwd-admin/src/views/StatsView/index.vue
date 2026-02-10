@@ -1,7 +1,7 @@
 <template>
   <div class="page">
     <div style="display: flex; align-items: center; gap: 20px">
-      <h2 class="page-title">{{ t('stats.title') }}</h2>
+      <h2 class="page-title">{{ t("stats.title") }}</h2>
     </div>
     <div
       v-if="toastVisible"
@@ -13,28 +13,28 @@
 
     <div class="card">
       <div class="card-title-row">
-        <h3 class="card-title">{{ t('stats.overview') }}</h3>
+        <h3 class="card-title">{{ t("stats.overview") }}</h3>
       </div>
-      <div v-if="statsLoading" class="page-hint">{{ t('common.loading') }}</div>
+      <div v-if="statsLoading" class="page-hint">{{ t("common.loading") }}</div>
       <div v-else-if="statsError" class="page-error">{{ statsError }}</div>
       <div v-else>
         <div class="stats-grid">
           <div class="stats-item">
-            <div class="stats-label">{{ t('stats.total') }}</div>
+            <div class="stats-label">{{ t("stats.total") }}</div>
             <div class="stats-value">{{ statsSummary.total }}</div>
           </div>
           <div class="stats-item">
-            <div class="stats-label">{{ t('stats.approved') }}</div>
+            <div class="stats-label">{{ t("stats.approved") }}</div>
             <div class="stats-value stats-value-approved">
               {{ statsSummary.approved }}
             </div>
           </div>
           <div class="stats-item">
-            <div class="stats-label">{{ t('stats.pending') }}</div>
+            <div class="stats-label">{{ t("stats.pending") }}</div>
             <div class="stats-value stats-value-pending">{{ statsSummary.pending }}</div>
           </div>
           <div class="stats-item">
-            <div class="stats-label">{{ t('stats.rejected') }}</div>
+            <div class="stats-label">{{ t("stats.rejected") }}</div>
             <div class="stats-value stats-value-rejected">
               {{ statsSummary.rejected }}
             </div>
@@ -45,7 +45,7 @@
 
     <div class="card">
       <div class="card-title-row">
-        <h3 class="card-title">{{ t('stats.trend') }}</h3>
+        <h3 class="card-title">{{ t("stats.trend") }}</h3>
         <div class="chart-tabs">
           <button
             class="chart-tab"
@@ -53,7 +53,7 @@
             type="button"
             @click="changeChartRange('7')"
           >
-            {{ t('stats.last7Days') }}
+            {{ t("stats.last7Days") }}
           </button>
           <button
             class="chart-tab"
@@ -61,11 +61,11 @@
             type="button"
             @click="changeChartRange('30')"
           >
-            {{ t('stats.last30Days') }}
+            {{ t("stats.last30Days") }}
           </button>
         </div>
       </div>
-      <div v-if="statsLoading" class="page-hint">{{ t('common.loading') }}</div>
+      <div v-if="statsLoading" class="page-hint">{{ t("common.loading") }}</div>
       <div v-else-if="statsError" class="page-error">{{ statsError }}</div>
       <div class="chart-wrapper">
         <div ref="chartEl" class="chart"></div>
@@ -74,26 +74,26 @@
 
     <div class="card">
       <div class="card-title-row">
-        <h3 class="card-title">{{ t('stats.bySite') }}</h3>
+        <h3 class="card-title">{{ t("stats.bySite") }}</h3>
       </div>
-      <div v-if="statsLoading" class="page-hint">{{ t('common.loading') }}</div>
+      <div v-if="statsLoading" class="page-hint">{{ t("common.loading") }}</div>
       <div v-else-if="statsError" class="page-error">{{ statsError }}</div>
-      <div v-else-if="domainStats.length === 0" class="page-hint">{{ t('stats.noData') }}</div>
+      <div v-else-if="domainStats.length === 0" class="page-hint">
+        {{ t("stats.noData") }}
+      </div>
       <div v-else class="domain-stats-layout">
         <div class="domain-table-wrapper">
           <div class="domain-table">
             <div class="domain-table-header">
-              <div class="domain-cell domain-cell-domain">{{ t('stats.table.domain') }}</div>
-              <div class="domain-cell">{{ t('stats.table.total') }}</div>
-              <div class="domain-cell">{{ t('stats.table.approved') }}</div>
-              <div class="domain-cell">{{ t('stats.table.pending') }}</div>
-              <div class="domain-cell">{{ t('stats.table.rejected') }}</div>
+              <div class="domain-cell domain-cell-domain">
+                {{ t("stats.table.domain") }}
+              </div>
+              <div class="domain-cell">{{ t("stats.table.total") }}</div>
+              <div class="domain-cell">{{ t("stats.table.approved") }}</div>
+              <div class="domain-cell">{{ t("stats.table.pending") }}</div>
+              <div class="domain-cell">{{ t("stats.table.rejected") }}</div>
             </div>
-            <div
-              v-for="item in domainStats"
-              :key="item.domain"
-              class="domain-table-row"
-            >
+            <div v-for="item in domainStats" :key="item.domain" class="domain-table-row">
               <div class="domain-cell domain-cell-domain">{{ item.domain }}</div>
               <div class="domain-cell">{{ item.total }}</div>
               <div class="domain-cell">{{ item.approved }}</div>
@@ -111,8 +111,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, onBeforeUnmount, ref, nextTick, watch, inject } from "vue";
-import type { Ref } from "vue";
+import { onMounted, onBeforeUnmount, ref, nextTick, watch } from "vue";
 import { useI18n } from "vue-i18n";
 import * as echarts from "echarts";
 import { fetchCommentStats } from "../../api/admin";
@@ -161,8 +160,7 @@ function loadChartRangeFromStorage() {
     if (value === "7" || value === "30") {
       chartRange.value = value;
     }
-  } catch {
-  }
+  } catch {}
 }
 
 function saveChartRangeToStorage(value: "7" | "30") {
@@ -171,8 +169,7 @@ function saveChartRangeToStorage(value: "7" | "30") {
   }
   try {
     window.localStorage.setItem(chartRangeStorageKey, value);
-  } catch {
-  }
+  } catch {}
 }
 
 function showToast(msg: string, type: "success" | "error" = "success") {
@@ -220,8 +217,7 @@ function renderChart() {
     chartInstance = echarts.init(el);
   }
   const source = last7Days.value;
-  const seriesData =
-    chartRange.value === "7" ? source.slice(-7) : source;
+  const seriesData = chartRange.value === "7" ? source.slice(-7) : source;
   const dates = seriesData.map((item) => item.date.slice(5));
   const values = seriesData.map((item) => item.total);
   const option: echarts.EChartsOption = {

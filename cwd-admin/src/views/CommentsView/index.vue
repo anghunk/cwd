@@ -1,29 +1,35 @@
 <template>
   <div class="page">
-    <h2 class="page-title">{{ t('comments.title') }}</h2>
+    <h2 class="page-title">{{ t("comments.title") }}</h2>
     <div class="toolbar">
       <div class="toolbar-left">
         <select v-model="statusFilter" class="toolbar-select">
-          <option value="">{{ t('comments.statusFilter.all') }}</option>
-          <option value="approved">{{ t('comments.statusFilter.approved') }}</option>
-          <option value="pending">{{ t('comments.statusFilter.pending') }}</option>
-          <option value="rejected">{{ t('comments.statusFilter.rejected') }}</option>
+          <option value="">{{ t("comments.statusFilter.all") }}</option>
+          <option value="approved">{{ t("comments.statusFilter.approved") }}</option>
+          <option value="pending">{{ t("comments.statusFilter.pending") }}</option>
+          <option value="rejected">{{ t("comments.statusFilter.rejected") }}</option>
         </select>
       </div>
       <div class="toolbar-right">
-        <button class="toolbar-button" @click="goPage(1)">{{ t('comments.refresh') }}</button>
+        <button class="toolbar-button" @click="goPage(1)">
+          {{ t("comments.refresh") }}
+        </button>
       </div>
     </div>
-    <div v-if="loading" class="page-hint">{{ t('common.loading') }}</div>
+    <div v-if="loading" class="page-hint">{{ t("common.loading") }}</div>
     <div v-else-if="error" class="page-error">{{ error }}</div>
     <div v-else>
       <div class="comment-table">
         <div class="table-header">
-          <div class="table-cell table-cell-author">{{ t('comments.table.author') }}</div>
-          <div class="table-cell table-cell-content">{{ t('comments.table.content') }}</div>
-          <div class="table-cell table-cell-path">{{ t('comments.table.path') }}</div>
-          <div class="table-cell table-cell-status">{{ t('comments.table.status') }}</div>
-          <div class="table-cell table-cell-actions">{{ t('comments.table.actions') }}</div>
+          <div class="table-cell table-cell-author">{{ t("comments.table.author") }}</div>
+          <div class="table-cell table-cell-content">
+            {{ t("comments.table.content") }}
+          </div>
+          <div class="table-cell table-cell-path">{{ t("comments.table.path") }}</div>
+          <div class="table-cell table-cell-status">{{ t("comments.table.status") }}</div>
+          <div class="table-cell table-cell-actions">
+            {{ t("comments.table.actions") }}
+          </div>
         </div>
         <div v-for="item in filteredComments" :key="item.id" class="table-row">
           <div class="table-cell table-cell-author">
@@ -89,10 +95,9 @@
               target="_blank"
               class="cell-path"
               :title="item.postSlug"
-              >
-              {{ item.postUrl || item.postSlug }}
-              </a
             >
+              {{ item.postUrl || item.postSlug }}
+            </a>
           </div>
           <div class="table-cell table-cell-status">
             <div class="cell-status-wrapper">
@@ -104,7 +109,7 @@
                 :title="String(item.priority)"
                 class="cell-status cell-pin-flag"
               >
-                {{ t('comments.actions.pin') }}
+                {{ t("comments.actions.pin") }}
               </span>
               <span class="cell-status cell-likes-number" v-if="item.likes !== 0">
                 <PhThumbsUp :size="13" />
@@ -126,21 +131,25 @@
                 :value="item.status"
                 @change="handleStatusChange(item, $event)"
               >
-                <option value="approved">{{ t('comments.actions.approve') }}</option>
-                <option value="pending">{{ t('comments.actions.pending') }}</option>
-                <option value="rejected">{{ t('comments.actions.reject') }}</option>
+                <option value="approved">{{ t("comments.actions.approve") }}</option>
+                <option value="pending">{{ t("comments.actions.pending") }}</option>
+                <option value="rejected">{{ t("comments.actions.reject") }}</option>
               </select>
-              <button class="table-action" @click="openEdit(item)">{{ t('comments.actions.edit') }}</button>
+              <button class="table-action" @click="openEdit(item)">
+                {{ t("comments.actions.edit") }}
+              </button>
               <button
                 class="table-action table-action-danger"
                 @click="removeComment(item)"
               >
-                {{ t('comments.actions.delete') }}
+                {{ t("comments.actions.delete") }}
               </button>
             </div>
           </div>
         </div>
-        <div v-if="filteredComments.length === 0" class="table-empty">{{ t('comments.empty') }}</div>
+        <div v-if="filteredComments.length === 0" class="table-empty">
+          {{ t("comments.empty") }}
+        </div>
       </div>
       <div v-if="pagination.total > 1" class="pagination">
         <button
@@ -148,7 +157,7 @@
           :disabled="pagination.page <= 1"
           @click="goPage(pagination.page - 1)"
         >
-          {{ t('comments.pagination.prev') }}
+          {{ t("comments.pagination.prev") }}
         </button>
         <button
           class="pagination-button"
@@ -199,10 +208,10 @@
           :disabled="pagination.page >= pagination.total"
           @click="goPage(pagination.page + 1)"
         >
-          {{ t('comments.pagination.next') }}
+          {{ t("comments.pagination.next") }}
         </button>
         <div class="pagination-jump">
-          <span>{{ t('comments.pagination.jumpTo') }}</span>
+          <span>{{ t("comments.pagination.jumpTo") }}</span>
           <input
             v-model="jumpPageInput"
             class="pagination-input"
@@ -211,8 +220,10 @@
             :max="pagination.total"
             @keyup.enter="handleJumpPage"
           />
-          <span>{{ t('comments.pagination.page') }}</span>
-          <button class="pagination-button" @click="handleJumpPage">{{ t('comments.pagination.confirm') }}</button>
+          <span>{{ t("comments.pagination.page") }}</span>
+          <button class="pagination-button" @click="handleJumpPage">
+            {{ t("comments.pagination.confirm") }}
+          </button>
         </div>
       </div>
     </div>
@@ -228,16 +239,12 @@
 
 <script setup lang="ts">
 import "../../styles/markdown.css";
-import { onMounted, ref, computed, watch, inject } from "vue";
-import type { Ref } from "vue";
+import { onMounted, ref, computed, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useI18n } from "vue-i18n";
-import { marked } from "marked";
-import DOMPurify from "dompurify";
 import ModalEdit from "./components/ModalEdit.vue";
 import {
   CommentItem,
-  CommentListResponse,
   fetchComments,
   deleteComment,
   updateCommentStatus,
@@ -319,13 +326,13 @@ function formatDate(value: number) {
 
 function formatStatus(status: string) {
   if (status === "approved") {
-    return t('comments.statusFilter.approved');
+    return t("comments.statusFilter.approved");
   }
   if (status === "pending") {
-    return t('comments.statusFilter.pending');
+    return t("comments.statusFilter.pending");
   }
   if (status === "rejected") {
-    return t('comments.statusFilter.rejected');
+    return t("comments.statusFilter.rejected");
   }
   return status;
 }
@@ -398,7 +405,7 @@ function handleStatusChange(item: CommentItem, event: Event) {
 }
 
 async function removeComment(item: CommentItem) {
-  if (!window.confirm(t('comments.confirmDelete', { id: item.id }))) {
+  if (!window.confirm(t("comments.confirmDelete", { id: item.id }))) {
     return;
   }
   try {
@@ -413,12 +420,12 @@ async function handleBlockIp(item: CommentItem) {
   if (!item.ipAddress) {
     return;
   }
-  if (!window.confirm(t('comments.confirmBlockIp', { ip: item.ipAddress }))) {
+  if (!window.confirm(t("comments.confirmBlockIp", { ip: item.ipAddress }))) {
     return;
   }
   try {
     const res = await blockIp(item.ipAddress);
-    window.alert(res.message || t('comments.successBlockIp'));
+    window.alert(res.message || t("comments.successBlockIp"));
   } catch (e: any) {
     error.value = e.message || "屏蔽 IP 失败";
   }
@@ -428,12 +435,12 @@ async function handleBlockEmail(item: CommentItem) {
   if (!item.email) {
     return;
   }
-  if (!window.confirm(t('comments.confirmBlockEmail', { email: item.email }))) {
+  if (!window.confirm(t("comments.confirmBlockEmail", { email: item.email }))) {
     return;
   }
   try {
     const res = await blockEmail(item.email);
-    window.alert(res.message || t('comments.successBlockEmail'));
+    window.alert(res.message || t("comments.successBlockEmail"));
   } catch (e: any) {
     error.value = e.message || "屏蔽邮箱失败";
   }
@@ -545,7 +552,6 @@ watch(currentSiteId, () => {
   updateRoutePage(1);
   loadComments(1);
 });
-
 </script>
 
 <style scoped lang="less">
