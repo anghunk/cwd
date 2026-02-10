@@ -29,8 +29,8 @@ CWD 评论组件采用 **Shadow DOM** 技术构建，基于独立根节点渲染
 		el: '#comments', // 必填
 		apiBaseUrl: 'https://your-api.example.com', // 必填，换成你的 API 地址
 		postSlug: 'post-unique-id-001', // 选填，自定义评论标识符，用于跨路径/多语言聚合
-		siteId: 'blog', // 选填，推荐配置，用于多站点数据隔离。
-
+		siteId: 'blog', // 选填，推荐配置，用于多站点数据隔离
+		lang: 'auto', // 选填，评论组件语言，详见下方说明
 	});
 	comments.mount();
 </script>
@@ -60,9 +60,28 @@ https://cwd.js.org/cwd.js
 | `apiBaseUrl`   | `string`                | 是   | -                          | API 基础地址                             |
 | `siteId`       | `string`                | 否   | `''`                       | 站点 ID，用于多站点数据隔离，推荐配置    |
 | `postSlug`     | `string`                | 否   | `window.location.pathname` | 自定义评论标识符，用于跨路径/多语言聚合  |
+| `lang`         | `string`                | 否   | `auto`                     | 评论组件语言代码，支持 `zh-CN`、`en-US`、`fr` 等，`auto` 表示自动根据浏览器语言选择 |
 | `theme`        | `'light' \| 'dark'`     | 否   | `'light'`                  | 主题模式                                 |
 | `pageSize`     | `number`                | 否   | `20`                       | 每页显示评论数                           |
 | `customCssUrl` | `string`                | 否   | -                          | 自定义样式表 URL，追加到 Shadow DOM 底部 |
+
+### 多语言配置说明
+
+评论组件语言的优先级如下：
+
+1. 前端实例化时传入的 `lang` 参数（最高优先级）
+2. 后端在「功能设置」中配置的 `widgetLanguage`（通过 `/admin/settings/features` 接口下发）
+3. 浏览器语言自动检测（当以上两项都为空或为 `auto` 时生效）
+
+推荐做法：
+
+- 后端在管理后台中设置一个全局默认语言（`widgetLanguage`），例如 `zh-CN`
+- 不同语言站点如有特殊需求，再在前端实例化时通过 `lang` 明确指定
+
+> [!note] 目前支持的语言有：
+> `zh-CN` `en-US` `zh-TW` `es` `pt` `fr` `de` `ja` `ko` `ru` `it` `nl` `ar` `hi` `id`
+
+如需适配其他语言，请联系我们，我们会在后续版本中添加对其他语言的支持，或者提交 pr。
 
 头像前缀、博主邮箱和标识等信息由后端接口 `/api/config/comments` 提供，无需在前端进行配置。
 
