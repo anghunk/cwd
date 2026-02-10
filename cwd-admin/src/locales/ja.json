@@ -1,0 +1,304 @@
+{
+  "menu": {
+    "comments": "コメント管理",
+    "stats": "ダッシュボード",
+    "analytics": "アクセス統計",
+    "settings": "サイト設定",
+    "data": "データ管理"
+  },
+  "layout": {
+    "toggleMenu": "メニュー切り替え",
+    "docs": "ドキュメント",
+    "logout": "ログアウト",
+    "moreActions": "その他の操作",
+    "defaultSite": "デフォルトサイト",
+    "theme": {
+      "light": "ライト",
+      "dark": "ダーク",
+      "system": "システム"
+    },
+    "version": {
+      "title": "バージョン情報",
+      "apiAddress": "API アドレス",
+      "apiVersion": "API バージョン",
+      "adminVersion": "管理画面バージョン",
+      "match": "管理画面とAPIのバージョンが一致しています。",
+      "mismatch": "バージョンが一致しません。互換性の問題を避けるため、APIサービスを更新してください。",
+      "fetchError": "バージョン情報の取得に失敗しました：",
+      "loading": "読み込み中...",
+      "notConfigured": "未設定",
+      "notFetched": "未取得",
+      "ok": "OK"
+    }
+  },
+  "stats": {
+    "title": "ダッシュボード",
+    "overview": "概要",
+    "total": "総コメント数",
+    "approved": "承認済み",
+    "pending": "承認待ち",
+    "rejected": "却下済み",
+    "trend": "コメント傾向",
+    "bySite": "サイト別統計",
+    "last7Days": "過去7日間",
+    "last30Days": "過去30日間",
+    "noData": "データなし",
+    "table": {
+      "domain": "ドメイン",
+      "total": "合計",
+      "approved": "承認済み",
+      "pending": "承認待ち",
+      "rejected": "却下済み"
+    },
+    "loadError": "統計データの読み込みに失敗しました"
+  },
+  "analytics": {
+    "title": "アクセス統計",
+    "overview": "概要",
+    "totalPv": "総PV",
+    "todayPv": "今日のPV",
+    "weekPv": "今週のPV",
+    "monthPv": "今月のPV",
+    "totalPages": "訪問ページ数",
+    "trend": "アクセス傾向",
+    "pageDetail": "ページ詳細",
+    "likeRank": "いいねランキング",
+    "last7Days": "過去7日間",
+    "last30Days": "過去30日間",
+    "sort": {
+      "pv": "PV順",
+      "latest": "最新の訪問"
+    },
+    "table": {
+      "title": "ページタイトル",
+      "pv": "PV",
+      "time": "最終訪問",
+      "url": "URL",
+      "rank": "順位",
+      "like": "いいね"
+    },
+    "noData": "データなし",
+    "noLikeData": "いいねデータなし",
+    "loadError": "統計データの読み込みに失敗しました"
+  },
+  "data": {
+    "title": "データ管理",
+    "sections": {
+      "comments": {
+        "title": "コメントデータ",
+        "desc": "コメントの管理と他のフレームワークからのインポート。",
+        "exportLabel": "エクスポート:",
+        "exporting": "エクスポート中...",
+        "exportJson": "JSONエクスポート",
+        "importLabel": "インポート:",
+        "importButton": "コメントをインポート",
+        "source": {
+          "cwd": "CWD (.json)",
+          "twikoo": "Twikoo (.json)",
+          "artalk": "Artalk (.json)"
+        }
+      },
+      "config": {
+        "title": "システム設定",
+        "desc": "管理画面設定、メール設定、ブラックリストなど。",
+        "export": "設定エクスポート",
+        "import": "設定インポート"
+      },
+      "stats": {
+        "title": "アクセス統計",
+        "desc": "PV、いいね、アクセス傾向の管理。",
+        "export": "統計エクスポート",
+        "import": "統計インポート"
+      },
+      "backup": {
+        "title": "完全バックアップ",
+        "desc": "全システムデータのバックアップと復元（コメント+設定+統計）。",
+        "export": "完全エクスポート",
+        "import": "完全復元"
+      }
+    },
+    "logs": {
+      "title": "操作ログ"
+    },
+    "prefixModal": {
+      "title": "URLプレフィックス欠落を検出",
+      "descPart1": "検出された ",
+      "descPart2": " 件のコメントURLにプロトコルプレフィックス(http/https)がありません。",
+      "descPart3": "インポート時に追加しますか？",
+      "label": "ドメインプレフィックス (例: https://example.me)",
+      "placeholder": "プレフィックスを入力",
+      "skip": "スキップ (追加しない)",
+      "confirm": "追加してインポート"
+    },
+    "messages": {
+      "exportSuccess": "エクスポート成功",
+      "exportFailed": "エクスポート失敗",
+      "fileReadFailed": "ファイル読み込み失敗",
+      "jsonParseFailed": "JSON解析失敗",
+      "importConfigSuccess": "設定インポート成功",
+      "importStatsSuccess": "統計インポート成功",
+      "importBackupSuccess": "完全復元成功",
+      "importCommentsSuccess": "コメントインポート成功",
+      "prefixRequired": "ドメインプレフィックスを入力してください",
+      "importStart": "インポート開始: {name} (モード: {mode})",
+      "fileParseSuccess": "ファイル解析成功、処理中...",
+      "errorWithMessage": "エラー: {msg}",
+      "parsedCommentsCount": "{count} 件のコメントを解析しました",
+      "detectMissingPrefix": "{count} 件のURL欠落を検出、確認待ち...",
+      "prefixAdded": "プレフィックス追加済み、続行中...",
+      "skipPrefix": "プレフィックス追加をスキップ",
+      "readFileFailedLog": "ファイル読み込み失敗",
+      "importCommentsDone": "インポート完了: {message}"
+    }
+  },
+  "comments": {
+    "title": "コメント管理",
+    "statusFilter": {
+      "all": "すべて",
+      "approved": "承認済み",
+      "pending": "承認待ち",
+      "rejected": "却下済み"
+    },
+    "refresh": "更新",
+    "table": {
+      "author": "ユーザー",
+      "content": "コメント",
+      "path": "パス",
+      "status": "ステータス",
+      "actions": "操作",
+      "admin": "管理者",
+      "time": "時間",
+      "ip": "IP",
+      "email": "メール"
+    },
+    "actions": {
+      "approve": "承認",
+      "pending": "保留",
+      "reject": "却下",
+      "edit": "編集",
+      "delete": "削除",
+      "blockIp": "IPブロック",
+      "blockEmail": "メールブロック",
+      "pin": "固定"
+    },
+    "pagination": {
+      "prev": "前へ",
+      "next": "次へ",
+      "jumpTo": "移動",
+      "page": "ページ",
+      "confirm": "OK"
+    },
+    "confirmDelete": "コメント {id} を削除しますか？",
+    "confirmBlockIp": "IP {ip} をブラックリストに追加しますか？",
+    "confirmBlockEmail": "メール {email} をブラックリストに追加しますか？",
+    "successBlockIp": "IPをブロックしました",
+    "successBlockEmail": "メールをブロックしました",
+    "empty": "データなし",
+    "editModal": {
+      "title": "コメント編集",
+      "name": "名前",
+      "email": "メール",
+      "url": "URL",
+      "postSlug": "スラッグ",
+      "postUrl": "記事URL",
+      "content": "内容",
+      "status": "ステータス",
+      "priority": "優先度 (1=通常, 大きいほど上)",
+      "cancel": "キャンセル",
+      "save": "保存",
+      "saving": "保存中..."
+    }
+  },
+  "settings": {
+    "title": "設定",
+    "tabs": {
+      "comment": "コメントとセキュリティ",
+      "feature": "機能設定",
+      "emailNotify": "メール通知",
+      "telegramNotify": "Telegram通知",
+      "display": "表示設定"
+    },
+    "comment": {
+      "title": "コメント表示設定",
+      "adminEmail": "管理者メール",
+      "adminBadge": "管理者バッジ文字 (空の場合はデフォルトアイコン)",
+      "adminEnabled": "管理者バッジを表示",
+      "avatarPrefix": "アバタープレフィックス (デフォルト: https://gravatar.com/avatar)",
+      "securityTitle": "セキュリティ設定",
+      "requireReview": "新規コメントを承認制にする",
+      "adminKey": "管理者キー (管理者メールでのコメントに必要)",
+      "adminKeyPlaceholder": "キーを入力",
+      "allowedDomains": "許可ドメイン (空の場合は制限なし。スペースまたはカンマ区切り)",
+      "blockedIps": "ブロックIP (カンマまたは改行区切り)",
+      "blockedEmails": "ブロックメール (カンマまたは改行区切り)",
+      "save": "保存",
+      "saving": "保存中..."
+    },
+    "feature": {
+      "title": "機能設定",
+      "articleLike": "記事へのいいねを有効化",
+      "articleLikeHint": "コメント欄上部に記事へのいいねボタンを表示します。",
+      "commentLike": "コメントへのいいねを有効化",
+      "commentLikeHint": "各コメントにいいねボタンを表示します。",
+      "imageLightbox": "画像ライトボックス",
+      "imageLightboxHint": "コメント内の画像を全画面プレビューします。",
+      "placeholder": "プレースホルダー",
+      "placeholderHint": "コメント入力欄のヒントテキスト。",
+      "widgetLanguage": "ウィジェット言語",
+      "widgetLanguageHint": "フロントエンドウィジェットの言語。",
+      "save": "保存",
+      "saving": "保存中..."
+    },
+    "emailNotify": {
+      "title": "メール通知設定",
+      "enable": "メール通知を有効化",
+      "smtpTitle": "1. SMTP設定",
+      "provider": "プロバイダー",
+      "host": "SMTPホスト",
+      "port": "SMTPポート",
+      "secure": "SSL接続",
+      "user": "メールユーザー",
+      "pass": "パスワード/アプリパスワード",
+      "qqHint": "注意: QQメールはパスワードではなく認証コードを使用してください。",
+      "163Hint": "注意: 163メールはパスワードではなく認証コードを使用してください。",
+      "templateTitle": "2. テンプレート設定",
+      "adminTemplate": "管理者通知テンプレート (HTML)",
+      "adminTemplateHint": "変数: ${commentAuthor}, ${postTitle}, ${postUrl}, ${commentContent}",
+      "replyTemplate": "返信通知テンプレート (HTML)",
+      "replyTemplateHint": "変数: ${toName}, ${replyAuthor}, ${postTitle}, ${postUrl}, ${parentComment}, ${replyContent}",
+      "testBtn": "テストメール送信",
+      "testingBtn": "送信中...",
+      "resetBtn": "テンプレートをリセット",
+      "save": "設定を保存",
+      "saving": "保存中..."
+    },
+    "telegramNotify": {
+      "title": "Telegram通知設定",
+      "enable": "Telegram通知を有効化",
+      "botToken": "Bot Token",
+      "botTokenHint": "@BotFather から取得",
+      "chatId": "Chat ID",
+      "chatIdHint": "ユーザーIDまたはグループID。@userinfobot で確認できます。",
+      "webhookBtn": "Webhook設定",
+      "webhookSetting": "設定中...",
+      "testBtn": "テストメッセージ送信",
+      "testingBtn": "送信中...",
+      "save": "保存",
+      "saving": "保存中..."
+    },
+    "display": {
+      "title": "表示設定",
+      "layoutTitle": "管理画面タイトル",
+      "layoutTitleHint": "トップナビゲーションバーに表示されます。",
+      "adminLanguage": "管理画面言語",
+      "adminLanguageHint": "管理パネルの言語設定。",
+      "save": "保存",
+      "saving": "保存中..."
+    },
+    "common": {
+      "saveSuccess": "保存成功",
+      "saveFailed": "保存失敗",
+      "loading": "読み込み中..."
+    }
+  }
+}

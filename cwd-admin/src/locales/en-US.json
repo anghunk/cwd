@@ -1,0 +1,304 @@
+{
+  "menu": {
+    "comments": "Comments",
+    "stats": "Dashboard",
+    "analytics": "Analytics",
+    "settings": "Settings",
+    "data": "Data"
+  },
+  "layout": {
+    "toggleMenu": "Toggle Menu",
+    "docs": "Documentation",
+    "logout": "Logout",
+    "moreActions": "More Actions",
+    "defaultSite": "Default Site",
+    "theme": {
+      "light": "Light",
+      "dark": "Dark",
+      "system": "System"
+    },
+    "version": {
+      "title": "Version Info",
+      "apiAddress": "API Address",
+      "apiVersion": "API Version",
+      "adminVersion": "Admin Version",
+      "match": "Admin and API versions match.",
+      "mismatch": "Version mismatch. Please update API service to match Admin version.",
+      "fetchError": "Failed to fetch version:",
+      "loading": "Loading...",
+      "notConfigured": "Not Configured",
+      "notFetched": "Not Fetched",
+      "ok": "OK"
+    }
+  },
+  "stats": {
+    "title": "Dashboard",
+    "overview": "Overview",
+    "total": "Total Comments",
+    "approved": "Approved",
+    "pending": "Pending",
+    "rejected": "Rejected",
+    "trend": "Comment Trend",
+    "bySite": "By Site",
+    "last7Days": "Last 7 Days",
+    "last30Days": "Last 30 Days",
+    "noData": "No Data",
+    "table": {
+      "domain": "Domain",
+      "total": "Total",
+      "approved": "Approved",
+      "pending": "Pending",
+      "rejected": "Rejected"
+    },
+    "loadError": "Failed to load stats"
+  },
+  "analytics": {
+    "title": "Analytics",
+    "overview": "Overview",
+    "totalPv": "Total PV",
+    "todayPv": "Today PV",
+    "weekPv": "Week PV",
+    "monthPv": "Month PV",
+    "totalPages": "Pages Visited",
+    "trend": "Traffic Trend",
+    "pageDetail": "Page Details",
+    "likeRank": "Top Liked Pages",
+    "last7Days": "Last 7 Days",
+    "last30Days": "Last 30 Days",
+    "sort": {
+      "pv": "Sort by PV",
+      "latest": "Latest Visited"
+    },
+    "table": {
+      "title": "Page Title",
+      "pv": "PV",
+      "time": "Last Visit",
+      "url": "URL",
+      "rank": "Rank",
+      "like": "Likes"
+    },
+    "noData": "No Data",
+    "noLikeData": "No Like Data",
+    "loadError": "Failed to load analytics"
+  },
+  "data": {
+    "title": "Data Management",
+    "sections": {
+      "comments": {
+        "title": "Comments",
+        "desc": "Manage comments and import from other frameworks.",
+        "exportLabel": "Export:",
+        "exporting": "Exporting...",
+        "exportJson": "Export JSON",
+        "importLabel": "Import:",
+        "importButton": "Import Comments",
+        "source": {
+          "cwd": "CWD (.json)",
+          "twikoo": "Twikoo (.json)",
+          "artalk": "Artalk (.json)"
+        }
+      },
+      "config": {
+        "title": "System Config",
+        "desc": "Manage settings, email config, blocklists, etc.",
+        "export": "Export Config",
+        "import": "Import Config"
+      },
+      "stats": {
+        "title": "Analytics Data",
+        "desc": "Manage page views, likes, and trends.",
+        "export": "Export Stats",
+        "import": "Import Stats"
+      },
+      "backup": {
+        "title": "Full Backup",
+        "desc": "Backup or restore all system data (Comments + Config + Stats).",
+        "export": "Full Export",
+        "import": "Full Restore"
+      }
+    },
+    "logs": {
+      "title": "Operation Logs"
+    },
+    "prefixModal": {
+      "title": "Missing URL Prefix Detected",
+      "descPart1": "Detected ",
+      "descPart2": " comments with URL missing protocol prefix (http/https).",
+      "descPart3": "Add prefix during import?",
+      "label": "Domain Prefix (e.g. https://example.me)",
+      "placeholder": "Enter domain prefix",
+      "skip": "Skip (Don't Add)",
+      "confirm": "Add & Import"
+    },
+    "messages": {
+      "exportSuccess": "Export Success",
+      "exportFailed": "Export Failed",
+      "fileReadFailed": "File Read Failed",
+      "jsonParseFailed": "JSON Parse Failed",
+      "importConfigSuccess": "Config Imported",
+      "importStatsSuccess": "Stats Imported",
+      "importBackupSuccess": "Full Restore Success",
+      "importCommentsSuccess": "Comments Imported",
+      "prefixRequired": "Please enter domain prefix",
+      "importStart": "Importing: {name} (Mode: {mode})",
+      "fileParseSuccess": "File parsed, processing...",
+      "errorWithMessage": "Error: {msg}",
+      "parsedCommentsCount": "Parsed {count} comments",
+      "detectMissingPrefix": "Detected {count} URLs missing prefix, waiting for confirmation...",
+      "prefixAdded": "Prefix added, continuing...",
+      "skipPrefix": "Skipped prefix addition",
+      "readFileFailedLog": "Read file failed",
+      "importCommentsDone": "Import Done: {message}"
+    }
+  },
+  "comments": {
+    "title": "Comment Management",
+    "statusFilter": {
+      "all": "All",
+      "approved": "Approved",
+      "pending": "Pending",
+      "rejected": "Rejected"
+    },
+    "refresh": "Refresh",
+    "table": {
+      "author": "User",
+      "content": "Comment",
+      "path": "Path",
+      "status": "Status",
+      "actions": "Actions",
+      "admin": "Admin",
+      "time": "Time",
+      "ip": "IP",
+      "email": "Email"
+    },
+    "actions": {
+      "approve": "Approve",
+      "pending": "Pending",
+      "reject": "Reject",
+      "edit": "Edit",
+      "delete": "Delete",
+      "blockIp": "Block IP",
+      "blockEmail": "Block Email",
+      "pin": "Pin"
+    },
+    "pagination": {
+      "prev": "Prev",
+      "next": "Next",
+      "jumpTo": "Go to",
+      "page": "Page",
+      "confirm": "OK"
+    },
+    "confirmDelete": "Delete comment {id}?",
+    "confirmBlockIp": "Block IP {ip}?",
+    "confirmBlockEmail": "Block Email {email}?",
+    "successBlockIp": "IP Blocked",
+    "successBlockEmail": "Email Blocked",
+    "empty": "No Data",
+    "editModal": {
+      "title": "Edit Comment",
+      "name": "Nickname",
+      "email": "Email",
+      "url": "URL",
+      "postSlug": "Slug",
+      "postUrl": "Post URL",
+      "content": "Content",
+      "status": "Status",
+      "priority": "Priority (1=Normal, higher=Top)",
+      "cancel": "Cancel",
+      "save": "Save",
+      "saving": "Saving..."
+    }
+  },
+  "settings": {
+    "title": "Settings",
+    "tabs": {
+      "comment": "Comments & Security",
+      "feature": "Features",
+      "emailNotify": "Email Notify",
+      "telegramNotify": "Telegram Notify",
+      "display": "Display"
+    },
+    "comment": {
+      "title": "Comment Display",
+      "adminEmail": "Admin Email",
+      "adminBadge": "Admin Badge Text (Empty for default icon)",
+      "adminEnabled": "Show Admin Badge",
+      "avatarPrefix": "Avatar Prefix (Default: https://gravatar.com/avatar)",
+      "securityTitle": "Security",
+      "requireReview": "Require Review for New Comments",
+      "adminKey": "Admin Key (Required for admin email comments)",
+      "adminKeyPlaceholder": "Enter key to set or change",
+      "allowedDomains": "Allowed Domains (Empty to allow all. Split by space or comma)",
+      "blockedIps": "Blocked IPs (Split by comma or newline)",
+      "blockedEmails": "Blocked Emails (Split by comma or newline)",
+      "save": "Save",
+      "saving": "Saving..."
+    },
+    "feature": {
+      "title": "Features",
+      "articleLike": "Enable Article Likes",
+      "articleLikeHint": "Show like button at top of comments.",
+      "commentLike": "Enable Comment Likes",
+      "commentLikeHint": "Show like button on each comment.",
+      "imageLightbox": "Image Lightbox",
+      "imageLightboxHint": "Enable fullscreen preview for images in comments.",
+      "placeholder": "Placeholder Text",
+      "placeholderHint": "Custom placeholder for comment input.",
+      "widgetLanguage": "Widget Language",
+      "widgetLanguageHint": "Language for the frontend widget.",
+      "save": "Save",
+      "saving": "Saving..."
+    },
+    "emailNotify": {
+      "title": "Email Notification",
+      "enable": "Enable Email Notify",
+      "smtpTitle": "1. SMTP Config",
+      "provider": "Provider",
+      "host": "SMTP Host",
+      "port": "SMTP Port",
+      "secure": "SSL Secure",
+      "user": "Email User",
+      "pass": "Password/App Token",
+      "qqHint": "Note: For QQ Mail, use App Token instead of password.",
+      "163Hint": "Note: For 163 Mail, use App Token instead of password.",
+      "templateTitle": "2. Template Config",
+      "adminTemplate": "Admin Template (HTML)",
+      "adminTemplateHint": "Vars: ${commentAuthor}, ${postTitle}, ${postUrl}, ${commentContent}",
+      "replyTemplate": "Reply Template (HTML)",
+      "replyTemplateHint": "Vars: ${toName}, ${replyAuthor}, ${postTitle}, ${postUrl}, ${parentComment}, ${replyContent}",
+      "testBtn": "Send Test Email",
+      "testingBtn": "Sending...",
+      "resetBtn": "Reset Templates",
+      "save": "Save Config",
+      "saving": "Saving..."
+    },
+    "telegramNotify": {
+      "title": "Telegram Notification",
+      "enable": "Enable Telegram Notify",
+      "botToken": "Bot Token",
+      "botTokenHint": "Get from @BotFather",
+      "chatId": "Chat ID",
+      "chatIdHint": "User ID or Group ID. Use @userinfobot to find.",
+      "webhookBtn": "Set Webhook",
+      "webhookSetting": "Setting...",
+      "testBtn": "Send Test Message",
+      "testingBtn": "Sending...",
+      "save": "Save",
+      "saving": "Saving..."
+    },
+    "display": {
+      "title": "Display Settings",
+      "layoutTitle": "Admin Title",
+      "layoutTitleHint": "Displayed in top navigation bar.",
+      "adminLanguage": "Admin Language",
+      "adminLanguageHint": "Language for the admin panel.",
+      "save": "Save",
+      "saving": "Saving..."
+    }
+  },
+  "common": {
+    "saveSuccess": "Saved Successfully",
+    "saveFailed": "Save Failed",
+    "loading": "Loading..."
+  }
+}

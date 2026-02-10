@@ -106,7 +106,8 @@ export class CommentList extends Component {
           onCancelReply: () => this.handleCancelReply(),
           onUpdateReplyContent: (content) => this.handleUpdateReplyContent(content),
           onClearReplyError: () => this.handleClearReplyError(),
-          onLikeComment: (commentId, isLike) => this.handleLikeComment(commentId, isLike)
+          onLikeComment: (commentId, isLike) => this.handleLikeComment(commentId, isLike),
+          t: this.props.t
         });
         commentItem.render();
         // 缓存 CommentItem 实例

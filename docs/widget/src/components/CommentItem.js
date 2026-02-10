@@ -31,6 +31,7 @@ export class CommentItem extends Component {
 	 */
 	constructor(container, props = {}) {
 		super(container, props);
+		this.t = props.t || ((k) => k);
 		this.replyEditor = null;
 		this.childCommentItems = []; // 缓存嵌套回复的 CommentItem 实例
 	}
@@ -103,7 +104,7 @@ export class CommentItem extends Component {
 										// 显示回复目标
 										...(comment.replyToAuthor
 											? [
-													this.createTextElement('span', ' 回复 ', 'cwd-reply-to-separator'),
+													this.createTextElement('span', ` ${this.t('reply')} `, 'cwd-reply-to-separator'),
 													this.createTextElement('span', comment.replyToAuthor, 'cwd-reply-to-author'),
 												]
 											: []),
@@ -119,7 +120,7 @@ export class CommentItem extends Component {
 											attributes: {
 												onClick: () => this.handleReply(),
 											},
-											text: '回复',
+											text: this.t('reply'),
 										}),
 										...(this.props.enableCommentLike !== false
 											? [
@@ -169,7 +170,7 @@ export class CommentItem extends Component {
 													}),
 												]
 											: []),
-										this.createTextElement('span', formatRelativeTime(comment.created), 'cwd-comment-time'),
+										this.createTextElement('span', formatRelativeTime(comment.created, this.t), 'cwd-comment-time'),
 									],
 								}),
 							],
@@ -220,6 +221,7 @@ export class CommentItem extends Component {
 					onCancel: () => this.handleCancelReply(),
 					onClearError: () => this.handleClearReplyError(),
 					placeholder: this.props.replyPlaceholder,
+					t: this.t
 				});
 				this.replyEditor.render();
 				this.replyEditor.focus();
@@ -253,6 +255,7 @@ export class CommentItem extends Component {
 						onCancelReply: this.props.onCancelReply,
 						onUpdateReplyContent: this.props.onUpdateReplyContent,
 						onClearReplyError: this.props.onClearReplyError,
+						t: this.t
 					});
 					replyItem.render();
 					this.childCommentItems.push(replyItem);

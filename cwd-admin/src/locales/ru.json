@@ -1,0 +1,304 @@
+{
+  "menu": {
+    "comments": "Управление Комментариями",
+    "stats": "Панель",
+    "analytics": "Аналитика",
+    "settings": "Настройки",
+    "data": "Данные"
+  },
+  "layout": {
+    "toggleMenu": "Меню",
+    "docs": "Документация",
+    "logout": "Выйти",
+    "moreActions": "Ещё",
+    "defaultSite": "Сайт по Умолчанию",
+    "theme": {
+      "light": "Светлая",
+      "dark": "Тёмная",
+      "system": "Системная"
+    },
+    "version": {
+      "title": "Версия",
+      "apiAddress": "Адрес API",
+      "apiVersion": "Версия API",
+      "adminVersion": "Версия Админки",
+      "match": "Версии совпадают.",
+      "mismatch": "Версии не совпадают. Обновите API.",
+      "fetchError": "Ошибка получения версии:",
+      "loading": "Загрузка...",
+      "notConfigured": "Не настроено",
+      "notFetched": "Не получено",
+      "ok": "ОК"
+    }
+  },
+  "stats": {
+    "title": "Панель",
+    "overview": "Обзор",
+    "total": "Всего Комментариев",
+    "approved": "Одобрено",
+    "pending": "На проверке",
+    "rejected": "Отклонено",
+    "trend": "Тренд",
+    "bySite": "По сайтам",
+    "last7Days": "7 дней",
+    "last30Days": "30 дней",
+    "noData": "Нет данных",
+    "table": {
+      "domain": "Домен",
+      "total": "Всего",
+      "approved": "Одобрено",
+      "pending": "На проверке",
+      "rejected": "Отклонено"
+    },
+    "loadError": "Ошибка загрузки статистики"
+  },
+  "analytics": {
+    "title": "Аналитика",
+    "overview": "Обзор",
+    "totalPv": "Всего PV",
+    "todayPv": "PV Сегодня",
+    "weekPv": "PV Неделя",
+    "monthPv": "PV Месяц",
+    "totalPages": "Посещённые страницы",
+    "trend": "Тренд Трафика",
+    "pageDetail": "Детали Страницы",
+    "likeRank": "Топ Лайков",
+    "last7Days": "7 дней",
+    "last30Days": "30 дней",
+    "sort": {
+      "pv": "Сорт. по PV",
+      "latest": "Последние"
+    },
+    "table": {
+      "title": "Заголовок",
+      "pv": "PV",
+      "time": "Последний Визит",
+      "url": "URL",
+      "rank": "Ранг",
+      "like": "Лайки"
+    },
+    "noData": "Нет данных",
+    "noLikeData": "Нет данных о лайках",
+    "loadError": "Ошибка загрузки аналитики"
+  },
+  "data": {
+    "title": "Управление Данными",
+    "sections": {
+      "comments": {
+        "title": "Данные Комментариев",
+        "desc": "Управление и импорт комментариев.",
+        "exportLabel": "Экспорт:",
+        "exporting": "Экспорт...",
+        "exportJson": "Экспорт JSON",
+        "importLabel": "Импорт:",
+        "importButton": "Импорт Комментариев",
+        "source": {
+          "cwd": "CWD (.json)",
+          "twikoo": "Twikoo (.json)",
+          "artalk": "Artalk (.json)"
+        }
+      },
+      "config": {
+        "title": "Конфигурация",
+        "desc": "Настройки, email, чёрный список.",
+        "export": "Экспорт Конфига",
+        "import": "Импорт Конфига"
+      },
+      "stats": {
+        "title": "Аналитика",
+        "desc": "Просмотры, лайки, тренды.",
+        "export": "Экспорт Статистики",
+        "import": "Импорт Статистики"
+      },
+      "backup": {
+        "title": "Полный Бэкап",
+        "desc": "Бэкап или восстановление всего (Комментарии + Конфиг + Статистика).",
+        "export": "Полный Экспорт",
+        "import": "Полное Восстановление"
+      }
+    },
+    "logs": {
+      "title": "Журнал Операций"
+    },
+    "prefixModal": {
+      "title": "Отсутствует префикс URL",
+      "descPart1": "Обнаружено ",
+      "descPart2": " комментариев без префикса (http/https).",
+      "descPart3": "Добавить при импорте?",
+      "label": "Префикс домена (напр. https://example.me)",
+      "placeholder": "Введите префикс",
+      "skip": "Пропустить",
+      "confirm": "Добавить и Импортировать"
+    },
+    "messages": {
+      "exportSuccess": "Экспорт успешен",
+      "exportFailed": "Ошибка экспорта",
+      "fileReadFailed": "Ошибка чтения файла",
+      "jsonParseFailed": "Ошибка парсинга JSON",
+      "importConfigSuccess": "Конфиг импортирован",
+      "importStatsSuccess": "Статистика импортирована",
+      "importBackupSuccess": "Восстановление успешно",
+      "importCommentsSuccess": "Комментарии импортированы",
+      "prefixRequired": "Введите префикс",
+      "importStart": "Импорт: {name} (Режим: {mode})",
+      "fileParseSuccess": "Файл разобран, обработка...",
+      "errorWithMessage": "Ошибка: {msg}",
+      "parsedCommentsCount": "Разобрано {count} комментариев",
+      "detectMissingPrefix": "{count} URL без префикса, ожидание...",
+      "prefixAdded": "Префикс добавлен, продолжение...",
+      "skipPrefix": "Добавление префикса пропущено",
+      "readFileFailedLog": "Ошибка чтения файла",
+      "importCommentsDone": "Импорт завершён: {message}"
+    }
+  },
+  "comments": {
+    "title": "Управление Комментариями",
+    "statusFilter": {
+      "all": "Все",
+      "approved": "Одобрено",
+      "pending": "На проверке",
+      "rejected": "Отклонено"
+    },
+    "refresh": "Обновить",
+    "table": {
+      "author": "Пользователь",
+      "content": "Комментарий",
+      "path": "Путь",
+      "status": "Статус",
+      "actions": "Действия",
+      "admin": "Админ",
+      "time": "Время",
+      "ip": "IP",
+      "email": "Email"
+    },
+    "actions": {
+      "approve": "Одобрить",
+      "pending": "На проверку",
+      "reject": "Отклонить",
+      "edit": "Редактировать",
+      "delete": "Удалить",
+      "blockIp": "Блок IP",
+      "blockEmail": "Блок Email",
+      "pin": "Закрепить"
+    },
+    "pagination": {
+      "prev": "Пред",
+      "next": "След",
+      "jumpTo": "Перейти",
+      "page": "Стр",
+      "confirm": "ОК"
+    },
+    "confirmDelete": "Удалить комментарий {id}?",
+    "confirmBlockIp": "Блокировать IP {ip}?",
+    "confirmBlockEmail": "Блокировать Email {email}?",
+    "successBlockIp": "IP заблокирован",
+    "successBlockEmail": "Email заблокирован",
+    "empty": "Нет данных",
+    "editModal": {
+      "title": "Редактировать Комментарий",
+      "name": "Имя",
+      "email": "Email",
+      "url": "URL",
+      "postSlug": "Слаг",
+      "postUrl": "URL Поста",
+      "content": "Контент",
+      "status": "Статус",
+      "priority": "Приоритет (1=Обычный, выше=Топ)",
+      "cancel": "Отмена",
+      "save": "Сохранить",
+      "saving": "Сохранение..."
+    }
+  },
+  "settings": {
+    "title": "Настройки",
+    "tabs": {
+      "comment": "Комментарии и Безопасность",
+      "feature": "Функции",
+      "emailNotify": "Email Уведомления",
+      "telegramNotify": "Telegram Уведомления",
+      "display": "Отображение"
+    },
+    "comment": {
+      "title": "Отображение Комментариев",
+      "adminEmail": "Email Админа",
+      "adminBadge": "Текст Бейджа Админа (Пусто для иконки)",
+      "adminEnabled": "Показывать Бейдж Админа",
+      "avatarPrefix": "Префикс Аватара (По умолч.: https://gravatar.com/avatar)",
+      "securityTitle": "Безопасность",
+      "requireReview": "Премодерация Новых Комментариев",
+      "adminKey": "Ключ Админа (Для комм. с email админа)",
+      "adminKeyPlaceholder": "Введите ключ",
+      "allowedDomains": "Разрешённые Домены (Пусто для всех. Разделитель пробел/запятая)",
+      "blockedIps": "Заблокированные IP (Разделитель запятая/новая строка)",
+      "blockedEmails": "Заблокированные Email (Разделитель запятая/новая строка)",
+      "save": "Сохранить",
+      "saving": "Сохранение..."
+    },
+    "feature": {
+      "title": "Функции",
+      "articleLike": "Включить Лайки Статей",
+      "articleLikeHint": "Кнопка лайка над комментариями.",
+      "commentLike": "Включить Лайки Комментариев",
+      "commentLikeHint": "Кнопка лайка у каждого комментария.",
+      "imageLightbox": "Лайтбокс Изображений",
+      "imageLightboxHint": "Полноэкранный просмотр изображений.",
+      "placeholder": "Текст Плейсхолдера",
+      "placeholderHint": "Текст подсказки в поле ввода.",
+      "widgetLanguage": "Язык Виджета",
+      "widgetLanguageHint": "Язык фронтенд виджета.",
+      "save": "Сохранить",
+      "saving": "Сохранение..."
+    },
+    "emailNotify": {
+      "title": "Email Уведомления",
+      "enable": "Включить Email Уведомления",
+      "smtpTitle": "1. Настройки SMTP",
+      "provider": "Провайдер",
+      "host": "SMTP Хост",
+      "port": "SMTP Порт",
+      "secure": "SSL Безопасность",
+      "user": "Email Пользователь",
+      "pass": "Пароль/Токен",
+      "qqHint": "Для QQ Mail используйте токен приложения.",
+      "163Hint": "Для 163 Mail используйте токен приложения.",
+      "templateTitle": "2. Настройки Шаблонов",
+      "adminTemplate": "Шаблон Админа (HTML)",
+      "adminTemplateHint": "Перем: ${commentAuthor}, ${postTitle}, ${postUrl}, ${commentContent}",
+      "replyTemplate": "Шаблон Ответа (HTML)",
+      "replyTemplateHint": "Перем: ${toName}, ${replyAuthor}, ${postTitle}, ${postUrl}, ${parentComment}, ${replyContent}",
+      "testBtn": "Отправить Тест",
+      "testingBtn": "Отправка...",
+      "resetBtn": "Сбросить Шаблоны",
+      "save": "Сохранить Конфиг",
+      "saving": "Сохранение..."
+    },
+    "telegramNotify": {
+      "title": "Telegram Уведомления",
+      "enable": "Включить Telegram Уведомления",
+      "botToken": "Токен Бота",
+      "botTokenHint": "Получить у @BotFather",
+      "chatId": "ID Чата",
+      "chatIdHint": "ID Пользователя или Группы. Исп. @userinfobot.",
+      "webhookBtn": "Установить Вебхук",
+      "webhookSetting": "Настройка...",
+      "testBtn": "Отправить Тест",
+      "testingBtn": "Отправка...",
+      "save": "Сохранить",
+      "saving": "Сохранение..."
+    },
+    "display": {
+      "title": "Настройки Отображения",
+      "layoutTitle": "Заголовок Админки",
+      "layoutTitleHint": "Отображается в верхней панели.",
+      "adminLanguage": "Язык Админки",
+      "adminLanguageHint": "Язык панели администратора.",
+      "save": "Сохранить",
+      "saving": "Сохранение..."
+    },
+    "common": {
+      "saveSuccess": "Сохранено",
+      "saveFailed": "Ошибка Сохранения",
+      "loading": "Загрузка..."
+    }
+  }
+}

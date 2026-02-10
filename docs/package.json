@@ -1,5 +1,5 @@
 {
-  "name": "docs",
+  "name": "cwd-docs",
   "description": "CWD 评论系统文档",
   "type": "module",
   "license": "Apache-2.0",
@@ -7,7 +7,7 @@
     "dev": "vitepress dev",
     "build:docs": "vitepress build",
     "build:widget": "cd widget && npm install && npm run build",
-    "build": "npm run build:widget && node copy-cwd-to-public.js && npm run build:docs",
+    "build": "npm run build:widget && node build.js && npm run build:docs",
     "preview": "vitepress preview"
   },
   "devDependencies": {

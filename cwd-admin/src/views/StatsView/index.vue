@@ -1,7 +1,7 @@
 <template>
   <div class="page">
     <div style="display: flex; align-items: center; gap: 20px">
-      <h2 class="page-title">数据看板</h2>
+      <h2 class="page-title">{{ t('stats.title') }}</h2>
     </div>
     <div
       v-if="toastVisible"
@@ -13,28 +13,28 @@
 
     <div class="card">
       <div class="card-title-row">
-        <h3 class="card-title">整体概览</h3>
+        <h3 class="card-title">{{ t('stats.overview') }}</h3>
       </div>
-      <div v-if="statsLoading" class="page-hint">加载中...</div>
+      <div v-if="statsLoading" class="page-hint">{{ t('common.loading') }}</div>
       <div v-else-if="statsError" class="page-error">{{ statsError }}</div>
       <div v-else>
         <div class="stats-grid">
           <div class="stats-item">
-            <div class="stats-label">总评论数</div>
+            <div class="stats-label">{{ t('stats.total') }}</div>
             <div class="stats-value">{{ statsSummary.total }}</div>
           </div>
           <div class="stats-item">
-            <div class="stats-label">已通过</div>
+            <div class="stats-label">{{ t('stats.approved') }}</div>
             <div class="stats-value stats-value-approved">
               {{ statsSummary.approved }}
             </div>
           </div>
           <div class="stats-item">
-            <div class="stats-label">待审核</div>
+            <div class="stats-label">{{ t('stats.pending') }}</div>
             <div class="stats-value stats-value-pending">{{ statsSummary.pending }}</div>
           </div>
           <div class="stats-item">
-            <div class="stats-label">已拒绝</div>
+            <div class="stats-label">{{ t('stats.rejected') }}</div>
             <div class="stats-value stats-value-rejected">
               {{ statsSummary.rejected }}
             </div>
@@ -45,7 +45,7 @@
 
     <div class="card">
       <div class="card-title-row">
-        <h3 class="card-title">评论数趋势</h3>
+        <h3 class="card-title">{{ t('stats.trend') }}</h3>
         <div class="chart-tabs">
           <button
             class="chart-tab"
@@ -53,7 +53,7 @@
             type="button"
             @click="changeChartRange('7')"
           >
-            最近 7 天
+            {{ t('stats.last7Days') }}
           </button>
           <button
             class="chart-tab"
@@ -61,11 +61,11 @@
             type="button"
             @click="changeChartRange('30')"
           >
-            最近 30 天
+            {{ t('stats.last30Days') }}
           </button>
         </div>
       </div>
-      <div v-if="statsLoading" class="page-hint">加载中...</div>
+      <div v-if="statsLoading" class="page-hint">{{ t('common.loading') }}</div>
       <div v-else-if="statsError" class="page-error">{{ statsError }}</div>
       <div class="chart-wrapper">
         <div ref="chartEl" class="chart"></div>
@@ -74,20 +74,20 @@
 
     <div class="card">
       <div class="card-title-row">
-        <h3 class="card-title">按站点统计</h3>
+        <h3 class="card-title">{{ t('stats.bySite') }}</h3>
       </div>
-      <div v-if="statsLoading" class="page-hint">加载中...</div>
+      <div v-if="statsLoading" class="page-hint">{{ t('common.loading') }}</div>
       <div v-else-if="statsError" class="page-error">{{ statsError }}</div>
-      <div v-else-if="domainStats.length === 0" class="page-hint">暂无评论数据</div>
+      <div v-else-if="domainStats.length === 0" class="page-hint">{{ t('stats.noData') }}</div>
       <div v-else class="domain-stats-layout">
         <div class="domain-table-wrapper">
           <div class="domain-table">
             <div class="domain-table-header">
-              <div class="domain-cell domain-cell-domain">域名</div>
-              <div class="domain-cell">总数</div>
-              <div class="domain-cell">已通过</div>
-              <div class="domain-cell">待审核</div>
-              <div class="domain-cell">已拒绝</div>
+              <div class="domain-cell domain-cell-domain">{{ t('stats.table.domain') }}</div>
+              <div class="domain-cell">{{ t('stats.table.total') }}</div>
+              <div class="domain-cell">{{ t('stats.table.approved') }}</div>
+              <div class="domain-cell">{{ t('stats.table.pending') }}</div>
+              <div class="domain-cell">{{ t('stats.table.rejected') }}</div>
             </div>
             <div
               v-for="item in domainStats"
@@ -113,9 +113,12 @@
 <script setup lang="ts">
 import { onMounted, onBeforeUnmount, ref, nextTick, watch, inject } from "vue";
 import type { Ref } from "vue";
+import { useI18n } from "vue-i18n";
 import * as echarts from "echarts";
 import { fetchCommentStats } from "../../api/admin";
 import { useSite } from "../../composables/useSite";
+
+const { t } = useI18n();
 
 type DomainStat = {
   domain: string;

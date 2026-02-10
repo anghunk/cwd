@@ -3,6 +3,7 @@ import { Component } from './Component.js';
 export class AdminAuthModal extends Component {
   constructor(container, props = {}) {
     super(container, props);
+    this.t = props.t || ((k) => k);
     this.state = {
       key: '',
       error: '',
@@ -24,16 +25,16 @@ export class AdminAuthModal extends Component {
         this.createElement('div', {
           className: 'cwd-modal',
           children: [
-            this.createTextElement('h3', '管理员身份验证', 'cwd-modal-title'),
+            this.createTextElement('h3', this.t('verifyAdminTitle'), 'cwd-modal-title'),
             this.createElement('div', {
               className: 'cwd-modal-body',
               children: [
-                this.createTextElement('p', '检测到管理员邮箱，请输入密钥以继续。', 'cwd-modal-desc'),
+                this.createTextElement('p', this.t('verifyAdminDesc'), 'cwd-modal-desc'),
                 this.createElement('input', {
                   className: `cwd-form-input ${error ? 'cwd-input-error' : ''}`,
                   attributes: {
                     type: 'password',
-                    placeholder: '请输入管理员密钥',
+                    placeholder: this.t('adminKeyPlaceholder'),
                     value: key,
                     disabled: loading,
                     onInput: (e) => this.setState({ key: e.target.value, error: '' }),
@@ -50,7 +51,7 @@ export class AdminAuthModal extends Component {
               children: [
                 this.createElement('button', {
                   className: 'cwd-btn cwd-btn-secondary',
-                  text: '取消',
+                  text: this.t('cancel'),
                   attributes: {
                     type: 'button',
                     disabled: loading,
@@ -59,7 +60,7 @@ export class AdminAuthModal extends Component {
                 }),
                 this.createElement('button', {
                   className: 'cwd-btn cwd-btn-primary',
-                  text: loading ? '验证中...' : '验证',
+                  text: loading ? this.t('verifying') : this.t('verify'),
                   attributes: {
                     type: 'button',
                     disabled: loading || !key,
@@ -116,7 +117,7 @@ export class AdminAuthModal extends Component {
 
     if (this.elements.submitBtn) {
       this.elements.submitBtn.disabled = loading || !key;
-      this.elements.submitBtn.textContent = loading ? '验证中...' : '验证';
+      this.elements.submitBtn.textContent = loading ? this.t('verifying') : this.t('verify');
     }
   }
 
@@ -126,7 +127,7 @@ export class AdminAuthModal extends Component {
       this.setState({ loading: true });
       this.props.onSubmit(this.state.key)
         .catch(err => {
-            this.setState({ error: err.message || '验证失败', loading: false });
+            this.setState({ error: err.message || this.t('verifyFailed'), loading: false });
         });
     }
   }

@@ -1,0 +1,304 @@
+{
+  "menu": {
+    "comments": "Gestione Commenti",
+    "stats": "Dashboard",
+    "analytics": "Analitica",
+    "settings": "Impostazioni",
+    "data": "Dati"
+  },
+  "layout": {
+    "toggleMenu": "Attiva/Disattiva Menu",
+    "docs": "Documentazione",
+    "logout": "Esci",
+    "moreActions": "Altre Azioni",
+    "defaultSite": "Sito Predefinito",
+    "theme": {
+      "light": "Chiaro",
+      "dark": "Scuro",
+      "system": "Sistema"
+    },
+    "version": {
+      "title": "Info Versione",
+      "apiAddress": "Indirizzo API",
+      "apiVersion": "Versione API",
+      "adminVersion": "Versione Admin",
+      "match": "Le versioni Admin e API corrispondono.",
+      "mismatch": "Versione non corrispondente. Aggiorna il servizio API.",
+      "fetchError": "Errore recupero versione:",
+      "loading": "Caricamento...",
+      "notConfigured": "Non Configurato",
+      "notFetched": "Non Recuperato",
+      "ok": "OK"
+    }
+  },
+  "stats": {
+    "title": "Dashboard",
+    "overview": "Panoramica",
+    "total": "Totale Commenti",
+    "approved": "Approvati",
+    "pending": "In Attesa",
+    "rejected": "Rifiutati",
+    "trend": "Tendenza",
+    "bySite": "Per Sito",
+    "last7Days": "Ultimi 7 Giorni",
+    "last30Days": "Ultimi 30 Giorni",
+    "noData": "Nessun Dato",
+    "table": {
+      "domain": "Dominio",
+      "total": "Totale",
+      "approved": "Approvati",
+      "pending": "In Attesa",
+      "rejected": "Rifiutati"
+    },
+    "loadError": "Errore caricamento statistiche"
+  },
+  "analytics": {
+    "title": "Analitica",
+    "overview": "Panoramica",
+    "totalPv": "Totale PV",
+    "todayPv": "PV Oggi",
+    "weekPv": "PV Settimana",
+    "monthPv": "PV Mese",
+    "totalPages": "Pagine Visitate",
+    "trend": "Tendenza Traffico",
+    "pageDetail": "Dettagli Pagina",
+    "likeRank": "Top Mi Piace",
+    "last7Days": "Ultimi 7 Giorni",
+    "last30Days": "Ultimi 30 Giorni",
+    "sort": {
+      "pv": "Ordina per PV",
+      "latest": "Ultima Visita"
+    },
+    "table": {
+      "title": "Titolo Pagina",
+      "pv": "PV",
+      "time": "Ultima Visita",
+      "url": "URL",
+      "rank": "Rango",
+      "like": "Mi Piace"
+    },
+    "noData": "Nessun Dato",
+    "noLikeData": "Nessun Dato Mi Piace",
+    "loadError": "Errore caricamento analitica"
+  },
+  "data": {
+    "title": "Gestione Dati",
+    "sections": {
+      "comments": {
+        "title": "Dati Commenti",
+        "desc": "Gestisci e importa commenti.",
+        "exportLabel": "Esporta:",
+        "exporting": "Esportazione...",
+        "exportJson": "Esporta JSON",
+        "importLabel": "Importa:",
+        "importButton": "Importa Commenti",
+        "source": {
+          "cwd": "CWD (.json)",
+          "twikoo": "Twikoo (.json)",
+          "artalk": "Artalk (.json)"
+        }
+      },
+      "config": {
+        "title": "Config Sistema",
+        "desc": "Impostazioni, email, blacklist, ecc.",
+        "export": "Esporta Config",
+        "import": "Importa Config"
+      },
+      "stats": {
+        "title": "Dati Analitici",
+        "desc": "Visualizzazioni, mi piace e tendenze.",
+        "export": "Esporta Stats",
+        "import": "Importa Stats"
+      },
+      "backup": {
+        "title": "Backup Completo",
+        "desc": "Backup o ripristino completo (Commenti + Config + Stats).",
+        "export": "Esportazione Completa",
+        "import": "Ripristino Completo"
+      }
+    },
+    "logs": {
+      "title": "Log Operazioni"
+    },
+    "prefixModal": {
+      "title": "Prefisso URL Mancante",
+      "descPart1": "Rilevati ",
+      "descPart2": " commenti senza prefisso protocollo (http/https).",
+      "descPart3": "Aggiungere durante importazione?",
+      "label": "Prefisso Dominio (es. https://example.me)",
+      "placeholder": "Inserisci prefisso",
+      "skip": "Salta",
+      "confirm": "Aggiungi & Importa"
+    },
+    "messages": {
+      "exportSuccess": "Esportazione Riuscita",
+      "exportFailed": "Esportazione Fallita",
+      "fileReadFailed": "Lettura File Fallita",
+      "jsonParseFailed": "Analisi JSON Fallita",
+      "importConfigSuccess": "Config Importata",
+      "importStatsSuccess": "Stats Importate",
+      "importBackupSuccess": "Ripristino Completo Riuscito",
+      "importCommentsSuccess": "Commenti Importati",
+      "prefixRequired": "Inserisci prefisso",
+      "importStart": "Importazione: {name} (Modo: {mode})",
+      "fileParseSuccess": "File analizzato, elaborazione...",
+      "errorWithMessage": "Errore: {msg}",
+      "parsedCommentsCount": "{count} commenti analizzati",
+      "detectMissingPrefix": "{count} URL senza prefisso, in attesa...",
+      "prefixAdded": "Prefisso aggiunto, continuo...",
+      "skipPrefix": "Aggiunta prefisso saltata",
+      "readFileFailedLog": "Lettura file fallita",
+      "importCommentsDone": "Importazione Completata: {message}"
+    }
+  },
+  "comments": {
+    "title": "Gestione Commenti",
+    "statusFilter": {
+      "all": "Tutti",
+      "approved": "Approvati",
+      "pending": "In Attesa",
+      "rejected": "Rifiutati"
+    },
+    "refresh": "Aggiorna",
+    "table": {
+      "author": "Utente",
+      "content": "Commento",
+      "path": "Percorso",
+      "status": "Stato",
+      "actions": "Azioni",
+      "admin": "Admin",
+      "time": "Ora",
+      "ip": "IP",
+      "email": "Email"
+    },
+    "actions": {
+      "approve": "Approva",
+      "pending": "Sospendi",
+      "reject": "Rifiuta",
+      "edit": "Modifica",
+      "delete": "Elimina",
+      "blockIp": "Blocca IP",
+      "blockEmail": "Blocca Email",
+      "pin": "Fissa"
+    },
+    "pagination": {
+      "prev": "Prec",
+      "next": "Succ",
+      "jumpTo": "Vai a",
+      "page": "Pagina",
+      "confirm": "OK"
+    },
+    "confirmDelete": "Eliminare commento {id}?",
+    "confirmBlockIp": "Bloccare IP {ip}?",
+    "confirmBlockEmail": "Bloccare email {email}?",
+    "successBlockIp": "IP Bloccato",
+    "successBlockEmail": "Email Bloccata",
+    "empty": "Nessun Dato",
+    "editModal": {
+      "title": "Modifica Commento",
+      "name": "Nome",
+      "email": "Email",
+      "url": "URL",
+      "postSlug": "Slug",
+      "postUrl": "URL Post",
+      "content": "Contenuto",
+      "status": "Stato",
+      "priority": "Priorità (1=Normale, maggiore=Alto)",
+      "cancel": "Annulla",
+      "save": "Salva",
+      "saving": "Salvataggio..."
+    }
+  },
+  "settings": {
+    "title": "Impostazioni",
+    "tabs": {
+      "comment": "Commenti & Sicurezza",
+      "feature": "Funzionalità",
+      "emailNotify": "Notifica Email",
+      "telegramNotify": "Notifica Telegram",
+      "display": "Visualizzazione"
+    },
+    "comment": {
+      "title": "Visualizzazione Commenti",
+      "adminEmail": "Email Admin",
+      "adminBadge": "Testo Badge Admin (Vuoto per icona default)",
+      "adminEnabled": "Mostra Badge Admin",
+      "avatarPrefix": "Prefisso Avatar (Default: https://gravatar.com/avatar)",
+      "securityTitle": "Sicurezza",
+      "requireReview": "Richiedi Revisione per Nuovi Commenti",
+      "adminKey": "Chiave Admin (Richiesta per commenti con email admin)",
+      "adminKeyPlaceholder": "Inserisci chiave",
+      "allowedDomains": "Domini Consentiti (Vuoto per tutti. Separare con spazio/virgola)",
+      "blockedIps": "IP Bloccati (Separare con virgola/nuova riga)",
+      "blockedEmails": "Email Bloccate (Separare con virgola/nuova riga)",
+      "save": "Salva",
+      "saving": "Salvataggio..."
+    },
+    "feature": {
+      "title": "Funzionalità",
+      "articleLike": "Abilita Mi Piace Articolo",
+      "articleLikeHint": "Mostra pulsante Mi Piace sopra i commenti.",
+      "commentLike": "Abilita Mi Piace Commento",
+      "commentLikeHint": "Mostra pulsante Mi Piace su ogni commento.",
+      "imageLightbox": "Lightbox Immagine",
+      "imageLightboxHint": "Abilita anteprima a schermo intero per le immagini.",
+      "placeholder": "Testo Placeholder",
+      "placeholderHint": "Placeholder personalizzato per input commenti.",
+      "widgetLanguage": "Lingua Widget",
+      "widgetLanguageHint": "Lingua per il widget frontend.",
+      "save": "Salva",
+      "saving": "Salvataggio..."
+    },
+    "emailNotify": {
+      "title": "Notifica Email",
+      "enable": "Abilita Notifica Email",
+      "smtpTitle": "1. Config SMTP",
+      "provider": "Provider",
+      "host": "Host SMTP",
+      "port": "Porta SMTP",
+      "secure": "Sicurezza SSL",
+      "user": "Utente Email",
+      "pass": "Password/Token App",
+      "qqHint": "Nota: Per QQ Mail, usa Token App.",
+      "163Hint": "Nota: Per 163 Mail, usa Token App.",
+      "templateTitle": "2. Config Template",
+      "adminTemplate": "Template Admin (HTML)",
+      "adminTemplateHint": "Vars: ${commentAuthor}, ${postTitle}, ${postUrl}, ${commentContent}",
+      "replyTemplate": "Template Risposta (HTML)",
+      "replyTemplateHint": "Vars: ${toName}, ${replyAuthor}, ${postTitle}, ${postUrl}, ${parentComment}, ${replyContent}",
+      "testBtn": "Invia Email Test",
+      "testingBtn": "Invio...",
+      "resetBtn": "Reimposta Template",
+      "save": "Salva Config",
+      "saving": "Salvataggio..."
+    },
+    "telegramNotify": {
+      "title": "Notifica Telegram",
+      "enable": "Abilita Notifica Telegram",
+      "botToken": "Token Bot",
+      "botTokenHint": "Ottieni da @BotFather",
+      "chatId": "ID Chat",
+      "chatIdHint": "ID Utente o Gruppo. Usa @userinfobot.",
+      "webhookBtn": "Imposta Webhook",
+      "webhookSetting": "Configurazione...",
+      "testBtn": "Invia Messaggio Test",
+      "testingBtn": "Invio...",
+      "save": "Salva",
+      "saving": "Salvataggio..."
+    },
+    "display": {
+      "title": "Impostazioni Visualizzazione",
+      "layoutTitle": "Titolo Admin",
+      "layoutTitleHint": "Visualizzato nella barra di navigazione superiore.",
+      "adminLanguage": "Lingua Admin",
+      "adminLanguageHint": "Lingua per il pannello di amministrazione.",
+      "save": "Salva",
+      "saving": "Salvataggio..."
+    },
+    "common": {
+      "saveSuccess": "Salvato con Successo",
+      "saveFailed": "Salvataggio Fallito",
+      "loading": "Caricamento..."
+    }
+  }
+}

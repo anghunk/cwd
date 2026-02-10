@@ -37,13 +37,18 @@ export const updateFeatureSettings = async (c: Context<{ Bindings: Bindings }>) 
 		const visibleDomains = Array.isArray(body.visibleDomains)
 			? (body.visibleDomains as string[])
 			: undefined;
+		
+		const adminLanguage = typeof body.adminLanguage === 'string' ? body.adminLanguage : undefined;
+		const widgetLanguage = typeof body.widgetLanguage === 'string' ? body.widgetLanguage : undefined;
 
 		await saveFeatureSettings(c.env, {
 			enableCommentLike,
 			enableArticleLike,
 			enableImageLightbox,
 			commentPlaceholder,
-			visibleDomains
+			visibleDomains,
+			adminLanguage,
+			widgetLanguage
 		});
 
 		return c.json({ message: '保存成功！' });

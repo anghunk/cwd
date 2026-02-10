@@ -1,0 +1,304 @@
+{
+  "menu": {
+    "comments": "評論管理",
+    "stats": "數據看板",
+    "analytics": "訪問統計",
+    "settings": "網站設置",
+    "data": "數據管理"
+  },
+  "layout": {
+    "toggleMenu": "切換菜單",
+    "docs": "使用文檔",
+    "logout": "退出",
+    "moreActions": "更多操作",
+    "defaultSite": "默認站點",
+    "theme": {
+      "light": "明亮模式",
+      "dark": "暗黑模式",
+      "system": "跟隨系統"
+    },
+    "version": {
+      "title": "版本信息",
+      "apiAddress": "API 地址",
+      "apiVersion": "接口版本",
+      "adminVersion": "後台版本",
+      "match": "當前後台與接口版本一致，可以正常使用。",
+      "mismatch": "當前後台與接口版本不一致，推薦將 API 服務更新到與後台版本一致，以避免潛在的兼容性問題。",
+      "fetchError": "無法獲取接口版本：",
+      "loading": "加載中...",
+      "notConfigured": "未配置",
+      "notFetched": "未獲取到",
+      "ok": "我知道了"
+    }
+  },
+  "stats": {
+    "title": "數據看板",
+    "overview": "整體概覽",
+    "total": "總評論數",
+    "approved": "已通過",
+    "pending": "待審核",
+    "rejected": "已拒絕",
+    "trend": "評論數趨勢",
+    "bySite": "按站點統計",
+    "last7Days": "最近 7 天",
+    "last30Days": "最近 30 天",
+    "noData": "暫無評論數據",
+    "table": {
+      "domain": "域名",
+      "total": "總數",
+      "approved": "已通過",
+      "pending": "待審核",
+      "rejected": "已拒絕"
+    },
+    "loadError": "加載統計數據失敗"
+  },
+  "analytics": {
+    "title": "訪問統計",
+    "overview": "整體概覽",
+    "totalPv": "全站總訪問量",
+    "todayPv": "今日訪問量",
+    "weekPv": "本週訪問量",
+    "monthPv": "本月訪問量",
+    "totalPages": "有訪問記錄的頁面數",
+    "trend": "訪問趨勢",
+    "pageDetail": "頁面訪問明細",
+    "likeRank": "點贊頁面排行榜",
+    "last7Days": "最近 7 天",
+    "last30Days": "最近 30 天",
+    "sort": {
+      "pv": "按 PV 排序",
+      "latest": "最新訪問"
+    },
+    "table": {
+      "title": "頁面標題",
+      "pv": "訪問量",
+      "time": "最後訪問時間",
+      "url": "頁面地址",
+      "rank": "排名",
+      "like": "點贊數"
+    },
+    "noData": "暫無訪問數據",
+    "noLikeData": "暫無點贊數據",
+    "loadError": "加載訪問統計數據失敗"
+  },
+  "data": {
+    "title": "數據管理",
+    "sections": {
+      "comments": {
+        "title": "評論數據",
+        "desc": "管理評論內容，支持從其他評論框架遷移數據。",
+        "exportLabel": "導出:",
+        "exporting": "導出中...",
+        "exportJson": "導出 JSON",
+        "importLabel": "導入:",
+        "importButton": "導入評論",
+        "source": {
+          "cwd": "CWD (.json)",
+          "twikoo": "Twikoo (.json)",
+          "artalk": "Artalk (.json)"
+        }
+      },
+      "config": {
+        "title": "系統配置",
+        "desc": "管理後台設置、郵件配置、黑名單等。",
+        "export": "導出配置",
+        "import": "導入配置"
+      },
+      "stats": {
+        "title": "訪問統計",
+        "desc": "管理文章訪問量、點贊數及每日訪問趨勢。",
+        "export": "導出統計",
+        "import": "導入統計"
+      },
+      "backup": {
+        "title": "全量備份",
+        "desc": "一鍵備份或恢復系統所有數據（評論 + 配置 + 統計）。",
+        "export": "全量導出",
+        "import": "全量恢復"
+      }
+    },
+    "logs": {
+      "title": "操作日誌"
+    },
+    "prefixModal": {
+      "title": "檢測到 URL 缺失前綴",
+      "descPart1": "檢測到 ",
+      "descPart2": " 條評論的 URL 不存在域名前綴（http/https）。",
+      "descPart3": "是否在導入時統一添加？",
+      "label": "域名前綴 (例如 https://example.me)",
+      "placeholder": "請輸入域名前綴",
+      "skip": "直接導入 (不添加)",
+      "confirm": "添加並導入"
+    },
+    "messages": {
+      "exportSuccess": "導出成功",
+      "exportFailed": "導出失敗",
+      "fileReadFailed": "讀取文件失敗",
+      "jsonParseFailed": "JSON 解析失敗，請檢查文件格式",
+      "importConfigSuccess": "配置導入成功",
+      "importStatsSuccess": "統計數據導入成功",
+      "importBackupSuccess": "全量恢復成功",
+      "importCommentsSuccess": "評論導入成功",
+      "prefixRequired": "請輸入域名前綴",
+      "importStart": "開始導入: {name} (模式: {mode})",
+      "fileParseSuccess": "文件解析成功，開始處理...",
+      "errorWithMessage": "錯誤: {msg}",
+      "parsedCommentsCount": "解析到 {count} 條評論數據",
+      "detectMissingPrefix": "檢測到 {count} 條 URL 缺失前綴，等待用戶確認...",
+      "prefixAdded": "已添加前綴，繼續導入...",
+      "skipPrefix": "用戶跳過前綴添加",
+      "readFileFailedLog": "讀取文件失敗",
+      "importCommentsDone": "導入完成: {message}"
+    }
+  },
+  "comments": {
+    "title": "評論管理",
+    "statusFilter": {
+      "all": "全部狀態",
+      "approved": "已通過",
+      "pending": "待審核",
+      "rejected": "已拒絕"
+    },
+    "refresh": "刷新",
+    "table": {
+      "author": "用戶",
+      "content": "評論信息",
+      "path": "評論地址",
+      "status": "狀態",
+      "actions": "操作",
+      "admin": "網站管理員",
+      "time": "時間",
+      "ip": "IP",
+      "email": "郵箱"
+    },
+    "actions": {
+      "approve": "通過",
+      "pending": "待審",
+      "reject": "拒絕",
+      "edit": "編輯",
+      "delete": "刪除",
+      "blockIp": "屏蔽該 IP",
+      "blockEmail": "屏蔽該郵箱",
+      "pin": "置頂"
+    },
+    "pagination": {
+      "prev": "上一頁",
+      "next": "下一頁",
+      "jumpTo": "跳轉到",
+      "page": "頁",
+      "confirm": "確定"
+    },
+    "confirmDelete": "確認刪除評論 {id} 嗎",
+    "confirmBlockIp": "確認將 IP {ip} 加入黑名單嗎？",
+    "confirmBlockEmail": "確認將郵箱 {email} 加入黑名單嗎？",
+    "successBlockIp": "已加入 IP 黑名單",
+    "successBlockEmail": "已加入郵箱黑名單",
+    "empty": "暫無數據",
+    "editModal": {
+      "title": "編輯評論",
+      "name": "訪客暱稱",
+      "email": "訪客郵箱",
+      "url": "訪客網址",
+      "postSlug": "頁面標識",
+      "postUrl": "評論地址",
+      "content": "評論內容",
+      "status": "評論狀態",
+      "priority": "置頂權重（1 為不置頂，數值越大越靠前）",
+      "cancel": "取消",
+      "save": "保存",
+      "saving": "保存中..."
+    }
+  },
+  "settings": {
+    "title": "網站設置",
+    "tabs": {
+      "comment": "評論與安全",
+      "feature": "功能開關",
+      "emailNotify": "郵箱提醒",
+      "telegramNotify": "Telegram 通知",
+      "display": "後台顯示"
+    },
+    "comment": {
+      "title": "評論顯示配置",
+      "adminEmail": "管理員郵箱",
+      "adminBadge": "博主標籤文字（留空使用默認圖標）",
+      "adminEnabled": "是否開啟博主標籤顯示",
+      "avatarPrefix": "頭像前綴（默認：https://gravatar.com/avatar）",
+      "securityTitle": "安全設置",
+      "requireReview": "新評論是否審核後再顯示",
+      "adminKey": "管理員評論密鑰（設置後前台使用管理員郵箱評論需輸入此密鑰。）",
+      "adminKeyPlaceholder": "輸入密鑰以設置或修改",
+      "allowedDomains": "允許調用的域名（設置後僅匹配域名可調用前台評論組件，留空則不限制。使用空格或者逗號進行分割。）",
+      "blockedIps": "IP 黑名單（多個 IP 用逗號或換行分隔，留空則不限制）",
+      "blockedEmails": "郵箱黑名單（多個郵箱用逗號或換行分隔，留空則不限制）",
+      "save": "保存",
+      "saving": "保存中..."
+    },
+    "feature": {
+      "title": "功能開關",
+      "articleLike": "開啟文章點贊功能",
+      "articleLikeHint": "開啟後，評論區頂部會顯示的文章點贊（喜歡）按鈕。",
+      "commentLike": "開啟評論點贊功能",
+      "commentLikeHint": "開啟後，評論列表中的每條評論都會顯示點贊按鈕。",
+      "imageLightbox": "評論列表圖片灯箱模式",
+      "imageLightboxHint": "開啟後，點擊評論中的圖片時會全屏放大預覽。",
+      "placeholder": "評論框提示文案 (Placeholder)",
+      "placeholderHint": "自定義評論輸入框的提示文字，支持換行。留空則使用默認值。",
+      "widgetLanguage": "組件語言",
+      "widgetLanguageHint": "設置前端評論組件顯示的語言。",
+      "save": "保存",
+      "saving": "保存中..."
+    },
+    "emailNotify": {
+      "title": "通知郵箱設置",
+      "enable": "開啟郵件通知",
+      "smtpTitle": "1. SMTP 發件配置",
+      "provider": "郵件服務商",
+      "host": "SMTP 服務器",
+      "port": "SMTP 端口",
+      "secure": "SSL 安全連接",
+      "user": "發件郵箱賬號",
+      "pass": "授權碼/密碼",
+      "qqHint": "注意：QQ 郵箱必須使用授權碼，而非 QQ 密碼。請登錄 QQ 郵箱網頁版，在【設置 - 賬戶】中開啟 POP3/SMTP 服務並生成授權碼。",
+      "163Hint": "注意：163 郵箱必須使用授權碼，而非登錄密碼。請登錄 163 郵箱網頁版，在【設置 - POP3/SMTP/IMAP】中開啟服務並生成授權碼。",
+      "templateTitle": "2. 郵件模板設置",
+      "adminTemplate": "管理員通知模板 (HTML)",
+      "adminTemplateHint": "可用變量：${commentAuthor} (評論人暱稱), ${postTitle} (文章標題), ${postUrl} (文章鏈接), ${commentContent} (評論內容)",
+      "replyTemplate": "回覆通知模板 (HTML)",
+      "replyTemplateHint": "可用變量：${toName} (接收人暱稱), ${replyAuthor} (回覆人暱稱), ${postTitle} (文章標題), ${postUrl} (文章鏈接), ${parentComment} (原評論), ${replyContent} (回覆內容)",
+      "testBtn": "發送測試郵件",
+      "testingBtn": "發送中...",
+      "resetBtn": "恢復默認模板",
+      "save": "保存配置",
+      "saving": "保存中..."
+    },
+    "telegramNotify": {
+      "title": "Telegram 通知設置",
+      "enable": "開啟 Telegram 通知",
+      "botToken": "Bot Token",
+      "botTokenHint": "在 Telegram 中搜索 @BotFather 創建機器人獲取 Token",
+      "chatId": "Chat ID",
+      "chatIdHint": "這是接收通知的用戶 ID 或群組 ID。可以先給機器人發消息，然後通過 API 獲取 ID，或者使用 @userinfobot 查詢。",
+      "webhookBtn": "一鍵設置 Webhook",
+      "webhookSetting": "設置中...",
+      "testBtn": "發送測試消息",
+      "testingBtn": "發送中...",
+      "save": "保存",
+      "saving": "保存中..."
+    },
+    "display": {
+      "title": "後台顯示設置",
+      "layoutTitle": "後台標題",
+      "layoutTitleHint": "顯示在後台頂部導航欄左側。",
+      "adminLanguage": "後台語言",
+      "adminLanguageHint": "設置後台管理系統的顯示語言。",
+      "save": "保存",
+      "saving": "保存中..."
+    },
+    "common": {
+      "saveSuccess": "保存成功",
+      "saveFailed": "保存失敗",
+      "loading": "加載中..."
+    }
+  }
+}

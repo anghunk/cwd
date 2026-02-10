@@ -21,6 +21,7 @@ export class CommentForm extends Component {
 	 */
 	constructor(container, props = {}) {
 		super(container, props);
+		this.t = props.t || ((k) => k);
 		// 确保 localForm 的各个字段都有初始值
 		const initialForm = props.form || {};
 		this.state = {
@@ -53,7 +54,7 @@ export class CommentForm extends Component {
 			},
 			children: [
 				// 标题
-				this.createTextElement('h3', '发表评论', 'cwd-form-title'),
+				this.createTextElement('h3', this.t('formTitle'), 'cwd-form-title'),
 
 				// 表单字段
 				this.createElement('div', {
@@ -64,19 +65,19 @@ export class CommentForm extends Component {
 							className: 'cwd-form-row',
 							children: [
 								// 昵称
-								this.createFormField('昵称 *', 'text', 'name', localForm.name, formErrors.name),
+								this.createFormField(this.t('nickname'), 'text', 'name', localForm.name, formErrors.name),
 								// 邮箱
 								this.createElement('div', {
 									className: 'cwd-form-field-wrapper',
 									children: [
-										this.createFormField('邮箱 *', 'email', 'email', localForm.email, formErrors.email),
+										this.createFormField(this.t('email'), 'email', 'email', localForm.email, formErrors.email),
 										isVerified
 											? this.createElement('div', {
 													className: 'cwd-admin-controls',
 													children: [
 														this.createElement('button', {
 															className: 'cwd-btn-text',
-															text: '退出验证',
+															text: this.t('verifyAdmin'),
 															attributes: {
 																type: 'button',
 																title: '清除管理员凭证',
@@ -92,7 +93,7 @@ export class CommentForm extends Component {
 									],
 								}),
 								// 网址
-								this.createFormField('网址', 'url', 'url', localForm.url, formErrors.url),
+								this.createFormField(this.t('website'), 'url', 'url', localForm.url, formErrors.url),
 							],
 						}),
 
@@ -100,7 +101,7 @@ export class CommentForm extends Component {
 						this.createElement('div', {
 							className: 'cwd-form-field',
 							children: [
-								this.createTextElement('label', '写下你的评论...', 'cwd-form-label'),
+								this.createTextElement('label', this.t('writeComment'), 'cwd-form-label'),
 								this.createElement('textarea', {
 									className: `cwd-form-textarea ${formErrors.content ? 'cwd-input-error' : ''}`,
 									attributes: {
@@ -129,7 +130,7 @@ export class CommentForm extends Component {
 								style: localForm.content?.trim() ? '' : 'display:none;',
 								onClick: () => this.togglePreview(),
 							},
-							text: this.state.showPreview ? '关闭' : '预览',
+							text: this.state.showPreview ? this.t('close') : this.t('preview'),
 						}),
 						this.createElement('button', {
 							className: 'cwd-btn cwd-btn-primary',
@@ -137,7 +138,7 @@ export class CommentForm extends Component {
 								type: 'submit',
 								disabled: submitting || !canSubmit,
 							},
-							text: submitting ? '提交中...' : '提交评论',
+							text: submitting ? this.t('submitting') : this.t('submit'),
 						}),
 					],
 				}),
@@ -209,7 +210,7 @@ export class CommentForm extends Component {
 		const submitBtn = this.elements.root.querySelector('button[type="submit"]');
 		if (submitBtn) {
 			submitBtn.disabled = submitting || !canSubmit;
-			submitBtn.textContent = submitting ? '提交中...' : '提交评论';
+			submitBtn.textContent = submitting ? this.t('submitting') : this.t('submit');
 		}
 
 		// 更新预览按钮状态
@@ -224,9 +225,9 @@ export class CommentForm extends Component {
 				if (previewContainer) {
 					previewContainer.remove();
 				}
-				previewBtn.textContent = '预览';
+				previewBtn.textContent = this.t('preview');
 			} else {
-				previewBtn.textContent = this.state.showPreview ? '关闭' : '预览';
+				previewBtn.textContent = this.state.showPreview ? this.t('close') : this.t('preview');
 			}
 		}
 
@@ -416,6 +417,7 @@ export class CommentForm extends Component {
 					this.modal = null;
 				}
 			},
+			t: this.t
 		});
 		this.modal.render();
 	}

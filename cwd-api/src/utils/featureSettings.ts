@@ -5,6 +5,8 @@ export const FEATURE_ARTICLE_LIKE_KEY = 'comment_feature_article_like';
 export const FEATURE_IMAGE_LIGHTBOX_KEY = 'comment_feature_image_lightbox';
 export const FEATURE_COMMENT_PLACEHOLDER_KEY = 'comment_feature_placeholder';
 export const FEATURE_VISIBLE_DOMAINS_KEY = 'admin_visible_domains';
+export const FEATURE_ADMIN_LANGUAGE_KEY = 'admin_language';
+export const FEATURE_WIDGET_LANGUAGE_KEY = 'widget_language';
 
 export type FeatureSettings = {
 	enableCommentLike: boolean;
@@ -12,6 +14,8 @@ export type FeatureSettings = {
 	enableImageLightbox: boolean;
 	commentPlaceholder?: string;
 	visibleDomains?: string[];
+	adminLanguage?: string;
+	widgetLanguage?: string;
 };
 
 export async function loadFeatureSettings(env: Bindings): Promise<FeatureSettings> {
@@ -24,10 +28,12 @@ export async function loadFeatureSettings(env: Bindings): Promise<FeatureSetting
 		FEATURE_ARTICLE_LIKE_KEY,
 		FEATURE_IMAGE_LIGHTBOX_KEY,
 		FEATURE_COMMENT_PLACEHOLDER_KEY,
-		FEATURE_VISIBLE_DOMAINS_KEY
+		FEATURE_VISIBLE_DOMAINS_KEY,
+		FEATURE_ADMIN_LANGUAGE_KEY,
+		FEATURE_WIDGET_LANGUAGE_KEY
 	];
 	const { results } = await env.CWD_DB.prepare(
-		'SELECT key, value FROM Settings WHERE key IN (?, ?, ?, ?, ?)'
+		'SELECT key, value FROM Settings WHERE key IN (?, ?, ?, ?, ?, ?, ?)'
 	)
 		.bind(...keys)
 		.all<{ key: string; value: string }>();
@@ -63,6 +69,8 @@ export async function loadFeatureSettings(env: Bindings): Promise<FeatureSetting
 	const enableImageLightbox = enableImageLightboxRaw === '1';
 
 	const commentPlaceholder = map.get(FEATURE_COMMENT_PLACEHOLDER_KEY);
+	const adminLanguage = map.get(FEATURE_ADMIN_LANGUAGE_KEY);
+	const widgetLanguage = map.get(FEATURE_WIDGET_LANGUAGE_KEY);
 
 	let visibleDomains: string[] | undefined;
 	const visibleDomainsRaw = map.get(FEATURE_VISIBLE_DOMAINS_KEY);
@@ -79,7 +87,9 @@ export async function loadFeatureSettings(env: Bindings): Promise<FeatureSetting
 		enableArticleLike,
 		enableImageLightbox,
 		commentPlaceholder,
-		visibleDomains
+		visibleDomains,
+		adminLanguage,
+		widgetLanguage
 	};
 }
 
@@ -126,6 +136,14 @@ export async function saveFeatureSettings(
 		{
 			key: FEATURE_VISIBLE_DOMAINS_KEY,
 			value: settings.visibleDomains ? JSON.stringify(settings.visibleDomains) : undefined
+		},
+		{
+			key: FEATURE_ADMIN_LANGUAGE_KEY,
+			value: settings.adminLanguage
+		},
+		{
+			key: FEATURE_WIDGET_LANGUAGE_KEY,
+			value: settings.widgetLanguage
 		}
 	];
 

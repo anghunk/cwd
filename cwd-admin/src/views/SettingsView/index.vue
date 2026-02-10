@@ -1,6 +1,6 @@
 <template>
   <div class="page">
-    <h2 class="page-title">网站设置</h2>
+    <h2 class="page-title">{{ t('settings.title') }}</h2>
     <div
       v-if="toastVisible"
       class="toast"
@@ -8,7 +8,7 @@
     >
       {{ toastMessage }}
     </div>
-    <div v-if="loading" class="page-hint">加载中...</div>
+    <div v-if="loading" class="page-hint">{{ t('common.loading') }}</div>
     <div v-else>
       <div class="settings-tabs">
         <button
@@ -17,7 +17,7 @@
           :class="{ 'settings-tab-active': activeTab === 'comment' }"
           @click="activeTab = 'comment'"
         >
-          评论与安全
+          {{ t('settings.tabs.comment') }}
         </button>
         <button
           type="button"
@@ -25,15 +25,7 @@
           :class="{ 'settings-tab-active': activeTab === 'feature' }"
           @click="activeTab = 'feature'"
         >
-          功能开关
-        </button>
-        <button
-          type="button"
-          class="settings-tab"
-          :class="{ 'settings-tab-active': activeTab === 'display' }"
-          @click="activeTab = 'display'"
-        >
-          后台显示
+          {{ t('settings.tabs.feature') }}
         </button>
         <button
           type="button"
@@ -41,7 +33,7 @@
           :class="{ 'settings-tab-active': activeTab === 'emailNotify' }"
           @click="activeTab = 'emailNotify'"
         >
-          邮箱提醒
+          {{ t('settings.tabs.emailNotify') }}
         </button>
         <button
           type="button"
@@ -49,7 +41,15 @@
           :class="{ 'settings-tab-active': activeTab === 'telegramNotify' }"
           @click="activeTab = 'telegramNotify'"
         >
-          Telegram 通知
+          {{ t('settings.tabs.telegramNotify') }}
+        </button>
+        <button
+          type="button"
+          class="settings-tab"
+          :class="{ 'settings-tab-active': activeTab === 'display' }"
+          @click="activeTab = 'display'"
+        >
+          {{ t('settings.tabs.display') }}
         </button>
       </div>
       <transition name="tab-fade" mode="out-in">
@@ -57,19 +57,19 @@
           <template v-if="activeTab === 'comment'">
             <div class="card">
               <div class="card-header">
-                <div class="card-title">评论显示配置</div>
+                <div class="card-title">{{ t('settings.comment.title') }}</div>
               </div>
               <div class="card-body">
                 <div class="form-item">
-                  <label class="form-label">管理员邮箱</label>
+                  <label class="form-label">{{ t('settings.comment.adminEmail') }}</label>
                   <input v-model="commentAdminEmail" class="form-input" type="email" />
                 </div>
                 <div class="form-item">
-                  <label class="form-label">博主标签文字（留空使用默认图标）</label>
+                  <label class="form-label">{{ t('settings.comment.adminBadge') }}</label>
                   <input v-model="commentAdminBadge" class="form-input" type="text" />
                 </div>
                 <div class="form-item">
-                  <label class="form-label">是否开启博主标签显示</label>
+                  <label class="form-label">{{ t('settings.comment.adminEnabled') }}</label>
                   <label class="switch">
                     <input v-model="commentAdminEnabled" type="checkbox" />
                     <span class="slider" />
@@ -77,13 +77,13 @@
                 </div>
                 <div class="form-item">
                   <label class="form-label"
-                    >头像前缀（默认：https://gravatar.com/avatar）</label
+                    >{{ t('settings.comment.avatarPrefix') }}</label
                   >
                   <input v-model="avatarPrefix" class="form-input" type="text" />
                 </div>
-                <h3 class="card-title">安全设置</h3>
+                <h3 class="card-title">{{ t('settings.comment.securityTitle') }}</h3>
                 <div class="form-item">
-                  <label class="form-label">新评论是否审核后再显示</label>
+                  <label class="form-label">{{ t('settings.comment.requireReview') }}</label>
                   <label class="switch">
                     <input v-model="requireReview" type="checkbox" />
                     <span class="slider" />
@@ -91,31 +91,31 @@
                 </div>
                 <div class="form-item">
                   <label class="form-label">
-                    管理员评论密钥（设置后前台使用管理员邮箱评论需输入此密钥。）
+                    {{ t('settings.comment.adminKey') }}
                   </label>
 
                   <input
                     v-model="commentAdminKey"
                     class="form-input"
-                    placeholder="输入密钥以设置或修改"
+                    :placeholder="t('settings.comment.adminKeyPlaceholder')"
                     autocomplete="new-password"
                   />
                 </div>
                 <div class="form-item">
                   <label class="form-label">
-                    允许调用的域名（设置后仅匹配域名可调用前台评论组件，留空则不限制。使用空格或者逗号进行分割。）
+                    {{ t('settings.comment.allowedDomains') }}
                   </label>
                   <TagInput v-model="allowedDomainTags" />
                 </div>
                 <div class="form-item">
                   <label class="form-label">
-                    IP 黑名单（多个 IP 用逗号或换行分隔，留空则不限制）
+                    {{ t('settings.comment.blockedIps') }}
                   </label>
                   <TagInput v-model="blockedIpTags" />
                 </div>
                 <div class="form-item">
                   <label class="form-label"
-                    >邮箱黑名单（多个邮箱用逗号或换行分隔，留空则不限制）</label
+                    >{{ t('settings.comment.blockedEmails') }}</label
                   >
                   <TagInput v-model="blockedEmailTags" />
                 </div>
@@ -126,8 +126,8 @@
                     :disabled="savingComment"
                     @click="saveComment"
                   >
-                    <span v-if="savingComment">保存中...</span>
-                    <span v-else>保存</span>
+                    <span v-if="savingComment">{{ t('settings.comment.saving') }}</span>
+                    <span v-else>{{ t('settings.comment.save') }}</span>
                   </button>
                 </div>
               </div>
@@ -136,66 +136,80 @@
           <template v-else-if="activeTab === 'feature'">
             <div class="card feature">
               <div class="card-header">
-                <div class="card-title">功能开关</div>
+                <div class="card-title">{{ t('settings.feature.title') }}</div>
               </div>
               <div class="card-body">
                 <div class="form-item bg">
                   <div class="form-item-flex">
-                    <label class="form-label">开启文章点赞功能</label>
+                    <label class="form-label">{{ t('settings.feature.articleLike') }}</label>
                     <label class="switch">
                       <input v-model="enableArticleLike" type="checkbox" />
                       <span class="slider" />
                     </label>
                   </div>
                   <div class="form-hint">
-                    开启后，评论区顶部会显示的文章点赞（喜欢）按钮。
+                    {{ t('settings.feature.articleLikeHint') }}
                   </div>
                 </div>
                 <div class="form-item bg">
                   <div class="form-item-flex">
-                    <label class="form-label">开启评论点赞功能</label>
+                    <label class="form-label">{{ t('settings.feature.commentLike') }}</label>
                     <label class="switch">
                       <input v-model="enableCommentLike" type="checkbox" />
                       <span class="slider" />
                     </label>
                   </div>
                   <div class="form-hint">
-                    开启后，评论列表中的每条评论都会显示点赞按钮。
+                    {{ t('settings.feature.commentLikeHint') }}
                   </div>
                 </div>
 
                 <div class="form-item bg">
                   <div class="form-item-flex">
-                    <label class="form-label">评论列表图片灯箱模式</label>
+                    <label class="form-label">{{ t('settings.feature.imageLightbox') }}</label>
                     <label class="switch">
                       <input v-model="enableImageLightbox" type="checkbox" />
                       <span class="slider" />
                     </label>
                   </div>
-                  <div class="form-hint">开启后，点击评论中的图片时会全屏放大预览。</div>
+                  <div class="form-hint">{{ t('settings.feature.imageLightboxHint') }}</div>
                 </div>
 
                 <div class="form-item">
-                  <label class="form-label">评论框提示文案 (Placeholder)</label>
+                  <label class="form-label">{{ t('settings.feature.placeholder') }}</label>
                   <textarea
                     v-model="commentPlaceholder"
                     class="form-input"
                     rows="3"
                     style="height: 90px; resize: none"
-                    placeholder="默认：写下你的评论，可换行书写提示"
+                    :placeholder="t('settings.feature.placeholderHint')"
                   ></textarea>
                   <div class="form-hint">
-                    自定义评论输入框的提示文字，支持换行。留空则使用默认值。
+                    {{ t('settings.feature.placeholderHint') }}
                   </div>
                 </div>
+
+                <div class="form-item">
+                  <label class="form-label">{{ t('settings.feature.widgetLanguage') }}</label>
+                  <select v-model="widgetLanguage" class="form-input">
+                    <option value="auto">Auto (Browser Default)</option>
+                    <option v-for="lang in languageOptions" :key="lang.value" :value="lang.value">
+                        {{ lang.label }} ({{ lang.value }})
+                    </option>
+                  </select>
+                  <div class="form-hint">
+                    {{ t('settings.feature.widgetLanguageHint') }}
+                  </div>
+                </div>
+
                 <div class="card-actions">
                   <button
                     class="card-button"
                     :disabled="savingFeature"
                     @click="saveFeature"
                   >
-                    <span v-if="savingFeature">保存中...</span>
-                    <span v-else>保存</span>
+                    <span v-if="savingFeature">{{ t('settings.feature.saving') }}</span>
+                    <span v-else>{{ t('settings.feature.save') }}</span>
                   </button>
                 </div>
               </div>
@@ -204,27 +218,38 @@
           <template v-else-if="activeTab === 'display'">
             <div class="card">
               <div class="card-header">
-                <div class="card-title">后台显示设置</div>
+                <div class="card-title">{{ t('settings.display.title') }}</div>
               </div>
               <div class="card-body">
                 <div class="form-item">
-                  <label class="form-label">后台标题</label>
+                  <label class="form-label">{{ t('settings.display.layoutTitle') }}</label>
                   <input
                     v-model="adminLayoutTitle"
                     class="form-input"
                     type="text"
                     placeholder="CWD 评论系统"
                   />
-                  <div class="form-hint">显示在后台顶部导航栏左侧。</div>
+                  <div class="form-hint">{{ t('settings.display.layoutTitleHint') }}</div>
                 </div>
+
+                <div class="form-item">
+                  <label class="form-label">{{ t('settings.display.adminLanguage') }}</label>
+                  <select v-model="adminLanguage" class="form-input">
+                    <option v-for="lang in languageOptions" :key="lang.value" :value="lang.value">
+                        {{ lang.label }} ({{ lang.value }})
+                    </option>
+                  </select>
+                  <div class="form-hint">{{ t('settings.display.adminLanguageHint') }}</div>
+                </div>
+
                 <div class="card-actions">
                   <button
                     class="card-button"
                     :disabled="savingDisplay"
                     @click="saveDisplay"
                   >
-                    <span v-if="savingDisplay">保存中...</span>
-                    <span v-else>保存</span>
+                    <span v-if="savingDisplay">{{ t('settings.display.saving') }}</span>
+                    <span v-else>{{ t('settings.display.save') }}</span>
                   </button>
                 </div>
               </div>
@@ -233,11 +258,11 @@
           <template v-else-if="activeTab === 'emailNotify'">
             <div class="card">
               <div class="card-header">
-                <div class="card-title">通知邮箱设置</div>
+                <div class="card-title">{{ t('settings.emailNotify.title') }}</div>
               </div>
               <div class="card-body">
                 <div class="form-item">
-                  <label class="form-label">开启邮件通知</label>
+                  <label class="form-label">{{ t('settings.emailNotify.enable') }}</label>
                   <label class="switch">
                     <input v-model="emailGlobalEnabled" type="checkbox" />
                     <span class="slider" />
@@ -245,10 +270,10 @@
                 </div>
 
                 <div class="divider"></div>
-                <h4 class="card-subtitle">1. SMTP 发件配置</h4>
+                <h4 class="card-subtitle">{{ t('settings.emailNotify.smtpTitle') }}</h4>
 
                 <div class="form-item">
-                  <label class="form-label">邮件服务商</label>
+                  <label class="form-label">{{ t('settings.emailNotify.provider') }}</label>
                   <select
                     v-model="smtpProvider"
                     class="form-input"
@@ -262,7 +287,7 @@
 
                 <div v-if="smtpProvider === 'custom'">
                   <div class="form-item">
-                    <label class="form-label">SMTP 服务器</label>
+                    <label class="form-label">{{ t('settings.emailNotify.host') }}</label>
                     <input
                       v-model="smtpHost"
                       class="form-input"
@@ -270,7 +295,7 @@
                     />
                   </div>
                   <div class="form-item">
-                    <label class="form-label">SMTP 端口</label>
+                    <label class="form-label">{{ t('settings.emailNotify.port') }}</label>
                     <input
                       v-model="smtpPort"
                       class="form-input"
@@ -279,7 +304,7 @@
                     />
                   </div>
                   <div class="form-item">
-                    <label class="form-label">SSL 安全连接</label>
+                    <label class="form-label">{{ t('settings.emailNotify.secure') }}</label>
                     <label class="switch">
                       <input v-model="smtpSecure" type="checkbox" />
                       <span class="slider" />
@@ -288,7 +313,7 @@
                 </div>
 
                 <div class="form-item">
-                  <label class="form-label">发件邮箱账号</label>
+                  <label class="form-label">{{ t('settings.emailNotify.user') }}</label>
                   <input
                     v-model="smtpUser"
                     class="form-input"
@@ -296,37 +321,24 @@
                   />
                 </div>
                 <div class="form-item">
-                  <label class="form-label">授权码/密码</label>
+                  <label class="form-label">{{ t('settings.emailNotify.pass') }}</label>
                   <input
                     v-model="smtpPass"
                     class="form-input"
                     type="text"
                     placeholder="QQ邮箱请使用授权码"
                   />
-                  <div v-if="smtpProvider === 'qq'" class="form-hint">
-                    注意：QQ 邮箱必须使用<a
-                      href="https://service.mail.qq.com/detail/0/75"
-                      target="_blank"
-                      >授权码</a
-                    >，而非 QQ 密码。<br />
-                    请登录 QQ 邮箱网页版，在【设置 - 账户】中开启 POP3/SMTP
-                    服务并生成授权码。
-                  </div>
-                  <div v-else-if="smtpProvider === '163'" class="form-hint">
-                    注意：163 邮箱必须使用授权码，而非登录密码。<br />
-                    请登录 163 邮箱网页版，在【设置 -
-                    POP3/SMTP/IMAP】中开启服务并生成授权码。
-                  </div>
+                  <div v-if="smtpProvider === 'qq'" class="form-hint" v-html="t('settings.emailNotify.qqHint')"></div>
+                  <div v-else-if="smtpProvider === '163'" class="form-hint" v-html="t('settings.emailNotify.163Hint')"></div>
                 </div>
 
                 <div class="divider"></div>
-                <h4 class="card-subtitle">2. 邮件模板设置</h4>
+                <h4 class="card-subtitle">{{ t('settings.emailNotify.templateTitle') }}</h4>
 
                 <div class="form-item">
-                  <label class="form-label">管理员通知模板 (HTML)</label>
+                  <label class="form-label">{{ t('settings.emailNotify.adminTemplate') }}</label>
                   <div class="form-hint">
-                    可用变量：${commentAuthor} (评论人昵称), ${postTitle} (文章标题),
-                    ${postUrl} (文章链接), ${commentContent} (评论内容)
+                    {{ t('settings.emailNotify.adminTemplateHint') }}
                   </div>
                   <textarea
                     v-model="templateAdmin"
@@ -337,11 +349,9 @@
                 </div>
 
                 <div class="form-item">
-                  <label class="form-label">回复通知模板 (HTML)</label>
+                  <label class="form-label">{{ t('settings.emailNotify.replyTemplate') }}</label>
                   <div class="form-hint">
-                    可用变量：${toName} (接收人昵称), ${replyAuthor} (回复人昵称),
-                    ${postTitle} (文章标题), ${postUrl} (文章链接), ${parentComment}
-                    (原评论), ${replyContent} (回复内容)
+                    {{ t('settings.emailNotify.replyTemplateHint') }}
                   </div>
                   <textarea
                     v-model="templateReply"
@@ -363,19 +373,19 @@
                     :disabled="testingEmail"
                     @click="testEmail"
                   >
-                    <span v-if="testingEmail">发送中...</span>
-                    <span v-else>发送测试邮件</span>
+                    <span v-if="testingEmail">{{ t('settings.emailNotify.testingBtn') }}</span>
+                    <span v-else>{{ t('settings.emailNotify.testBtn') }}</span>
                   </button>
                   <button
                     class="card-button secondary"
                     style="margin-left: auto"
                     @click="resetTemplatesToDefault"
                   >
-                    恢复默认模板
+                    {{ t('settings.emailNotify.resetBtn') }}
                   </button>
                   <button class="card-button" :disabled="savingEmail" @click="saveEmail">
-                    <span v-if="savingEmail">保存中...</span>
-                    <span v-else>保存配置</span>
+                    <span v-if="savingEmail">{{ t('settings.emailNotify.saving') }}</span>
+                    <span v-else>{{ t('settings.emailNotify.save') }}</span>
                   </button>
                 </div>
               </div>
@@ -384,44 +394,36 @@
           <template v-else-if="activeTab === 'telegramNotify'">
             <div class="card">
               <div class="card-header">
-                <div class="card-title">Telegram 通知设置</div>
+                <div class="card-title">{{ t('settings.telegramNotify.title') }}</div>
               </div>
               <div class="card-body">
                 <div class="form-item">
-                  <label class="form-label">开启 Telegram 通知</label>
+                  <label class="form-label">{{ t('settings.telegramNotify.enable') }}</label>
                   <label class="switch">
                     <input v-model="telegramNotifyEnabled" type="checkbox" />
                     <span class="slider" />
                   </label>
                 </div>
                 <div class="form-item">
-                  <label class="form-label">Bot Token</label>
+                  <label class="form-label">{{ t('settings.telegramNotify.botToken') }}</label>
                   <input
                     v-model="telegramBotToken"
                     class="form-input"
-                    type="text"
+                    type="password"
                     placeholder="123456:ABC-DEF1234ghIkl-zyx57W2v1u123ew11"
+                    autocomplete="new-password"
                   />
-                  <div class="form-hint">
-                    在 Telegram 中搜索
-                    <a href="https://t.me/BotFather" target="_blank">@BotFather</a>
-                    创建机器人获取 Token
-                  </div>
+                  <div class="form-hint" v-html="t('settings.telegramNotify.botTokenHint')"></div>
                 </div>
                 <div class="form-item">
-                  <label class="form-label">Chat ID</label>
+                  <label class="form-label">{{ t('settings.telegramNotify.chatId') }}</label>
                   <input
                     v-model="telegramChatId"
                     class="form-input"
                     type="text"
                     placeholder="123456789"
                   />
-                  <div class="form-hint">
-                    这是接收通知的用户 ID 或群组 ID。可以先给机器人发消息，然后通过 API
-                    获取 ID，或者使用
-                    <a href="https://t.me/userinfobot" target="_blank">@userinfobot</a>
-                    查询。
-                  </div>
+                  <div class="form-hint" v-html="t('settings.telegramNotify.chatIdHint')"></div>
                 </div>
 
                 <div class="card-actions" style="justify-content: space-between">
@@ -430,8 +432,8 @@
                     :disabled="settingUpWebhook"
                     @click="doSetupWebhook"
                   >
-                    <span v-if="settingUpWebhook">设置中...</span>
-                    <span v-else>一键设置 Webhook</span>
+                    <span v-if="settingUpWebhook">{{ t('settings.telegramNotify.webhookSetting') }}</span>
+                    <span v-else>{{ t('settings.telegramNotify.webhookBtn') }}</span>
                   </button>
                   <button
                     class="card-button secondary"
@@ -439,16 +441,16 @@
                     @click="testTelegram"
                     style="margin-right: auto"
                   >
-                    <span v-if="testingTelegram">发送中...</span>
-                    <span v-else>发送测试消息</span>
+                    <span v-if="testingTelegram">{{ t('settings.telegramNotify.testingBtn') }}</span>
+                    <span v-else>{{ t('settings.telegramNotify.testBtn') }}</span>
                   </button>
                   <button
                     class="card-button"
                     :disabled="savingTelegram"
                     @click="saveTelegram"
                   >
-                    <span v-if="savingTelegram">保存中...</span>
-                    <span v-else>保存</span>
+                    <span v-if="savingTelegram">{{ t('settings.telegramNotify.saving') }}</span>
+                    <span v-else>{{ t('settings.telegramNotify.save') }}</span>
                   </button>
                 </div>
               </div>
@@ -463,6 +465,7 @@
 <script setup lang="ts">
 import { onMounted, ref, type Ref, inject, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
+import { useI18n } from "vue-i18n";
 import {
   fetchCommentSettings,
   saveCommentSettings,
@@ -577,6 +580,28 @@ const telegramNotifyEnabled = ref(false);
 const savingTelegram = ref(false);
 const settingUpWebhook = ref(false);
 const testingTelegram = ref(false);
+
+const languageOptions = [
+  { value: 'en-US', label: 'English' },
+  { value: 'zh-CN', label: '简体中文' },
+  { value: 'zh-TW', label: '繁體中文' },
+  { value: 'es', label: 'Español' },
+  { value: 'pt', label: 'Português' },
+  { value: 'fr', label: 'Français' },
+  { value: 'de', label: 'Deutsch' },
+  { value: 'ja', label: '日本語' },
+  { value: 'ko', label: '한국어' },
+  { value: 'ru', label: 'Русский' },
+  { value: 'it', label: 'Italiano' },
+  { value: 'nl', label: 'Nederlands' },
+  { value: 'ar', label: 'العربية' },
+  { value: 'hi', label: 'हिन्दी' },
+  { value: 'id', label: 'Bahasa Indonesia' },
+];
+
+const { t, locale } = useI18n();
+const adminLanguage = ref("zh-CN");
+const widgetLanguage = ref("auto");
 
 const route = useRoute();
 const router = useRouter();
@@ -731,6 +756,14 @@ async function load() {
     enableCommentLike.value = featureRes.enableCommentLike;
     enableImageLightbox.value = featureRes.enableImageLightbox;
     commentPlaceholder.value = featureRes.commentPlaceholder || "";
+    adminLanguage.value = featureRes.adminLanguage || "zh-CN";
+    widgetLanguage.value = featureRes.widgetLanguage || "auto";
+    
+    // Sync locale
+    if (featureRes.adminLanguage) {
+      locale.value = featureRes.adminLanguage;
+      localStorage.setItem('admin_language', featureRes.adminLanguage);
+    }
 
     telegramBotToken.value = telegramRes.botToken || "";
     telegramChatId.value = telegramRes.chatId || "";
@@ -861,10 +894,9 @@ async function saveComment() {
       }),
     ]);
 
-    showToast(commentRes.message || "保存成功", "success");
+    showToast(commentRes.message || t('common.saveSuccess'), "success");
   } catch (e: any) {
-    message.value = e.message || "保存失败";
-    messageType.value = "error";
+    showToast(e.message || t('common.saveFailed'), "error");
   } finally {
     savingComment.value = false;
   }
@@ -880,13 +912,13 @@ async function saveFeature() {
         enableCommentLike: enableCommentLike.value,
         enableImageLightbox: enableImageLightbox.value,
         commentPlaceholder: commentPlaceholder.value,
+        widgetLanguage: widgetLanguage.value,
       }),
     ]);
 
-    showToast(featureRes.message || "保存成功", "success");
+    showToast(featureRes.message || t('common.saveSuccess'), "success");
   } catch (e: any) {
-    message.value = e.message || "保存失败";
-    messageType.value = "error";
+    showToast(e.message || t('common.saveFailed'), "error");
   } finally {
     savingFeature.value = false;
   }
@@ -901,10 +933,19 @@ async function saveDisplay() {
     const res = await saveAdminDisplaySettings({
       layoutTitle: adminLayoutTitle.value,
     });
+    
+    // Also save admin language to feature settings as it's a global preference
+    await saveFeatureSettings({
+      adminLanguage: adminLanguage.value
+    });
 
     if (updateSiteTitle) {
       updateSiteTitle(adminLayoutTitle.value);
     }
+    
+    // Update local locale
+    locale.value = adminLanguage.value;
+    localStorage.setItem('admin_language', adminLanguage.value);
 
     showToast(res.message || "保存成功", "success");
   } catch (e: any) {

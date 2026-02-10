@@ -1,0 +1,304 @@
+{
+  "menu": {
+    "comments": "Gestion des Commentaires",
+    "stats": "Tableau de Bord",
+    "analytics": "Analytique",
+    "settings": "Paramètres",
+    "data": "Données"
+  },
+  "layout": {
+    "toggleMenu": "Basculer le Menu",
+    "docs": "Documentation",
+    "logout": "Déconnexion",
+    "moreActions": "Plus d'Actions",
+    "defaultSite": "Site par Défaut",
+    "theme": {
+      "light": "Clair",
+      "dark": "Sombre",
+      "system": "Système"
+    },
+    "version": {
+      "title": "Infos Version",
+      "apiAddress": "Adresse API",
+      "apiVersion": "Version API",
+      "adminVersion": "Version Admin",
+      "match": "Les versions Admin et API correspondent.",
+      "mismatch": "Version incompatible. Veuillez mettre à jour le service API.",
+      "fetchError": "Échec de récupération de version :",
+      "loading": "Chargement...",
+      "notConfigured": "Non Configuré",
+      "notFetched": "Non Récupéré",
+      "ok": "OK"
+    }
+  },
+  "stats": {
+    "title": "Tableau de Bord",
+    "overview": "Aperçu",
+    "total": "Total Commentaires",
+    "approved": "Approuvés",
+    "pending": "En Attente",
+    "rejected": "Rejetés",
+    "trend": "Tendance",
+    "bySite": "Par Site",
+    "last7Days": "7 Derniers Jours",
+    "last30Days": "30 Derniers Jours",
+    "noData": "Aucune Donnée",
+    "table": {
+      "domain": "Domaine",
+      "total": "Total",
+      "approved": "Approuvés",
+      "pending": "En Attente",
+      "rejected": "Rejetés"
+    },
+    "loadError": "Erreur chargement stats"
+  },
+  "analytics": {
+    "title": "Analytique",
+    "overview": "Aperçu",
+    "totalPv": "Total PV",
+    "todayPv": "PV Aujourd'hui",
+    "weekPv": "PV Semaine",
+    "monthPv": "PV Mois",
+    "totalPages": "Pages Visitées",
+    "trend": "Tendance Trafic",
+    "pageDetail": "Détails Page",
+    "likeRank": "Top Likes",
+    "last7Days": "7 Derniers Jours",
+    "last30Days": "30 Derniers Jours",
+    "sort": {
+      "pv": "Trier par PV",
+      "latest": "Dernière Visite"
+    },
+    "table": {
+      "title": "Titre Page",
+      "pv": "PV",
+      "time": "Dernière Visite",
+      "url": "URL",
+      "rank": "Rang",
+      "like": "J'aime"
+    },
+    "noData": "Aucune Donnée",
+    "noLikeData": "Aucune Donnée de Like",
+    "loadError": "Erreur chargement analytique"
+  },
+  "data": {
+    "title": "Gestion des Données",
+    "sections": {
+      "comments": {
+        "title": "Données Commentaires",
+        "desc": "Gérer et importer des commentaires.",
+        "exportLabel": "Exporter :",
+        "exporting": "Export en cours...",
+        "exportJson": "Exporter JSON",
+        "importLabel": "Importer :",
+        "importButton": "Importer Commentaires",
+        "source": {
+          "cwd": "CWD (.json)",
+          "twikoo": "Twikoo (.json)",
+          "artalk": "Artalk (.json)"
+        }
+      },
+      "config": {
+        "title": "Config Système",
+        "desc": "Paramètres, e-mail, liste noire, etc.",
+        "export": "Exporter Config",
+        "import": "Importer Config"
+      },
+      "stats": {
+        "title": "Données Analytiques",
+        "desc": "Vues, likes et tendances.",
+        "export": "Exporter Stats",
+        "import": "Importer Stats"
+      },
+      "backup": {
+        "title": "Sauvegarde Complète",
+        "desc": "Sauvegarder ou restaurer tout (Commentaires + Config + Stats).",
+        "export": "Export Complet",
+        "import": "Restauration Complète"
+      }
+    },
+    "logs": {
+      "title": "Journal d'Opérations"
+    },
+    "prefixModal": {
+      "title": "Préfixe URL Manquant",
+      "descPart1": "Détecté ",
+      "descPart2": " commentaires sans préfixe (http/https).",
+      "descPart3": "Ajouter lors de l'import ?",
+      "label": "Préfixe Domaine (ex: https://example.me)",
+      "placeholder": "Entrer le préfixe",
+      "skip": "Ignorer",
+      "confirm": "Ajouter & Importer"
+    },
+    "messages": {
+      "exportSuccess": "Export Réussi",
+      "exportFailed": "Échec Export",
+      "fileReadFailed": "Échec Lecture Fichier",
+      "jsonParseFailed": "Échec Analyse JSON",
+      "importConfigSuccess": "Config Importée",
+      "importStatsSuccess": "Stats Importées",
+      "importBackupSuccess": "Restauration Complète Réussie",
+      "importCommentsSuccess": "Commentaires Importés",
+      "prefixRequired": "Veuillez entrer le préfixe",
+      "importStart": "Import : {name} (Mode : {mode})",
+      "fileParseSuccess": "Fichier analysé, traitement...",
+      "errorWithMessage": "Erreur : {msg}",
+      "parsedCommentsCount": "{count} commentaires analysés",
+      "detectMissingPrefix": "{count} URL sans préfixe, en attente...",
+      "prefixAdded": "Préfixe ajouté, continuation...",
+      "skipPrefix": "Ajout préfixe ignoré",
+      "readFileFailedLog": "Échec lecture fichier",
+      "importCommentsDone": "Import Terminé : {message}"
+    }
+  },
+  "comments": {
+    "title": "Gestion Commentaires",
+    "statusFilter": {
+      "all": "Tous",
+      "approved": "Approuvés",
+      "pending": "En Attente",
+      "rejected": "Rejetés"
+    },
+    "refresh": "Actualiser",
+    "table": {
+      "author": "Utilisateur",
+      "content": "Commentaire",
+      "path": "Chemin",
+      "status": "Statut",
+      "actions": "Actions",
+      "admin": "Admin",
+      "time": "Date",
+      "ip": "IP",
+      "email": "E-mail"
+    },
+    "actions": {
+      "approve": "Approuver",
+      "pending": "Mettre en Attente",
+      "reject": "Rejeter",
+      "edit": "Éditer",
+      "delete": "Supprimer",
+      "blockIp": "Bloquer IP",
+      "blockEmail": "Bloquer E-mail",
+      "pin": "Épingler"
+    },
+    "pagination": {
+      "prev": "Préc",
+      "next": "Suiv",
+      "jumpTo": "Aller à",
+      "page": "Page",
+      "confirm": "OK"
+    },
+    "confirmDelete": "Supprimer le commentaire {id} ?",
+    "confirmBlockIp": "Bloquer l'IP {ip} ?",
+    "confirmBlockEmail": "Bloquer l'e-mail {email} ?",
+    "successBlockIp": "IP Bloquée",
+    "successBlockEmail": "E-mail Bloqué",
+    "empty": "Aucune Donnée",
+    "editModal": {
+      "title": "Éditer Commentaire",
+      "name": "Pseudo",
+      "email": "E-mail",
+      "url": "URL",
+      "postSlug": "Slug",
+      "postUrl": "URL Article",
+      "content": "Contenu",
+      "status": "Statut",
+      "priority": "Priorité (1=Normal, plus élevé=Haut)",
+      "cancel": "Annuler",
+      "save": "Sauvegarder",
+      "saving": "Sauvegarde..."
+    }
+  },
+  "settings": {
+    "title": "Paramètres",
+    "tabs": {
+      "comment": "Commentaires & Sécurité",
+      "feature": "Fonctionnalités",
+      "emailNotify": "Notifications E-mail",
+      "telegramNotify": "Notifications Telegram",
+      "display": "Affichage"
+    },
+    "comment": {
+      "title": "Affichage Commentaires",
+      "adminEmail": "E-mail Admin",
+      "adminBadge": "Badge Admin (Vide pour icône par défaut)",
+      "adminEnabled": "Afficher Badge Admin",
+      "avatarPrefix": "Préfixe Avatar (Défaut : https://gravatar.com/avatar)",
+      "securityTitle": "Sécurité",
+      "requireReview": "Approbation Requise pour Nouveaux Commentaires",
+      "adminKey": "Clé Admin (Requise pour commentaires via e-mail admin)",
+      "adminKeyPlaceholder": "Entrer clé",
+      "allowedDomains": "Domaines Autorisés (Vide pour tous. Séparer par espace/virgule)",
+      "blockedIps": "IP Bloquées (Séparer par virgule/nouvelle ligne)",
+      "blockedEmails": "E-mails Bloqués (Séparer par virgule/nouvelle ligne)",
+      "save": "Sauvegarder",
+      "saving": "Sauvegarde..."
+    },
+    "feature": {
+      "title": "Fonctionnalités",
+      "articleLike": "Activer J'aime Article",
+      "articleLikeHint": "Afficher bouton J'aime en haut des commentaires.",
+      "commentLike": "Activer J'aime Commentaire",
+      "commentLikeHint": "Afficher bouton J'aime sur chaque commentaire.",
+      "imageLightbox": "Lightbox Image",
+      "imageLightboxHint": "Aperçu plein écran des images.",
+      "placeholder": "Texte Placeholder",
+      "placeholderHint": "Texte d'invite pour la saisie de commentaire.",
+      "widgetLanguage": "Langue Widget",
+      "widgetLanguageHint": "Langue pour le widget frontend.",
+      "save": "Sauvegarder",
+      "saving": "Sauvegarde..."
+    },
+    "emailNotify": {
+      "title": "Notification E-mail",
+      "enable": "Activer Notifications E-mail",
+      "smtpTitle": "1. Config SMTP",
+      "provider": "Fournisseur",
+      "host": "Hôte SMTP",
+      "port": "Port SMTP",
+      "secure": "Sécurité SSL",
+      "user": "Utilisateur",
+      "pass": "Mot de passe/Token",
+      "qqHint": "Note : Pour QQ Mail, utilisez un Token d'App.",
+      "163Hint": "Note : Pour 163 Mail, utilisez un Token d'App.",
+      "templateTitle": "2. Config Modèles",
+      "adminTemplate": "Modèle Admin (HTML)",
+      "adminTemplateHint": "Vars : ${commentAuthor}, ${postTitle}, ${postUrl}, ${commentContent}",
+      "replyTemplate": "Modèle Réponse (HTML)",
+      "replyTemplateHint": "Vars : ${toName}, ${replyAuthor}, ${postTitle}, ${postUrl}, ${parentComment}, ${replyContent}",
+      "testBtn": "Envoyer Test",
+      "testingBtn": "Envoi...",
+      "resetBtn": "Réinitialiser Modèles",
+      "save": "Sauvegarder Config",
+      "saving": "Sauvegarde..."
+    },
+    "telegramNotify": {
+      "title": "Notification Telegram",
+      "enable": "Activer Notifications Telegram",
+      "botToken": "Token Bot",
+      "botTokenHint": "Obtenir via @BotFather",
+      "chatId": "ID Chat",
+      "chatIdHint": "ID Utilisateur ou Groupe. Utiliser @userinfobot.",
+      "webhookBtn": "Définir Webhook",
+      "webhookSetting": "Configuration...",
+      "testBtn": "Envoyer Message Test",
+      "testingBtn": "Envoi...",
+      "save": "Sauvegarder",
+      "saving": "Sauvegarde..."
+    },
+    "display": {
+      "title": "Paramètres Affichage",
+      "layoutTitle": "Titre Admin",
+      "layoutTitleHint": "Affiché dans la barre de navigation.",
+      "adminLanguage": "Langue Admin",
+      "adminLanguageHint": "Langue du panneau d'administration.",
+      "save": "Sauvegarder",
+      "saving": "Sauvegarde..."
+    },
+    "common": {
+      "saveSuccess": "Sauvegarde Réussie",
+      "saveFailed": "Échec Sauvegarde",
+      "loading": "Chargement..."
+    }
+  }
+}

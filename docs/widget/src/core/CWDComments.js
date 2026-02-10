@@ -9,6 +9,7 @@ import { CommentForm } from '@/components/CommentForm.js';
 import { CommentList } from '@/components/CommentList.js';
 import { ImagePreview } from '@/components/ImagePreview.js';
 import styles from '@/styles/main.css?inline';
+import { locales } from '@/locales/index.js';
 
 /**
  * CWDComments 评论组件主类
@@ -60,6 +61,20 @@ export class CWDComments {
 		this._likeCountEl = null;
 
 		this._mounted = false;
+		
+		this.localeData = locales['zh-CN'];
+		this.t = this.t.bind(this);
+	}
+
+	/**
+	 * 翻译函数
+	 */
+	t(key, params = {}) {
+		let text = this.localeData[key] || key;
+		for (const [k, v] of Object.entries(params)) {
+			text = text.replace(`{${k}}`, v);
+		}
+		return text;
 	}
 
 	/**
@@ -109,6 +124,7 @@ export class CWDComments {
 				enableImageLightbox: typeof data.enableImageLightbox === 'boolean' ? data.enableImageLightbox : false,
 				commentPlaceholder:
 					typeof data.commentPlaceholder === 'string' ? data.commentPlaceholder : undefined,
+				widgetLanguage: typeof data.widgetLanguage === 'string' ? data.widgetLanguage : undefined,
 			};
 		} catch (e) {
 			return {};
@@ -152,15 +168,43 @@ export class CWDComments {
 					return currentHostname === domain || currentHostname.endsWith('.' + domain);
 				});
 
+				// 设置语言
+				let lang = serverConfig.widgetLanguage || 'auto';
+				if (lang === 'auto' && typeof navigator !== 'undefined') {
+					const browserLang = navigator.language || navigator.userLanguage;
+					if (browserLang.toLowerCase().startsWith('en')) {
+						lang = 'en-US';
+					} else {
+						lang = 'zh-CN';
+					}
+				}
+				if (locales[lang]) {
+					this.localeData = locales[lang];
+				}
+
 				if (!isAllowed) {
 					if (this.mountPoint) {
 						this.mountPoint.innerHTML = `
             <div style="padding: 20px; text-align: center; color: #666; font-size: 14px; border: 1px solid #eee; border-radius: 8px; background: #f9f9f9;">
-              当前域名 (${currentHostname}) 未获得评论组件调用授权
+              ${this.t('domainUnauthorized', { domain: currentHostname })}
             </div>
           `;
 					}
 					return;
+				}
+			} else {
+				// 即使没有域名限制，也需要设置语言
+				let lang = serverConfig.widgetLanguage || 'auto';
+				if (lang === 'auto' && typeof navigator !== 'undefined') {
+					const browserLang = navigator.language || navigator.userLanguage;
+					if (browserLang.toLowerCase().startsWith('en')) {
+						lang = 'en-US';
+					} else {
+						lang = 'zh-CN';
+					}
+				}
+				if (locales[lang]) {
+					this.localeData = locales[lang];
 				}
 			}
 
@@ -341,7 +385,7 @@ export class CWDComments {
                 <path d="M12 21c-.4 0-.8-.1-1.1-.4L4.5 15C3 13.6 2 11.7 2 9.6 2 6.5 4.5 4 7.6 4c1.7 0 3.3.8 4.4 2.1C13.1 4.8 14.7 4 16.4 4 19.5 4 22 6.5 22 9.6c0 2.1-1 4-2.5 5.4l-6.4 5.6c-.3.3-.7.4-1.1.4z"></path>
               </svg>
             </span>
-						<div>已有 <span class="cwd-like-count">0</span>人喜欢~ </div>
+						<div>${this.t('likes', { count: '<span class="cwd-like-count">0</span>' })}</div>
           </button>
         </div>
       `;
@@ -366,6 +410,7 @@ export class CWDComments {
 				adminEmail: this.config.adminEmail,
 				onVerifyAdmin: (key) => this.api.verifyAdminKey(key),
 				placeholder: this.config.commentPlaceholder,
+				t: this.t
 			});
 			this.commentForm.render();
 		}
@@ -376,7 +421,7 @@ export class CWDComments {
 			countHeading = document.createElement('h3');
 			countHeading.className = 'cwd-comments-count';
 			countHeading.innerHTML = `
-          共 <span class="cwd-comments-count-number">0</span> 条评论
+          ${this.t('totalComments', { count: '<span class="cwd-comments-count-number">0</span>' })}
         `;
 			if (this.formContainer && this.formContainer.parentNode === this.mountPoint) {
 				this.mountPoint.insertBefore(countHeading, this.formContainer.nextSibling);
@@ -424,6 +469,7 @@ export class CWDComments {
 						this.store.likeComment(commentId, isLike);
 					}
 				},
+				t: this.t
 			});
 			this.commentList.render();
 		}

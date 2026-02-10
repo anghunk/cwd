@@ -1,0 +1,304 @@
+{
+  "menu": {
+    "comments": "댓글 관리",
+    "stats": "대시보드",
+    "analytics": "방문 통계",
+    "settings": "사이트 설정",
+    "data": "데이터 관리"
+  },
+  "layout": {
+    "toggleMenu": "메뉴 전환",
+    "docs": "문서",
+    "logout": "로그아웃",
+    "moreActions": "더보기",
+    "defaultSite": "기본 사이트",
+    "theme": {
+      "light": "라이트 모드",
+      "dark": "다크 모드",
+      "system": "시스템 설정"
+    },
+    "version": {
+      "title": "버전 정보",
+      "apiAddress": "API 주소",
+      "apiVersion": "API 버전",
+      "adminVersion": "관리자 버전",
+      "match": "관리자와 API 버전이 일치합니다.",
+      "mismatch": "버전 불일치. 호환성 문제를 방지하기 위해 API 서비스를 업데이트하세요.",
+      "fetchError": "버전 정보를 가져올 수 없습니다:",
+      "loading": "로딩 중...",
+      "notConfigured": "설정되지 않음",
+      "notFetched": "가져오지 못함",
+      "ok": "확인"
+    }
+  },
+  "stats": {
+    "title": "대시보드",
+    "overview": "개요",
+    "total": "총 댓글 수",
+    "approved": "승인됨",
+    "pending": "대기 중",
+    "rejected": "거절됨",
+    "trend": "댓글 추세",
+    "bySite": "사이트별 통계",
+    "last7Days": "최근 7일",
+    "last30Days": "최근 30일",
+    "noData": "데이터 없음",
+    "table": {
+      "domain": "도메인",
+      "total": "합계",
+      "approved": "승인됨",
+      "pending": "대기 중",
+      "rejected": "거절됨"
+    },
+    "loadError": "통계 로드 실패"
+  },
+  "analytics": {
+    "title": "방문 통계",
+    "overview": "개요",
+    "totalPv": "총 PV",
+    "todayPv": "오늘 PV",
+    "weekPv": "이번 주 PV",
+    "monthPv": "이번 달 PV",
+    "totalPages": "방문한 페이지 수",
+    "trend": "트래픽 추세",
+    "pageDetail": "페이지 상세",
+    "likeRank": "좋아요 순위",
+    "last7Days": "최근 7일",
+    "last30Days": "최근 30일",
+    "sort": {
+      "pv": "PV순 정렬",
+      "latest": "최신 방문"
+    },
+    "table": {
+      "title": "페이지 제목",
+      "pv": "PV",
+      "time": "마지막 방문",
+      "url": "URL",
+      "rank": "순위",
+      "like": "좋아요"
+    },
+    "noData": "데이터 없음",
+    "noLikeData": "좋아요 데이터 없음",
+    "loadError": "통계 로드 실패"
+  },
+  "data": {
+    "title": "데이터 관리",
+    "sections": {
+      "comments": {
+        "title": "댓글 데이터",
+        "desc": "댓글 관리 및 타 프레임워크에서 가져오기.",
+        "exportLabel": "내보내기:",
+        "exporting": "내보내는 중...",
+        "exportJson": "JSON 내보내기",
+        "importLabel": "가져오기:",
+        "importButton": "댓글 가져오기",
+        "source": {
+          "cwd": "CWD (.json)",
+          "twikoo": "Twikoo (.json)",
+          "artalk": "Artalk (.json)"
+        }
+      },
+      "config": {
+        "title": "시스템 설정",
+        "desc": "관리자 설정, 이메일 설정, 차단 목록 등.",
+        "export": "설정 내보내기",
+        "import": "설정 가져오기"
+      },
+      "stats": {
+        "title": "통계 데이터",
+        "desc": "페이지 조회수, 좋아요, 추세 관리.",
+        "export": "통계 내보내기",
+        "import": "통계 가져오기"
+      },
+      "backup": {
+        "title": "전체 백업",
+        "desc": "시스템 전체 데이터 백업 및 복원 (댓글 + 설정 + 통계).",
+        "export": "전체 내보내기",
+        "import": "전체 복원"
+      }
+    },
+    "logs": {
+      "title": "작업 로그"
+    },
+    "prefixModal": {
+      "title": "URL 접두사 누락 감지됨",
+      "descPart1": "감지됨: ",
+      "descPart2": "개의 댓글 URL에 프로토콜 접두사(http/https)가 없습니다.",
+      "descPart3": "가져올 때 추가하시겠습니까?",
+      "label": "도메인 접두사 (예: https://example.me)",
+      "placeholder": "접두사 입력",
+      "skip": "건너뛰기 (추가 안 함)",
+      "confirm": "추가 및 가져오기"
+    },
+    "messages": {
+      "exportSuccess": "내보내기 성공",
+      "exportFailed": "내보내기 실패",
+      "fileReadFailed": "파일 읽기 실패",
+      "jsonParseFailed": "JSON 파싱 실패",
+      "importConfigSuccess": "설정 가져오기 성공",
+      "importStatsSuccess": "통계 가져오기 성공",
+      "importBackupSuccess": "전체 복원 성공",
+      "importCommentsSuccess": "댓글 가져오기 성공",
+      "prefixRequired": "도메인 접두사를 입력하세요",
+      "importStart": "가져오기 시작: {name} (모드: {mode})",
+      "fileParseSuccess": "파일 파싱 성공, 처리 중...",
+      "errorWithMessage": "오류: {msg}",
+      "parsedCommentsCount": "{count}개 댓글 파싱됨",
+      "detectMissingPrefix": "{count}개 URL 누락 감지, 확인 대기 중...",
+      "prefixAdded": "접두사 추가됨, 계속 진행 중...",
+      "skipPrefix": "접두사 추가 건너뜀",
+      "readFileFailedLog": "파일 읽기 실패",
+      "importCommentsDone": "가져오기 완료: {message}"
+    }
+  },
+  "comments": {
+    "title": "댓글 관리",
+    "statusFilter": {
+      "all": "전체",
+      "approved": "승인됨",
+      "pending": "대기 중",
+      "rejected": "거절됨"
+    },
+    "refresh": "새로고침",
+    "table": {
+      "author": "사용자",
+      "content": "내용",
+      "path": "경로",
+      "status": "상태",
+      "actions": "작업",
+      "admin": "관리자",
+      "time": "시간",
+      "ip": "IP",
+      "email": "이메일"
+    },
+    "actions": {
+      "approve": "승인",
+      "pending": "보류",
+      "reject": "거절",
+      "edit": "편집",
+      "delete": "삭제",
+      "blockIp": "IP 차단",
+      "blockEmail": "이메일 차단",
+      "pin": "고정"
+    },
+    "pagination": {
+      "prev": "이전",
+      "next": "다음",
+      "jumpTo": "이동",
+      "page": "페이지",
+      "confirm": "확인"
+    },
+    "confirmDelete": "댓글 {id}를 삭제하시겠습니까?",
+    "confirmBlockIp": "IP {ip}를 차단하시겠습니까?",
+    "confirmBlockEmail": "이메일 {email}을 차단하시겠습니까?",
+    "successBlockIp": "IP 차단됨",
+    "successBlockEmail": "이메일 차단됨",
+    "empty": "데이터 없음",
+    "editModal": {
+      "title": "댓글 편집",
+      "name": "이름",
+      "email": "이메일",
+      "url": "URL",
+      "postSlug": "슬러그",
+      "postUrl": "게시물 URL",
+      "content": "내용",
+      "status": "상태",
+      "priority": "우선순위 (1=보통, 높을수록 상단)",
+      "cancel": "취소",
+      "save": "저장",
+      "saving": "저장 중..."
+    }
+  },
+  "settings": {
+    "title": "설정",
+    "tabs": {
+      "comment": "댓글 및 보안",
+      "feature": "기능",
+      "emailNotify": "이메일 알림",
+      "telegramNotify": "Telegram 알림",
+      "display": "표시 설정"
+    },
+    "comment": {
+      "title": "댓글 표시 설정",
+      "adminEmail": "관리자 이메일",
+      "adminBadge": "관리자 배지 텍스트 (기본 아이콘 사용 시 비워둠)",
+      "adminEnabled": "관리자 배지 표시",
+      "avatarPrefix": "아바타 접두사 (기본값: https://gravatar.com/avatar)",
+      "securityTitle": "보안 설정",
+      "requireReview": "새 댓글 검토 후 표시",
+      "adminKey": "관리자 키 (관리자 이메일 댓글 작성 시 필요)",
+      "adminKeyPlaceholder": "키 입력",
+      "allowedDomains": "허용 도메인 (비워두면 모두 허용. 공백/콤마로 구분)",
+      "blockedIps": "차단된 IP (콤마/줄바꿈으로 구분)",
+      "blockedEmails": "차단된 이메일 (콤마/줄바꿈으로 구분)",
+      "save": "저장",
+      "saving": "저장 중..."
+    },
+    "feature": {
+      "title": "기능 설정",
+      "articleLike": "게시물 좋아요 활성화",
+      "articleLikeHint": "댓글 상단에 좋아요 버튼 표시.",
+      "commentLike": "댓글 좋아요 활성화",
+      "commentLikeHint": "각 댓글에 좋아요 버튼 표시.",
+      "imageLightbox": "이미지 라이트박스",
+      "imageLightboxHint": "댓글 이미지 클릭 시 전체 화면 미리보기.",
+      "placeholder": "플레이스홀더",
+      "placeholderHint": "댓글 입력창 안내 문구.",
+      "widgetLanguage": "위젯 언어",
+      "widgetLanguageHint": "프론트엔드 위젯 언어.",
+      "save": "저장",
+      "saving": "저장 중..."
+    },
+    "emailNotify": {
+      "title": "이메일 알림",
+      "enable": "이메일 알림 활성화",
+      "smtpTitle": "1. SMTP 설정",
+      "provider": "제공자",
+      "host": "SMTP 호스트",
+      "port": "SMTP 포트",
+      "secure": "SSL 보안",
+      "user": "이메일 계정",
+      "pass": "비밀번호/앱 토큰",
+      "qqHint": "참고: QQ 메일은 비밀번호 대신 앱 토큰을 사용하세요.",
+      "163Hint": "참고: 163 메일은 비밀번호 대신 앱 토큰을 사용하세요.",
+      "templateTitle": "2. 템플릿 설정",
+      "adminTemplate": "관리자 알림 템플릿 (HTML)",
+      "adminTemplateHint": "변수: ${commentAuthor}, ${postTitle}, ${postUrl}, ${commentContent}",
+      "replyTemplate": "답글 알림 템플릿 (HTML)",
+      "replyTemplateHint": "변수: ${toName}, ${replyAuthor}, ${postTitle}, ${postUrl}, ${parentComment}, ${replyContent}",
+      "testBtn": "테스트 이메일 전송",
+      "testingBtn": "전송 중...",
+      "resetBtn": "템플릿 초기화",
+      "save": "설정 저장",
+      "saving": "저장 중..."
+    },
+    "telegramNotify": {
+      "title": "Telegram 알림",
+      "enable": "Telegram 알림 활성화",
+      "botToken": "Bot Token",
+      "botTokenHint": "@BotFather에서 획득",
+      "chatId": "Chat ID",
+      "chatIdHint": "사용자 ID 또는 그룹 ID. @userinfobot으로 확인.",
+      "webhookBtn": "웹훅 설정",
+      "webhookSetting": "설정 중...",
+      "testBtn": "테스트 메시지 전송",
+      "testingBtn": "전송 중...",
+      "save": "저장",
+      "saving": "저장 중..."
+    },
+    "display": {
+      "title": "표시 설정",
+      "layoutTitle": "관리자 제목",
+      "layoutTitleHint": "상단 내비게이션 바에 표시됨.",
+      "adminLanguage": "관리자 언어",
+      "adminLanguageHint": "관리자 패널 언어.",
+      "save": "저장",
+      "saving": "저장 중..."
+    },
+    "common": {
+      "saveSuccess": "저장 성공",
+      "saveFailed": "저장 실패",
+      "loading": "로딩 중..."
+    }
+  }
+}

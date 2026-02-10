@@ -1,0 +1,304 @@
+{
+  "menu": {
+    "comments": "评论管理",
+    "stats": "数据看板",
+    "analytics": "访问统计",
+    "settings": "网站设置",
+    "data": "数据管理"
+  },
+  "layout": {
+    "toggleMenu": "切换菜单",
+    "docs": "使用文档",
+    "logout": "退出",
+    "moreActions": "更多操作",
+    "defaultSite": "默认站点",
+    "theme": {
+      "light": "明亮模式",
+      "dark": "暗黑模式",
+      "system": "跟随系统"
+    },
+    "version": {
+      "title": "版本信息",
+      "apiAddress": "API 地址",
+      "apiVersion": "接口版本",
+      "adminVersion": "后台版本",
+      "match": "当前后台与接口版本一致，可以正常使用。",
+      "mismatch": "当前后台与接口版本不一致，推荐将 API 服务更新到与后台版本一致，以避免潜在的兼容性问题。",
+      "fetchError": "无法获取接口版本：",
+      "loading": "加载中...",
+      "notConfigured": "未配置",
+      "notFetched": "未获取到",
+      "ok": "我知道了"
+    }
+  },
+  "stats": {
+    "title": "数据看板",
+    "overview": "整体概览",
+    "total": "总评论数",
+    "approved": "已通过",
+    "pending": "待审核",
+    "rejected": "已拒绝",
+    "trend": "评论数趋势",
+    "bySite": "按站点统计",
+    "last7Days": "最近 7 天",
+    "last30Days": "最近 30 天",
+    "noData": "暂无评论数据",
+    "table": {
+      "domain": "域名",
+      "total": "总数",
+      "approved": "已通过",
+      "pending": "待审核",
+      "rejected": "已拒绝"
+    },
+    "loadError": "加载统计数据失败"
+  },
+  "analytics": {
+    "title": "访问统计",
+    "overview": "整体概览",
+    "totalPv": "全站总访问量",
+    "todayPv": "今日访问量",
+    "weekPv": "本周访问量",
+    "monthPv": "本月访问量",
+    "totalPages": "有访问记录的页面数",
+    "trend": "访问趋势",
+    "pageDetail": "页面访问明细",
+    "likeRank": "点赞页面排行榜",
+    "last7Days": "最近 7 天",
+    "last30Days": "最近 30 天",
+    "sort": {
+      "pv": "按 PV 排序",
+      "latest": "最新访问"
+    },
+    "table": {
+      "title": "页面标题",
+      "pv": "访问量",
+      "time": "最后访问时间",
+      "url": "页面地址",
+      "rank": "排名",
+      "like": "点赞数"
+    },
+    "noData": "暂无访问数据",
+    "noLikeData": "暂无点赞数据",
+    "loadError": "加载访问统计数据失败"
+  },
+  "data": {
+    "title": "数据管理",
+    "sections": {
+      "comments": {
+        "title": "评论数据",
+        "desc": "管理评论内容，支持从其他评论框架迁移数据。",
+        "exportLabel": "导出:",
+        "exporting": "导出中...",
+        "exportJson": "导出 JSON",
+        "importLabel": "导入:",
+        "importButton": "导入评论",
+        "source": {
+          "cwd": "CWD (.json)",
+          "twikoo": "Twikoo (.json)",
+          "artalk": "Artalk (.json)"
+        }
+      },
+      "config": {
+        "title": "系统配置",
+        "desc": "管理后台设置、邮件配置、黑名单等。",
+        "export": "导出配置",
+        "import": "导入配置"
+      },
+      "stats": {
+        "title": "访问统计",
+        "desc": "管理文章访问量、点赞数及每日访问趋势。",
+        "export": "导出统计",
+        "import": "导入统计"
+      },
+      "backup": {
+        "title": "全量备份",
+        "desc": "一键备份或恢复系统所有数据（评论 + 配置 + 统计）。",
+        "export": "全量导出",
+        "import": "全量恢复"
+      }
+    },
+    "logs": {
+      "title": "操作日志"
+    },
+    "prefixModal": {
+      "title": "检测到 URL 缺失前缀",
+      "descPart1": "检测到 ",
+      "descPart2": " 条评论的 URL 不存在域名前缀（http/https）。",
+      "descPart3": "是否在导入时统一添加？",
+      "label": "域名前缀 (例如 https://example.me)",
+      "placeholder": "请输入域名前缀",
+      "skip": "直接导入 (不添加)",
+      "confirm": "添加并导入"
+    },
+    "messages": {
+      "exportSuccess": "导出成功",
+      "exportFailed": "导出失败",
+      "fileReadFailed": "读取文件失败",
+      "jsonParseFailed": "JSON 解析失败，请检查文件格式",
+      "importConfigSuccess": "配置导入成功",
+      "importStatsSuccess": "统计数据导入成功",
+      "importBackupSuccess": "全量恢复成功",
+      "importCommentsSuccess": "评论导入成功",
+      "prefixRequired": "请输入域名前缀",
+      "importStart": "开始导入: {name} (模式: {mode})",
+      "fileParseSuccess": "文件解析成功，开始处理...",
+      "errorWithMessage": "错误: {msg}",
+      "parsedCommentsCount": "解析到 {count} 条评论数据",
+      "detectMissingPrefix": "检测到 {count} 条 URL 缺失前缀，等待用户确认...",
+      "prefixAdded": "已添加前缀，继续导入...",
+      "skipPrefix": "用户跳过前缀添加",
+      "readFileFailedLog": "读取文件失败",
+      "importCommentsDone": "导入完成: {message}"
+    }
+  },
+  "comments": {
+    "title": "评论管理",
+    "statusFilter": {
+      "all": "全部状态",
+      "approved": "已通过",
+      "pending": "待审核",
+      "rejected": "已拒绝"
+    },
+    "refresh": "刷新",
+    "table": {
+      "author": "用户",
+      "content": "评论信息",
+      "path": "评论地址",
+      "status": "状态",
+      "actions": "操作",
+      "admin": "网站管理员",
+      "time": "时间",
+      "ip": "IP",
+      "email": "邮箱"
+    },
+    "actions": {
+      "approve": "通过",
+      "pending": "待审",
+      "reject": "拒绝",
+      "edit": "编辑",
+      "delete": "删除",
+      "blockIp": "屏蔽该 IP",
+      "blockEmail": "屏蔽该邮箱",
+      "pin": "置顶"
+    },
+    "pagination": {
+      "prev": "上一页",
+      "next": "下一页",
+      "jumpTo": "跳转到",
+      "page": "页",
+      "confirm": "确定"
+    },
+    "confirmDelete": "确认删除评论 {id} 吗",
+    "confirmBlockIp": "确认将 IP {ip} 加入黑名单吗？",
+    "confirmBlockEmail": "确认将邮箱 {email} 加入黑名单吗？",
+    "successBlockIp": "已加入 IP 黑名单",
+    "successBlockEmail": "已加入邮箱黑名单",
+    "empty": "暂无数据",
+    "editModal": {
+      "title": "编辑评论",
+      "name": "访客昵称",
+      "email": "访客邮箱",
+      "url": "访客网址",
+      "postSlug": "页面标识",
+      "postUrl": "评论地址",
+      "content": "评论内容",
+      "status": "评论状态",
+      "priority": "置顶权重（1 为不置顶，数值越大越靠前）",
+      "cancel": "取消",
+      "save": "保存",
+      "saving": "保存中..."
+    }
+  },
+  "settings": {
+    "title": "网站设置",
+    "tabs": {
+      "comment": "评论与安全",
+      "feature": "功能开关",
+      "emailNotify": "邮箱提醒",
+      "telegramNotify": "Telegram 通知",
+      "display": "后台显示"
+    },
+    "comment": {
+      "title": "评论显示配置",
+      "adminEmail": "管理员邮箱",
+      "adminBadge": "博主标签文字（留空使用默认图标）",
+      "adminEnabled": "是否开启博主标签显示",
+      "avatarPrefix": "头像前缀（默认：https://gravatar.com/avatar）",
+      "securityTitle": "安全设置",
+      "requireReview": "新评论是否审核后再显示",
+      "adminKey": "管理员评论密钥（设置后前台使用管理员邮箱评论需输入此密钥。）",
+      "adminKeyPlaceholder": "输入密钥以设置或修改",
+      "allowedDomains": "允许调用的域名（设置后仅匹配域名可调用前台评论组件，留空则不限制。使用空格或者逗号进行分割。）",
+      "blockedIps": "IP 黑名单（多个 IP 用逗号或换行分隔，留空则不限制）",
+      "blockedEmails": "邮箱黑名单（多个邮箱用逗号或换行分隔，留空则不限制）",
+      "save": "保存",
+      "saving": "保存中..."
+    },
+    "feature": {
+      "title": "功能开关",
+      "articleLike": "开启文章点赞功能",
+      "articleLikeHint": "开启后，评论区顶部会显示的文章点赞（喜欢）按钮。",
+      "commentLike": "开启评论点赞功能",
+      "commentLikeHint": "开启后，评论列表中的每条评论都会显示点赞按钮。",
+      "imageLightbox": "评论列表图片灯箱模式",
+      "imageLightboxHint": "开启后，点击评论中的图片时会全屏放大预览。",
+      "placeholder": "评论框提示文案 (Placeholder)",
+      "placeholderHint": "自定义评论输入框的提示文字，支持换行。留空则使用默认值。",
+      "widgetLanguage": "组件语言",
+      "widgetLanguageHint": "设置前端评论组件显示的语言。",
+      "save": "保存",
+      "saving": "保存中..."
+    },
+    "emailNotify": {
+      "title": "通知邮箱设置",
+      "enable": "开启邮件通知",
+      "smtpTitle": "1. SMTP 发件配置",
+      "provider": "邮件服务商",
+      "host": "SMTP 服务器",
+      "port": "SMTP 端口",
+      "secure": "SSL 安全连接",
+      "user": "发件邮箱账号",
+      "pass": "授权码/密码",
+      "qqHint": "注意：QQ 邮箱必须使用授权码，而非 QQ 密码。请登录 QQ 邮箱网页版，在【设置 - 账户】中开启 POP3/SMTP 服务并生成授权码。",
+      "163Hint": "注意：163 邮箱必须使用授权码，而非登录密码。请登录 163 邮箱网页版，在【设置 - POP3/SMTP/IMAP】中开启服务并生成授权码。",
+      "templateTitle": "2. 邮件模板设置",
+      "adminTemplate": "管理员通知模板 (HTML)",
+      "adminTemplateHint": "可用变量：${commentAuthor} (评论人昵称), ${postTitle} (文章标题), ${postUrl} (文章链接), ${commentContent} (评论内容)",
+      "replyTemplate": "回复通知模板 (HTML)",
+      "replyTemplateHint": "可用变量：${toName} (接收人昵称), ${replyAuthor} (回复人昵称), ${postTitle} (文章标题), ${postUrl} (文章链接), ${parentComment} (原评论), ${replyContent} (回复内容)",
+      "testBtn": "发送测试邮件",
+      "testingBtn": "发送中...",
+      "resetBtn": "恢复默认模板",
+      "save": "保存配置",
+      "saving": "保存中..."
+    },
+    "telegramNotify": {
+      "title": "Telegram 通知设置",
+      "enable": "开启 Telegram 通知",
+      "botToken": "Bot Token",
+      "botTokenHint": "在 Telegram 中搜索 @BotFather 创建机器人获取 Token",
+      "chatId": "Chat ID",
+      "chatIdHint": "这是接收通知的用户 ID 或群组 ID。可以先给机器人发消息，然后通过 API 获取 ID，或者使用 @userinfobot 查询。",
+      "webhookBtn": "一键设置 Webhook",
+      "webhookSetting": "设置中...",
+      "testBtn": "发送测试消息",
+      "testingBtn": "发送中...",
+      "save": "保存",
+      "saving": "保存中..."
+    },
+    "display": {
+      "title": "后台显示设置",
+      "layoutTitle": "后台标题",
+      "layoutTitleHint": "显示在后台顶部导航栏左侧。",
+      "adminLanguage": "后台语言",
+      "adminLanguageHint": "设置后台管理系统的显示语言。",
+      "save": "保存",
+      "saving": "保存中..."
+    }
+  },
+  "common": {
+    "saveSuccess": "保存成功",
+    "saveFailed": "保存失败",
+    "loading": "加载中..."
+  }
+}

@@ -20,6 +20,7 @@ export class ReplyEditor extends Component {
 	 */
 	constructor(container, props = {}) {
 		super(container, props);
+		this.t = props.t || ((k) => k);
 		const { currentUser } = props;
 		this.state = {
 			content: props.content || '',
@@ -41,7 +42,7 @@ export class ReplyEditor extends Component {
 				this.createElement('div', {
 					className: 'cwd-reply-header',
 					children: [
-						this.createTextElement('span', `回复 @${this.props.replyToAuthor}`, 'cwd-reply-to'),
+						this.createTextElement('span', `${this.t('reply')} @${this.props.replyToAuthor}`, 'cwd-reply-to'),
 						this.createElement('button', {
 							className: 'cwd-btn-close',
 							attributes: {
@@ -62,9 +63,9 @@ export class ReplyEditor extends Component {
 									style: 'margin-bottom: 12px;',
 								},
 								children: [
-									this.createFormField('昵称 *', 'text', 'name', currentUser?.name),
-									this.createFormField('邮箱 *', 'email', 'email', currentUser?.email),
-									this.createFormField('网址', 'url', 'url', currentUser?.url),
+									this.createFormField(this.t('nickname'), 'text', 'name', currentUser?.name),
+									this.createFormField(this.t('email'), 'email', 'email', currentUser?.email),
+									this.createFormField(this.t('website'), 'url', 'url', currentUser?.url),
 								],
 							}),
 						]
@@ -113,7 +114,7 @@ export class ReplyEditor extends Component {
 								disabled: this.props.submitting || !this.state.content.trim(),
 								onClick: () => this.togglePreview(),
 							},
-							text: this.state.showPreview ? '关闭' : '预览',
+							text: this.state.showPreview ? this.t('close') : this.t('preview'),
 						}),
 						this.createElement('button', {
 							className: 'cwd-btn cwd-btn-primary cwd-btn-small',
@@ -122,7 +123,7 @@ export class ReplyEditor extends Component {
 								disabled: this.props.submitting || !this.state.content.trim(),
 								onClick: () => this.handleSubmit(),
 							},
-							text: this.props.submitting ? '提交中...' : '提交回复',
+							text: this.props.submitting ? this.t('submitting') : this.t('submit'),
 						}),
 						this.createElement('button', {
 							className: 'cwd-btn cwd-btn-secondary cwd-btn-small',
@@ -131,7 +132,7 @@ export class ReplyEditor extends Component {
 								disabled: this.props.submitting,
 								onClick: () => this.handleCancel(),
 							},
-							text: '取消',
+							text: this.t('cancel'),
 						}),
 					],
 				}),

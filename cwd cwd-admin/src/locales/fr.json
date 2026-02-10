@@ -1,0 +1,304 @@
+{
+  "menu": {
+    "comments": "Gérer les commentaires",
+    "stats": "Tableau de bord",
+    "analytics": "Analytique",
+    "settings": "Paramètres du site",
+    "data": "Gestion des données"
+  },
+  "layout": {
+    "toggleMenu": "Basculer le menu",
+    "docs": "Documentation",
+    "logout": "Déconnexion",
+    "moreActions": "Plus d'actions",
+    "defaultSite": "Site par défaut",
+    "theme": {
+      "light": "Mode clair",
+      "dark": "Mode sombre",
+      "system": "Système"
+    },
+    "version": {
+      "title": "Informations sur la version",
+      "apiAddress": "Adresse API",
+      "apiVersion": "Version API",
+      "adminVersion": "Version Admin",
+      "match": "Les versions Admin et API correspondent.",
+      "mismatch": "Les versions ne correspondent pas. Mise à jour de l'API recommandée.",
+      "fetchError": "Échec de la récupération de la version:",
+      "loading": "Chargement...",
+      "notConfigured": "Non configuré",
+      "notFetched": "Non récupéré",
+      "ok": "Compris"
+    }
+  },
+  "stats": {
+    "title": "Tableau de bord",
+    "overview": "Aperçu",
+    "total": "Total des commentaires",
+    "approved": "Approuvé",
+    "pending": "En attente",
+    "rejected": "Rejeté",
+    "trend": "Tendance des commentaires",
+    "bySite": "Statistiques par site",
+    "last7Days": "7 derniers jours",
+    "last30Days": "30 derniers jours",
+    "noData": "Aucune donnée de commentaire",
+    "table": {
+      "domain": "Domaine",
+      "total": "Total",
+      "approved": "Approuvé",
+      "pending": "En attente",
+      "rejected": "Rejeté"
+    },
+    "loadError": "Échec du chargement des statistiques"
+  },
+  "analytics": {
+    "title": "Analytique",
+    "overview": "Aperçu",
+    "totalPv": "Visites totales",
+    "todayPv": "Aujourd'hui",
+    "weekPv": "Cette semaine",
+    "monthPv": "Ce mois",
+    "totalPages": "Pages avec visites",
+    "trend": "Tendance des visites",
+    "pageDetail": "Détails des pages",
+    "likeRank": "Classement des J'aime",
+    "last7Days": "7 derniers jours",
+    "last30Days": "30 derniers jours",
+    "sort": {
+      "pv": "Trier par PV",
+      "latest": "Dernière visite"
+    },
+    "table": {
+      "title": "Titre de la page",
+      "pv": "Visites",
+      "time": "Dernière visite",
+      "url": "URL",
+      "rank": "Rang",
+      "like": "J'aime"
+    },
+    "noData": "Aucune donnée de visite",
+    "noLikeData": "Aucune donnée de J'aime",
+    "loadError": "Échec du chargement des données d'analyse"
+  },
+  "data": {
+    "title": "Gestion des données",
+    "sections": {
+      "comments": {
+        "title": "Données de commentaires",
+        "desc": "Gérer le contenu des commentaires et migrer des données d'autres systèmes de commentaires.",
+        "exportLabel": "Exporter:",
+        "exporting": "Exportation...",
+        "exportJson": "Exporter JSON",
+        "importLabel": "Importer:",
+        "importButton": "Importer les commentaires",
+        "source": {
+          "cwd": "CWD (.json)",
+          "twikoo": "Twikoo (.json)",
+          "artalk": "Artalk (.json)"
+        }
+      },
+      "config": {
+        "title": "Configuration système",
+        "desc": "Gérer les paramètres admin, configuration e-mail, listes noires, etc.",
+        "export": "Exporter la config",
+        "import": "Importer la config"
+      },
+      "stats": {
+        "title": "Statistiques de visites",
+        "desc": "Gérer les vues de pages, J'aime et tendances quotidiennes.",
+        "export": "Exporter les statistiques",
+        "import": "Importer les statistiques"
+      },
+      "backup": {
+        "title": "Sauvegarde complète",
+        "desc": "Sauvegard ou restaurer toutes les données (commentaires + config + statistiques) en un clic.",
+        "export": "Tout exporter",
+        "import": "Tout restaurer"
+      }
+    },
+    "logs": {
+      "title": "Journal des opérations"
+    },
+    "prefixModal": {
+      "title": "URLs sans préfixe détectées",
+      "descPart1": "Détecté ",
+      "descPart2": " commentaires dont les URLs n'ont pas de préfixe de domaine (http/https).",
+      "descPart3": "Ajouter le préfixe automatiquement lors de l'importation?",
+      "label": "Préfixe de domaine (ex. https://example.me)",
+      "placeholder": "Entrez le préfixe de domaine",
+      "skip": "Importer directement (sans préfixe)",
+      "confirm": "Ajouter le préfixe et importer"
+    },
+    "messages": {
+      "exportSuccess": "Exportation réussie",
+      "exportFailed": "Échec de l'exportation",
+      "fileReadFailed": "Échec de la lecture du fichier",
+      "jsonParseFailed": "Échec de l'analyse JSON, vérifiez le format du fichier",
+      "importConfigSuccess": "Configuration importée avec succès",
+      "importStatsSuccess": "Statistiques importées avec succès",
+      "importBackupSuccess": "Restauration complète réussie",
+      "importCommentsSuccess": "Commentaires importés avec succès",
+      "prefixRequired": "Veuillez entrer un préfixe de domaine",
+      "importStart": "Démarrage de l'importation: {name} (mode: {mode})",
+      "fileParseSuccess": "Fichier analysé avec succès, début du traitement...",
+      "errorWithMessage": "Erreur: {msg}",
+      "parsedCommentsCount": "{count} enregistrements de commentaires analysés",
+      "detectMissingPrefix": "{count} URLs sans préfixe détectées, en attente de confirmation...",
+      "prefixAdded": "Préfixe ajouté, poursuite de l'importation...",
+      "skipPrefix": "Utilisateur a sauté l'ajout du préfixe",
+      "readFileFailedLog": "Échec de la lecture du fichier",
+      "importCommentsDone": "Importation terminée: {message}"
+    }
+  },
+  "comments": {
+    "title": "Gérer les commentaires",
+    "statusFilter": {
+      "all": "Tous les statuts",
+      "approved": "Approuvé",
+      "pending": "En attente",
+      "rejected": "Rejeté"
+    },
+    "refresh": "Actualiser",
+    "table": {
+      "author": "Utilisateur",
+      "content": "Contenu",
+      "path": "Chemin",
+      "status": "Statut",
+      "actions": "Actions",
+      "admin": "Admin",
+      "time": "Heure",
+      "ip": "IP",
+      "email": "E-mail"
+    },
+    "actions": {
+      "approv": "Approuver",
+      "pending": "En attente",
+      "reject": "Rejeter",
+      "edit": "Modifier",
+      "delete": "Supprimer",
+      "blockIp": "Bloquer l'IP",
+      "blockEmail": "Bloquer l'e-mail",
+      "pin": "Épingler"
+    },
+    "pagination": {
+      "prev": "Précédent",
+      "next": "Suivant",
+      "jumpTo": "Aller à",
+      "page": "Page",
+      "confirm": "Go"
+    },
+    "confirmDelete": "Voulez-vous vraiment supprimer le commentaire {id}?",
+    "confirmBlockIp": "Voulez-vous vraiment bloquer l'IP {ip}?",
+    "confirmBlockEmail": "Voulez-vous vraiment bloquer l'e-mail {email}?",
+    "successBlockIp": "IP bloqué avec succès",
+    "successBlockEmail": "E-mail bloqué avec succès",
+    "empty": "Aucune donnée",
+    "editModal": {
+      "title": "Modifier le commentaire",
+      "name": "Pseudo",
+      "email": "E-mail",
+      "url": "Site web",
+      "postSlug": "Slug",
+      "postUrl": "URL",
+      "content": "Contenu",
+      "status": "Statut",
+      "priority": "Priorité (1=Normal, Plus élevé=En haut)",
+      "cancel": "Annuler",
+      "save": "Enregistrer",
+      "saving": "Enregistrement..."
+    }
+  },
+  "settings": {
+    "title": "Paramètres du site",
+    "tabs": {
+      "comment": "Commentaires et Sécurité",
+      "feature": "Fonctionnalités",
+      "emailNotify": "Notification par E-mail",
+      "telegramNotify": "Notification Telegram",
+      "display": "Affichage Admin"
+    },
+    "comment": {
+      "title": "Configuration d'affichage des commentaires",
+      "adminEmail": "E-mail Admin",
+      "adminBadge": "Texte du Badge Admin (Laisser vide pour l'icône par défaut)",
+      "adminEnabled": "Afficher le Badge Admin",
+      "avatarPrefix": "Préfixe d'Avatar (Par défaut: https://gravatar.com/avatar)",
+      "securityTitle": "Paramètres de sécurité",
+      "requireReview": "Nécessite une approbation pour les nouveaux commentaires",
+      "adminKey": "Clé Admin (Requis pour utiliser l'e-mail admin dans les commentaires frontend)",
+      "adminKeyPlaceholder": "Entrez la clé pour définir ou modifier",
+      "allowedDomains": "Domaines autorisés (Seuls les domaines correspondants peuvent utiliser le widget. Séparés par espace ou virgule. Laisser vide pour tous.)",
+      "blockedIps": "IPs bloquées (Séparées par virgule ou saut de ligne)",
+      "blockedEmails": "E-mails bloqués (Séparés par virgule ou saut de ligne)",
+      "save": "Enregistrer",
+      "saving": "Enregistrement..."
+    },
+    "feature": {
+      "title": "Paramètres des fonctionnalités",
+      "articleLike": "Activer J'aime sur les articles",
+      "articleLikeHint": "Affiche un bouton J'aime en haut de la section des commentaires.",
+      "commentLike": "Activer J'aime sur les commentaires",
+      "commentLikeHint": "Affiche un bouton J'aime pour chaque commentaire.",
+      "imageLightbox": "Lightbox d'images",
+      "imageLightboxHint": "Active la prévisualisation en lightbox lors du clic sur les images dans les commentaires.",
+      "placeholder": "Texte de remplacement de la zone de commentaires",
+      "placeholderHint": "Texte de remplacement personnalisé. Laisser vide pour la valeur par défaut.",
+      "widgetLanguage": "Langue du Widget",
+      "widgetLanguageHint": "Langue affichée dans le widget de commentaires frontend.",
+      "save": "Enregistrer",
+      "saving": "Enregistrement..."
+    },
+    "emailNotify": {
+      "title": "Paramètres de notification par E-mail",
+      "enable": "Activer la notification par E-mail",
+      "smtpTitle": "1. Configuration SMTP",
+      "provider": "Fournisseur d'E-mail",
+      "host": "Hôte SMTP",
+      "port": "Port SMTP",
+      "secure": "Connexion SSL",
+      "user": "Compte E-mail",
+      "pass": "Code d'autorisation / Mot de passe",
+      "qqHint": "Note: QQ Mail nécessite un code d'autorisation, pas votre mot de passe.",
+      "163Hint": "Note: 163 Mail nécessite un code d'autorisation, pas votre mot de passe.",
+      "templateTitle": "2. Modèles d'E-mail",
+      "adminTemplate": "Modèle de notification Admin (HTML)",
+      "adminTemplateHint": "Variables: ${commentAuthor}, ${postTitle}, ${postUrl}, ${commentContent}",
+      "replyTemplate": "Modèle de notification de réponse (HTML)",
+      "replyTemplateHint": "Variables: ${toName}, ${replyAuthor}, ${postTitle}, ${postUrl}, ${parentComment}, ${replyContent}",
+      "testBtn": "Envoyer un E-mail de test",
+      "testingBtn": "Envoi...",
+      "resetBtn": "Réinitialiser les modèles",
+      "save": "Enregistrer la configuration",
+      "saving": "Enregistrement..."
+    },
+    "telegramNotify": {
+      "title": "Paramètres de notification Telegram",
+      "enable": "Activer la notification Telegram",
+      "botToken": "Token du Bot",
+      "botTokenHint": "Cherchez @BotFather dans Telegram pour créer un bot et obtenir le Token",
+      "chatId": "ID de Chat",
+      "chatIdHint": "ID d'utilisateur ou de groupe. Envoyez d'abord un message au bot, puis obtenez l'ID via l'API, ou utilisez @userinfobot.",
+      "webhookBtn": "Configuration Webhook en un clic",
+      "webhookSetting": "Configuration en cours...",
+      "testBtn": "Envoyer un message de test",
+      "testingBtn": "Envoi...",
+      "save": "Enregistrer",
+      "saving": "Enregistrement..."
+    },
+    "display": {
+      "title": "Paramètres d'affichage Admin",
+      "layoutTitle": "Titre Admin",
+      "layoutTitleHint": "Affiché à gauche de la barre de navigation supérieure.",
+      "adminLanguage": "Langue Admin",
+      "adminLanguageHint": "Langue affichée dans le panneau d'administration.",
+      "save": "Enregistrer",
+      "saving": "Enregistrement..."
+    }
+  },
+  "common": {
+    "saveSuccess": "Enregistré avec succès",
+    "saveFailed": "Échec de l'enregistrement",
+    "loading": "Chargement..."
+  }
+}

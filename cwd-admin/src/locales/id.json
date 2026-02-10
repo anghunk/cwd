@@ -1,0 +1,304 @@
+{
+  "menu": {
+    "comments": "Manajemen Komentar",
+    "stats": "Dasbor",
+    "analytics": "Analitik Kunjungan",
+    "settings": "Pengaturan Situs",
+    "data": "Manajemen Data"
+  },
+  "layout": {
+    "toggleMenu": "Alihkan Menu",
+    "docs": "Dokumentasi",
+    "logout": "Keluar",
+    "moreActions": "Tindakan Lainnya",
+    "defaultSite": "Situs Default",
+    "theme": {
+      "light": "Terang",
+      "dark": "Gelap",
+      "system": "Sistem"
+    },
+    "version": {
+      "title": "Informasi Versi",
+      "apiAddress": "Alamat API",
+      "apiVersion": "Versi API",
+      "adminVersion": "Versi Admin",
+      "match": "Versi admin saat ini cocok dengan versi API, Anda dapat menggunakannya dengan normal.",
+      "mismatch": "Versi admin saat ini tidak cocok dengan versi API. Disarankan untuk memperbarui layanan API untuk menghindari masalah kompatibilitas.",
+      "fetchError": "Gagal mengambil versi API:",
+      "loading": "Memuat...",
+      "notConfigured": "Belum Dikonfigurasi",
+      "notFetched": "Tidak Diambil",
+      "ok": "Mengerti"
+    }
+  },
+  "stats": {
+    "title": "Dasbor",
+    "overview": "Ikhtisar",
+    "total": "Total Komentar",
+    "approved": "Disetujui",
+    "pending": "Tertunda",
+    "rejected": "Ditolak",
+    "trend": "Tren Komentar",
+    "bySite": "Statistik per Situs",
+    "last7Days": "7 Hari Terakhir",
+    "last30Days": "30 Hari Terakhir",
+    "noData": "Tidak ada data komentar",
+    "table": {
+      "domain": "Domain",
+      "total": "Total",
+      "approved": "Disetujui",
+      "pending": "Tertunda",
+      "rejected": "Ditolak"
+    },
+    "loadError": "Gagal memuat statistik"
+  },
+  "analytics": {
+    "title": "Analitik Kunjungan",
+    "overview": "Ikhtisar",
+    "totalPv": "Total Kunjungan",
+    "todayPv": "Kunjungan Hari Ini",
+    "weekPv": "Kunjungan Minggu Ini",
+    "monthPv": "Kunjungan Bulan Ini",
+    "totalPages": "Halaman Dikunjungi",
+    "trend": "Tren Kunjungan",
+    "pageDetail": "Detail Halaman",
+    "likeRank": "Peringkat Suka",
+    "last7Days": "7 Hari Terakhir",
+    "last30Days": "30 Hari Terakhir",
+    "sort": {
+      "pv": "Urutkan berdasarkan PV",
+      "latest": "Kunjungan Terbaru"
+    },
+    "table": {
+      "title": "Judul Halaman",
+      "pv": "Kunjungan",
+      "time": "Kunjungan Terakhir",
+      "url": "URL Halaman",
+      "rank": "Peringkat",
+      "like": "Suka"
+    },
+    "noData": "Tidak ada data kunjungan",
+    "noLikeData": "Tidak ada data suka",
+    "loadError": "Gagal memuat analitik kunjungan"
+  },
+  "data": {
+    "title": "Manajemen Data",
+    "sections": {
+      "comments": {
+        "title": "Data Komentar",
+        "desc": "Kelola konten komentar, dukung migrasi dari sistem komentar lain.",
+        "exportLabel": "Ekspor:",
+        "exporting": "Mengekspor...",
+        "exportJson": "Ekspor JSON",
+        "importLabel": "Impor:",
+        "importButton": "Impor Komentar",
+        "source": {
+          "cwd": "CWD (.json)",
+          "twikoo": "Twikoo (.json)",
+          "artalk": "Artalk (.json)"
+        }
+      },
+      "config": {
+        "title": "Konfigurasi Sistem",
+        "desc": "Kelola pengaturan admin, konfigurasi email, daftar hitam, dll.",
+        "export": "Ekspor Konfigurasi",
+        "import": "Impor Konfigurasi"
+      },
+      "stats": {
+        "title": "Statistik Kunjungan",
+        "desc": "Kelola kunjungan artikel, suka, dan tren kunjungan harian.",
+        "export": "Ekspor Statistik",
+        "import": "Impor Statistik"
+      },
+      "backup": {
+        "title": "Cadangan Lengkap",
+        "desc": "Cadangkan atau pulihkan semua data sistem (Komentar + Konfigurasi + Statistik).",
+        "export": "Ekspor Lengkap",
+        "import": "Pulihkan Lengkap"
+      }
+    },
+    "logs": {
+      "title": "Log Operasi"
+    },
+    "prefixModal": {
+      "title": "Awalan URL Hilang",
+      "descPart1": "Terdeteksi ",
+      "descPart2": " komentar tanpa awalan domain (http/https).",
+      "descPart3": "Apakah Anda ingin menambahkannya saat mengimpor?",
+      "label": "Awalan Domain (contoh: https://example.me)",
+      "placeholder": "Masukkan awalan domain",
+      "skip": "Impor Langsung (Tanpa Menambahkan)",
+      "confirm": "Tambahkan dan Impor"
+    },
+    "messages": {
+      "exportSuccess": "Ekspor Berhasil",
+      "exportFailed": "Ekspor Gagal",
+      "fileReadFailed": "Gagal Membaca File",
+      "jsonParseFailed": "Gagal Mengurai JSON, silakan periksa format file",
+      "importConfigSuccess": "Impor Konfigurasi Berhasil",
+      "importStatsSuccess": "Impor Statistik Berhasil",
+      "importBackupSuccess": "Pemulihan Lengkap Berhasil",
+      "importCommentsSuccess": "Impor Komentar Berhasil",
+      "prefixRequired": "Silakan masukkan awalan domain",
+      "importStart": "Mulai Impor: {name} (Mode: {mode})",
+      "fileParseSuccess": "File berhasil diurai, memproses...",
+      "errorWithMessage": "Kesalahan: {msg}",
+      "parsedCommentsCount": "Mengurai {count} data komentar",
+      "detectMissingPrefix": "Terdeteksi {count} URL tanpa awalan, menunggu konfirmasi pengguna...",
+      "prefixAdded": "Awalan ditambahkan, melanjutkan impor...",
+      "skipPrefix": "Pengguna melewati penambahan awalan",
+      "readFileFailedLog": "Gagal membaca file",
+      "importCommentsDone": "Impor Selesai: {message}"
+    }
+  },
+  "comments": {
+    "title": "Manajemen Komentar",
+    "statusFilter": {
+      "all": "Semua Status",
+      "approved": "Disetujui",
+      "pending": "Tertunda",
+      "rejected": "Ditolak"
+    },
+    "refresh": "Segarkan",
+    "table": {
+      "author": "Pengguna",
+      "content": "Konten",
+      "path": "Jalur",
+      "status": "Status",
+      "actions": "Tindakan",
+      "admin": "Admin",
+      "time": "Waktu",
+      "ip": "IP",
+      "email": "Email"
+    },
+    "actions": {
+      "approve": "Setujui",
+      "pending": "Tunda",
+      "reject": "Tolak",
+      "edit": "Edit",
+      "delete": "Hapus",
+      "blockIp": "Blokir IP",
+      "blockEmail": "Blokir Email",
+      "pin": "Sematkan"
+    },
+    "pagination": {
+      "prev": "Sebelumnya",
+      "next": "Berikutnya",
+      "jumpTo": "Lompat ke",
+      "page": "Halaman",
+      "confirm": "Konfirmasi"
+    },
+    "confirmDelete": "Apakah Anda yakin ingin menghapus komentar {id}?",
+    "confirmBlockIp": "Apakah Anda yakin ingin memblokir IP {ip}?",
+    "confirmBlockEmail": "Apakah Anda yakin ingin memblokir email {email}?",
+    "successBlockIp": "IP telah ditambahkan ke daftar hitam",
+    "successBlockEmail": "Email telah ditambahkan ke daftar hitam",
+    "empty": "Tidak ada data",
+    "editModal": {
+      "title": "Edit Komentar",
+      "name": "Nama Pengunjung",
+      "email": "Email Pengunjung",
+      "url": "URL Pengunjung",
+      "postSlug": "ID Halaman",
+      "postUrl": "URL Komentar",
+      "content": "Konten",
+      "status": "Status",
+      "priority": "Prioritas (1 default, lebih tinggi lebih dulu)",
+      "cancel": "Batal",
+      "save": "Simpan",
+      "saving": "Menyimpan..."
+    }
+  },
+  "settings": {
+    "title": "Pengaturan Situs",
+    "tabs": {
+      "comment": "Komentar & Keamanan",
+      "feature": "Fitur",
+      "emailNotify": "Notifikasi Email",
+      "telegramNotify": "Notifikasi Telegram",
+      "display": "Tampilan"
+    },
+    "comment": {
+      "title": "Konfigurasi Tampilan Komentar",
+      "adminEmail": "Email Admin",
+      "adminBadge": "Teks Lencana Admin (kosongkan untuk ikon default)",
+      "adminEnabled": "Tampilkan Lencana Admin",
+      "avatarPrefix": "Awalan Avatar (Default: https://gravatar.com/avatar)",
+      "securityTitle": "Pengaturan Keamanan",
+      "requireReview": "Komentar baru memerlukan persetujuan",
+      "adminKey": "Kunci Komentar Admin (diperlukan saat menggunakan email admin)",
+      "adminKeyPlaceholder": "Masukkan kunci untuk mengatur atau mengubah",
+      "allowedDomains": "Domain yang Diizinkan (kosongkan untuk semua, pisahkan dengan koma atau spasi)",
+      "blockedIps": "Daftar Hitam IP (pisahkan dengan koma atau baris baru)",
+      "blockedEmails": "Daftar Hitam Email (pisahkan dengan koma atau baris baru)",
+      "save": "Simpan",
+      "saving": "Menyimpan..."
+    },
+    "feature": {
+      "title": "Fitur",
+      "articleLike": "Aktifkan Suka Artikel",
+      "articleLikeHint": "Menampilkan tombol suka artikel di atas bagian komentar.",
+      "commentLike": "Aktifkan Suka Komentar",
+      "commentLikeHint": "Menampilkan tombol suka pada setiap komentar.",
+      "imageLightbox": "Lightbox Gambar",
+      "imageLightboxHint": "Klik gambar dalam komentar untuk melihat layar penuh.",
+      "placeholder": "Teks Placeholder Komentar",
+      "placeholderHint": "Teks kustom untuk kotak input. Kosongkan untuk default.",
+      "widgetLanguage": "Bahasa Widget",
+      "widgetLanguageHint": "Atur bahasa widget komentar frontend.",
+      "save": "Simpan",
+      "saving": "Menyimpan..."
+    },
+    "emailNotify": {
+      "title": "Pengaturan Email",
+      "enable": "Aktifkan Notifikasi Email",
+      "smtpTitle": "1. Konfigurasi SMTP",
+      "provider": "Penyedia",
+      "host": "Host SMTP",
+      "port": "Port SMTP",
+      "secure": "Koneksi SSL",
+      "user": "Akun Email",
+      "pass": "Kata Sandi/Kata Sandi Aplikasi",
+      "qqHint": "Catatan: Untuk QQ Mail, gunakan kode otorisasi, bukan kata sandi.",
+      "163Hint": "Catatan: Untuk 163 Mail, gunakan kode otorisasi, bukan kata sandi.",
+      "templateTitle": "2. Template Email",
+      "adminTemplate": "Notifikasi Admin (HTML)",
+      "adminTemplateHint": "Variabel: ${commentAuthor}, ${postTitle}, ${postUrl}, ${commentContent}",
+      "replyTemplate": "Notifikasi Balasan (HTML)",
+      "replyTemplateHint": "Variabel: ${toName}, ${replyAuthor}, ${postTitle}, ${postUrl}, ${parentComment}, ${replyContent}",
+      "testBtn": "Kirim Email Uji",
+      "testingBtn": "Mengirim...",
+      "resetBtn": "Atur Ulang Template",
+      "save": "Simpan Konfigurasi",
+      "saving": "Menyimpan..."
+    },
+    "telegramNotify": {
+      "title": "Pengaturan Telegram",
+      "enable": "Aktifkan Notifikasi Telegram",
+      "botToken": "Token Bot",
+      "botTokenHint": "Cari @BotFather di Telegram untuk membuat bot dan mendapatkan token",
+      "chatId": "ID Obrolan",
+      "chatIdHint": "ID Pengguna atau Grup. Kirim pesan ke bot dan gunakan API atau @userinfobot untuk menemukannya.",
+      "webhookBtn": "Atur Webhook",
+      "webhookSetting": "Mengatur...",
+      "testBtn": "Kirim Pesan Uji",
+      "testingBtn": "Mengirim...",
+      "save": "Simpan",
+      "saving": "Menyimpan..."
+    },
+    "display": {
+      "title": "Pengaturan Tampilan",
+      "layoutTitle": "Judul Panel Admin",
+      "layoutTitleHint": "Ditampilkan di bilah navigasi atas.",
+      "adminLanguage": "Bahasa Panel Admin",
+      "adminLanguageHint": "Atur bahasa sistem admin.",
+      "save": "Simpan",
+      "saving": "Menyimpan..."
+    }
+  },
+  "common": {
+    "saveSuccess": "Berhasil Disimpan",
+    "saveFailed": "Gagal Disimpan",
+    "loading": "Memuat..."
+  }
+}

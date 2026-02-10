@@ -1,0 +1,304 @@
+{
+  "menu": {
+    "comments": "Kommentarverwaltung",
+    "stats": "Dashboard",
+    "analytics": "Statistiken",
+    "settings": "Einstellungen",
+    "data": "Datenverwaltung"
+  },
+  "layout": {
+    "toggleMenu": "Menü umschalten",
+    "docs": "Dokumentation",
+    "logout": "Abmelden",
+    "moreActions": "Mehr Aktionen",
+    "defaultSite": "Standardseite",
+    "theme": {
+      "light": "Hell",
+      "dark": "Dunkel",
+      "system": "System"
+    },
+    "version": {
+      "title": "Versionsinfo",
+      "apiAddress": "API-Adresse",
+      "apiVersion": "API-Version",
+      "adminVersion": "Admin-Version",
+      "match": "Admin- und API-Versionen stimmen überein.",
+      "mismatch": "Versionskonflikt. Bitte aktualisieren Sie den API-Dienst.",
+      "fetchError": "Versionsabruf fehlgeschlagen:",
+      "loading": "Laden...",
+      "notConfigured": "Nicht konfiguriert",
+      "notFetched": "Nicht abgerufen",
+      "ok": "OK"
+    }
+  },
+  "stats": {
+    "title": "Dashboard",
+    "overview": "Übersicht",
+    "total": "Gesamtkommentare",
+    "approved": "Genehmigt",
+    "pending": "Ausstehend",
+    "rejected": "Abgelehnt",
+    "trend": "Kommentartrend",
+    "bySite": "Nach Seite",
+    "last7Days": "Letzte 7 Tage",
+    "last30Days": "Letzte 30 Tage",
+    "noData": "Keine Daten",
+    "table": {
+      "domain": "Domain",
+      "total": "Gesamt",
+      "approved": "Genehmigt",
+      "pending": "Ausstehend",
+      "rejected": "Abgelehnt"
+    },
+    "loadError": "Fehler beim Laden der Statistiken"
+  },
+  "analytics": {
+    "title": "Statistiken",
+    "overview": "Übersicht",
+    "totalPv": "Gesamt-PV",
+    "todayPv": "Heute PV",
+    "weekPv": "Woche PV",
+    "monthPv": "Monat PV",
+    "totalPages": "Besuchte Seiten",
+    "trend": "Traffic-Trend",
+    "pageDetail": "Seitendetails",
+    "likeRank": "Top-Likes",
+    "last7Days": "Letzte 7 Tage",
+    "last30Days": "Letzte 30 Tage",
+    "sort": {
+      "pv": "Nach PV sortieren",
+      "latest": "Zuletzt besucht"
+    },
+    "table": {
+      "title": "Seitentitel",
+      "pv": "PV",
+      "time": "Letzter Besuch",
+      "url": "URL",
+      "rank": "Rang",
+      "like": "Likes"
+    },
+    "noData": "Keine Daten",
+    "noLikeData": "Keine Like-Daten",
+    "loadError": "Fehler beim Laden der Analysen"
+  },
+  "data": {
+    "title": "Datenverwaltung",
+    "sections": {
+      "comments": {
+        "title": "Kommentardaten",
+        "desc": "Kommentare verwalten und importieren.",
+        "exportLabel": "Export:",
+        "exporting": "Export läuft...",
+        "exportJson": "JSON exportieren",
+        "importLabel": "Import:",
+        "importButton": "Kommentare importieren",
+        "source": {
+          "cwd": "CWD (.json)",
+          "twikoo": "Twikoo (.json)",
+          "artalk": "Artalk (.json)"
+        }
+      },
+      "config": {
+        "title": "Systemkonfig",
+        "desc": "Einstellungen, E-Mail, Blocklisten, etc.",
+        "export": "Konfig exportieren",
+        "import": "Konfig importieren"
+      },
+      "stats": {
+        "title": "Analysedaten",
+        "desc": "Aufrufe, Likes und Trends.",
+        "export": "Statistiken exportieren",
+        "import": "Statistiken importieren"
+      },
+      "backup": {
+        "title": "Vollbackup",
+        "desc": "Alles sichern oder wiederherstellen (Kommentare + Konfig + Stats).",
+        "export": "Vollexport",
+        "import": "Vollwiederherstellung"
+      }
+    },
+    "logs": {
+      "title": "Betriebsprotokolle"
+    },
+    "prefixModal": {
+      "title": "URL-Präfix fehlt",
+      "descPart1": "Erkannt: ",
+      "descPart2": " Kommentare ohne Protokoll-Präfix (http/https).",
+      "descPart3": "Beim Import hinzufügen?",
+      "label": "Domain-Präfix (z.B. https://example.me)",
+      "placeholder": "Präfix eingeben",
+      "skip": "Überspringen",
+      "confirm": "Hinzufügen & Importieren"
+    },
+    "messages": {
+      "exportSuccess": "Export erfolgreich",
+      "exportFailed": "Export fehlgeschlagen",
+      "fileReadFailed": "Dateilesefehler",
+      "jsonParseFailed": "JSON-Parse-Fehler",
+      "importConfigSuccess": "Konfig importiert",
+      "importStatsSuccess": "Statistiken importiert",
+      "importBackupSuccess": "Vollwiederherstellung erfolgreich",
+      "importCommentsSuccess": "Kommentare importiert",
+      "prefixRequired": "Bitte Präfix eingeben",
+      "importStart": "Import: {name} (Modus: {mode})",
+      "fileParseSuccess": "Datei geparst, verarbeite...",
+      "errorWithMessage": "Fehler: {msg}",
+      "parsedCommentsCount": "{count} Kommentare geparst",
+      "detectMissingPrefix": "{count} URLs ohne Präfix, warte auf Bestätigung...",
+      "prefixAdded": "Präfix hinzugefügt, fahre fort...",
+      "skipPrefix": "Präfix übersprungen",
+      "readFileFailedLog": "Dateilesefehler",
+      "importCommentsDone": "Import fertig: {message}"
+    }
+  },
+  "comments": {
+    "title": "Kommentarverwaltung",
+    "statusFilter": {
+      "all": "Alle",
+      "approved": "Genehmigt",
+      "pending": "Ausstehend",
+      "rejected": "Abgelehnt"
+    },
+    "refresh": "Aktualisieren",
+    "table": {
+      "author": "Benutzer",
+      "content": "Kommentar",
+      "path": "Pfad",
+      "status": "Status",
+      "actions": "Aktionen",
+      "admin": "Admin",
+      "time": "Zeit",
+      "ip": "IP",
+      "email": "E-Mail"
+    },
+    "actions": {
+      "approve": "Genehmigen",
+      "pending": "Zurückstellen",
+      "reject": "Ablehnen",
+      "edit": "Bearbeiten",
+      "delete": "Löschen",
+      "blockIp": "IP blockieren",
+      "blockEmail": "E-Mail blockieren",
+      "pin": "Anpinnen"
+    },
+    "pagination": {
+      "prev": "Zurück",
+      "next": "Weiter",
+      "jumpTo": "Gehe zu",
+      "page": "Seite",
+      "confirm": "OK"
+    },
+    "confirmDelete": "Kommentar {id} löschen?",
+    "confirmBlockIp": "IP {ip} blockieren?",
+    "confirmBlockEmail": "E-Mail {email} blockieren?",
+    "successBlockIp": "IP blockiert",
+    "successBlockEmail": "E-Mail blockiert",
+    "empty": "Keine Daten",
+    "editModal": {
+      "title": "Kommentar bearbeiten",
+      "name": "Name",
+      "email": "E-Mail",
+      "url": "URL",
+      "postSlug": "Slug",
+      "postUrl": "Post-URL",
+      "content": "Inhalt",
+      "status": "Status",
+      "priority": "Priorität (1=Normal, höher=Oben)",
+      "cancel": "Abbrechen",
+      "save": "Speichern",
+      "saving": "Speichert..."
+    }
+  },
+  "settings": {
+    "title": "Einstellungen",
+    "tabs": {
+      "comment": "Kommentare & Sicherheit",
+      "feature": "Funktionen",
+      "emailNotify": "E-Mail-Benachrichtigung",
+      "telegramNotify": "Telegram-Benachrichtigung",
+      "display": "Anzeige"
+    },
+    "comment": {
+      "title": "Kommentaranzeige",
+      "adminEmail": "Admin-E-Mail",
+      "adminBadge": "Admin-Badge-Text (Leer für Standard-Icon)",
+      "adminEnabled": "Admin-Badge anzeigen",
+      "avatarPrefix": "Avatar-Präfix (Standard: https://gravatar.com/avatar)",
+      "securityTitle": "Sicherheit",
+      "requireReview": "Überprüfung für neue Kommentare erforderlich",
+      "adminKey": "Admin-Schlüssel (Erforderlich für Admin-E-Mail-Kommentare)",
+      "adminKeyPlaceholder": "Schlüssel eingeben",
+      "allowedDomains": "Erlaubte Domains (Leer für alle. Trennung durch Leerzeichen/Komma)",
+      "blockedIps": "Blockierte IPs (Trennung durch Komma/Zeilenumbruch)",
+      "blockedEmails": "Blockierte E-Mails (Trennung durch Komma/Zeilenumbruch)",
+      "save": "Speichern",
+      "saving": "Speichert..."
+    },
+    "feature": {
+      "title": "Funktionen",
+      "articleLike": "Artikel-Likes aktivieren",
+      "articleLikeHint": "Like-Button oben im Kommentarbereich anzeigen.",
+      "commentLike": "Kommentar-Likes aktivieren",
+      "commentLikeHint": "Like-Button bei jedem Kommentar anzeigen.",
+      "imageLightbox": "Bild-Lightbox",
+      "imageLightboxHint": "Vollbildvorschau für Bilder in Kommentaren.",
+      "placeholder": "Platzhaltertext",
+      "placeholderHint": "Benutzerdefinierter Platzhalter für Kommentareingabe.",
+      "widgetLanguage": "Widget-Sprache",
+      "widgetLanguageHint": "Sprache für das Frontend-Widget.",
+      "save": "Speichern",
+      "saving": "Speichert..."
+    },
+    "emailNotify": {
+      "title": "E-Mail-Benachrichtigung",
+      "enable": "E-Mail-Benachrichtigung aktivieren",
+      "smtpTitle": "1. SMTP-Konfig",
+      "provider": "Anbieter",
+      "host": "SMTP-Host",
+      "port": "SMTP-Port",
+      "secure": "SSL-Sicherheit",
+      "user": "E-Mail-Benutzer",
+      "pass": "Passwort/App-Token",
+      "qqHint": "Hinweis: Für QQ Mail App-Token verwenden.",
+      "163Hint": "Hinweis: Für 163 Mail App-Token verwenden.",
+      "templateTitle": "2. Vorlagen-Konfig",
+      "adminTemplate": "Admin-Vorlage (HTML)",
+      "adminTemplateHint": "Vars: ${commentAuthor}, ${postTitle}, ${postUrl}, ${commentContent}",
+      "replyTemplate": "Antwort-Vorlage (HTML)",
+      "replyTemplateHint": "Vars: ${toName}, ${replyAuthor}, ${postTitle}, ${postUrl}, ${parentComment}, ${replyContent}",
+      "testBtn": "Test-E-Mail senden",
+      "testingBtn": "Sendet...",
+      "resetBtn": "Vorlagen zurücksetzen",
+      "save": "Konfig speichern",
+      "saving": "Speichert..."
+    },
+    "telegramNotify": {
+      "title": "Telegram-Benachrichtigung",
+      "enable": "Telegram-Benachrichtigung aktivieren",
+      "botToken": "Bot-Token",
+      "botTokenHint": "Von @BotFather erhalten",
+      "chatId": "Chat-ID",
+      "chatIdHint": "Benutzer-ID oder Gruppen-ID. @userinfobot verwenden.",
+      "webhookBtn": "Webhook setzen",
+      "webhookSetting": "Setze...",
+      "testBtn": "Testnachricht senden",
+      "testingBtn": "Sendet...",
+      "save": "Speichern",
+      "saving": "Speichert..."
+    },
+    "display": {
+      "title": "Anzeigeeinstellungen",
+      "layoutTitle": "Admin-Titel",
+      "layoutTitleHint": "Wird in der oberen Navigationsleiste angezeigt.",
+      "adminLanguage": "Admin-Sprache",
+      "adminLanguageHint": "Sprache für das Admin-Panel.",
+      "save": "Speichern",
+      "saving": "Speichert..."
+    },
+    "common": {
+      "saveSuccess": "Erfolgreich gespeichert",
+      "saveFailed": "Speichern fehlgeschlagen",
+      "loading": "Laden..."
+    }
+  }
+}

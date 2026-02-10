@@ -1,0 +1,304 @@
+{
+  "menu": {
+    "comments": "إدارة التعليقات",
+    "stats": "لوحة المعلومات",
+    "analytics": "إحصائيات الزيارات",
+    "settings": "إعدادات الموقع",
+    "data": "إدارة البيانات"
+  },
+  "layout": {
+    "toggleMenu": "تبديل القائمة",
+    "docs": "الوثائق",
+    "logout": "تسجيل الخروج",
+    "moreActions": "المزيد من الإجراءات",
+    "defaultSite": "الموقع الافتراضي",
+    "theme": {
+      "light": "فاتح",
+      "dark": "داكن",
+      "system": "النظام"
+    },
+    "version": {
+      "title": "معلومات الإصدار",
+      "apiAddress": "عنوان API",
+      "apiVersion": "إصدار الواجهة",
+      "adminVersion": "إصدار الإدارة",
+      "match": "إصدار الإدارة الحالي متطابق مع إصدار الواجهة، يمكنك استخدامه بشكل طبيعي.",
+      "mismatch": "إصدار الإدارة الحالي غير متطابق مع إصدار الواجهة، يوصى بتحديث خدمة API لتجنب مشاكل التوافق.",
+      "fetchError": "فشل في جلب إصدار الواجهة:",
+      "loading": "جارٍ التحميل...",
+      "notConfigured": "غير مكون",
+      "notFetched": "لم يتم الجلب",
+      "ok": "حسناً"
+    }
+  },
+  "stats": {
+    "title": "لوحة المعلومات",
+    "overview": "نظرة عامة",
+    "total": "إجمالي التعليقات",
+    "approved": "تمت الموافقة",
+    "pending": "قيد الانتظار",
+    "rejected": "مرفوض",
+    "trend": "اتجاه التعليقات",
+    "bySite": "الإحصائيات حسب الموقع",
+    "last7Days": "آخر 7 أيام",
+    "last30Days": "آخر 30 يوماً",
+    "noData": "لا توجد بيانات تعليقات",
+    "table": {
+      "domain": "النطاق",
+      "total": "الإجمالي",
+      "approved": "تمت الموافقة",
+      "pending": "قيد الانتظار",
+      "rejected": "مرفوض"
+    },
+    "loadError": "فشل تحميل الإحصائيات"
+  },
+  "analytics": {
+    "title": "إحصائيات الزيارات",
+    "overview": "نظرة عامة",
+    "totalPv": "إجمالي الزيارات",
+    "todayPv": "زيارات اليوم",
+    "weekPv": "زيارات الأسبوع",
+    "monthPv": "زيارات الشهر",
+    "totalPages": "الصفحات التي تمت زيارتها",
+    "trend": "اتجاه الزيارات",
+    "pageDetail": "تفاصيل الصفحة",
+    "likeRank": "أعلى الصفحات إعجاباً",
+    "last7Days": "آخر 7 أيام",
+    "last30Days": "آخر 30 يوماً",
+    "sort": {
+      "pv": "ترتيب حسب المشاهدات",
+      "latest": "أحدث زيارة"
+    },
+    "table": {
+      "title": "عنوان الصفحة",
+      "pv": "المشاهدات",
+      "time": "آخر زيارة",
+      "url": "رابط الصفحة",
+      "rank": "الترتيب",
+      "like": "الإعجابات"
+    },
+    "noData": "لا توجد بيانات زيارة",
+    "noLikeData": "لا توجد بيانات إعجاب",
+    "loadError": "فشل تحميل إحصائيات الزيارات"
+  },
+  "data": {
+    "title": "إدارة البيانات",
+    "sections": {
+      "comments": {
+        "title": "بيانات التعليقات",
+        "desc": "إدارة محتوى التعليقات، يدعم نقل البيانات من أنظمة التعليقات الأخرى.",
+        "exportLabel": "تصدير:",
+        "exporting": "جارٍ التصدير...",
+        "exportJson": "تصدير JSON",
+        "importLabel": "استيراد:",
+        "importButton": "استيراد التعليقات",
+        "source": {
+          "cwd": "CWD (.json)",
+          "twikoo": "Twikoo (.json)",
+          "artalk": "Artalk (.json)"
+        }
+      },
+      "config": {
+        "title": "تكوين النظام",
+        "desc": "إدارة إعدادات الخلفية، تكوين البريد الإلكتروني، القوائم السوداء، إلخ.",
+        "export": "تصدير التكوين",
+        "import": "استيراد التكوين"
+      },
+      "stats": {
+        "title": "إحصائيات الزيارات",
+        "desc": "إدارة زيارات المقالات، الإعجابات، واتجاهات الزيارة اليومية.",
+        "export": "تصدير الإحصائيات",
+        "import": "استيراد الإحصائيات"
+      },
+      "backup": {
+        "title": "نسخ احتياطي كامل",
+        "desc": "نسخ احتياطي أو استعادة جميع بيانات النظام (التعليقات + التكوين + الإحصائيات).",
+        "export": "تصدير كامل",
+        "import": "استعادة كاملة"
+      }
+    },
+    "logs": {
+      "title": "سجلات العمليات"
+    },
+    "prefixModal": {
+      "title": "بادئة URL مفقودة",
+      "descPart1": "تم اكتشاف ",
+      "descPart2": " تعليق بدون بادئة النطاق (http/https).",
+      "descPart3": "هل تريد إضافتها أثناء الاستيراد؟",
+      "label": "بادئة النطاق (مثال: https://example.me)",
+      "placeholder": "الرجاء إدخال بادئة النطاق",
+      "skip": "استيراد مباشر (بدون إضافة)",
+      "confirm": "إضافة واستيراد"
+    },
+    "messages": {
+      "exportSuccess": "تم التصدير بنجاح",
+      "exportFailed": "فشل التصدير",
+      "fileReadFailed": "فشل قراءة الملف",
+      "jsonParseFailed": "فشل تحليل JSON، يرجى التحقق من تنسيق الملف",
+      "importConfigSuccess": "تم استيراد التكوين بنجاح",
+      "importStatsSuccess": "تم استيراد بيانات الإحصائيات بنجاح",
+      "importBackupSuccess": "تمت الاستعادة الكاملة بنجاح",
+      "importCommentsSuccess": "تم استيراد التعليقات بنجاح",
+      "prefixRequired": "الرجاء إدخال بادئة النطاق",
+      "importStart": "بدء الاستيراد: {name} (الوضع: {mode})",
+      "fileParseSuccess": "تم تحليل الملف بنجاح، جارٍ المعالجة...",
+      "errorWithMessage": "خطأ: {msg}",
+      "parsedCommentsCount": "تم تحليل {count} تعليق",
+      "detectMissingPrefix": "تم اكتشاف {count} رابط بدون بادئة، في انتظار تأكيد المستخدم...",
+      "prefixAdded": "تمت إضافة البادئة، متابعة الاستيراد...",
+      "skipPrefix": "تخطى المستخدم إضافة البادئة",
+      "readFileFailedLog": "فشل قراءة الملف",
+      "importCommentsDone": "اكتمل الاستيراد: {message}"
+    }
+  },
+  "comments": {
+    "title": "إدارة التعليقات",
+    "statusFilter": {
+      "all": "كل الحالات",
+      "approved": "تمت الموافقة",
+      "pending": "قيد الانتظار",
+      "rejected": "مرفوض"
+    },
+    "refresh": "تحديث",
+    "table": {
+      "author": "المستخدم",
+      "content": "المحتوى",
+      "path": "المسار",
+      "status": "الحالة",
+      "actions": "إجراءات",
+      "admin": "المسؤول",
+      "time": "الوقت",
+      "ip": "IP",
+      "email": "البريد الإلكتروني"
+    },
+    "actions": {
+      "approve": "موافقة",
+      "pending": "انتظار",
+      "reject": "رفض",
+      "edit": "تحرير",
+      "delete": "حذف",
+      "blockIp": "حظر IP",
+      "blockEmail": "حظر البريد الإلكتروني",
+      "pin": "تثبيت"
+    },
+    "pagination": {
+      "prev": "السابق",
+      "next": "التالي",
+      "jumpTo": "انتقال إلى",
+      "page": "صفحة",
+      "confirm": "تأكيد"
+    },
+    "confirmDelete": "هل أنت متأكد من حذف التعليق {id}؟",
+    "confirmBlockIp": "هل أنت متأكد من إضافة IP {ip} إلى القائمة السوداء؟",
+    "confirmBlockEmail": "هل أنت متأكد من إضافة البريد الإلكتروني {email} إلى القائمة السوداء؟",
+    "successBlockIp": "تمت إضافة IP إلى القائمة السوداء",
+    "successBlockEmail": "تمت إضافة البريد الإلكتروني إلى القائمة السوداء",
+    "empty": "لا توجد بيانات",
+    "editModal": {
+      "title": "تحرير التعليق",
+      "name": "اسم الزائر",
+      "email": "بريد الزائر",
+      "url": "رابط الزائر",
+      "postSlug": "معرف الصفحة",
+      "postUrl": "رابط التعليق",
+      "content": "محتوى التعليق",
+      "status": "الحالة",
+      "priority": "الأولوية (1 افتراضي، الرقم الأكبر يظهر أولاً)",
+      "cancel": "إلغاء",
+      "save": "حفظ",
+      "saving": "جارٍ الحفظ..."
+    }
+  },
+  "settings": {
+    "title": "إعدادات الموقع",
+    "tabs": {
+      "comment": "التعليقات والأمان",
+      "feature": "مفاتيح الميزات",
+      "emailNotify": "إشعارات البريد",
+      "telegramNotify": "إشعارات Telegram",
+      "display": "العرض"
+    },
+    "comment": {
+      "title": "تكوين عرض التعليقات",
+      "adminEmail": "بريد المسؤول",
+      "adminBadge": "نص شارة المسؤول (اتركه فارغاً لاستخدام الرمز الافتراضي)",
+      "adminEnabled": "تمكين عرض شارة المسؤول",
+      "avatarPrefix": "بادئة الصورة الرمزية (الافتراضي: https://gravatar.com/avatar)",
+      "securityTitle": "إعدادات الأمان",
+      "requireReview": "هل تتطلب التعليقات الجديدة مراجعة قبل العرض",
+      "adminKey": "مفتاح تعليق المسؤول (مطلوب عند استخدام بريد المسؤول للتعليق)",
+      "adminKeyPlaceholder": "أدخل المفتاح للإعداد أو التعديل",
+      "allowedDomains": "النطاقات المسموح بها (اتركه فارغاً للسماح للكل، افصل بفواصل أو مسافات)",
+      "blockedIps": "القائمة السوداء لـ IP (افصل بفواصل أو أسطر جديدة)",
+      "blockedEmails": "القائمة السوداء للبريد الإلكتروني (افصل بفواصل أو أسطر جديدة)",
+      "save": "حفظ",
+      "saving": "جارٍ الحفظ..."
+    },
+    "feature": {
+      "title": "مفاتيح الميزات",
+      "articleLike": "تمكين إعجاب المقال",
+      "articleLikeHint": "عند التمكين، سيظهر زر الإعجاب بالمقال أعلى قسم التعليقات.",
+      "commentLike": "تمكين إعجاب التعليق",
+      "commentLikeHint": "عند التمكين، سيظهر زر إعجاب لكل تعليق.",
+      "imageLightbox": "وضع الصندوق المضيء للصور",
+      "imageLightboxHint": "عند التمكين، سيؤدي النقر على الصور في التعليقات إلى تكبيرها بملء الشاشة.",
+      "placeholder": "نص العنصر النائب لمربع التعليق",
+      "placeholderHint": "نص مخصص لمربع الإدخال. اتركه فارغاً لاستخدام الافتراضي.",
+      "widgetLanguage": "لغة الأداة",
+      "widgetLanguageHint": "تعيين لغة أداة التعليقات في الواجهة الأمامية.",
+      "save": "حفظ",
+      "saving": "جارٍ الحفظ..."
+    },
+    "emailNotify": {
+      "title": "إعدادات البريد الإلكتروني",
+      "enable": "تمكين إشعارات البريد",
+      "smtpTitle": "1. تكوين SMTP",
+      "provider": "مقدم الخدمة",
+      "host": "خادم SMTP",
+      "port": "منفذ SMTP",
+      "secure": "اتصال SSL آمن",
+      "user": "حساب البريد الإلكتروني",
+      "pass": "كلمة المرور/رمز التفويض",
+      "qqHint": "ملاحظة: لبريد QQ، استخدم رمز التفويض بدلاً من كلمة المرور.",
+      "163Hint": "ملاحظة: لبريد 163، استخدم رمز التفويض بدلاً من كلمة المرور.",
+      "templateTitle": "2. قوالب البريد الإلكتروني",
+      "adminTemplate": "قالب إشعار المسؤول (HTML)",
+      "adminTemplateHint": "المتغيرات المتاحة: ${commentAuthor}, ${postTitle}, ${postUrl}, ${commentContent}",
+      "replyTemplate": "قالب إشعار الرد (HTML)",
+      "replyTemplateHint": "المتغيرات المتاحة: ${toName}, ${replyAuthor}, ${postTitle}, ${postUrl}, ${parentComment}, ${replyContent}",
+      "testBtn": "إرسال بريد تجريبي",
+      "testingBtn": "جارٍ الإرسال...",
+      "resetBtn": "استعادة القوالب الافتراضية",
+      "save": "حفظ التكوين",
+      "saving": "جارٍ الحفظ..."
+    },
+    "telegramNotify": {
+      "title": "إعدادات Telegram",
+      "enable": "تمكين إشعارات Telegram",
+      "botToken": "رمز البوت (Bot Token)",
+      "botTokenHint": "ابحث عن @BotFather في Telegram لإنشاء بوت والحصول على الرمز",
+      "chatId": "معرف المحادثة (Chat ID)",
+      "chatIdHint": "معرف المستخدم أو المجموعة. أرسل رسالة للبوت واستخدم API أو @userinfobot للعثور عليه.",
+      "webhookBtn": "إعداد Webhook",
+      "webhookSetting": "جارٍ الإعداد...",
+      "testBtn": "إرسال رسالة تجريبية",
+      "testingBtn": "جارٍ الإرسال...",
+      "save": "حفظ",
+      "saving": "جارٍ الحفظ..."
+    },
+    "display": {
+      "title": "إعدادات العرض",
+      "layoutTitle": "عنوان الخلفية",
+      "layoutTitleHint": "يظهر في شريط التنقل العلوي.",
+      "adminLanguage": "لغة الخلفية",
+      "adminLanguageHint": "تعيين لغة نظام الإدارة.",
+      "save": "حفظ",
+      "saving": "جارٍ الحفظ..."
+    }
+  },
+  "common": {
+    "saveSuccess": "تم الحفظ بنجاح",
+    "saveFailed": "فشل الحفظ",
+    "loading": "جارٍ التحميل..."
+  }
+}

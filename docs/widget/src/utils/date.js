@@ -5,9 +5,10 @@
 /**
  * 格式化时间（3天内显示相对时间，超过3天显示完整日期）
  * @param {string|number} dateValue - 日期字符串或时间戳
+ * @param {Function} t - 翻译函数
  * @returns {string}
  */
-export function formatRelativeTime(dateValue) {
+export function formatRelativeTime(dateValue, t = (k, p) => k) {
   const date = new Date(dateValue);
   const now = new Date();
   const diff = now.getTime() - date.getTime();
@@ -20,15 +21,15 @@ export function formatRelativeTime(dateValue) {
   // 3天内显示相对时间
   if (days < 3) {
     if (days > 0) {
-      return days === 1 ? '昨天' : `${days}天前`;
+      return days === 1 ? t('time.yesterday') : t('time.daysAgo', { count: days });
     }
     if (hours > 0) {
-      return `${hours}小时前`;
+      return t('time.hoursAgo', { count: hours });
     }
     if (minutes > 0) {
-      return `${minutes}分钟前`;
+      return t('time.minutesAgo', { count: minutes });
     }
-    return '刚刚';
+    return t('time.justNow');
   }
 
   // 超过3天显示完整日期

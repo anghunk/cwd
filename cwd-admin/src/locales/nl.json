@@ -1,0 +1,304 @@
+{
+  "menu": {
+    "comments": "Reactiebeheer",
+    "stats": "Dashboard",
+    "analytics": "Bezoekstatistieken",
+    "settings": "Instellingen",
+    "data": "Gegevensbeheer"
+  },
+  "layout": {
+    "toggleMenu": "Menu wisselen",
+    "docs": "Documentatie",
+    "logout": "Uitloggen",
+    "moreActions": "Meer acties",
+    "defaultSite": "Standaard site",
+    "theme": {
+      "light": "Licht",
+      "dark": "Donker",
+      "system": "Systeem"
+    },
+    "version": {
+      "title": "Versie-informatie",
+      "apiAddress": "API-adres",
+      "apiVersion": "API-versie",
+      "adminVersion": "Beheerversie",
+      "match": "De huidige beheerversie komt overeen met de API-versie, u kunt deze normaal gebruiken.",
+      "mismatch": "De huidige beheerversie komt niet overeen met de API-versie. Het wordt aanbevolen om de API-service bij te werken om compatibiliteitsproblemen te voorkomen.",
+      "fetchError": "Kan API-versie niet ophalen:",
+      "loading": "Laden...",
+      "notConfigured": "Niet geconfigureerd",
+      "notFetched": "Niet opgehaald",
+      "ok": "Begrepen"
+    }
+  },
+  "stats": {
+    "title": "Dashboard",
+    "overview": "Overzicht",
+    "total": "Totaal reacties",
+    "approved": "Goedgekeurd",
+    "pending": "In afwachting",
+    "rejected": "Geweigerd",
+    "trend": "Reactietrend",
+    "bySite": "Statistieken per site",
+    "last7Days": "Laatste 7 dagen",
+    "last30Days": "Laatste 30 dagen",
+    "noData": "Geen reactiegegevens",
+    "table": {
+      "domain": "Domein",
+      "total": "Totaal",
+      "approved": "Goedgekeurd",
+      "pending": "In afwachting",
+      "rejected": "Geweigerd"
+    },
+    "loadError": "Kan statistieken niet laden"
+  },
+  "analytics": {
+    "title": "Bezoekstatistieken",
+    "overview": "Overzicht",
+    "totalPv": "Totaal aantal bezoeken",
+    "todayPv": "Bezoeken vandaag",
+    "weekPv": "Bezoeken deze week",
+    "monthPv": "Bezoeken deze maand",
+    "totalPages": "Pagina's met bezoeken",
+    "trend": "Bezoektrend",
+    "pageDetail": "Paginadetails",
+    "likeRank": "Pagina's met meeste likes",
+    "last7Days": "Laatste 7 dagen",
+    "last30Days": "Laatste 30 dagen",
+    "sort": {
+      "pv": "Sorteer op PV",
+      "latest": "Nieuwste bezoek"
+    },
+    "table": {
+      "title": "Paginatitel",
+      "pv": "Bezoeken",
+      "time": "Laatste bezoek",
+      "url": "Pagina-URL",
+      "rank": "Rang",
+      "like": "Likes"
+    },
+    "noData": "Geen bezoekgegevens",
+    "noLikeData": "Geen like-gegevens",
+    "loadError": "Kan bezoekstatistieken niet laden"
+  },
+  "data": {
+    "title": "Gegevensbeheer",
+    "sections": {
+      "comments": {
+        "title": "Reactiegegevens",
+        "desc": "Beheer reacties, ondersteunt migratie van andere reactiesystemen.",
+        "exportLabel": "Exporteren:",
+        "exporting": "Exporteren...",
+        "exportJson": "JSON exporteren",
+        "importLabel": "Importeren:",
+        "importButton": "Reacties importeren",
+        "source": {
+          "cwd": "CWD (.json)",
+          "twikoo": "Twikoo (.json)",
+          "artalk": "Artalk (.json)"
+        }
+      },
+      "config": {
+        "title": "Systeemconfiguratie",
+        "desc": "Beheer systeeminstellingen, e-mailconfiguratie, zwarte lijsten, enz.",
+        "export": "Configuratie exporteren",
+        "import": "Configuratie importeren"
+      },
+      "stats": {
+        "title": "Bezoekstatistieken",
+        "desc": "Beheer paginabezoeken, likes en dagelijkse trends.",
+        "export": "Statistieken exporteren",
+        "import": "Statistieken importeren"
+      },
+      "backup": {
+        "title": "Volledige back-up",
+        "desc": "Back-up of herstel van alle systeemgegevens (reacties + configuratie + statistieken).",
+        "export": "Volledig exporteren",
+        "import": "Volledig herstellen"
+      }
+    },
+    "logs": {
+      "title": "Actielogs"
+    },
+    "prefixModal": {
+      "title": "URL-voorvoegsel ontbreekt",
+      "descPart1": "Gedetecteerd ",
+      "descPart2": " reacties zonder domeinvoorvoegsel (http/https).",
+      "descPart3": "Wilt u dit toevoegen tijdens het importeren?",
+      "label": "Domeinvoorvoegsel (bijv. https://example.me)",
+      "placeholder": "Voer domeinvoorvoegsel in",
+      "skip": "Direct importeren (niet toevoegen)",
+      "confirm": "Toevoegen en importeren"
+    },
+    "messages": {
+      "exportSuccess": "Exporteren geslaagd",
+      "exportFailed": "Exporteren mislukt",
+      "fileReadFailed": "Bestand lezen mislukt",
+      "jsonParseFailed": "JSON parsen mislukt, controleer het bestandsformaat",
+      "importConfigSuccess": "Configuratie importeren geslaagd",
+      "importStatsSuccess": "Statistieken importeren geslaagd",
+      "importBackupSuccess": "Volledig herstel geslaagd",
+      "importCommentsSuccess": "Reacties importeren geslaagd",
+      "prefixRequired": "Voer een domeinvoorvoegsel in",
+      "importStart": "Start import: {name} (Modus: {mode})",
+      "fileParseSuccess": "Bestand geparsed, verwerken...",
+      "errorWithMessage": "Fout: {msg}",
+      "parsedCommentsCount": "{count} reacties geparsed",
+      "detectMissingPrefix": "{count} URL's zonder voorvoegsel gedetecteerd, wachten op bevestiging...",
+      "prefixAdded": "Voorvoegsel toegevoegd, doorgaan met importeren...",
+      "skipPrefix": "Gebruiker heeft voorvoegsel toevoegen overgeslagen",
+      "readFileFailedLog": "Bestand lezen mislukt",
+      "importCommentsDone": "Import voltooid: {message}"
+    }
+  },
+  "comments": {
+    "title": "Reactiebeheer",
+    "statusFilter": {
+      "all": "Alle statussen",
+      "approved": "Goedgekeurd",
+      "pending": "In afwachting",
+      "rejected": "Geweigerd"
+    },
+    "refresh": "Vernieuwen",
+    "table": {
+      "author": "Gebruiker",
+      "content": "Inhoud",
+      "path": "Pad",
+      "status": "Status",
+      "actions": "Acties",
+      "admin": "Beheerder",
+      "time": "Tijd",
+      "ip": "IP",
+      "email": "E-mail"
+    },
+    "actions": {
+      "approve": "Goedkeuren",
+      "pending": "Wachten",
+      "reject": "Weigeren",
+      "edit": "Bewerken",
+      "delete": "Verwijderen",
+      "blockIp": "IP blokkeren",
+      "blockEmail": "E-mail blokkeren",
+      "pin": "Vastzetten"
+    },
+    "pagination": {
+      "prev": "Vorige",
+      "next": "Volgende",
+      "jumpTo": "Ga naar",
+      "page": "Pagina",
+      "confirm": "Bevestigen"
+    },
+    "confirmDelete": "Weet u zeker dat u reactie {id} wilt verwijderen?",
+    "confirmBlockIp": "Weet u zeker dat u IP {ip} op de zwarte lijst wilt zetten?",
+    "confirmBlockEmail": "Weet u zeker dat u e-mail {email} op de zwarte lijst wilt zetten?",
+    "successBlockIp": "IP toegevoegd aan zwarte lijst",
+    "successBlockEmail": "E-mail toegevoegd aan zwarte lijst",
+    "empty": "Geen gegevens",
+    "editModal": {
+      "title": "Reactie bewerken",
+      "name": "Naam bezoeker",
+      "email": "E-mail bezoeker",
+      "url": "URL bezoeker",
+      "postSlug": "Pagina-ID",
+      "postUrl": "Reactie-URL",
+      "content": "Inhoud",
+      "status": "Status",
+      "priority": "Prioriteit (1 is standaard, hoger is belangrijker)",
+      "cancel": "Annuleren",
+      "save": "Opslaan",
+      "saving": "Opslaan..."
+    }
+  },
+  "settings": {
+    "title": "Instellingen",
+    "tabs": {
+      "comment": "Reacties & Beveiliging",
+      "feature": "Functies",
+      "emailNotify": "E-mailmeldingen",
+      "telegramNotify": "Telegram-meldingen",
+      "display": "Weergave"
+    },
+    "comment": {
+      "title": "Reactieweergave",
+      "adminEmail": "E-mailadres beheerder",
+      "adminBadge": "Beheerderlabel (leeg laten voor standaardpictogram)",
+      "adminEnabled": "Beheerderlabel weergeven",
+      "avatarPrefix": "Avatar-voorvoegsel (standaard: https://gravatar.com/avatar)",
+      "securityTitle": "Beveiligingsinstellingen",
+      "requireReview": "Nieuwe reacties moeten worden goedgekeurd",
+      "adminKey": "Beheerderssleutel (vereist voor reacties met beheerders-e-mail)",
+      "adminKeyPlaceholder": "Voer sleutel in om in te stellen of te wijzigen",
+      "allowedDomains": "Toegestane domeinen (leeg laten voor alle domeinen, scheiden met komma of spatie)",
+      "blockedIps": "IP zwarte lijst (scheiden met komma of nieuwe regel)",
+      "blockedEmails": "E-mail zwarte lijst (scheiden met komma of nieuwe regel)",
+      "save": "Opslaan",
+      "saving": "Opslaan..."
+    },
+    "feature": {
+      "title": "Functies",
+      "articleLike": "Artikel likes inschakelen",
+      "articleLikeHint": "Toont een like-knop boven de reactiesectie.",
+      "commentLike": "Reactie likes inschakelen",
+      "commentLikeHint": "Toont een like-knop bij elke reactie.",
+      "imageLightbox": "Lightbox voor afbeeldingen",
+      "imageLightboxHint": "Klik op afbeeldingen in reacties om ze op volledig scherm te bekijken.",
+      "placeholder": "Plaatsaanduiding invoerveld",
+      "placeholderHint": "Aangepaste tekst voor het invoerveld. Leeg laten voor standaard.",
+      "widgetLanguage": "Widgettaal",
+      "widgetLanguageHint": "Taal van de frontend-widget.",
+      "save": "Opslaan",
+      "saving": "Opslaan..."
+    },
+    "emailNotify": {
+      "title": "E-mailinstellingen",
+      "enable": "E-mailmeldingen inschakelen",
+      "smtpTitle": "1. SMTP-configuratie",
+      "provider": "Provider",
+      "host": "SMTP-host",
+      "port": "SMTP-poort",
+      "secure": "SSL-verbinding",
+      "user": "E-mailadres",
+      "pass": "Wachtwoord/App-wachtwoord",
+      "qqHint": "Opmerking: Gebruik voor QQ Mail een autorisatiecode, geen wachtwoord.",
+      "163Hint": "Opmerking: Gebruik voor 163 Mail een autorisatiecode, geen wachtwoord.",
+      "templateTitle": "2. E-mailjablonen",
+      "adminTemplate": "Beheerdersmelding (HTML)",
+      "adminTemplateHint": "Variabelen: ${commentAuthor}, ${postTitle}, ${postUrl}, ${commentContent}",
+      "replyTemplate": "Antwoordmelding (HTML)",
+      "replyTemplateHint": "Variabelen: ${toName}, ${replyAuthor}, ${postTitle}, ${postUrl}, ${parentComment}, ${replyContent}",
+      "testBtn": "Test e-mail verzenden",
+      "testingBtn": "Verzenden...",
+      "resetBtn": "Sjablonen resetten",
+      "save": "Configuratie opslaan",
+      "saving": "Opslaan..."
+    },
+    "telegramNotify": {
+      "title": "Telegram-instellingen",
+      "enable": "Telegram-meldingen inschakelen",
+      "botToken": "Bot Token",
+      "botTokenHint": "Maak een bot aan via @BotFather om een token te krijgen",
+      "chatId": "Chat ID",
+      "chatIdHint": "Gebruiker- of groeps-ID. Stuur een bericht naar de bot en gebruik API of @userinfobot om ID te vinden.",
+      "webhookBtn": "Webhook instellen",
+      "webhookSetting": "Instellen...",
+      "testBtn": "Testbericht verzenden",
+      "testingBtn": "Verzenden...",
+      "save": "Opslaan",
+      "saving": "Opslaan..."
+    },
+    "display": {
+      "title": "Weergave-instellingen",
+      "layoutTitle": "Titel beheerpaneel",
+      "layoutTitleHint": "Wordt weergegeven in de navigatiebalk.",
+      "adminLanguage": "Taal beheerpaneel",
+      "adminLanguageHint": "Taal van het beheersysteem.",
+      "save": "Opslaan",
+      "saving": "Opslaan..."
+    }
+  },
+  "common": {
+    "saveSuccess": "Opslaan geslaagd",
+    "saveFailed": "Opslaan mislukt",
+    "loading": "Laden..."
+  }
+}
