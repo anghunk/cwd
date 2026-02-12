@@ -17,8 +17,8 @@ export default defineConfig({
 		lib: {
 			name: 'CWDComments',
 			entry: resolve(__dirname, 'src/index.js'),
-			formats: ['umd'],
-			fileName: (format) => `cwd.js`,
+			formats: ['es', 'umd'],
+			fileName: (format) => `cwd.${format}.js`,
 		},
 		rollupOptions: {
 			output: {
