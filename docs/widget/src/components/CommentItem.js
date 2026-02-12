@@ -303,6 +303,7 @@ export class CommentItem extends Component {
 					onCancel: () => this.handleCancelReply(),
 					onClearError: () => this.handleClearReplyError(),
 					placeholder: this.props.replyPlaceholder,
+					t: this.t
 				});
 				this.replyEditor.render();
 				this.replyEditor.focus();

@@ -133,8 +133,12 @@ export function createCommentStore(config, fetchComments, submitComment, likeCom
 	});
 
 	// 监听用户信息变化，自动保存到 localStorage
-	store.subscribe((state) => {
-		if (state.form.name || state.form.email || state.form.url) {
+	store.subscribe((state, prevState) => {
+		if (
+			state.form.name !== prevState.form.name ||
+			state.form.email !== prevState.form.email ||
+			state.form.url !== prevState.form.url
+		) {
 			saveUserInfo(state.form.name, state.form.email, state.form.url);
 		}
 	});
