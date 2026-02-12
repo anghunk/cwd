@@ -165,48 +165,77 @@ comments.updateConfig({
 </script>
 ```
 
-### Vue
+### Vue3
 
-在 Vue 单文件组件里封装。
-
-`CommentsWidget.vue`:
+安装 `npm i cwd-widget`
 
 ```html
-<template>
-	<div ref="comments"></div>
-</template>
+<div id="comments"></div>
+```
 
-<script setup>
-	import { onMounted, onBeforeUnmount, ref } from 'vue';
+```js
+import CWDComments from "cwd-widget";
 
-	const comments = ref(null);
-	let instance = null;
-
-	onMounted(async () => {
-		if (!window.CWDComments) {
-			await loadScript('https://unpkg.com/cwd-widget@0.0.x/dist/cwd.js');
-		}
-
-		instance = new window.CWDComments({
-			el: comments.value,
-			apiBaseUrl: 'https://your-api.example.com', // 换成你的 API 地址
-		});
-		instance.mount();
+onMounted(() => {
+	// 初始化评论组件
+	const comments = new CWDComments({
+		el: '#comments',
+		apiBaseUrl: 'https://your-api.example.com',
 	});
+	comments.mount();
+});
+```
 
-	onBeforeUnmount(() => {
-		instance = null;
+### Vue2
+
+安装 `npm i cwd-widget`
+
+```html
+<div id="comments"></div>
+```
+
+```js
+import CWDComments from "cwd-widget";
+
+// 放在 mounted 钩子中初始化评论组件
+mounted() {
+	const comments = new CWDComments({
+		el: "#comments",
+		apiBaseUrl: "https://your-api.example.com",
 	});
+	comments.mount();
+},
+```
 
-	function loadScript(src) {
-		return new Promise((resolve, reject) => {
-			const script = document.createElement('script');
-			script.src = src;
-			script.async = true;
-			script.onload = () => resolve();
-			script.onerror = (e) => reject(e);
-			document.head.appendChild(script);
-		});
-	}
-</script>
+### React
+
+安装 `npm i cwd-widget`
+
+```js
+import { useEffect, useRef } from "react";
+import CWDComments, { CWDCommentsConfig } from "cwd-widget";
+
+function Comments() {
+  const containerRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    if (!containerRef.current) return;
+
+    const config: CWDCommentsConfig = {
+      el: containerRef.current,
+      apiBaseUrl: "https://your-api.example.com",
+    };
+
+    const comments = new CWDComments(config);
+    comments.mount();
+
+    return () => {
+      comments.unmount();
+    };
+  }, []);
+
+  return <div id="comments" ref={containerRef} />;
+}
+
+export default Comments;
 ```
