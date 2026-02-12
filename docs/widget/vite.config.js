@@ -29,8 +29,24 @@ function copyDtsPlugin() {
   }
 }
 
+function copyUmdToCwdPlugin() {
+  return {
+    name: 'copy-umd-to-cwd',
+    closeBundle() {
+      const src = resolve(__dirname, 'dist/cwd.umd.js');
+      const dest = resolve(__dirname, 'dist/cwd.js');
+      try {
+        copyFileSync(src, dest);
+        console.log(`[copy-umd-to-cwd] Copied ${src} to ${dest}`);
+      } catch (e) {
+        console.error(`[copy-umd-to-cwd] Failed to copy UMD bundle to cwd.js: ${e}`);
+      }
+    }
+  }
+}
+
 export default defineConfig({
-	plugins: [cssInjectedByJsPlugin(), copyDtsPlugin()],
+	plugins: [cssInjectedByJsPlugin(), copyDtsPlugin(), copyUmdToCwdPlugin()],
 	resolve: {
 		alias: {
 			'@': resolve(__dirname, 'src'),
@@ -40,11 +56,10 @@ export default defineConfig({
 		lib: {
 			name: 'CWDComments',
 			entry: resolve(__dirname, 'src/index.js'),
-			formats: ['es', 'umd', 'iife'],
+			formats: ['es', 'umd'],
 			fileName: (format) => {
 				if (format === 'es') return 'cwd.es.js';
-				if (format === 'umd') return 'cwd.umd.js';
-				return 'cwd.js';
+				return 'cwd.umd.js';
 			},
 		},
 		rollupOptions: {
