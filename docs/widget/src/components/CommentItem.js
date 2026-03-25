@@ -371,8 +371,12 @@ export class CommentItem extends Component {
 			likedComments.add(commentId);
 			this.saveLikedComments(likedComments);
 			this.props.onLikeComment(commentId, true);
+		} else {
+			// 已点赞，执行取消点赞
+			likedComments.delete(commentId);
+			this.saveLikedComments(likedComments);
+			this.props.onLikeComment(commentId, false);
 		}
-		// 已点赞则不做任何操作
 	}
 
 	/**

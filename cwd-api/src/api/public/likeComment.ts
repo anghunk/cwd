@@ -27,6 +27,7 @@ export const likeComment = async (c: Context<{ Bindings: Bindings }>) => {
 	}
 
 	const id = parsed;
+	const method = c.req.method;
 
 	try {
 		const existing = await c.env.CWD_DB.prepare(
@@ -39,26 +40,20 @@ export const likeComment = async (c: Context<{ Bindings: Bindings }>) => {
 			return c.json({ message: 'Comment not found' }, 404);
 		}
 
+		const delta = method === 'DELETE' ? -1 : 1;
+		const currentLikes = typeof existing.likes === 'number' && Number.isFinite(existing.likes) && existing.likes >= 0
+			? existing.likes
+			: 0;
+		const newLikes = Math.max(0, currentLikes + delta);
+
 		await c.env.CWD_DB.prepare(
-			'UPDATE Comment SET likes = COALESCE(likes, 0) + 1 WHERE id = ?'
+			'UPDATE Comment SET likes = ? WHERE id = ?'
 		)
-			.bind(id)
+			.bind(newLikes, id)
 			.run();
 
-		const updated = await c.env.CWD_DB.prepare(
-			'SELECT COALESCE(likes, 0) as likes FROM Comment WHERE id = ?'
-		)
-			.bind(id)
-			.first<{ likes?: number }>();
-
-		const likes =
-			updated && typeof updated.likes === 'number' && Number.isFinite(updated.likes) && updated.likes >= 0
-				? updated.likes
-				: ((existing.likes || 0) + 1);
-
-		return c.json({ id, likes });
+		return c.json({ id, likes: newLikes });
 	} catch (e: any) {
-		return c.json({ message: e?.message || '点赞失败' }, 500);
+		return c.json({ message: e?.message || '操作失败' }, 500);
 	}
 };
-

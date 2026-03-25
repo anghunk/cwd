@@ -273,6 +273,7 @@ app.get('/api/analytics/pv', getPagePv);
 app.get('/api/like', getLikeStatus);
 app.post('/api/like', likePage);
 app.post('/api/comments/like', likeComment);
+app.delete('/api/comments/like', likeComment);
 app.post('/api/telegram/webhook', telegramWebhook);
 app.get('/api/config/comments', async (c) => {
 	try {
