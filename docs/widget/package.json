@@ -34,6 +34,7 @@
   },
   "dependencies": {
     "dompurify": "^3.3.1",
-    "marked": "^17.0.1"
+    "marked": "^17.0.1",
+    "node-emoji": "^2.2.0"
   }
 }
