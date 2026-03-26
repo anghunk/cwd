@@ -660,6 +660,10 @@
   color: var(--cwd-primary, #0969da);
 }
 
+.cwd-comment-like-button-liked {
+  color: var(--cwd-primary, #0969da);
+}
+
 .cwd-comment-like-icon-wrapper {
   display: inline-flex;
   align-items: center;
