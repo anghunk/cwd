@@ -10,6 +10,12 @@
     "toggleMenu": "메뉴 전환",
     "docs": "문서",
     "logout": "로그아웃",
+    "logoutDialog": {
+      "title": "로그아웃하시겠습니까?",
+      "description": "댓글을 계속 관리하려면 다시 로그인해야 합니다.",
+      "cancel": "취소",
+      "confirm": "로그아웃"
+    },
     "moreActions": "더보기",
     "defaultSite": "기본 사이트",
     "theme": {
@@ -316,7 +322,7 @@
     "display": {
       "title": "표시 설정",
       "layoutTitle": "관리자 제목",
-      "layoutTitleHint": "상단 내비게이션 바에 표시됨.",
+      "layoutTitleHint": "관리자 사이드바 상단에 표시됩니다.",
       "adminLanguage": "관리자 언어",
       "adminLanguageHint": "관리자 패널 언어.",
       "save": "저장",
@@ -327,5 +333,38 @@
       "saveFailed": "저장 실패",
       "loading": "로딩 중..."
     }
+  },
+  "ui": {
+    "console": "댓글 관리 콘솔",
+    "workspace": "작업 공간",
+    "management": "관리",
+    "currentSite": "현재 사이트",
+    "commentsDescription": "방문자의 의견을 확인하고 대화를 관리하세요.",
+    "statsDescription": "댓글 활동과 참여 현황을 한눈에 확인하세요.",
+    "analyticsDescription": "방문 추세와 인기 페이지를 살펴보세요.",
+    "settingsDescription": "댓글과 알림을 원하는 방식으로 설정하세요.",
+    "dataDescription": "한곳에서 데이터를 가져오고 내보내고 백업하세요.",
+    "fields": {
+      "adminBadge": "작성자 배지",
+      "avatarPrefix": "아바타 서비스 URL",
+      "adminKey": "관리자 댓글 키",
+      "allowedDomains": "허용 도메인",
+      "blockedIps": "차단된 IP 주소",
+      "blockedEmails": "차단된 이메일 주소"
+    }
+  },
+  "login": {
+    "title": "다시 오신 것을 환영합니다",
+    "subtitle": "CWD 댓글 관리 콘솔에 로그인하세요.",
+    "apiAddress": "API 주소",
+    "account": "관리자 계정",
+    "password": "비밀번호",
+    "showPassword": "비밀번호 표시",
+    "hidePassword": "비밀번호 숨기기",
+    "submit": "로그인",
+    "submitting": "로그인 중…",
+    "missingApi": "API 주소를 입력하세요",
+    "missingCredentials": "계정과 비밀번호를 입력하세요",
+    "failed": "로그인 실패"
   }
 }

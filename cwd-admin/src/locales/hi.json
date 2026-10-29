@@ -10,6 +10,12 @@
     "toggleMenu": "मेनू टॉगल करें",
     "docs": "दस्तावेज़ीकरण",
     "logout": "लॉग आउट",
+    "logoutDialog": {
+      "title": "लॉग आउट करें?",
+      "description": "टिप्पणियों का प्रबंधन जारी रखने के लिए आपको फिर से लॉग इन करना होगा।",
+      "cancel": "रद्द करें",
+      "confirm": "लॉग आउट करें"
+    },
     "moreActions": "अधिक क्रियाएं",
     "defaultSite": "डिफ़ॉल्ट साइट",
     "theme": {
@@ -316,7 +322,7 @@
     "display": {
       "title": "प्रदर्शन सेटिंग्स",
       "layoutTitle": "व्यवस्थापक पैनल शीर्षक",
-      "layoutTitleHint": "शीर्ष नेविगेशन बार में प्रदर्शित होता है।",
+      "layoutTitleHint": "व्यवस्थापक साइडबार में सबसे ऊपर दिखता है।",
       "adminLanguage": "व्यवस्थापक पैनल भाषा",
       "adminLanguageHint": "व्यवस्थापक सिस्टम की भाषा सेट करें।",
       "save": "सहेजें",
@@ -327,5 +333,38 @@
     "saveSuccess": "सफलतापूर्वक सहेजा गया",
     "saveFailed": "सहेजने में विफल",
     "loading": "लोड हो रहा है..."
+  },
+  "ui": {
+    "console": "टिप्पणी कंसोल",
+    "workspace": "कार्यस्थान",
+    "management": "प्रबंधन",
+    "currentSite": "वर्तमान साइट",
+    "commentsDescription": "आगंतुकों की राय पढ़ें और हर बातचीत प्रबंधित करें।",
+    "statsDescription": "टिप्पणियों और सहभागिता का स्पष्ट विवरण देखें।",
+    "analyticsDescription": "विज़िट के रुझान और लोकप्रिय पेज देखें।",
+    "settingsDescription": "टिप्पणियाँ और सूचनाएँ अपनी पसंद से सेट करें।",
+    "dataDescription": "एक ही जगह डेटा आयात, निर्यात और बैकअप करें।",
+    "fields": {
+      "adminBadge": "लेखक बैज",
+      "avatarPrefix": "अवतार सेवा URL",
+      "adminKey": "व्यवस्थापक टिप्पणी कुंजी",
+      "allowedDomains": "अनुमत डोमेन",
+      "blockedIps": "अवरुद्ध IP पते",
+      "blockedEmails": "अवरुद्ध ईमेल पते"
+    }
+  },
+  "login": {
+    "title": "वापस स्वागत है",
+    "subtitle": "अपने CWD टिप्पणी कंसोल में साइन इन करें।",
+    "apiAddress": "API पता",
+    "account": "व्यवस्थापक खाता",
+    "password": "पासवर्ड",
+    "showPassword": "पासवर्ड दिखाएँ",
+    "hidePassword": "पासवर्ड छिपाएँ",
+    "submit": "साइन इन करें",
+    "submitting": "साइन इन हो रहा है…",
+    "missingApi": "API पता दर्ज करें",
+    "missingCredentials": "अपना खाता और पासवर्ड दर्ज करें",
+    "failed": "साइन इन विफल"
   }
 }

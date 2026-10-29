@@ -10,6 +10,12 @@
     "toggleMenu": "Menu wisselen",
     "docs": "Documentatie",
     "logout": "Uitloggen",
+    "logoutDialog": {
+      "title": "Uitloggen?",
+      "description": "Log opnieuw in om reacties te blijven beheren.",
+      "cancel": "Annuleren",
+      "confirm": "Uitloggen"
+    },
     "moreActions": "Meer acties",
     "defaultSite": "Standaard site",
     "theme": {
@@ -316,7 +322,7 @@
     "display": {
       "title": "Weergave-instellingen",
       "layoutTitle": "Titel beheerpaneel",
-      "layoutTitleHint": "Wordt weergegeven in de navigatiebalk.",
+      "layoutTitleHint": "Wordt bovenaan de beheerzijbalk getoond.",
       "adminLanguage": "Taal beheerpaneel",
       "adminLanguageHint": "Taal van het beheersysteem.",
       "save": "Opslaan",
@@ -327,5 +333,38 @@
     "saveSuccess": "Opslaan geslaagd",
     "saveFailed": "Opslaan mislukt",
     "loading": "Laden..."
+  },
+  "ui": {
+    "console": "Reactieconsole",
+    "workspace": "Werkruimte",
+    "management": "Beheer",
+    "currentSite": "Huidige site",
+    "commentsDescription": "Lees reacties van bezoekers en beheer elk gesprek.",
+    "statsDescription": "Een helder overzicht van reacties en betrokkenheid.",
+    "analyticsDescription": "Bekijk bezoektrends en populaire pagina’s.",
+    "settingsDescription": "Stel reacties en meldingen naar wens in.",
+    "dataDescription": "Importeer, exporteer en maak back-ups op één plek.",
+    "fields": {
+      "adminBadge": "Auteursbadge",
+      "avatarPrefix": "URL van avatarservice",
+      "adminKey": "Beheerderssleutel voor reacties",
+      "allowedDomains": "Toegestane domeinen",
+      "blockedIps": "Geblokkeerde IP-adressen",
+      "blockedEmails": "Geblokkeerde e-mailadressen"
+    }
+  },
+  "login": {
+    "title": "Welkom terug",
+    "subtitle": "Meld je aan bij je CWD-reactieconsole.",
+    "apiAddress": "API-adres",
+    "account": "Beheerdersaccount",
+    "password": "Wachtwoord",
+    "showPassword": "Wachtwoord tonen",
+    "hidePassword": "Wachtwoord verbergen",
+    "submit": "Aanmelden",
+    "submitting": "Bezig met aanmelden…",
+    "missingApi": "Voer een API-adres in",
+    "missingCredentials": "Voer je account en wachtwoord in",
+    "failed": "Aanmelden mislukt"
   }
 }

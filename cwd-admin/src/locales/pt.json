@@ -10,6 +10,12 @@
     "toggleMenu": "Alternar Menu",
     "docs": "Documentação",
     "logout": "Sair",
+    "logoutDialog": {
+      "title": "Sair da conta?",
+      "description": "Você precisará entrar novamente para continuar gerenciando os comentários.",
+      "cancel": "Cancelar",
+      "confirm": "Sair"
+    },
     "moreActions": "Mais Ações",
     "defaultSite": "Site Padrão",
     "theme": {
@@ -316,7 +322,7 @@
     "display": {
       "title": "Configurações de Exibição",
       "layoutTitle": "Título do Admin",
-      "layoutTitleHint": "Exibido na barra de navegação superior.",
+      "layoutTitleHint": "Exibido no topo da barra lateral do painel.",
       "adminLanguage": "Idioma do Admin",
       "adminLanguageHint": "Idioma para o painel de administração.",
       "save": "Salvar",
@@ -327,5 +333,38 @@
       "saveFailed": "Falha ao Salvar",
       "loading": "Carregando..."
     }
+  },
+  "ui": {
+    "console": "Console de comentários",
+    "workspace": "Área de trabalho",
+    "management": "Gerenciamento",
+    "currentSite": "Site atual",
+    "commentsDescription": "Acompanhe seus visitantes e gerencie cada conversa.",
+    "statsDescription": "Uma visão clara dos comentários e do engajamento.",
+    "analyticsDescription": "Explore tendências de acesso e páginas populares.",
+    "settingsDescription": "Personalize os comentários e as notificações.",
+    "dataDescription": "Importe, exporte e faça backup dos dados em um só lugar.",
+    "fields": {
+      "adminBadge": "Selo do autor",
+      "avatarPrefix": "URL do serviço de avatares",
+      "adminKey": "Chave de comentários do administrador",
+      "allowedDomains": "Domínios permitidos",
+      "blockedIps": "Endereços IP bloqueados",
+      "blockedEmails": "E-mails bloqueados"
+    }
+  },
+  "login": {
+    "title": "Boas-vindas de volta",
+    "subtitle": "Entre no seu console de comentários CWD.",
+    "apiAddress": "Endereço da API",
+    "account": "Conta de administrador",
+    "password": "Senha",
+    "showPassword": "Mostrar senha",
+    "hidePassword": "Ocultar senha",
+    "submit": "Entrar",
+    "submitting": "Entrando…",
+    "missingApi": "Informe um endereço de API",
+    "missingCredentials": "Informe sua conta e senha",
+    "failed": "Falha ao entrar"
   }
 }

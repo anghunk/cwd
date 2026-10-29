@@ -10,6 +10,12 @@
     "toggleMenu": "切換菜單",
     "docs": "使用文檔",
     "logout": "退出",
+    "logoutDialog": {
+      "title": "登出？",
+      "description": "登出後需重新登入才能繼續管理評論。",
+      "cancel": "取消",
+      "confirm": "登出"
+    },
     "moreActions": "更多操作",
     "defaultSite": "默認站點",
     "theme": {
@@ -316,7 +322,7 @@
     "display": {
       "title": "後台顯示設置",
       "layoutTitle": "後台標題",
-      "layoutTitleHint": "顯示在後台頂部導航欄左側。",
+      "layoutTitleHint": "顯示於後台側欄頂部。",
       "adminLanguage": "後台語言",
       "adminLanguageHint": "設置後台管理系統的顯示語言。",
       "save": "保存",
@@ -327,5 +333,38 @@
       "saveFailed": "保存失敗",
       "loading": "加載中..."
     }
+  },
+  "ui": {
+    "console": "留言工作台",
+    "workspace": "工作空間",
+    "management": "管理",
+    "currentSite": "目前網站",
+    "commentsDescription": "聆聽訪客的聲音，輕鬆管理每一次交流。",
+    "statsDescription": "掌握留言動態與網站互動情況。",
+    "analyticsDescription": "從瀏覽趨勢到熱門頁面，了解內容表現。",
+    "settingsDescription": "依照你的習慣，設定留言與通知。",
+    "dataDescription": "匯入、匯出與備份，妥善保存資料。",
+    "fields": {
+      "adminBadge": "站長標籤文字",
+      "avatarPrefix": "頭像服務位址",
+      "adminKey": "管理員留言金鑰",
+      "allowedDomains": "允許的網域",
+      "blockedIps": "IP 黑名單",
+      "blockedEmails": "電子郵件黑名單"
+    }
+  },
+  "login": {
+    "title": "歡迎回來",
+    "subtitle": "登入你的 CWD 留言工作台。",
+    "apiAddress": "API 位址",
+    "account": "管理員帳號",
+    "password": "密碼",
+    "showPassword": "顯示密碼",
+    "hidePassword": "隱藏密碼",
+    "submit": "登入工作台",
+    "submitting": "登入中…",
+    "missingApi": "請輸入 API 位址",
+    "missingCredentials": "請輸入帳號與密碼",
+    "failed": "登入失敗"
   }
 }

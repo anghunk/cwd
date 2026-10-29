@@ -10,6 +10,12 @@
     "toggleMenu": "Menü umschalten",
     "docs": "Dokumentation",
     "logout": "Abmelden",
+    "logoutDialog": {
+      "title": "Abmelden?",
+      "description": "Du musst dich erneut anmelden, um Kommentare weiter zu verwalten.",
+      "cancel": "Abbrechen",
+      "confirm": "Abmelden"
+    },
     "moreActions": "Mehr Aktionen",
     "defaultSite": "Standardseite",
     "theme": {
@@ -316,7 +322,7 @@
     "display": {
       "title": "Anzeigeeinstellungen",
       "layoutTitle": "Admin-Titel",
-      "layoutTitleHint": "Wird in der oberen Navigationsleiste angezeigt.",
+      "layoutTitleHint": "Wird oben in der Admin-Seitenleiste angezeigt.",
       "adminLanguage": "Admin-Sprache",
       "adminLanguageHint": "Sprache für das Admin-Panel.",
       "save": "Speichern",
@@ -327,5 +333,38 @@
       "saveFailed": "Speichern fehlgeschlagen",
       "loading": "Laden..."
     }
+  },
+  "ui": {
+    "console": "Kommentarkonsole",
+    "workspace": "Arbeitsbereich",
+    "management": "Verwaltung",
+    "currentSite": "Aktuelle Website",
+    "commentsDescription": "Besucherbeiträge lesen und Unterhaltungen verwalten.",
+    "statsDescription": "Kommentaraktivität und Interaktionen im Überblick.",
+    "analyticsDescription": "Besuchstrends und beliebte Seiten entdecken.",
+    "settingsDescription": "Kommentare und Benachrichtigungen nach Wunsch einrichten.",
+    "dataDescription": "Daten an einem Ort importieren, exportieren und sichern.",
+    "fields": {
+      "adminBadge": "Autorenkennzeichnung",
+      "avatarPrefix": "Avatar-Dienst-URL",
+      "adminKey": "Admin-Kommentarschlüssel",
+      "allowedDomains": "Erlaubte Domains",
+      "blockedIps": "Gesperrte IP-Adressen",
+      "blockedEmails": "Gesperrte E-Mail-Adressen"
+    }
+  },
+  "login": {
+    "title": "Willkommen zurück",
+    "subtitle": "Bei der CWD-Kommentarkonsole anmelden.",
+    "apiAddress": "API-Adresse",
+    "account": "Administratorkonto",
+    "password": "Passwort",
+    "showPassword": "Passwort anzeigen",
+    "hidePassword": "Passwort verbergen",
+    "submit": "Anmelden",
+    "submitting": "Anmeldung läuft…",
+    "missingApi": "API-Adresse eingeben",
+    "missingCredentials": "Konto und Passwort eingeben",
+    "failed": "Anmeldung fehlgeschlagen"
   }
 }

@@ -10,6 +10,12 @@
     "toggleMenu": "تبديل القائمة",
     "docs": "الوثائق",
     "logout": "تسجيل الخروج",
+    "logoutDialog": {
+      "title": "تسجيل الخروج؟",
+      "description": "ستحتاج إلى تسجيل الدخول مجددًا لمتابعة إدارة التعليقات.",
+      "cancel": "إلغاء",
+      "confirm": "تسجيل الخروج"
+    },
     "moreActions": "المزيد من الإجراءات",
     "defaultSite": "الموقع الافتراضي",
     "theme": {
@@ -316,7 +322,7 @@
     "display": {
       "title": "إعدادات العرض",
       "layoutTitle": "عنوان الخلفية",
-      "layoutTitleHint": "يظهر في شريط التنقل العلوي.",
+      "layoutTitleHint": "يظهر أعلى الشريط الجانبي للإدارة.",
       "adminLanguage": "لغة الخلفية",
       "adminLanguageHint": "تعيين لغة نظام الإدارة.",
       "save": "حفظ",
@@ -327,5 +333,38 @@
     "saveSuccess": "تم الحفظ بنجاح",
     "saveFailed": "فشل الحفظ",
     "loading": "جارٍ التحميل..."
+  },
+  "ui": {
+    "console": "لوحة التعليقات",
+    "workspace": "مساحة العمل",
+    "management": "الإدارة",
+    "currentSite": "الموقع الحالي",
+    "commentsDescription": "تابع آراء الزوار وأدر كل محادثة بسهولة.",
+    "statsDescription": "نظرة واضحة على نشاط التعليقات والتفاعل.",
+    "analyticsDescription": "استكشف اتجاهات الزيارات والصفحات الأكثر شعبية.",
+    "settingsDescription": "خصص التعليقات والإشعارات حسب تفضيلاتك.",
+    "dataDescription": "استورد بياناتك وصدّرها وانسخها احتياطيًا في مكان واحد.",
+    "fields": {
+      "adminBadge": "شارة الكاتب",
+      "avatarPrefix": "رابط خدمة الصور الشخصية",
+      "adminKey": "مفتاح تعليقات المسؤول",
+      "allowedDomains": "النطاقات المسموحة",
+      "blockedIps": "عناوين IP المحظورة",
+      "blockedEmails": "عناوين البريد المحظورة"
+    }
+  },
+  "login": {
+    "title": "مرحبًا بعودتك",
+    "subtitle": "سجّل الدخول إلى لوحة تعليقات CWD.",
+    "apiAddress": "عنوان API",
+    "account": "حساب المسؤول",
+    "password": "كلمة المرور",
+    "showPassword": "إظهار كلمة المرور",
+    "hidePassword": "إخفاء كلمة المرور",
+    "submit": "تسجيل الدخول",
+    "submitting": "جارٍ تسجيل الدخول…",
+    "missingApi": "أدخل عنوان API",
+    "missingCredentials": "أدخل الحساب وكلمة المرور",
+    "failed": "فشل تسجيل الدخول"
   }
 }

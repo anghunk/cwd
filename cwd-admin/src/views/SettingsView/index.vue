@@ -1,567 +1,429 @@
 <template>
-  <div class="page">
-    <h2 class="page-title">{{ t("settings.title") }}</h2>
-    <div v-if="!loading" class="settings-tabs">
-      <button
-        type="button"
-        class="settings-tab"
-        :class="{ 'settings-tab-active': activeTab === 'comment' }"
-        @click="activeTab = 'comment'"
-      >
-        {{ t("settings.tabs.comment") }}
-      </button>
-      <button
-        type="button"
-        class="settings-tab"
-        :class="{ 'settings-tab-active': activeTab === 'feature' }"
-        @click="activeTab = 'feature'"
-      >
-        {{ t("settings.tabs.feature") }}
-      </button>
-      <button
-        type="button"
-        class="settings-tab"
-        :class="{ 'settings-tab-active': activeTab === 'emailNotify' }"
-        @click="activeTab = 'emailNotify'"
-      >
-        {{ t("settings.tabs.emailNotify") }}
-      </button>
-      <button
-        type="button"
-        class="settings-tab"
-        :class="{ 'settings-tab-active': activeTab === 'telegramNotify' }"
-        @click="activeTab = 'telegramNotify'"
-      >
-        {{ t("settings.tabs.telegramNotify") }}
-      </button>
-      <button
-        type="button"
-        class="settings-tab"
-        :class="{ 'settings-tab-active': activeTab === 'display' }"
-        @click="activeTab = 'display'"
-      >
-        {{ t("settings.tabs.display") }}
-      </button>
-    </div>
-    <div
-      v-if="toastVisible"
-      class="toast"
-      :class="toastType === 'error' ? 'toast-error' : 'toast-success'"
-    >
-      {{ toastMessage }}
-    </div>
-    <div v-if="loading" class="page-hint">{{ t("common.loading") }}</div>
-    <div v-else>
-      <transition name="tab-fade" mode="out-in">
-        <div :key="activeTab" class="settings-content">
-          <template v-if="activeTab === 'comment'">
-            <div class="card">
-              <div class="card-header">
-                <div class="card-title">{{ t("settings.comment.title") }}</div>
-              </div>
-              <div class="card-body">
-                <div class="form-item">
-                  <label class="form-label">{{ t("settings.comment.adminEmail") }}</label>
-                  <input v-model="commentAdminEmail" class="form-input" type="email" />
-                </div>
-                <div class="form-item">
-                  <label class="form-label">{{ t("settings.comment.adminBadge") }}</label>
-                  <input v-model="commentAdminBadge" class="form-input" type="text" />
-                </div>
-                <div class="form-item">
-                  <label class="form-label">{{
-                    t("settings.comment.adminEnabled")
-                  }}</label>
-                  <label class="switch">
-                    <input v-model="commentAdminEnabled" type="checkbox" />
-                    <span class="slider" />
-                  </label>
-                </div>
-                <div class="form-item">
-                  <label class="form-label">{{
-                    t("settings.comment.avatarPrefix")
-                  }}</label>
-                  <input v-model="avatarPrefix" class="form-input" type="text" />
-                </div>
-                <h3 class="card-title">{{ t("settings.comment.securityTitle") }}</h3>
-                <div class="form-item">
-                  <label class="form-label">{{
-                    t("settings.comment.requireReview")
-                  }}</label>
-                  <label class="switch">
-                    <input v-model="requireReview" type="checkbox" />
-                    <span class="slider" />
-                  </label>
-                </div>
-                <div class="form-item">
-                  <label class="form-label">
-                    {{ t("settings.comment.adminKey") }}
-                  </label>
+	<div class="page settings-page">
+		<div class="page-heading">
+			<h2 class="page-title">{{ t('settings.title') }}</h2>
+			<p class="page-description">{{ t('ui.settingsDescription') }}</p>
+		</div>
+		<div v-if="!loading" class="settings-tabs">
+			<button
+				type="button"
+				class="settings-tab"
+				:class="{ 'settings-tab-active': activeTab === 'comment' }"
+				:aria-pressed="activeTab === 'comment'"
+				@click="activeTab = 'comment'">
+				{{ t('settings.tabs.comment') }}
+			</button>
+			<button
+				type="button"
+				class="settings-tab"
+				:class="{ 'settings-tab-active': activeTab === 'feature' }"
+				:aria-pressed="activeTab === 'feature'"
+				@click="activeTab = 'feature'">
+				{{ t('settings.tabs.feature') }}
+			</button>
+			<button
+				type="button"
+				class="settings-tab"
+				:class="{ 'settings-tab-active': activeTab === 'emailNotify' }"
+				:aria-pressed="activeTab === 'emailNotify'"
+				@click="activeTab = 'emailNotify'">
+				{{ t('settings.tabs.emailNotify') }}
+			</button>
+			<button
+				type="button"
+				class="settings-tab"
+				:class="{ 'settings-tab-active': activeTab === 'telegramNotify' }"
+				:aria-pressed="activeTab === 'telegramNotify'"
+				@click="activeTab = 'telegramNotify'">
+				{{ t('settings.tabs.telegramNotify') }}
+			</button>
+			<button
+				type="button"
+				class="settings-tab"
+				:class="{ 'settings-tab-active': activeTab === 'display' }"
+				:aria-pressed="activeTab === 'display'"
+				@click="activeTab = 'display'">
+				{{ t('settings.tabs.display') }}
+			</button>
+		</div>
+		<div v-if="toastVisible" class="toast" :class="toastType === 'error' ? 'toast-error' : 'toast-success'">
+			{{ toastMessage }}
+		</div>
+		<div v-if="loading" class="page-hint">{{ t('common.loading') }}</div>
+		<div v-else>
+			<transition name="tab-fade" mode="out-in">
+				<div :key="activeTab" class="settings-content">
+					<template v-if="activeTab === 'comment'">
+						<div class="card comment-settings">
+							<div class="card-header">
+								<div class="card-title">{{ t('settings.comment.title') }}</div>
+							</div>
+							<div class="card-body">
+								<div class="settings-group">
+									<div class="form-item">
+										<label class="form-label">{{ t('settings.comment.adminEmail') }}</label>
+										<input v-model="commentAdminEmail" class="form-input" type="email" />
+									</div>
+									<div class="form-item">
+										<label class="form-label">{{ t('ui.fields.adminBadge') }}</label>
+										<div class="form-hint">{{ t('settings.comment.adminBadge') }}</div>
+										<input v-model="commentAdminBadge" class="form-input" type="text" />
+									</div>
+									<div class="form-item">
+										<label class="form-label">{{ t('settings.comment.adminEnabled') }}</label>
+										<label class="switch">
+											<input v-model="commentAdminEnabled" type="checkbox" role="switch" :aria-label="t('settings.comment.adminEnabled')" />
+											<span class="slider" />
+										</label>
+									</div>
+									<div class="form-item">
+										<label class="form-label">{{ t('ui.fields.avatarPrefix') }}</label>
+										<div class="form-hint">{{ t('settings.comment.avatarPrefix') }}</div>
+										<input v-model="avatarPrefix" class="form-input" type="text" />
+									</div>
+								</div>
+								<h3 class="settings-group-title">{{ t('settings.comment.securityTitle') }}</h3>
+								<div class="settings-group">
+									<div class="form-item">
+										<label class="form-label">{{ t('settings.comment.requireReview') }}</label>
+										<label class="switch">
+											<input v-model="requireReview" type="checkbox" role="switch" :aria-label="t('settings.comment.requireReview')" />
+											<span class="slider" />
+										</label>
+									</div>
+									<div class="form-item">
+										<label class="form-label">{{ t('ui.fields.adminKey') }}</label>
+										<div class="form-hint">{{ t('settings.comment.adminKey') }}</div>
 
-                  <input
-                    v-model="commentAdminKey"
-                    class="form-input"
-                    :placeholder="t('settings.comment.adminKeyPlaceholder')"
-                    autocomplete="new-password"
-                  />
-                </div>
-                <div class="form-item">
-                  <label class="form-label">
-                    {{ t("settings.comment.allowedDomains") }}
-                  </label>
-                  <TagInput v-model="allowedDomainTags" />
-                </div>
-                <div class="form-item">
-                  <label class="form-label">
-                    {{ t("settings.comment.blockedIps") }}
-                  </label>
-                  <TagInput v-model="blockedIpTags" />
-                </div>
-                <div class="form-item">
-                  <label class="form-label">{{
-                    t("settings.comment.blockedEmails")
-                  }}</label>
-                  <TagInput v-model="blockedEmailTags" />
-                </div>
+										<input
+											v-model="commentAdminKey"
+											class="form-input"
+											:placeholder="t('settings.comment.adminKeyPlaceholder')"
+											autocomplete="new-password" />
+									</div>
+									<div class="form-item">
+										<label class="form-label">{{ t('ui.fields.allowedDomains') }}</label>
+										<div class="form-hint">{{ t('settings.comment.allowedDomains') }}</div>
+										<TagInput v-model="allowedDomainTags" />
+									</div>
+									<div class="form-item">
+										<label class="form-label">{{ t('ui.fields.blockedIps') }}</label>
+										<div class="form-hint">{{ t('settings.comment.blockedIps') }}</div>
+										<TagInput v-model="blockedIpTags" />
+									</div>
+									<div class="form-item">
+										<label class="form-label">{{ t('ui.fields.blockedEmails') }}</label>
+										<div class="form-hint">{{ t('settings.comment.blockedEmails') }}</div>
+										<TagInput v-model="blockedEmailTags" />
+									</div>
+								</div>
+								<div class="card-actions">
+									<button class="card-button" :disabled="savingComment" @click="saveComment">
+										<span v-if="savingComment">{{ t('settings.comment.saving') }}</span>
+										<span v-else>{{ t('settings.comment.save') }}</span>
+									</button>
+								</div>
+							</div>
+						</div>
+					</template>
+					<template v-else-if="activeTab === 'feature'">
+						<div class="card feature">
+							<div class="card-header">
+								<div class="card-title">{{ t('settings.feature.title') }}</div>
+							</div>
+							<div class="card-body">
+								<div class="form-item bg">
+									<div class="form-item-flex">
+										<label class="form-label">{{ t('settings.feature.articleLike') }}</label>
+										<label class="switch">
+											<input v-model="enableArticleLike" type="checkbox" role="switch" :aria-label="t('settings.feature.articleLike')" />
+											<span class="slider" />
+										</label>
+									</div>
+									<div class="form-hint">
+										{{ t('settings.feature.articleLikeHint') }}
+									</div>
+								</div>
+								<div class="form-item bg">
+									<div class="form-item-flex">
+										<label class="form-label">{{ t('settings.feature.commentLike') }}</label>
+										<label class="switch">
+											<input v-model="enableCommentLike" type="checkbox" role="switch" :aria-label="t('settings.feature.commentLike')" />
+											<span class="slider" />
+										</label>
+									</div>
+									<div class="form-hint">
+										{{ t('settings.feature.commentLikeHint') }}
+									</div>
+								</div>
 
-                <div class="card-actions">
-                  <button
-                    class="card-button"
-                    :disabled="savingComment"
-                    @click="saveComment"
-                  >
-                    <span v-if="savingComment">{{ t("settings.comment.saving") }}</span>
-                    <span v-else>{{ t("settings.comment.save") }}</span>
-                  </button>
-                </div>
-              </div>
-            </div>
-          </template>
-          <template v-else-if="activeTab === 'feature'">
-            <div class="card feature">
-              <div class="card-header">
-                <div class="card-title">{{ t("settings.feature.title") }}</div>
-              </div>
-              <div class="card-body">
-                <div class="form-item bg">
-                  <div class="form-item-flex">
-                    <label class="form-label">{{
-                      t("settings.feature.articleLike")
-                    }}</label>
-                    <label class="switch">
-                      <input v-model="enableArticleLike" type="checkbox" />
-                      <span class="slider" />
-                    </label>
-                  </div>
-                  <div class="form-hint">
-                    {{ t("settings.feature.articleLikeHint") }}
-                  </div>
-                </div>
-                <div class="form-item bg">
-                  <div class="form-item-flex">
-                    <label class="form-label">{{
-                      t("settings.feature.commentLike")
-                    }}</label>
-                    <label class="switch">
-                      <input v-model="enableCommentLike" type="checkbox" />
-                      <span class="slider" />
-                    </label>
-                  </div>
-                  <div class="form-hint">
-                    {{ t("settings.feature.commentLikeHint") }}
-                  </div>
-                </div>
+								<div class="form-item bg">
+									<div class="form-item-flex">
+										<label class="form-label">{{ t('settings.feature.imageLightbox') }}</label>
+										<label class="switch">
+											<input
+												v-model="enableImageLightbox"
+												type="checkbox"
+												role="switch"
+												:aria-label="t('settings.feature.imageLightbox')" />
+											<span class="slider" />
+										</label>
+									</div>
+									<div class="form-hint">
+										{{ t('settings.feature.imageLightboxHint') }}
+									</div>
+								</div>
 
-                <div class="form-item bg">
-                  <div class="form-item-flex">
-                    <label class="form-label">{{
-                      t("settings.feature.imageLightbox")
-                    }}</label>
-                    <label class="switch">
-                      <input v-model="enableImageLightbox" type="checkbox" />
-                      <span class="slider" />
-                    </label>
-                  </div>
-                  <div class="form-hint">
-                    {{ t("settings.feature.imageLightboxHint") }}
-                  </div>
-                </div>
+								<div class="form-item">
+									<label class="form-label">{{ t('settings.feature.placeholder') }}</label>
+									<textarea
+										v-model="commentPlaceholder"
+										class="form-input form-textarea-placeholder"
+										rows="3"
+										:placeholder="t('settings.feature.placeholderHint')"></textarea>
+									<div class="form-hint">
+										{{ t('settings.feature.placeholderHint') }}
+									</div>
+								</div>
 
-                <div class="form-item">
-                  <label class="form-label">{{
-                    t("settings.feature.placeholder")
-                  }}</label>
-                  <textarea
-                    v-model="commentPlaceholder"
-                    class="form-input form-textarea-placeholder"
-                    rows="3"
-                    :placeholder="t('settings.feature.placeholderHint')"
-                  ></textarea>
-                  <div class="form-hint">
-                    {{ t("settings.feature.placeholderHint") }}
-                  </div>
-                </div>
+								<div class="form-item">
+									<label class="form-label">{{ t('settings.feature.widgetLanguage') }}</label>
+									<select v-model="widgetLanguage" class="form-input">
+										<option value="auto">Auto (Browser Default)</option>
+										<option v-for="lang in languageOptions" :key="lang.value" :value="lang.value">
+											{{ lang.label }}
+										</option>
+									</select>
+									<div class="form-hint">
+										{{ t('settings.feature.widgetLanguageHint') }}
+									</div>
+								</div>
 
-                <div class="form-item">
-                  <label class="form-label">{{
-                    t("settings.feature.widgetLanguage")
-                  }}</label>
-                  <select v-model="widgetLanguage" class="form-input">
-                    <option value="auto">Auto (Browser Default)</option>
-                    <option
-                      v-for="lang in languageOptions"
-                      :key="lang.value"
-                      :value="lang.value"
-                    >
-                      {{ lang.label }}
-                    </option>
-                  </select>
-                  <div class="form-hint">
-                    {{ t("settings.feature.widgetLanguageHint") }}
-                  </div>
-                </div>
+								<div class="form-item">
+									<label class="form-label">{{ t('settings.feature.emotionJson') }}</label>
+									<textarea
+										v-model="emotionJson"
+										class="form-input form-textarea-code"
+										rows="10"
+										:placeholder="t('settings.feature.emotionJsonHint')"></textarea>
+									<div class="form-hint">
+										{{ t('settings.feature.emotionJsonHint') }}
+									</div>
+								</div>
 
-                <div class="form-item">
-                  <label class="form-label">{{
-                    t("settings.feature.emotionJson")
-                  }}</label>
-                  <textarea
-                    v-model="emotionJson"
-                    class="form-input form-textarea-code"
-                    rows="10"
-                    :placeholder="t('settings.feature.emotionJsonHint')"
-                  ></textarea>
-                  <div class="form-hint">
-                    {{ t("settings.feature.emotionJsonHint") }}
-                  </div>
-                </div>
+								<div class="card-actions">
+									<button class="card-button" :disabled="savingFeature" @click="saveFeature">
+										<span v-if="savingFeature">{{ t('settings.feature.saving') }}</span>
+										<span v-else>{{ t('settings.feature.save') }}</span>
+									</button>
+								</div>
+							</div>
+						</div>
+					</template>
+					<template v-else-if="activeTab === 'display'">
+						<div class="card">
+							<div class="card-header">
+								<div class="card-title">{{ t('settings.display.title') }}</div>
+							</div>
+							<div class="card-body">
+								<div class="form-item">
+									<label class="form-label">{{ t('settings.display.layoutTitle') }}</label>
+									<input v-model="adminLayoutTitle" class="form-input" type="text" placeholder="CWD 评论系统" />
+									<div class="form-hint">{{ t('settings.display.layoutTitleHint') }}</div>
+								</div>
 
-                <div class="card-actions">
-                  <button
-                    class="card-button"
-                    :disabled="savingFeature"
-                    @click="saveFeature"
-                  >
-                    <span v-if="savingFeature">{{ t("settings.feature.saving") }}</span>
-                    <span v-else>{{ t("settings.feature.save") }}</span>
-                  </button>
-                </div>
-              </div>
-            </div>
-          </template>
-          <template v-else-if="activeTab === 'display'">
-            <div class="card">
-              <div class="card-header">
-                <div class="card-title">{{ t("settings.display.title") }}</div>
-              </div>
-              <div class="card-body">
-                <div class="form-item">
-                  <label class="form-label">{{
-                    t("settings.display.layoutTitle")
-                  }}</label>
-                  <input
-                    v-model="adminLayoutTitle"
-                    class="form-input"
-                    type="text"
-                    placeholder="CWD 评论系统"
-                  />
-                  <div class="form-hint">{{ t("settings.display.layoutTitleHint") }}</div>
-                </div>
+								<div class="form-item">
+									<label class="form-label">{{ t('settings.display.adminLanguage') }}</label>
+									<select v-model="adminLanguage" class="form-input">
+										<option v-for="lang in languageOptions" :key="lang.value" :value="lang.value">
+											{{ lang.label }}
+										</option>
+									</select>
+									<div class="form-hint">
+										{{ t('settings.display.adminLanguageHint') }}
+									</div>
+								</div>
 
-                <div class="form-item">
-                  <label class="form-label">{{
-                    t("settings.display.adminLanguage")
-                  }}</label>
-                  <select v-model="adminLanguage" class="form-input">
-                    <option
-                      v-for="lang in languageOptions"
-                      :key="lang.value"
-                      :value="lang.value"
-                    >
-                      {{ lang.label }}
-                    </option>
-                  </select>
-                  <div class="form-hint">
-                    {{ t("settings.display.adminLanguageHint") }}
-                  </div>
-                </div>
+								<div class="card-actions">
+									<button class="card-button" :disabled="savingDisplay" @click="saveDisplay">
+										<span v-if="savingDisplay">{{ t('settings.display.saving') }}</span>
+										<span v-else>{{ t('settings.display.save') }}</span>
+									</button>
+								</div>
+							</div>
+						</div>
+					</template>
+					<template v-else-if="activeTab === 'emailNotify'">
+						<div class="card">
+							<div class="card-header">
+								<div class="card-title">{{ t('settings.emailNotify.title') }}</div>
+							</div>
+							<div class="card-body">
+								<div class="form-item">
+									<label class="form-label">{{ t('settings.emailNotify.enable') }}</label>
+									<label class="switch">
+										<input v-model="emailGlobalEnabled" type="checkbox" role="switch" :aria-label="t('settings.emailNotify.enable')" />
+										<span class="slider" />
+									</label>
+								</div>
 
-                <div class="card-actions">
-                  <button
-                    class="card-button"
-                    :disabled="savingDisplay"
-                    @click="saveDisplay"
-                  >
-                    <span v-if="savingDisplay">{{ t("settings.display.saving") }}</span>
-                    <span v-else>{{ t("settings.display.save") }}</span>
-                  </button>
-                </div>
-              </div>
-            </div>
-          </template>
-          <template v-else-if="activeTab === 'emailNotify'">
-            <div class="card">
-              <div class="card-header">
-                <div class="card-title">{{ t("settings.emailNotify.title") }}</div>
-              </div>
-              <div class="card-body">
-                <div class="form-item">
-                  <label class="form-label">{{ t("settings.emailNotify.enable") }}</label>
-                  <label class="switch">
-                    <input v-model="emailGlobalEnabled" type="checkbox" />
-                    <span class="slider" />
-                  </label>
-                </div>
+								<div class="divider"></div>
+								<h4 class="card-subtitle">{{ t('settings.emailNotify.smtpTitle') }}</h4>
 
-                <div class="divider"></div>
-                <h4 class="card-subtitle">{{ t("settings.emailNotify.smtpTitle") }}</h4>
+								<div class="form-item">
+									<label class="form-label">{{ t('settings.emailNotify.provider') }}</label>
+									<select v-model="smtpProvider" class="form-input" @change="onProviderChange">
+										<option value="qq">QQ 邮箱</option>
+										<option value="163">163 邮箱</option>
+										<option value="custom">自定义 SMTP</option>
+									</select>
+								</div>
 
-                <div class="form-item">
-                  <label class="form-label">{{
-                    t("settings.emailNotify.provider")
-                  }}</label>
-                  <select
-                    v-model="smtpProvider"
-                    class="form-input"
-                    @change="onProviderChange"
-                  >
-                    <option value="qq">QQ 邮箱</option>
-                    <option value="163">163 邮箱</option>
-                    <option value="custom">自定义 SMTP</option>
-                  </select>
-                </div>
+								<div v-if="smtpProvider === 'custom'">
+									<div class="form-item">
+										<label class="form-label">{{ t('settings.emailNotify.host') }}</label>
+										<input v-model="smtpHost" class="form-input" placeholder="smtp.example.com" />
+									</div>
+									<div class="form-item">
+										<label class="form-label">{{ t('settings.emailNotify.port') }}</label>
+										<input v-model="smtpPort" class="form-input" type="number" placeholder="465" />
+									</div>
+									<div class="form-item">
+										<label class="form-label">{{ t('settings.emailNotify.secure') }}</label>
+										<label class="switch">
+											<input v-model="smtpSecure" type="checkbox" role="switch" :aria-label="t('settings.emailNotify.secure')" />
+											<span class="slider" />
+										</label>
+									</div>
+								</div>
 
-                <div v-if="smtpProvider === 'custom'">
-                  <div class="form-item">
-                    <label class="form-label">{{ t("settings.emailNotify.host") }}</label>
-                    <input
-                      v-model="smtpHost"
-                      class="form-input"
-                      placeholder="smtp.example.com"
-                    />
-                  </div>
-                  <div class="form-item">
-                    <label class="form-label">{{ t("settings.emailNotify.port") }}</label>
-                    <input
-                      v-model="smtpPort"
-                      class="form-input"
-                      type="number"
-                      placeholder="465"
-                    />
-                  </div>
-                  <div class="form-item">
-                    <label class="form-label">{{
-                      t("settings.emailNotify.secure")
-                    }}</label>
-                    <label class="switch">
-                      <input v-model="smtpSecure" type="checkbox" />
-                      <span class="slider" />
-                    </label>
-                  </div>
-                </div>
+								<div class="form-item">
+									<label class="form-label">{{ t('settings.emailNotify.user') }}</label>
+									<input v-model="smtpUser" class="form-input" placeholder="例如: 123456@qq.com" />
+								</div>
+								<div class="form-item">
+									<label class="form-label">{{ t('settings.emailNotify.pass') }}</label>
+									<input v-model="smtpPass" class="form-input" type="text" placeholder="QQ邮箱请使用授权码" />
+									<div v-if="smtpProvider === 'qq'" class="form-hint" v-html="t('settings.emailNotify.qqHint')"></div>
+									<div v-else-if="smtpProvider === '163'" class="form-hint" v-html="t('settings.emailNotify.163Hint')"></div>
+								</div>
 
-                <div class="form-item">
-                  <label class="form-label">{{ t("settings.emailNotify.user") }}</label>
-                  <input
-                    v-model="smtpUser"
-                    class="form-input"
-                    placeholder="例如: 123456@qq.com"
-                  />
-                </div>
-                <div class="form-item">
-                  <label class="form-label">{{ t("settings.emailNotify.pass") }}</label>
-                  <input
-                    v-model="smtpPass"
-                    class="form-input"
-                    type="text"
-                    placeholder="QQ邮箱请使用授权码"
-                  />
-                  <div
-                    v-if="smtpProvider === 'qq'"
-                    class="form-hint"
-                    v-html="t('settings.emailNotify.qqHint')"
-                  ></div>
-                  <div
-                    v-else-if="smtpProvider === '163'"
-                    class="form-hint"
-                    v-html="t('settings.emailNotify.163Hint')"
-                  ></div>
-                </div>
+								<div class="divider"></div>
+								<h4 class="card-subtitle">
+									{{ t('settings.emailNotify.templateTitle') }}
+								</h4>
 
-                <div class="divider"></div>
-                <h4 class="card-subtitle">
-                  {{ t("settings.emailNotify.templateTitle") }}
-                </h4>
+								<div class="form-item">
+									<label class="form-label">{{ t('settings.emailNotify.adminTemplate') }}</label>
+									<div class="form-hint">
+										{{ t('settings.emailNotify.adminTemplateHint') }}
+									</div>
+									<textarea v-model="templateAdmin" class="form-input" rows="10" placeholder="留空则使用默认模板"></textarea>
+								</div>
 
-                <div class="form-item">
-                  <label class="form-label">{{
-                    t("settings.emailNotify.adminTemplate")
-                  }}</label>
-                  <div class="form-hint">
-                    {{ t("settings.emailNotify.adminTemplateHint") }}
-                  </div>
-                  <textarea
-                    v-model="templateAdmin"
-                    class="form-input"
-                    rows="10"
-                    placeholder="留空则使用默认模板"
-                  ></textarea>
-                </div>
+								<div class="form-item">
+									<label class="form-label">{{ t('settings.emailNotify.replyTemplate') }}</label>
+									<div class="form-hint">
+										{{ t('settings.emailNotify.replyTemplateHint') }}
+									</div>
+									<textarea v-model="templateReply" class="form-input" rows="10" placeholder="留空则使用默认模板"></textarea>
+								</div>
 
-                <div class="form-item">
-                  <label class="form-label">{{
-                    t("settings.emailNotify.replyTemplate")
-                  }}</label>
-                  <div class="form-hint">
-                    {{ t("settings.emailNotify.replyTemplateHint") }}
-                  </div>
-                  <textarea
-                    v-model="templateReply"
-                    class="form-input"
-                    rows="10"
-                    placeholder="留空则使用默认模板"
-                  ></textarea>
-                </div>
+								<div v-if="message && messageType === 'error'" class="form-message form-message-error">
+									{{ message }}
+								</div>
+								<div class="card-actions card-actions-email">
+									<button class="card-button secondary" :disabled="testingEmail" @click="testEmail">
+										<span v-if="testingEmail">{{ t('settings.emailNotify.testingBtn') }}</span>
+										<span v-else>{{ t('settings.emailNotify.testBtn') }}</span>
+									</button>
+									<button class="card-button secondary" @click="resetTemplatesToDefault">
+										{{ t('settings.emailNotify.resetBtn') }}
+									</button>
+									<button class="card-button" :disabled="savingEmail" @click="saveEmail">
+										<span v-if="savingEmail">{{ t('settings.emailNotify.saving') }}</span>
+										<span v-else>{{ t('settings.emailNotify.save') }}</span>
+									</button>
+								</div>
+							</div>
+						</div>
+					</template>
+					<template v-else-if="activeTab === 'telegramNotify'">
+						<div class="card">
+							<div class="card-header">
+								<div class="card-title">{{ t('settings.telegramNotify.title') }}</div>
+							</div>
+							<div class="card-body">
+								<div class="form-item">
+									<label class="form-label">{{ t('settings.telegramNotify.enable') }}</label>
+									<label class="switch">
+										<input
+											v-model="telegramNotifyEnabled"
+											type="checkbox"
+											role="switch"
+											:aria-label="t('settings.telegramNotify.enable')" />
+										<span class="slider" />
+									</label>
+								</div>
+								<div class="form-item">
+									<label class="form-label">{{ t('settings.telegramNotify.botToken') }}</label>
+									<input
+										v-model="telegramBotToken"
+										class="form-input"
+										type="password"
+										placeholder="123456:ABC-DEF1234ghIkl-zyx57W2v1u123ew11"
+										autocomplete="new-password" />
+									<div class="form-hint" v-html="t('settings.telegramNotify.botTokenHint')"></div>
+								</div>
+								<div class="form-item">
+									<label class="form-label">{{ t('settings.telegramNotify.chatId') }}</label>
+									<input v-model="telegramChatId" class="form-input" type="text" placeholder="123456789" />
+									<div class="form-hint" v-html="t('settings.telegramNotify.chatIdHint')"></div>
+								</div>
 
-                <div
-                  v-if="message && messageType === 'error'"
-                  class="form-message form-message-error"
-                >
-                  {{ message }}
-                </div>
-                <div class="card-actions card-actions-email">
-                  <button
-                    class="card-button secondary"
-                    :disabled="testingEmail"
-                    @click="testEmail"
-                  >
-                    <span v-if="testingEmail">{{
-                      t("settings.emailNotify.testingBtn")
-                    }}</span>
-                    <span v-else>{{ t("settings.emailNotify.testBtn") }}</span>
-                  </button>
-                  <button
-                    class="card-button secondary"
-                    @click="resetTemplatesToDefault"
-                  >
-                    {{ t("settings.emailNotify.resetBtn") }}
-                  </button>
-                  <button class="card-button" :disabled="savingEmail" @click="saveEmail">
-                    <span v-if="savingEmail">{{ t("settings.emailNotify.saving") }}</span>
-                    <span v-else>{{ t("settings.emailNotify.save") }}</span>
-                  </button>
-                </div>
-              </div>
-            </div>
-          </template>
-          <template v-else-if="activeTab === 'telegramNotify'">
-            <div class="card">
-              <div class="card-header">
-                <div class="card-title">{{ t("settings.telegramNotify.title") }}</div>
-              </div>
-              <div class="card-body">
-                <div class="form-item">
-                  <label class="form-label">{{
-                    t("settings.telegramNotify.enable")
-                  }}</label>
-                  <label class="switch">
-                    <input v-model="telegramNotifyEnabled" type="checkbox" />
-                    <span class="slider" />
-                  </label>
-                </div>
-                <div class="form-item">
-                  <label class="form-label">{{
-                    t("settings.telegramNotify.botToken")
-                  }}</label>
-                  <input
-                    v-model="telegramBotToken"
-                    class="form-input"
-                    type="password"
-                    placeholder="123456:ABC-DEF1234ghIkl-zyx57W2v1u123ew11"
-                    autocomplete="new-password"
-                  />
-                  <div
-                    class="form-hint"
-                    v-html="t('settings.telegramNotify.botTokenHint')"
-                  ></div>
-                </div>
-                <div class="form-item">
-                  <label class="form-label">{{
-                    t("settings.telegramNotify.chatId")
-                  }}</label>
-                  <input
-                    v-model="telegramChatId"
-                    class="form-input"
-                    type="text"
-                    placeholder="123456789"
-                  />
-                  <div
-                    class="form-hint"
-                    v-html="t('settings.telegramNotify.chatIdHint')"
-                  ></div>
-                </div>
-
-                <div class="card-actions card-actions-telegram">
-                  <button
-                    class="card-button secondary"
-                    :disabled="settingUpWebhook"
-                    @click="doSetupWebhook"
-                  >
-                    <span v-if="settingUpWebhook">{{
-                      t("settings.telegramNotify.webhookSetting")
-                    }}</span>
-                    <span v-else>{{ t("settings.telegramNotify.webhookBtn") }}</span>
-                  </button>
-                  <button
-                    class="card-button secondary"
-                    :disabled="testingTelegram"
-                    @click="testTelegram"
-                  >
-                    <span v-if="testingTelegram">{{
-                      t("settings.telegramNotify.testingBtn")
-                    }}</span>
-                    <span v-else>{{ t("settings.telegramNotify.testBtn") }}</span>
-                  </button>
-                  <button
-                    class="card-button"
-                    :disabled="savingTelegram"
-                    @click="saveTelegram"
-                  >
-                    <span v-if="savingTelegram">{{
-                      t("settings.telegramNotify.saving")
-                    }}</span>
-                    <span v-else>{{ t("settings.telegramNotify.save") }}</span>
-                  </button>
-                </div>
-              </div>
-            </div>
-          </template>
-        </div>
-      </transition>
-    </div>
-  </div>
+								<div class="card-actions card-actions-telegram">
+									<button class="card-button secondary" :disabled="settingUpWebhook" @click="doSetupWebhook">
+										<span v-if="settingUpWebhook">{{ t('settings.telegramNotify.webhookSetting') }}</span>
+										<span v-else>{{ t('settings.telegramNotify.webhookBtn') }}</span>
+									</button>
+									<button class="card-button secondary" :disabled="testingTelegram" @click="testTelegram">
+										<span v-if="testingTelegram">{{ t('settings.telegramNotify.testingBtn') }}</span>
+										<span v-else>{{ t('settings.telegramNotify.testBtn') }}</span>
+									</button>
+									<button class="card-button" :disabled="savingTelegram" @click="saveTelegram">
+										<span v-if="savingTelegram">{{ t('settings.telegramNotify.saving') }}</span>
+										<span v-else>{{ t('settings.telegramNotify.save') }}</span>
+									</button>
+								</div>
+							</div>
+						</div>
+					</template>
+				</div>
+			</transition>
+		</div>
+	</div>
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref, inject, watch } from "vue";
-import { useRoute, useRouter } from "vue-router";
-import { useI18n } from "vue-i18n";
+import { onMounted, ref, inject, watch } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
+import { useI18n } from 'vue-i18n';
 import {
-  fetchCommentSettings,
-  saveCommentSettings,
-  fetchEmailNotifySettings,
-  saveEmailNotifySettings,
-  sendTestEmail,
-  fetchFeatureSettings,
-  saveFeatureSettings,
-  fetchAdminDisplaySettings,
-  saveAdminDisplaySettings,
-  fetchTelegramSettings,
-  saveTelegramSettings,
-  setupTelegramWebhook,
-  sendTelegramTestMessage,
-} from "../../api/admin";
-import TagInput from "../../components/TagInput.vue";
+	fetchCommentSettings,
+	saveCommentSettings,
+	fetchEmailNotifySettings,
+	saveEmailNotifySettings,
+	sendTestEmail,
+	fetchFeatureSettings,
+	saveFeatureSettings,
+	fetchAdminDisplaySettings,
+	saveAdminDisplaySettings,
+	fetchTelegramSettings,
+	saveTelegramSettings,
+	setupTelegramWebhook,
+	sendTelegramTestMessage,
+} from '../../api/admin';
+import TagInput from '../../components/TagInput.vue';
 
 const DEFAULT_REPLY_TEMPLATE = `<div style="background-color:#f4f4f5;padding:24px 0;">
       <div style="max-width:640px;margin:0 auto;background:#ffffff;border-radius:12px;border:1px solid #e5e7eb;overflow:hidden;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;color:#111827;">
@@ -639,78 +501,70 @@ const DEFAULT_ADMIN_TEMPLATE = `<div style="background-color:#f4f4f5;padding:24p
   `;
 
 const emailGlobalEnabled = ref(true);
-const commentAdminEmail = ref("");
-const commentAdminBadge = ref("");
-const avatarPrefix = ref("");
+const commentAdminEmail = ref('');
+const commentAdminBadge = ref('');
+const avatarPrefix = ref('');
 const commentAdminEnabled = ref(false);
-const adminLayoutTitle = ref("CWD 评论系统");
+const adminLayoutTitle = ref('CWD 评论系统');
 const allowedDomainTags = ref<string[]>([]);
 const blockedIpTags = ref<string[]>([]);
 const blockedEmailTags = ref<string[]>([]);
-const commentAdminKey = ref("");
+const commentAdminKey = ref('');
 const adminKeySet = ref(false);
 const requireReview = ref(false);
 const enableArticleLike = ref(true);
 const enableCommentLike = ref(true);
 const enableImageLightbox = ref(true);
-const commentPlaceholder = ref("");
-const emotionJson = ref("");
-const telegramBotToken = ref("");
-const telegramChatId = ref("");
+const commentPlaceholder = ref('');
+const emotionJson = ref('');
+const telegramBotToken = ref('');
+const telegramChatId = ref('');
 const telegramNotifyEnabled = ref(false);
 const savingTelegram = ref(false);
 const settingUpWebhook = ref(false);
 const testingTelegram = ref(false);
 
 const languageOptions = [
-  { value: "en-US", label: "English" },
-  { value: "zh-CN", label: "简体中文" },
-  { value: "zh-TW", label: "繁體中文" },
-  { value: "es", label: "Español" },
-  { value: "pt", label: "Português" },
-  { value: "fr", label: "Français" },
-  { value: "de", label: "Deutsch" },
-  { value: "ja", label: "日本語" },
-  { value: "ko", label: "한국어" },
-  { value: "ru", label: "Русский" },
-  { value: "it", label: "Italiano" },
-  { value: "nl", label: "Nederlands" },
-  { value: "ar", label: "العربية" },
-  { value: "hi", label: "हिन्दी" },
-  { value: "id", label: "Bahasa Indonesia" },
+	{ value: 'en-US', label: 'English' },
+	{ value: 'zh-CN', label: '简体中文' },
+	{ value: 'zh-TW', label: '繁體中文' },
+	{ value: 'es', label: 'Español' },
+	{ value: 'pt', label: 'Português' },
+	{ value: 'fr', label: 'Français' },
+	{ value: 'de', label: 'Deutsch' },
+	{ value: 'ja', label: '日本語' },
+	{ value: 'ko', label: '한국어' },
+	{ value: 'ru', label: 'Русский' },
+	{ value: 'it', label: 'Italiano' },
+	{ value: 'nl', label: 'Nederlands' },
+	{ value: 'ar', label: 'العربية' },
+	{ value: 'hi', label: 'हिन्दी' },
+	{ value: 'id', label: 'Bahasa Indonesia' },
 ];
 
 const { t, locale } = useI18n();
-const adminLanguage = ref("zh-CN");
-const widgetLanguage = ref("auto");
+const adminLanguage = ref('zh-CN');
+const widgetLanguage = ref('auto');
 
 const route = useRoute();
 const router = useRouter();
 
-type TabKey = "comment" | "feature" | "display" | "emailNotify" | "telegramNotify";
-const validTabs: TabKey[] = [
-  "comment",
-  "feature",
-  "display",
-  "emailNotify",
-  "telegramNotify",
-];
+type TabKey = 'comment' | 'feature' | 'display' | 'emailNotify' | 'telegramNotify';
+const validTabs: TabKey[] = ['comment', 'feature', 'display', 'emailNotify', 'telegramNotify'];
 
-const activeTab = ref<TabKey>(
-  validTabs.includes(route.query.tab as TabKey) ? (route.query.tab as TabKey) : "comment"
-);
+const activeTab = ref<TabKey>(validTabs.includes(route.query.tab as TabKey) ? (route.query.tab as TabKey) : 'comment');
 
 watch(activeTab, (newTab) => {
-  router.replace({ query: { ...route.query, tab: newTab } });
+	router.replace({ query: { ...route.query, tab: newTab } });
 });
 
 watch(
-  () => route.query.tab,
-  (newTab) => {
-    if (newTab && validTabs.includes(newTab as TabKey)) {
-      activeTab.value = newTab as TabKey;
-    }
-  }
+	() => route.query.tab,
+	(newTab) => {
+		if (newTab && validTabs.includes(newTab as TabKey)) {
+			activeTab.value = newTab as TabKey;
+		}
+	}
 );
 
 const savingEmail = ref(false);
@@ -719,398 +573,380 @@ const savingComment = ref(false);
 const savingFeature = ref(false);
 const savingDisplay = ref(false);
 const loading = ref(false);
-const message = ref("");
-const messageType = ref<"success" | "error">("success");
-const toastMessage = ref("");
-const toastType = ref<"success" | "error">("success");
+const message = ref('');
+const messageType = ref<'success' | 'error'>('success');
+const toastMessage = ref('');
+const toastType = ref<'success' | 'error'>('success');
 const toastVisible = ref(false);
 
 // 从本地存储加载卡片展开状态，默认只展开第一个卡片
-const STORAGE_KEY = "settings-cards-expanded";
+const STORAGE_KEY = 'settings-cards-expanded';
 function loadCardsExpanded() {
-  try {
-    const saved = localStorage.getItem(STORAGE_KEY);
-    if (saved) {
-      const parsed = JSON.parse(saved);
-      return {
-        comment: parsed.comment ?? true,
-        display: parsed.display ?? false,
-        feature: parsed.feature ?? false,
-        email: parsed.email ?? false,
-        telegram: parsed.telegram ?? false,
-        site: parsed.site ?? false,
-      };
-    }
-  } catch {}
-  return {
-    comment: true,
-    display: false,
-    feature: false,
-    email: false,
-    telegram: false,
-    site: false,
-  };
+	try {
+		const saved = localStorage.getItem(STORAGE_KEY);
+		if (saved) {
+			const parsed = JSON.parse(saved);
+			return {
+				comment: parsed.comment ?? true,
+				display: parsed.display ?? false,
+				feature: parsed.feature ?? false,
+				email: parsed.email ?? false,
+				telegram: parsed.telegram ?? false,
+				site: parsed.site ?? false,
+			};
+		}
+	} catch {}
+	return {
+		comment: true,
+		display: false,
+		feature: false,
+		email: false,
+		telegram: false,
+		site: false,
+	};
 }
 
 const cardsExpanded = ref(loadCardsExpanded());
 
 function saveCardsExpanded() {
-  try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(cardsExpanded.value));
-  } catch {
-    // 忽略错误
-  }
+	try {
+		localStorage.setItem(STORAGE_KEY, JSON.stringify(cardsExpanded.value));
+	} catch {
+		// 忽略错误
+	}
 }
 
 function toggleCard(card: keyof typeof cardsExpanded.value) {
-  cardsExpanded.value[card] = !cardsExpanded.value[card];
-  saveCardsExpanded();
+	cardsExpanded.value[card] = !cardsExpanded.value[card];
+	saveCardsExpanded();
 }
 
-const smtpProvider = ref("qq");
-const smtpHost = ref("smtp.qq.com");
+const smtpProvider = ref('qq');
+const smtpHost = ref('smtp.qq.com');
 const smtpPort = ref(465);
-const smtpUser = ref("");
-const smtpPass = ref("");
+const smtpUser = ref('');
+const smtpPass = ref('');
 const smtpSecure = ref(true);
 const templateAdmin = ref(DEFAULT_ADMIN_TEMPLATE);
 const templateReply = ref(DEFAULT_REPLY_TEMPLATE);
 
 function onProviderChange() {
-  if (smtpProvider.value === "qq") {
-    smtpHost.value = "smtp.qq.com";
-    smtpPort.value = 465;
-    smtpSecure.value = true;
-  } else if (smtpProvider.value === "163") {
-    smtpHost.value = "smtp.163.com";
-    smtpPort.value = 465;
-    smtpSecure.value = true;
-  }
+	if (smtpProvider.value === 'qq') {
+		smtpHost.value = 'smtp.qq.com';
+		smtpPort.value = 465;
+		smtpSecure.value = true;
+	} else if (smtpProvider.value === '163') {
+		smtpHost.value = 'smtp.163.com';
+		smtpPort.value = 465;
+		smtpSecure.value = true;
+	}
 }
 
-function showToast(msg: string, type: "success" | "error" = "success") {
-  toastMessage.value = msg;
-  toastType.value = type;
-  toastVisible.value = true;
-  window.setTimeout(() => {
-    toastVisible.value = false;
-  }, 2000);
+function showToast(msg: string, type: 'success' | 'error' = 'success') {
+	toastMessage.value = msg;
+	toastType.value = type;
+	toastVisible.value = true;
+	window.setTimeout(() => {
+		toastVisible.value = false;
+	}, 2000);
 }
 
 function resetTemplatesToDefault() {
-  templateAdmin.value = DEFAULT_ADMIN_TEMPLATE;
-  templateReply.value = DEFAULT_REPLY_TEMPLATE;
+	templateAdmin.value = DEFAULT_ADMIN_TEMPLATE;
+	templateReply.value = DEFAULT_REPLY_TEMPLATE;
 }
 
 async function load() {
-  loading.value = true;
-  try {
-    const [
-      commentRes,
-      emailNotifyRes,
-      featureRes,
-      telegramRes,
-      displayRes,
-    ] = await Promise.all([
-      fetchCommentSettings(),
-      fetchEmailNotifySettings(),
-      fetchFeatureSettings(),
-      fetchTelegramSettings(),
-      fetchAdminDisplaySettings(),
-    ]);
-    commentAdminEmail.value = commentRes.adminEmail || "";
-    commentAdminBadge.value = commentRes.adminBadge ?? "";
-    avatarPrefix.value = commentRes.avatarPrefix || "";
-    commentAdminEnabled.value = !!commentRes.adminEnabled;
-    const domains = Array.isArray(commentRes.allowedDomains)
-      ? commentRes.allowedDomains
-      : [];
-    allowedDomainTags.value = domains
-      .map((d: string) => String(d).trim())
-      .filter(Boolean);
-    blockedIpTags.value = Array.isArray(commentRes.blockedIps)
-      ? commentRes.blockedIps
-      : [];
-    blockedEmailTags.value = Array.isArray(commentRes.blockedEmails)
-      ? commentRes.blockedEmails
-      : [];
-    commentAdminKey.value = commentRes.adminKey || "";
-    adminKeySet.value = !!commentRes.adminKeySet;
-    requireReview.value = !!commentRes.requireReview;
-    emailGlobalEnabled.value = !!emailNotifyRes.globalEnabled;
-    enableArticleLike.value = featureRes.enableArticleLike;
-    enableCommentLike.value = featureRes.enableCommentLike;
-    enableImageLightbox.value = featureRes.enableImageLightbox;
-    commentPlaceholder.value = featureRes.commentPlaceholder || "";
-    emotionJson.value = featureRes.emotionJson || "";
-    adminLanguage.value = featureRes.adminLanguage || "zh-CN";
-    widgetLanguage.value = featureRes.widgetLanguage || "auto";
+	loading.value = true;
+	try {
+		const [commentRes, emailNotifyRes, featureRes, telegramRes, displayRes] = await Promise.all([
+			fetchCommentSettings(),
+			fetchEmailNotifySettings(),
+			fetchFeatureSettings(),
+			fetchTelegramSettings(),
+			fetchAdminDisplaySettings(),
+		]);
+		commentAdminEmail.value = commentRes.adminEmail || '';
+		commentAdminBadge.value = commentRes.adminBadge ?? '';
+		avatarPrefix.value = commentRes.avatarPrefix || '';
+		commentAdminEnabled.value = !!commentRes.adminEnabled;
+		const domains = Array.isArray(commentRes.allowedDomains) ? commentRes.allowedDomains : [];
+		allowedDomainTags.value = domains.map((d: string) => String(d).trim()).filter(Boolean);
+		blockedIpTags.value = Array.isArray(commentRes.blockedIps) ? commentRes.blockedIps : [];
+		blockedEmailTags.value = Array.isArray(commentRes.blockedEmails) ? commentRes.blockedEmails : [];
+		commentAdminKey.value = commentRes.adminKey || '';
+		adminKeySet.value = !!commentRes.adminKeySet;
+		requireReview.value = !!commentRes.requireReview;
+		emailGlobalEnabled.value = !!emailNotifyRes.globalEnabled;
+		enableArticleLike.value = featureRes.enableArticleLike;
+		enableCommentLike.value = featureRes.enableCommentLike;
+		enableImageLightbox.value = featureRes.enableImageLightbox;
+		commentPlaceholder.value = featureRes.commentPlaceholder || '';
+		emotionJson.value = featureRes.emotionJson || '';
+		adminLanguage.value = featureRes.adminLanguage || 'zh-CN';
+		widgetLanguage.value = featureRes.widgetLanguage || 'auto';
 
-    // Sync locale
-    if (featureRes.adminLanguage) {
-      locale.value = featureRes.adminLanguage;
-      localStorage.setItem("admin_language", featureRes.adminLanguage);
-    }
+		// Sync locale
+		if (featureRes.adminLanguage) {
+			locale.value = featureRes.adminLanguage;
+			localStorage.setItem('admin_language', featureRes.adminLanguage);
+		}
 
-    telegramBotToken.value = telegramRes.botToken || "";
-    telegramChatId.value = telegramRes.chatId || "";
-    telegramNotifyEnabled.value = telegramRes.notifyEnabled;
+		telegramBotToken.value = telegramRes.botToken || '';
+		telegramChatId.value = telegramRes.chatId || '';
+		telegramNotifyEnabled.value = telegramRes.notifyEnabled;
 
-    adminLayoutTitle.value = displayRes.layoutTitle || "CWD 评论系统";
+		adminLayoutTitle.value = displayRes.layoutTitle || 'CWD 评论系统';
 
-    if (emailNotifyRes.templates) {
-      templateAdmin.value = emailNotifyRes.templates.admin || DEFAULT_ADMIN_TEMPLATE;
-      templateReply.value = emailNotifyRes.templates.reply || DEFAULT_REPLY_TEMPLATE;
-    } else {
-      templateAdmin.value = DEFAULT_ADMIN_TEMPLATE;
-      templateReply.value = DEFAULT_REPLY_TEMPLATE;
-    }
+		if (emailNotifyRes.templates) {
+			templateAdmin.value = emailNotifyRes.templates.admin || DEFAULT_ADMIN_TEMPLATE;
+			templateReply.value = emailNotifyRes.templates.reply || DEFAULT_REPLY_TEMPLATE;
+		} else {
+			templateAdmin.value = DEFAULT_ADMIN_TEMPLATE;
+			templateReply.value = DEFAULT_REPLY_TEMPLATE;
+		}
 
-    if (emailNotifyRes.smtp) {
-      smtpHost.value = emailNotifyRes.smtp.host;
-      smtpPort.value = emailNotifyRes.smtp.port;
-      smtpUser.value = emailNotifyRes.smtp.user;
-      smtpPass.value = emailNotifyRes.smtp.pass;
-      smtpSecure.value = emailNotifyRes.smtp.secure;
+		if (emailNotifyRes.smtp) {
+			smtpHost.value = emailNotifyRes.smtp.host;
+			smtpPort.value = emailNotifyRes.smtp.port;
+			smtpUser.value = emailNotifyRes.smtp.user;
+			smtpPass.value = emailNotifyRes.smtp.pass;
+			smtpSecure.value = emailNotifyRes.smtp.secure;
 
-      if (emailNotifyRes.smtp.host === "smtp.qq.com") {
-        smtpProvider.value = "qq";
-      } else if (emailNotifyRes.smtp.host === "smtp.163.com") {
-        smtpProvider.value = "163";
-      } else {
-        smtpProvider.value = "custom";
-      }
-    }
-  } catch (e: any) {
-    message.value = e.message || "加载失败";
-    messageType.value = "error";
-  } finally {
-    loading.value = false;
-  }
+			if (emailNotifyRes.smtp.host === 'smtp.qq.com') {
+				smtpProvider.value = 'qq';
+			} else if (emailNotifyRes.smtp.host === 'smtp.163.com') {
+				smtpProvider.value = '163';
+			} else {
+				smtpProvider.value = 'custom';
+			}
+		}
+	} catch (e: any) {
+		message.value = e.message || '加载失败';
+		messageType.value = 'error';
+	} finally {
+		loading.value = false;
+	}
 }
 
 async function saveEmail() {
-  savingEmail.value = true;
-  message.value = "";
-  try {
-    const res = await saveEmailNotifySettings({
-      globalEnabled: emailGlobalEnabled.value,
-      smtp: {
-        host: smtpHost.value,
-        port: smtpPort.value,
-        user: smtpUser.value,
-        pass: smtpPass.value,
-        secure: smtpSecure.value,
-      },
-      templates: {
-        reply: templateReply.value,
-        admin: templateAdmin.value,
-      },
-    });
-    showToast(res.message || "保存成功", "success");
-  } catch (e: any) {
-    message.value = e.message || "保存失败";
-    messageType.value = "error";
-  } finally {
-    savingEmail.value = false;
-  }
+	savingEmail.value = true;
+	message.value = '';
+	try {
+		const res = await saveEmailNotifySettings({
+			globalEnabled: emailGlobalEnabled.value,
+			smtp: {
+				host: smtpHost.value,
+				port: smtpPort.value,
+				user: smtpUser.value,
+				pass: smtpPass.value,
+				secure: smtpSecure.value,
+			},
+			templates: {
+				reply: templateReply.value,
+				admin: templateAdmin.value,
+			},
+		});
+		showToast(res.message || '保存成功', 'success');
+	} catch (e: any) {
+		message.value = e.message || '保存失败';
+		messageType.value = 'error';
+	} finally {
+		savingEmail.value = false;
+	}
 }
 
 async function testEmail() {
-  if (!commentAdminEmail.value) {
-    message.value = "请先在上方“评论显示配置”中设置管理员邮箱";
-    messageType.value = "error";
-    return;
-  }
-  if (!smtpUser.value || !smtpPass.value) {
-    message.value = "请先填写 SMTP 账号和密码";
-    messageType.value = "error";
-    return;
-  }
+	if (!commentAdminEmail.value) {
+		message.value = '请先在上方“评论显示配置”中设置管理员邮箱';
+		messageType.value = 'error';
+		return;
+	}
+	if (!smtpUser.value || !smtpPass.value) {
+		message.value = '请先填写 SMTP 账号和密码';
+		messageType.value = 'error';
+		return;
+	}
 
-  testingEmail.value = true;
-  message.value = "";
-  try {
-    const res = await sendTestEmail({
-      toEmail: commentAdminEmail.value,
-      smtp: {
-        host: smtpHost.value,
-        port: smtpPort.value,
-        user: smtpUser.value,
-        pass: smtpPass.value,
-        secure: smtpSecure.value,
-      },
-    });
-    showToast(res.message || "发送成功，请查收邮件", "success");
-  } catch (e: any) {
-    // 显示详细错误信息
-    console.error(e);
-    let errorMsg = e.message || "发送失败";
+	testingEmail.value = true;
+	message.value = '';
+	try {
+		const res = await sendTestEmail({
+			toEmail: commentAdminEmail.value,
+			smtp: {
+				host: smtpHost.value,
+				port: smtpPort.value,
+				user: smtpUser.value,
+				pass: smtpPass.value,
+				secure: smtpSecure.value,
+			},
+		});
+		showToast(res.message || '发送成功，请查收邮件', 'success');
+	} catch (e: any) {
+		// 显示详细错误信息
+		console.error(e);
+		let errorMsg = e.message || '发送失败';
 
-    // 针对 QQ 邮箱 535 错误的友好提示
-    if (
-      errorMsg.includes("535") &&
-      (errorMsg.includes("Login fail") || errorMsg.includes("authentication failed"))
-    ) {
-      errorMsg =
-        "验证失败 (535)：请检查 1. QQ 邮箱是否已开启 POP3/SMTP 服务；2. 密码栏是否填写了“授权码”（非 QQ 密码）。";
-    }
+		// 针对 QQ 邮箱 535 错误的友好提示
+		if (errorMsg.includes('535') && (errorMsg.includes('Login fail') || errorMsg.includes('authentication failed'))) {
+			errorMsg = '验证失败 (535)：请检查 1. QQ 邮箱是否已开启 POP3/SMTP 服务；2. 密码栏是否填写了“授权码”（非 QQ 密码）。';
+		}
 
-    message.value = errorMsg;
-    messageType.value = "error";
-  } finally {
-    testingEmail.value = false;
-  }
+		message.value = errorMsg;
+		messageType.value = 'error';
+	} finally {
+		testingEmail.value = false;
+	}
 }
 
 async function saveComment() {
-  savingComment.value = true;
-  message.value = "";
-  try {
-    const [commentRes] = await Promise.all([
-      saveCommentSettings({
-        adminEmail: commentAdminEmail.value,
-        adminBadge: commentAdminBadge.value,
-        avatarPrefix: avatarPrefix.value,
-        adminEnabled: commentAdminEnabled.value,
-        allowedDomains: allowedDomainTags.value,
-        adminKey: commentAdminKey.value || undefined,
-        requireReview: requireReview.value,
-        blockedIps: blockedIpTags.value,
-        blockedEmails: blockedEmailTags.value,
-      }),
-    ]);
+	savingComment.value = true;
+	message.value = '';
+	try {
+		const [commentRes] = await Promise.all([
+			saveCommentSettings({
+				adminEmail: commentAdminEmail.value,
+				adminBadge: commentAdminBadge.value,
+				avatarPrefix: avatarPrefix.value,
+				adminEnabled: commentAdminEnabled.value,
+				allowedDomains: allowedDomainTags.value,
+				adminKey: commentAdminKey.value || undefined,
+				requireReview: requireReview.value,
+				blockedIps: blockedIpTags.value,
+				blockedEmails: blockedEmailTags.value,
+			}),
+		]);
 
-    showToast(commentRes.message || t("common.saveSuccess"), "success");
-  } catch (e: any) {
-    showToast(e.message || t("common.saveFailed"), "error");
-  } finally {
-    savingComment.value = false;
-  }
+		showToast(commentRes.message || t('common.saveSuccess'), 'success');
+	} catch (e: any) {
+		showToast(e.message || t('common.saveFailed'), 'error');
+	} finally {
+		savingComment.value = false;
+	}
 }
 
 async function saveFeature() {
-  savingFeature.value = true;
-  message.value = "";
-  try {
-    const [featureRes] = await Promise.all([
-      saveFeatureSettings({
-        enableArticleLike: enableArticleLike.value,
-        enableCommentLike: enableCommentLike.value,
-        enableImageLightbox: enableImageLightbox.value,
-        commentPlaceholder: commentPlaceholder.value,
-        widgetLanguage: widgetLanguage.value,
-        emotionJson: emotionJson.value,
-      }),
-    ]);
+	savingFeature.value = true;
+	message.value = '';
+	try {
+		const [featureRes] = await Promise.all([
+			saveFeatureSettings({
+				enableArticleLike: enableArticleLike.value,
+				enableCommentLike: enableCommentLike.value,
+				enableImageLightbox: enableImageLightbox.value,
+				commentPlaceholder: commentPlaceholder.value,
+				widgetLanguage: widgetLanguage.value,
+				emotionJson: emotionJson.value,
+			}),
+		]);
 
-    showToast(featureRes.message || t("common.saveSuccess"), "success");
-  } catch (e: any) {
-    showToast(e.message || t("common.saveFailed"), "error");
-  } finally {
-    savingFeature.value = false;
-  }
+		showToast(featureRes.message || t('common.saveSuccess'), 'success');
+	} catch (e: any) {
+		showToast(e.message || t('common.saveFailed'), 'error');
+	} finally {
+		savingFeature.value = false;
+	}
 }
 
-const updateSiteTitle = inject<(title: string) => void>("updateSiteTitle");
+const updateSiteTitle = inject<(title: string) => void>('updateSiteTitle');
 
 async function saveDisplay() {
-  savingDisplay.value = true;
-  message.value = "";
-  try {
-    const res = await saveAdminDisplaySettings({
-      layoutTitle: adminLayoutTitle.value,
-    });
+	savingDisplay.value = true;
+	message.value = '';
+	try {
+		const res = await saveAdminDisplaySettings({
+			layoutTitle: adminLayoutTitle.value,
+		});
 
-    // Also save admin language to feature settings as it's a global preference
-    await saveFeatureSettings({
-      adminLanguage: adminLanguage.value,
-    });
+		// Also save admin language to feature settings as it's a global preference
+		await saveFeatureSettings({
+			adminLanguage: adminLanguage.value,
+		});
 
-    if (updateSiteTitle) {
-      updateSiteTitle(adminLayoutTitle.value);
-    }
+		if (updateSiteTitle) {
+			updateSiteTitle(adminLayoutTitle.value);
+		}
 
-    // Update local locale
-    locale.value = adminLanguage.value;
-    localStorage.setItem("admin_language", adminLanguage.value);
+		// Update local locale
+		locale.value = adminLanguage.value;
+		localStorage.setItem('admin_language', adminLanguage.value);
 
-    showToast(res.message || "保存成功", "success");
-  } catch (e: any) {
-    message.value = e.message || "保存失败";
-    messageType.value = "error";
-  } finally {
-    savingDisplay.value = false;
-  }
+		showToast(res.message || '保存成功', 'success');
+	} catch (e: any) {
+		message.value = e.message || '保存失败';
+		messageType.value = 'error';
+	} finally {
+		savingDisplay.value = false;
+	}
 }
 
 async function saveTelegram() {
-  savingTelegram.value = true;
-  message.value = "";
-  try {
-    const res = await saveTelegramSettings({
-      botToken: telegramBotToken.value,
-      chatId: telegramChatId.value,
-      notifyEnabled: telegramNotifyEnabled.value,
-    });
-    showToast(res.message || "保存成功", "success");
-  } catch (e: any) {
-    message.value = e.message || "保存失败";
-    messageType.value = "error";
-  } finally {
-    savingTelegram.value = false;
-  }
+	savingTelegram.value = true;
+	message.value = '';
+	try {
+		const res = await saveTelegramSettings({
+			botToken: telegramBotToken.value,
+			chatId: telegramChatId.value,
+			notifyEnabled: telegramNotifyEnabled.value,
+		});
+		showToast(res.message || '保存成功', 'success');
+	} catch (e: any) {
+		message.value = e.message || '保存失败';
+		messageType.value = 'error';
+	} finally {
+		savingTelegram.value = false;
+	}
 }
 
 async function testTelegram() {
-  if (!telegramBotToken.value || !telegramChatId.value) {
-    showToast("请先填写 Bot Token 和 Chat ID 并保存", "error");
-    return;
-  }
-  testingTelegram.value = true;
-  try {
-    await saveTelegramSettings({
-      botToken: telegramBotToken.value,
-      chatId: telegramChatId.value,
-      notifyEnabled: telegramNotifyEnabled.value,
-    });
-    const res = await sendTelegramTestMessage();
-    showToast(res.message || "测试消息已发送", "success");
-  } catch (e: any) {
-    showToast(e.message || "发送失败", "error");
-  } finally {
-    testingTelegram.value = false;
-  }
+	if (!telegramBotToken.value || !telegramChatId.value) {
+		showToast('请先填写 Bot Token 和 Chat ID 并保存', 'error');
+		return;
+	}
+	testingTelegram.value = true;
+	try {
+		await saveTelegramSettings({
+			botToken: telegramBotToken.value,
+			chatId: telegramChatId.value,
+			notifyEnabled: telegramNotifyEnabled.value,
+		});
+		const res = await sendTelegramTestMessage();
+		showToast(res.message || '测试消息已发送', 'success');
+	} catch (e: any) {
+		showToast(e.message || '发送失败', 'error');
+	} finally {
+		testingTelegram.value = false;
+	}
 }
 
 async function doSetupWebhook() {
-  if (!telegramBotToken.value) {
-    showToast("请先填写 Bot Token 并保存", "error");
-    return;
-  }
-  settingUpWebhook.value = true;
-  try {
-    // First save settings to ensure backend has latest token
-    await saveTelegramSettings({
-      botToken: telegramBotToken.value,
-      chatId: telegramChatId.value,
-      notifyEnabled: telegramNotifyEnabled.value,
-    });
+	if (!telegramBotToken.value) {
+		showToast('请先填写 Bot Token 并保存', 'error');
+		return;
+	}
+	settingUpWebhook.value = true;
+	try {
+		// First save settings to ensure backend has latest token
+		await saveTelegramSettings({
+			botToken: telegramBotToken.value,
+			chatId: telegramChatId.value,
+			notifyEnabled: telegramNotifyEnabled.value,
+		});
 
-    const res = await setupTelegramWebhook();
-    showToast(res.message || "Webhook 设置成功", "success");
-  } catch (e: any) {
-    showToast(e.message || "设置失败", "error");
-  } finally {
-    settingUpWebhook.value = false;
-  }
+		const res = await setupTelegramWebhook();
+		showToast(res.message || 'Webhook 设置成功', 'success');
+	} catch (e: any) {
+		showToast(e.message || '设置失败', 'error');
+	} finally {
+		settingUpWebhook.value = false;
+	}
 }
 
 onMounted(() => {
-  load();
+	load();
 });
 </script>
 
 <style scoped lang="less">
-@import "../../styles/components/setting.less";
+@import '../../styles/components/setting.less';
 </style>

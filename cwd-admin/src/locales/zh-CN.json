@@ -10,6 +10,12 @@
     "toggleMenu": "切换菜单",
     "docs": "使用文档",
     "logout": "退出",
+    "logoutDialog": {
+      "title": "退出登录？",
+      "description": "退出后需重新登录才能继续管理评论。",
+      "cancel": "取消",
+      "confirm": "退出登录"
+    },
     "moreActions": "更多操作",
     "defaultSite": "默认站点",
     "theme": {
@@ -314,7 +320,7 @@
     "display": {
       "title": "后台显示设置",
       "layoutTitle": "后台标题",
-      "layoutTitleHint": "显示在后台顶部导航栏左侧。",
+      "layoutTitleHint": "显示在后台侧栏顶部。",
       "adminLanguage": "后台语言",
       "adminLanguageHint": "设置后台管理系统的显示语言。",
       "save": "保存",
@@ -325,5 +331,38 @@
     "saveSuccess": "保存成功",
     "saveFailed": "保存失败",
     "loading": "加载中..."
+  },
+  "ui": {
+    "console": "评论工作台",
+    "workspace": "工作空间",
+    "management": "管理",
+    "currentSite": "当前站点",
+    "commentsDescription": "查看访客的声音，轻松管理每一次交流。",
+    "statsDescription": "了解评论动态与站点互动情况。",
+    "analyticsDescription": "从访问趋势到热门页面，了解内容的表现。",
+    "settingsDescription": "按照你的习惯，配置评论与通知。",
+    "dataDescription": "导入、导出与备份，让数据妥善保存。",
+    "fields": {
+      "adminBadge": "博主标签文字",
+      "avatarPrefix": "头像服务地址",
+      "adminKey": "管理员评论密钥",
+      "allowedDomains": "允许的域名",
+      "blockedIps": "IP 黑名单",
+      "blockedEmails": "邮箱黑名单"
+    }
+  },
+  "login": {
+    "title": "欢迎回来",
+    "subtitle": "登录你的 CWD 评论工作台。",
+    "apiAddress": "API 地址",
+    "account": "管理员账号",
+    "password": "密码",
+    "showPassword": "显示密码",
+    "hidePassword": "隐藏密码",
+    "submit": "登录工作台",
+    "submitting": "登录中…",
+    "missingApi": "请输入 API 地址",
+    "missingCredentials": "请输入账号和密码",
+    "failed": "登录失败"
   }
 }

@@ -10,6 +10,12 @@
     "toggleMenu": "Basculer le Menu",
     "docs": "Documentation",
     "logout": "Déconnexion",
+    "logoutDialog": {
+      "title": "Se déconnecter ?",
+      "description": "Vous devrez vous reconnecter pour continuer à gérer les commentaires.",
+      "cancel": "Annuler",
+      "confirm": "Se déconnecter"
+    },
     "moreActions": "Plus d'Actions",
     "defaultSite": "Site par Défaut",
     "theme": {
@@ -316,7 +322,7 @@
     "display": {
       "title": "Paramètres Affichage",
       "layoutTitle": "Titre Admin",
-      "layoutTitleHint": "Affiché dans la barre de navigation.",
+      "layoutTitleHint": "Affiché en haut de la barre latérale d’administration.",
       "adminLanguage": "Langue Admin",
       "adminLanguageHint": "Langue du panneau d'administration.",
       "save": "Sauvegarder",
@@ -327,5 +333,38 @@
       "saveFailed": "Échec Sauvegarde",
       "loading": "Chargement..."
     }
+  },
+  "ui": {
+    "console": "Console de commentaires",
+    "workspace": "Espace de travail",
+    "management": "Gestion",
+    "currentSite": "Site actuel",
+    "commentsDescription": "Retrouvez vos visiteurs et gérez chaque conversation.",
+    "statsDescription": "Une vue claire des commentaires et des interactions.",
+    "analyticsDescription": "Explorez les tendances de visite et les pages populaires.",
+    "settingsDescription": "Personnalisez les commentaires et les notifications.",
+    "dataDescription": "Importez, exportez et sauvegardez vos données au même endroit.",
+    "fields": {
+      "adminBadge": "Badge de l’auteur",
+      "avatarPrefix": "URL du service d’avatars",
+      "adminKey": "Clé des commentaires administrateur",
+      "allowedDomains": "Domaines autorisés",
+      "blockedIps": "Adresses IP bloquées",
+      "blockedEmails": "Adresses e-mail bloquées"
+    }
+  },
+  "login": {
+    "title": "Bon retour",
+    "subtitle": "Connectez-vous à votre console de commentaires CWD.",
+    "apiAddress": "Adresse de l’API",
+    "account": "Compte administrateur",
+    "password": "Mot de passe",
+    "showPassword": "Afficher le mot de passe",
+    "hidePassword": "Masquer le mot de passe",
+    "submit": "Se connecter",
+    "submitting": "Connexion…",
+    "missingApi": "Saisissez une adresse d’API",
+    "missingCredentials": "Saisissez votre compte et votre mot de passe",
+    "failed": "Échec de la connexion"
   }
 }

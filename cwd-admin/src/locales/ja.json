@@ -10,6 +10,12 @@
     "toggleMenu": "メニュー切り替え",
     "docs": "ドキュメント",
     "logout": "ログアウト",
+    "logoutDialog": {
+      "title": "ログアウトしますか？",
+      "description": "コメントの管理を続けるには、再度ログインする必要があります。",
+      "cancel": "キャンセル",
+      "confirm": "ログアウト"
+    },
     "moreActions": "その他の操作",
     "defaultSite": "デフォルトサイト",
     "theme": {
@@ -316,7 +322,7 @@
     "display": {
       "title": "表示設定",
       "layoutTitle": "管理画面タイトル",
-      "layoutTitleHint": "トップナビゲーションバーに表示されます。",
+      "layoutTitleHint": "管理サイドバーの上部に表示されます。",
       "adminLanguage": "管理画面言語",
       "adminLanguageHint": "管理パネルの言語設定。",
       "save": "保存",
@@ -327,5 +333,38 @@
       "saveFailed": "保存失敗",
       "loading": "読み込み中..."
     }
+  },
+  "ui": {
+    "console": "コメント管理",
+    "workspace": "ワークスペース",
+    "management": "管理",
+    "currentSite": "現在のサイト",
+    "commentsDescription": "訪問者の声を確認し、会話をスムーズに管理。",
+    "statsDescription": "コメントとサイトの交流状況をひと目で確認。",
+    "analyticsDescription": "アクセスの推移と人気のページを確認。",
+    "settingsDescription": "コメントと通知を使いやすく設定。",
+    "dataDescription": "データのインポート、エクスポート、バックアップ。",
+    "fields": {
+      "adminBadge": "投稿者バッジ",
+      "avatarPrefix": "アバターサービスURL",
+      "adminKey": "管理者コメントキー",
+      "allowedDomains": "許可するドメイン",
+      "blockedIps": "ブロックするIPアドレス",
+      "blockedEmails": "ブロックするメールアドレス"
+    }
+  },
+  "login": {
+    "title": "おかえりなさい",
+    "subtitle": "CWDコメント管理にログイン。",
+    "apiAddress": "APIアドレス",
+    "account": "管理者アカウント",
+    "password": "パスワード",
+    "showPassword": "パスワードを表示",
+    "hidePassword": "パスワードを隠す",
+    "submit": "ログイン",
+    "submitting": "ログイン中…",
+    "missingApi": "APIアドレスを入力してください",
+    "missingCredentials": "アカウントとパスワードを入力してください",
+    "failed": "ログインに失敗しました"
   }
 }

@@ -10,6 +10,12 @@
     "toggleMenu": "Alternar Menú",
     "docs": "Documentación",
     "logout": "Cerrar Sesión",
+    "logoutDialog": {
+      "title": "¿Cerrar sesión?",
+      "description": "Tendrás que iniciar sesión de nuevo para seguir gestionando los comentarios.",
+      "cancel": "Cancelar",
+      "confirm": "Cerrar sesión"
+    },
     "moreActions": "Más Acciones",
     "defaultSite": "Sitio Predeterminado",
     "theme": {
@@ -316,7 +322,7 @@
     "display": {
       "title": "Ajustes Visualización",
       "layoutTitle": "Título Admin",
-      "layoutTitleHint": "Mostrado en barra navegación superior.",
+      "layoutTitleHint": "Se muestra en la parte superior de la barra lateral.",
       "adminLanguage": "Idioma Admin",
       "adminLanguageHint": "Idioma para el panel de administración.",
       "save": "Guardar",
@@ -327,5 +333,38 @@
       "saveFailed": "Fallo al Guardar",
       "loading": "Cargando..."
     }
+  },
+  "ui": {
+    "console": "Consola de comentarios",
+    "workspace": "Espacio de trabajo",
+    "management": "Administración",
+    "currentSite": "Sitio actual",
+    "commentsDescription": "Lee a tus visitantes y gestiona cada conversación.",
+    "statsDescription": "Una visión clara de los comentarios y la participación.",
+    "analyticsDescription": "Explora las tendencias de tráfico y las páginas más populares.",
+    "settingsDescription": "Configura los comentarios y las notificaciones a tu gusto.",
+    "dataDescription": "Importa, exporta y respalda tus datos en un solo lugar.",
+    "fields": {
+      "adminBadge": "Insignia del autor",
+      "avatarPrefix": "URL del servicio de avatares",
+      "adminKey": "Clave de comentarios de administrador",
+      "allowedDomains": "Dominios permitidos",
+      "blockedIps": "Direcciones IP bloqueadas",
+      "blockedEmails": "Correos bloqueados"
+    }
+  },
+  "login": {
+    "title": "Te damos la bienvenida",
+    "subtitle": "Accede a tu consola de comentarios CWD.",
+    "apiAddress": "Dirección de API",
+    "account": "Cuenta de administrador",
+    "password": "Contraseña",
+    "showPassword": "Mostrar contraseña",
+    "hidePassword": "Ocultar contraseña",
+    "submit": "Iniciar sesión",
+    "submitting": "Iniciando sesión…",
+    "missingApi": "Introduce una dirección de API",
+    "missingCredentials": "Introduce tu cuenta y contraseña",
+    "failed": "Error al iniciar sesión"
   }
 }

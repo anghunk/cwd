@@ -10,6 +10,12 @@
     "toggleMenu": "Alihkan Menu",
     "docs": "Dokumentasi",
     "logout": "Keluar",
+    "logoutDialog": {
+      "title": "Keluar?",
+      "description": "Anda perlu masuk kembali untuk melanjutkan pengelolaan komentar.",
+      "cancel": "Batal",
+      "confirm": "Keluar"
+    },
     "moreActions": "Tindakan Lainnya",
     "defaultSite": "Situs Default",
     "theme": {
@@ -316,7 +322,7 @@
     "display": {
       "title": "Pengaturan Tampilan",
       "layoutTitle": "Judul Panel Admin",
-      "layoutTitleHint": "Ditampilkan di bilah navigasi atas.",
+      "layoutTitleHint": "Ditampilkan di bagian atas bilah samping admin.",
       "adminLanguage": "Bahasa Panel Admin",
       "adminLanguageHint": "Atur bahasa sistem admin.",
       "save": "Simpan",
@@ -327,5 +333,38 @@
     "saveSuccess": "Berhasil Disimpan",
     "saveFailed": "Gagal Disimpan",
     "loading": "Memuat..."
+  },
+  "ui": {
+    "console": "Konsol komentar",
+    "workspace": "Ruang kerja",
+    "management": "Pengelolaan",
+    "currentSite": "Situs saat ini",
+    "commentsDescription": "Baca tanggapan pengunjung dan kelola setiap percakapan.",
+    "statsDescription": "Lihat aktivitas komentar dan interaksi dengan jelas.",
+    "analyticsDescription": "Jelajahi tren kunjungan dan halaman terpopuler.",
+    "settingsDescription": "Sesuaikan komentar dan notifikasi dengan kebutuhanmu.",
+    "dataDescription": "Impor, ekspor, dan cadangkan data di satu tempat.",
+    "fields": {
+      "adminBadge": "Lencana penulis",
+      "avatarPrefix": "URL layanan avatar",
+      "adminKey": "Kunci komentar admin",
+      "allowedDomains": "Domain yang diizinkan",
+      "blockedIps": "Alamat IP yang diblokir",
+      "blockedEmails": "Alamat email yang diblokir"
+    }
+  },
+  "login": {
+    "title": "Selamat datang kembali",
+    "subtitle": "Masuk ke konsol komentar CWD Anda.",
+    "apiAddress": "Alamat API",
+    "account": "Akun admin",
+    "password": "Kata sandi",
+    "showPassword": "Tampilkan kata sandi",
+    "hidePassword": "Sembunyikan kata sandi",
+    "submit": "Masuk",
+    "submitting": "Sedang masuk…",
+    "missingApi": "Masukkan alamat API",
+    "missingCredentials": "Masukkan akun dan kata sandi",
+    "failed": "Gagal masuk"
   }
 }

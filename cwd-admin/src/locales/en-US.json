@@ -10,6 +10,12 @@
     "toggleMenu": "Toggle Menu",
     "docs": "Documentation",
     "logout": "Logout",
+    "logoutDialog": {
+      "title": "Log out?",
+      "description": "You will need to sign in again to continue managing comments.",
+      "cancel": "Cancel",
+      "confirm": "Log out"
+    },
     "moreActions": "More Actions",
     "defaultSite": "Default Site",
     "theme": {
@@ -314,7 +320,7 @@
     "display": {
       "title": "Display Settings",
       "layoutTitle": "Admin Title",
-      "layoutTitleHint": "Displayed in top navigation bar.",
+      "layoutTitleHint": "Shown at the top of the admin sidebar.",
       "adminLanguage": "Admin Language",
       "adminLanguageHint": "Language for the admin panel.",
       "save": "Save",
@@ -325,5 +331,38 @@
     "saveSuccess": "Saved Successfully",
     "saveFailed": "Save Failed",
     "loading": "Loading..."
+  },
+  "ui": {
+    "console": "Comment console",
+    "workspace": "Workspace",
+    "management": "Management",
+    "currentSite": "Current site",
+    "commentsDescription": "Keep up with your visitors and manage every conversation.",
+    "statsDescription": "A clear view of comment activity and engagement.",
+    "analyticsDescription": "Explore traffic trends and discover your most popular pages.",
+    "settingsDescription": "Make comments and notifications work the way you do.",
+    "dataDescription": "Import, export, and back up your data in one place.",
+    "fields": {
+      "adminBadge": "Author badge",
+      "avatarPrefix": "Avatar service URL",
+      "adminKey": "Admin comment key",
+      "allowedDomains": "Allowed domains",
+      "blockedIps": "Blocked IP addresses",
+      "blockedEmails": "Blocked email addresses"
+    }
+  },
+  "login": {
+    "title": "Welcome back",
+    "subtitle": "Sign in to your CWD comment console.",
+    "apiAddress": "API address",
+    "account": "Admin account",
+    "password": "Password",
+    "showPassword": "Show password",
+    "hidePassword": "Hide password",
+    "submit": "Sign in",
+    "submitting": "Signing in…",
+    "missingApi": "Enter an API address",
+    "missingCredentials": "Enter your account and password",
+    "failed": "Sign-in failed"
   }
 }

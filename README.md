@@ -26,19 +26,27 @@
 **评论端**
 ![](https://github.com/user-attachments/assets/34096ce5-512d-4ddb-b409-edef6a2674ed)
 
-
 **后台管理**
-![](https://github.com/user-attachments/assets/7592e339-3a4f-4dd2-a71c-ff6d97621fd9)
+
+以下后台截图均使用虚构演示数据，邮箱、域名和 IP 均为示例值。
+
+![后台评论管理（浅色模式）](docs/public/screenshots/admin-comments-light.jpg)
 
 <details><summary>更多截图</summary>
-<p>
 
-![](https://github.com/user-attachments/assets/59ef1a42-75f7-4efa-8a0c-beae71322484)
-![](https://github.com/user-attachments/assets/2bffdfaf-4af4-4bd8-929f-a178bc4acb78)
-![](https://github.com/user-attachments/assets/37cff92b-d6c7-4d1e-a9dd-856bac6ec8d3)
+**评论管理 · 深色模式**
 
-</p>
-</details> 
+![后台评论管理（深色模式）](docs/public/screenshots/admin-comments-dark.jpg)
+
+**数据看板**
+
+![后台数据看板（演示统计数据）](docs/public/screenshots/admin-dashboard.jpg)
+
+**网站设置**
+
+![后台网站设置（演示配置）](docs/public/screenshots/admin-settings.jpg)
+
+</details>
 
 ## Thanks
 

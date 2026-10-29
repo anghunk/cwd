@@ -10,6 +10,12 @@
     "toggleMenu": "Attiva/Disattiva Menu",
     "docs": "Documentazione",
     "logout": "Esci",
+    "logoutDialog": {
+      "title": "Uscire?",
+      "description": "Per continuare a gestire i commenti, dovrai accedere di nuovo.",
+      "cancel": "Annulla",
+      "confirm": "Esci"
+    },
     "moreActions": "Altre Azioni",
     "defaultSite": "Sito Predefinito",
     "theme": {
@@ -316,7 +322,7 @@
     "display": {
       "title": "Impostazioni Visualizzazione",
       "layoutTitle": "Titolo Admin",
-      "layoutTitleHint": "Visualizzato nella barra di navigazione superiore.",
+      "layoutTitleHint": "Mostrato in cima alla barra laterale di amministrazione.",
       "adminLanguage": "Lingua Admin",
       "adminLanguageHint": "Lingua per il pannello di amministrazione.",
       "save": "Salva",
@@ -327,5 +333,38 @@
       "saveFailed": "Salvataggio Fallito",
       "loading": "Caricamento..."
     }
+  },
+  "ui": {
+    "console": "Console dei commenti",
+    "workspace": "Area di lavoro",
+    "management": "Gestione",
+    "currentSite": "Sito attuale",
+    "commentsDescription": "Leggi i messaggi dei visitatori e gestisci le conversazioni.",
+    "statsDescription": "Una panoramica dei commenti e delle interazioni.",
+    "analyticsDescription": "Esplora le visite e le pagine più popolari.",
+    "settingsDescription": "Personalizza commenti e notifiche.",
+    "dataDescription": "Importa, esporta e salva i dati in un unico posto.",
+    "fields": {
+      "adminBadge": "Badge autore",
+      "avatarPrefix": "URL del servizio avatar",
+      "adminKey": "Chiave commenti amministratore",
+      "allowedDomains": "Domini consentiti",
+      "blockedIps": "Indirizzi IP bloccati",
+      "blockedEmails": "Indirizzi e-mail bloccati"
+    }
+  },
+  "login": {
+    "title": "Bentornato",
+    "subtitle": "Accedi alla console dei commenti CWD.",
+    "apiAddress": "Indirizzo API",
+    "account": "Account amministratore",
+    "password": "Password",
+    "showPassword": "Mostra password",
+    "hidePassword": "Nascondi password",
+    "submit": "Accedi",
+    "submitting": "Accesso in corso…",
+    "missingApi": "Inserisci un indirizzo API",
+    "missingCredentials": "Inserisci account e password",
+    "failed": "Accesso non riuscito"
   }
 }

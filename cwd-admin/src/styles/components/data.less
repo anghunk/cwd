@@ -1,272 +1,311 @@
 .page {
-  max-width: 760px;
+	max-width: 820px;
 }
 
 .card-title + .card-desc {
-  margin-top: var(--admin-space-2);
+	margin-top: var(--admin-space-2);
 }
 
 .card-desc {
-  margin: 0 0 var(--admin-space-4);
-  color: var(--text-secondary);
-  font-size: 13px;
-  line-height: 1.6;
+	margin: 0 0 var(--admin-space-4);
+	color: var(--text-secondary);
+	font-size: 13px;
+	line-height: 1.6;
 }
 
 .action-row {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: var(--admin-space-2);
-  margin-top: var(--admin-space-2);
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: var(--admin-space-2);
+	margin-top: var(--admin-space-2);
 }
 
 .action-label {
-  min-width: 64px;
-  color: var(--text-secondary);
-  font-size: 13px;
+	min-width: 64px;
+	color: var(--text-secondary);
+	font-size: 13px;
 }
 
 .card-button.success {
-  background-color: var(--color-success);
-  border-color: var(--color-success);
+	background-color: var(--color-success);
+	border-color: var(--color-success);
 }
 
 .form-select {
-  min-height: var(--admin-control-height);
-  padding: 0 32px 0 10px;
-  color: var(--text-primary);
-  background-color: var(--bg-input);
-  border: 1px solid var(--border-color);
-  border-radius: var(--admin-radius-sm);
-  font-size: 13px;
-  outline: none;
-  cursor: pointer;
+	min-height: var(--admin-control-height);
+	padding: 0 32px 0 10px;
+	color: var(--text-primary);
+	background-color: var(--bg-input);
+	border: 1px solid var(--border-color);
+	border-radius: var(--admin-radius-sm);
+	font-size: 13px;
+	outline: none;
+	cursor: pointer;
 }
 
 .form-select-auto {
-  min-width: 120px;
+	min-width: 120px;
 }
 
 .form-select-full {
-  width: 100%;
+	width: 100%;
 }
 
 .form-select:hover {
-  border-color: var(--border-hover);
+	border-color: var(--border-hover);
 }
 
 .form-select:focus-visible {
-  border-color: var(--primary-color);
-  box-shadow: var(--admin-focus-ring);
+	border-color: var(--primary-color);
+	box-shadow: var(--admin-focus-ring);
 }
 
 .log-container {
-  padding: var(--admin-space-3);
-  background-color: var(--bg-sider);
-  border: 1px solid var(--border-color);
-  border-radius: var(--admin-radius-md);
+	padding: var(--admin-space-3);
+	background-color: var(--bg-sider);
+	border: 1px solid var(--border-color);
+	border-radius: var(--admin-radius-md);
 }
 
 .log-title {
-  margin-bottom: var(--admin-space-2);
-  color: var(--text-primary);
-  font-size: 13px;
-  font-weight: 600;
+	margin-bottom: var(--admin-space-2);
+	color: var(--text-primary);
+	font-size: 13px;
+	font-weight: 600;
 }
 
 .log-list {
-  display: flex;
-  max-height: 220px;
-  flex-direction: column;
-  gap: 4px;
-  overflow-y: auto;
+	display: flex;
+	max-height: 220px;
+	flex-direction: column;
+	gap: 4px;
+	overflow-y: auto;
 }
 
 .log-item {
-  color: var(--text-secondary);
-  font-family: var(--admin-font-mono);
-  font-size: 12px;
-  line-height: 1.5;
+	color: var(--text-secondary);
+	font-family: var(--admin-font-mono);
+	font-size: 12px;
+	line-height: 1.5;
 }
 
 .form-row {
-  display: flex;
-  gap: var(--admin-space-3);
-  margin-top: var(--admin-space-3);
+	display: flex;
+	gap: var(--admin-space-3);
+	margin-top: var(--admin-space-3);
 }
 
 .form-group {
-  margin-top: var(--admin-space-3);
+	margin-top: var(--admin-space-3);
 }
 
 .form-group.half {
-  flex: 1;
-  min-width: 0;
-  margin-top: 0;
+	flex: 1;
+	min-width: 0;
+	margin-top: 0;
 }
 
 .form-label {
-  display: block;
-  margin-bottom: var(--admin-space-1);
-  color: var(--text-primary);
-  font-size: 13px;
+	display: block;
+	margin-bottom: var(--admin-space-1);
+	color: var(--text-primary);
+	font-size: 13px;
 }
 
 .action-row-submit {
-  margin-top: var(--admin-space-4);
+	margin-top: var(--admin-space-4);
 }
 
 .hidden-file-input {
-  display: none;
+	display: none;
 }
 
 .modal-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 2000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: var(--admin-space-4);
-  background-color: var(--admin-overlay);
+	position: fixed;
+	inset: 0;
+	z-index: 2000;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: var(--admin-space-4);
+	background-color: var(--admin-overlay);
 }
 
 .modal {
-  display: flex;
-  width: 440px;
-  max-width: 100%;
-  max-height: calc(100dvh - 32px);
-  flex-direction: column;
-  gap: var(--admin-space-4);
-  padding: var(--admin-space-5);
-  overflow-y: auto;
-  background-color: var(--bg-card);
-  border: 1px solid var(--border-color);
-  border-radius: var(--admin-radius-md);
-  box-shadow: var(--admin-shadow-md);
+	display: flex;
+	width: 440px;
+	max-width: 100%;
+	max-height: calc(100dvh - 32px);
+	flex-direction: column;
+	gap: var(--admin-space-4);
+	padding: var(--admin-space-5);
+	overflow-y: auto;
+	background-color: var(--bg-card);
+	border: 1px solid var(--border-color);
+	border-radius: var(--admin-radius-md);
+	box-shadow: var(--admin-shadow-md);
 }
 
 .modal-title {
-  margin: 0;
-  color: var(--text-primary);
-  font-size: 16px;
-  font-weight: 600;
+	margin: 0;
+	color: var(--text-primary);
+	font-size: 16px;
+	font-weight: 600;
 }
 
 .modal-desc {
-  margin: 0;
-  color: var(--text-secondary);
-  font-size: 13px;
-  line-height: 1.6;
+	margin: 0;
+	color: var(--text-secondary);
+	font-size: 13px;
+	line-height: 1.6;
 }
 
 .modal-actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: var(--admin-space-2);
+	display: flex;
+	justify-content: flex-end;
+	gap: var(--admin-space-2);
 }
 
 .modal-btn {
-  display: inline-flex;
-  min-height: var(--admin-control-height);
-  align-items: center;
-  justify-content: center;
-  padding: 0 14px;
-  border: 1px solid transparent;
-  border-radius: var(--admin-radius-sm);
-  font-size: 13px;
-  font-weight: 500;
-  cursor: pointer;
-  transition:
-    background-color var(--admin-transition),
-    border-color var(--admin-transition);
+	display: inline-flex;
+	min-height: var(--admin-control-height);
+	align-items: center;
+	justify-content: center;
+	padding: 0 14px;
+	border: 1px solid transparent;
+	border-radius: var(--admin-radius-sm);
+	font-size: 13px;
+	font-weight: 500;
+	cursor: pointer;
+	transition:
+		background-color var(--admin-transition),
+		border-color var(--admin-transition);
 }
 
 .modal-btn.primary {
-  color: var(--text-inverse);
-  background-color: var(--primary-color);
+	color: var(--text-inverse);
+	background-color: var(--primary-color);
 }
 
 .modal-btn.primary:hover {
-  background-color: var(--admin-primary-hover);
+	background-color: var(--admin-primary-hover);
 }
 
 .modal-btn.secondary {
-  color: var(--text-primary);
-  background-color: var(--bg-card);
-  border-color: var(--border-color);
+	color: var(--text-primary);
+	background-color: var(--bg-card);
+	border-color: var(--border-color);
 }
 
 .modal-btn.secondary:hover {
-  background-color: var(--bg-hover);
-  border-color: var(--border-hover);
+	background-color: var(--bg-hover);
+	border-color: var(--border-hover);
 }
 
 .form-input {
-  width: 100%;
-  min-height: var(--admin-control-height);
-  padding: 8px 10px;
-  color: var(--text-primary);
-  background-color: var(--bg-input);
-  border: 1px solid var(--border-color);
-  border-radius: var(--admin-radius-sm);
-  font-size: 13px;
-  outline: none;
+	width: 100%;
+	min-height: var(--admin-control-height);
+	padding: 8px 10px;
+	color: var(--text-primary);
+	background-color: var(--bg-input);
+	border: 1px solid var(--border-color);
+	border-radius: var(--admin-radius-sm);
+	font-size: 13px;
+	outline: none;
 }
 
 .form-input:focus {
-  border-color: var(--primary-color);
-  box-shadow: var(--admin-focus-ring);
+	border-color: var(--primary-color);
+	box-shadow: var(--admin-focus-ring);
 }
 
 @media (max-width: 640px) {
-  .action-label {
-    width: 100%;
-  }
+	.action-label {
+		width: 100%;
+	}
 
-  .action-row .card-button,
-  .action-row .form-select {
-    flex: 1 1 auto;
-  }
+	.action-row .card-button,
+	.action-row .form-select {
+		flex: 1 1 auto;
+	}
 
-  .form-row {
-    flex-direction: column;
-    gap: 0;
-  }
+	.form-row {
+		flex-direction: column;
+		gap: 0;
+	}
 
-  .form-row .form-group {
-    margin-top: var(--admin-space-3);
-  }
+	.form-row .form-group {
+		margin-top: var(--admin-space-3);
+	}
 
-  .form-row .form-group:first-child {
-    margin-top: 0;
-  }
+	.form-row .form-group:first-child {
+		margin-top: 0;
+	}
 
-  .modal-overlay {
-    align-items: flex-end;
-    padding: 0;
-  }
+	.modal-overlay {
+		align-items: flex-end;
+		padding: 0;
+	}
 
-  .modal {
-    width: 100%;
-    max-height: 88dvh;
-    padding: 20px 16px 24px;
-    border-right: none;
-    border-bottom: none;
-    border-left: none;
-    border-radius: var(--admin-radius-md) var(--admin-radius-md) 0 0;
-  }
+	.modal {
+		width: 100%;
+		max-height: 88dvh;
+		padding: 20px 16px 24px;
+		border-right: none;
+		border-bottom: none;
+		border-left: none;
+		border-radius: var(--admin-radius-md) var(--admin-radius-md) 0 0;
+	}
 
-  .modal-actions {
-    position: sticky;
-    bottom: 0;
-    padding-top: var(--admin-space-3);
-    background-color: var(--bg-card);
-  }
+	.modal-actions {
+		position: sticky;
+		bottom: 0;
+		padding-top: var(--admin-space-3);
+		background-color: var(--bg-card);
+	}
 
-  .modal-actions .modal-btn {
-    min-height: var(--admin-control-height-lg);
-    flex: 1;
-  }
+	.modal-actions .modal-btn {
+		min-height: var(--admin-control-height-lg);
+		flex: 1;
+	}
+}
+
+.card {
+	padding: 20px;
+	background: var(--admin-surface-secondary);
+}
+
+.card-title {
+	display: flex;
+	align-items: center;
+	gap: 9px;
+	font-size: 13px;
+}
+
+.card-title svg {
+	color: var(--primary-color);
+}
+
+.action-row + .action-row {
+	margin-top: 12px;
+	padding-top: 12px;
+	border-top: 1px solid var(--border-color);
+}
+
+.card-button.secondary {
+	background: var(--bg-input);
+}
+
+@media (max-width: 640px) {
+	.card {
+		padding: 16px;
+	}
+}
+
+@media (max-width: 640px) {
+	.form-input,
+	.form-select {
+		min-height: 40px;
+	}
 }
