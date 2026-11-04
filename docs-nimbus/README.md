@@ -30,6 +30,8 @@ npm run preview
 
 部署整个 `dist/` 即可同时发布文档、`/cwd.js` 和 `/emotion/`。任一步失败都会终止完整构建。开发时生成的 `public/cwd.js`、`public/emotion/` 及所有构建产物均已忽略，不应提交。
 
+GitHub Pages 从 `gh-pages` 分支的根目录发布。工作流通过 `cname: cwd.js.org` 在每次部署时生成并保留 `CNAME` 文件，避免替换发布产物后丢失自定义域名。更换域名时，需要同步修改工作流的 `cname`、`astro.config.ts` 的 `site` 和仓库 Pages 设置。
+
 ## 目录说明
 
 - `src/content/docs/`：原文档的副本，保留 `guide/`、`function/`、`config/`、`api/` 路径。

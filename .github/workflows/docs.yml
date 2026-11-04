@@ -37,3 +37,4 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./docs-nimbus/dist
           publish_branch: gh-pages
+          cname: cwd.js.org
