@@ -1,0 +1,119 @@
+/* 首页使用更宽的内容区域，内页保持 Nimbus 的阅读宽度。 */
+.cwd-home {
+	--nb-content-max: 75rem;
+}
+
+/* 功能卡片采用紧凑排版，按屏幕宽度切换为一、二或四列。 */
+.cwd-home-features {
+	gap: 0.75rem;
+}
+
+.cwd-home-features [data-slot='card'] {
+	display: grid;
+	grid-template-columns: 1.25rem minmax(0, 1fr);
+	align-content: start;
+	gap: 0.5rem 0.625rem;
+	padding: 1rem;
+}
+
+.cwd-home-features [data-slot='card-icon'] {
+	align-self: center;
+	margin-bottom: 0;
+}
+
+.cwd-home-features [data-slot='card-icon'] svg {
+	width: 1.25rem;
+	height: 1.25rem;
+}
+
+.cwd-home-features [data-slot='card-title'] {
+	font-size: 0.9375rem;
+	line-height: 1.5;
+}
+
+.cwd-home-features [data-slot='card-content'] {
+	grid-column: 1 / -1;
+	margin-top: 0;
+	font-size: 0.8125rem;
+	line-height: 1.65;
+}
+
+.cwd-home-features [data-slot='card-content'] p {
+	margin: 0;
+}
+
+@media (min-width: 64rem) {
+	.cwd-home-features {
+		grid-template-columns: repeat(4, minmax(0, 1fr));
+	}
+}
+
+/* 首页沿用 Nimbus 的主题变量，保证明暗模式和窄屏显示一致。 */
+.cwd-home-actions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.75rem;
+	margin-block: 1.5rem 2rem;
+}
+
+.cwd-comments {
+	margin-top: 2.5rem;
+	padding-top: 1.5rem;
+	border-top: 1px solid var(--nb-border);
+	scroll-margin-top: calc(var(--nb-header-height) + 1rem);
+}
+
+.cwd-comments-title {
+	margin: 0 0 1rem;
+	font-size: 1.25rem;
+	font-weight: 600;
+	line-height: 1.5;
+}
+
+.cwd-comments-status {
+	margin-block: 0.75rem;
+	color: var(--nb-muted-foreground);
+	font-size: 0.875rem;
+}
+
+.cwd-comments-retry {
+	padding: 0.5rem 0.875rem;
+	border: 1px solid var(--nb-border-strong);
+	border-radius: var(--nb-radius);
+	background: var(--nb-card);
+	color: var(--nb-foreground);
+	font-size: 0.875rem;
+	cursor: pointer;
+}
+
+.cwd-comments-retry:hover {
+	background: var(--nb-accent);
+}
+
+.docs-content .cwd-home-actions a {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 2.75rem;
+	padding: 0.625rem 1.125rem;
+	border: 1px solid var(--nb-border-strong);
+	border-radius: var(--nb-radius);
+	color: var(--nb-foreground);
+	font-size: 0.875rem;
+	font-weight: 500;
+	text-decoration: none;
+}
+
+.docs-content .cwd-home-actions .cwd-home-primary {
+	border-color: var(--nb-primary);
+	background: var(--nb-primary);
+	color: var(--nb-primary-foreground);
+}
+
+.docs-content .cwd-home-actions a:hover {
+	background: var(--nb-accent);
+}
+
+.docs-content .cwd-home-actions .cwd-home-primary:hover {
+	background: var(--nb-primary-hover);
+}

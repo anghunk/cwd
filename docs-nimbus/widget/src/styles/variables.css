@@ -1,0 +1,60 @@
+/**
+ * CSS 变量定义
+ * 支持主题切换
+ */
+
+.cwd-comments-container,
+[data-theme="light"] {
+  /* 主色调 */
+  --cwd-primary: #0969da;
+  --cwd-primary-hover: #0864ca;
+
+  /* 文字颜色 */
+  --cwd-text: #24292f;
+  --cwd-text-secondary: #6e7781;
+
+  /* 背景色 */
+  --cwd-bg: #ffffff;
+  --cwd-bg-input: #ffffff;
+  --cwd-bg-secondary: #f6f8fa;
+  --cwd-bg-reply: #f6f8fa;
+  --cwd-bg-hover: #f6f8fa;
+  --cwd-bg-disabled: #f6f8fa;
+  --cwd-bg-avatar: #f6f8fa;
+
+  /* 边框颜色 */
+  --cwd-border: #d0d7de;
+  --cwd-border-light: #eaeef2;
+
+  /* 状态颜色 */
+  --cwd-error: #cf222e;
+  --cwd-bg-error: #ffebe9;
+  --cwd-border-error: #fd8c73;
+
+  /* 圆角 */
+  --cwd-radius: 6px;
+}
+
+/* 深色主题 */
+[data-theme="dark"] {
+  --cwd-primary: #58a6ff;
+  --cwd-primary-hover: #4094ff;
+
+  --cwd-text: #c9d1d9;
+  --cwd-text-secondary: #8b949e;
+
+  --cwd-bg: #0d1117;
+  --cwd-bg-input: #0d1117;
+  --cwd-bg-secondary: #161b22;
+  --cwd-bg-reply: #161b22;
+  --cwd-bg-hover: #161b22;
+  --cwd-bg-disabled: #161b22;
+  --cwd-bg-avatar: #161b22;
+
+  --cwd-border: #30363d;
+  --cwd-border-light: #21262d;
+
+  --cwd-error: #f85149;
+  --cwd-bg-error: #3d1614;
+  --cwd-border-error: #f85149;
+}

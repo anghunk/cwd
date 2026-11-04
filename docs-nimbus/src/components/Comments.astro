@@ -1,0 +1,16 @@
+---
+// 沿用 VitePress 的页面标识，让 Nimbus 页面读取同一篇文档的评论。
+const pathname = Astro.url.pathname.replace(/\/+$/, '');
+const postSlug = pathname ? `${pathname}.html` : '/';
+---
+
+<section id="comments" class="cwd-comments" data-cwd-comments data-post-slug={postSlug} data-pagefind-ignore aria-label="评论">
+	<h2 class="cwd-comments-title">评论</h2>
+	<p class="cwd-comments-status" data-cwd-comments-status role="status">评论加载中…</p>
+	<div data-cwd-comments-host></div>
+	<button type="button" class="cwd-comments-retry" data-cwd-comments-retry hidden>重新加载</button>
+</section>
+
+<script>
+	import './comments.client';
+</script>

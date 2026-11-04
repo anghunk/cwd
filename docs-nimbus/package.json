@@ -1,0 +1,41 @@
+{
+	"name": "cwd-docs-nimbus",
+	"version": "0.0.1",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"predev": "npm run build:widget && node build.js public",
+		"dev": "astro dev --host 127.0.0.1",
+		"build:widget": "cd widget && npm install && npm run build",
+		"build:docs": "astro build",
+		"build": "npm run build:widget && npm run build:docs && node build.js dist",
+		"preview": "astro preview --host 127.0.0.1 --port 4321",
+		"typecheck": "astro check",
+		"lint:docs": "nimbus-docs lint",
+		"lint:docs:fix": "nimbus-docs lint --fix"
+	},
+	"dependencies": {
+		"@cloudflare/nimbus-docs": "^0.19.2",
+		"@fontsource-variable/inter": "^5.2.8",
+		"@fontsource-variable/jetbrains-mono": "^5.2.8",
+		"@iconify-json/ph": "^1.2.0",
+		"@resvg/resvg-js": "^2.6.2",
+		"astro": "7.3.3",
+		"clsx": "^2.1.1",
+		"satori": "^0.26.0",
+		"sharp": "^0.35.4",
+		"tailwind-merge": "^3.5.0"
+	},
+	"devDependencies": {
+		"@astrojs/check": "^0.9.8",
+		"@astrojs/language-server": "2.16.13",
+		"@tailwindcss/vite": "^4.1.4",
+		"pagefind": "^1.5.2",
+		"tailwindcss": "^4.1.4",
+		"typescript": "^5.8.3"
+	},
+	"description": "CWD 评论系统文档的 Nimbus 独立预览版",
+	"engines": {
+		"node": ">=22.12.0"
+	}
+}

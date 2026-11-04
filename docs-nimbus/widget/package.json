@@ -1,0 +1,44 @@
+{
+  "name": "cwd-widget",
+  "version": "0.2.1",
+  "description": "Server-free, extremely fast and secure, plug-and-play commenting system based on Cloudflare Workers and the Global Edge Network.",
+  "type": "module",
+  "author": "anghunk",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/anghunk/cwd"
+  },
+  "main": "./dist/cwd.umd.js",
+  "module": "./dist/cwd.es.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/cwd.es.js",
+      "require": "./dist/cwd.umd.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "keywords": [
+    "cloudflare workers",
+    "Comment"
+  ],
+  "devDependencies": {
+    "terser": "^5.44.1",
+    "vite": "^6.0.11",
+    "vite-plugin-css-injected-by-js": "^3.3.1"
+  },
+  "dependencies": {
+    "dompurify": "^3.3.1",
+    "marked": "^17.0.1",
+    "node-emoji": "^2.2.0"
+  }
+}

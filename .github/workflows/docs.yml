@@ -27,7 +27,7 @@ jobs:
 
       - name: Build docs
         run: |
-          cd docs
+          cd docs-nimbus
           npm install
           npm run build
 
@@ -35,5 +35,5 @@ jobs:
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./docs/.vitepress/dist
+          publish_dir: ./docs-nimbus/dist
           publish_branch: gh-pages

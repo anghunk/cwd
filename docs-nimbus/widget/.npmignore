@@ -1,0 +1,23 @@
+# Git 相关
+.git
+.gitignore
+
+# 文档目录
+docs
+
+# 开发依赖
+node_modules
+
+# IDE
+.vscode
+.idea
+
+# Claude Code
+.claude
+
+# 其他
+package-lock.json
+*.log
+.DS_Store
+
+.npmrc
