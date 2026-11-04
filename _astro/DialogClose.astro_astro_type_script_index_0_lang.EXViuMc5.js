@@ -1,0 +1,1 @@
+import{t as e}from"./nav-sidebar-CaoH_px3.CpSvOf4J.js";e(`[data-dialog-close]`,e=>{let t=()=>e.closest(`dialog`)?.close();return e.addEventListener(`click`,t),()=>e.removeEventListener(`click`,t)});

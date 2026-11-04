@@ -1,0 +1,30 @@
+{
+  "specVersion": "1.0",
+  "host": {
+    "displayName": "CWD 评论系统文档",
+    "identifier": "https://cwd.js.org/",
+    "documentationUrl": "https://cwd.js.org/"
+  },
+  "entries": [
+    {
+      "identifier": "urn:air:cwd.js.org:docs:index",
+      "displayName": "CWD 评论系统文档 documentation index",
+      "type": "text/plain",
+      "url": "https://cwd.js.org/llms.txt",
+      "representativeQueries": [
+        "Find the CWD 评论系统文档 documentation",
+        "List topics covered by CWD 评论系统文档"
+      ]
+    },
+    {
+      "identifier": "urn:air:cwd.js.org:docs:home",
+      "displayName": "CWD 评论系统文档 overview",
+      "type": "text/markdown",
+      "url": "https://cwd.js.org/index.md",
+      "representativeQueries": [
+        "Get started with CWD 评论系统文档",
+        "Read an overview of CWD 评论系统文档"
+      ]
+    }
+  ]
+}

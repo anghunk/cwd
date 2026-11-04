@@ -1,0 +1,92 @@
+---
+title: "邮箱提醒"
+image: "https://cwd.js.org/icon.png"
+---
+
+> Documentation Index
+> Fetch the complete documentation index at: https://cwd.js.org/llms.txt
+> Use this file to discover all available pages before exploring further.
+
+# 邮箱提醒
+
+目前支持进行通知的邮箱有：
+
+- QQ 邮箱
+- 163 邮箱
+- 自定义 SMTP
+
+后续会添加其他邮箱服务，可以提交反馈。
+
+## 邮箱服务配置
+
+### QQ 邮箱
+
+1. 登录 QQ 邮箱，进入 `设置 > 账户`
+2. 开启 `POP3/IMAP/SMTP/Exchange/CardDAV/CalDAV 服务`，并获取授权码
+3. 在管理后台设置中配置 QQ 邮箱账号和授权码
+
+### 163 邮箱
+
+1. 登录 163 邮箱，进入 `设置`
+2. 开启 `POP3/SMTP/IMAP`，并获取授权码
+3. 在管理后台设置中配置 163 邮箱账号和授权码
+
+### 自定义 SMTP 邮箱
+
+配置自己的 SMTP 邮箱需要以下信息：
+
+- SMTP 服务器地址
+- SMTP 服务器端口
+- 发件邮箱账号
+- 邮箱密码或授权码
+
+## 邮件通知配置
+
+在后台「设置」页面可以配置邮件通知功能，包括：
+
+### 全局开关
+
+控制是否启用邮件通知功能。
+
+### SMTP 配置
+
+| 字段     | 说明             | 示例             |
+| -------- | ---------------- | ---------------- |
+| 主机     | SMTP 服务器地址  | `smtp.qq.com`    |
+| 端口     | SMTP 服务器端口  | `465`            |
+| 用户名   | 发件邮箱         | `noreply@qq.com` |
+| 密码     | 邮箱密码或授权码 | `your_password`  |
+| 安全连接 | 是否使用 SSL/TLS | `true`           |
+
+### 邮件模板
+
+支持自定义 HTML 邮件模板，包含以下变量：
+
+**回复评论模板变量**：
+
+| 变量名             | 说明             |
+| ------------------ | ---------------- |
+| `${toEmail}`       | 收件人邮箱       |
+| `${toName}`        | 收件人昵称       |
+| `${postTitle}`     | 文章标题         |
+| `${parentComment}` | 被回复的评论内容 |
+| `${replyAuthor}`   | 回复者昵称       |
+| `${replyContent}`  | 回复内容         |
+| `${postUrl}`       | 文章链接         |
+
+**新评论通知模板变量**：
+
+| 变量名              | 说明       |
+| ------------------- | ---------- |
+| `${postTitle}`      | 文章标题   |
+| `${postUrl}`        | 文章链接   |
+| `${commentAuthor}`  | 评论者昵称 |
+| `${commentContent}` | 评论内容   |
+
+### 测试邮件
+
+配置完成后，可以使用「发送测试邮件」功能验证配置是否正确。
+
+测试邮件和实际的新评论通知收件人，都会使用「评论显示配置」中的管理员邮箱（`adminEmail`）。无需在「通知邮箱设置」中单独配置收件邮箱。
+
+Source: https://cwd.js.org/function/email-reminder/index.mdx

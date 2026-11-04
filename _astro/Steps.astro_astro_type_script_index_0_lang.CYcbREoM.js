@@ -1,0 +1,1 @@
+import{t as e}from"./nav-sidebar-CaoH_px3.CpSvOf4J.js";function t(e){return e.querySelectorAll(`:scope > ol`).forEach(e=>e.setAttribute(`role`,`list`)),()=>{}}e(`[data-steps]`,t);

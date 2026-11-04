@@ -1,0 +1,1 @@
+import{t as e}from"./nav-sidebar-CaoH_px3.CpSvOf4J.js";import{o as t}from"./client.Ds9T26d8.js";e(`meta[name="nimbus-webmcp"]`,e=>{let n=JSON.parse(e.getAttribute(`content`));return t(n)});

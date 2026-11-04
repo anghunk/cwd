@@ -1,0 +1,49 @@
+---
+title: "功能开关"
+image: "https://cwd.js.org/icon.png"
+---
+
+> Documentation Index
+> Fetch the complete documentation index at: https://cwd.js.org/llms.txt
+> Use this file to discover all available pages before exploring further.
+
+# 功能开关
+
+在 `网站设置` > `功能开关` 中，您可以控制各项功能的开启状态和个性化配置。
+
+## 点赞功能
+
+### 评论点赞
+
+控制是否启用评论点赞功能。开启后，用户可以对评论进行点赞操作。
+
+功能默认开启，可根据需要关闭。
+
+### 文章点赞
+
+控制是否启用文章点赞功能。开启后，每篇文章底部会显示点赞按钮，用户可以对文章进行点赞。
+
+功能默认开启，可根据需要关闭。
+
+## 图片预览
+
+### 图片灯箱预览
+
+控制是否启用评论内容中图片的灯箱预览功能。开启后，评论中的图片可以点击放大查看，再次点击关闭。
+
+功能默认关闭，可根据需要开启。
+
+## 个性化设置
+
+### 评论框提示文案 (Placeholder)
+
+自定义评论输入框的提示文字，让用户更清楚地知道应该输入什么内容。
+
+- 支持换行
+- 留空则使用默认值："发表你的看法..."
+
+示例：
+- "请留下您的评论，与大家分享您的看法..."
+- "欢迎留言，谢谢！"
+
+Source: https://cwd.js.org/function/feature-settings/index.mdx

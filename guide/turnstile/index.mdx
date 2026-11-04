@@ -1,0 +1,124 @@
+---
+title: "人机验证 Turnstile"
+image: "https://cwd.js.org/icon.png"
+---
+
+CWD 评论系统支持接入 Cloudflare Turnstile，在提交评论和回复前要求访客完成一次人机验证，用来阻挡批量刷评的机器人。Turnstile 由 Cloudflare 免费提供，Managed 模式下大多数访客无需任何操作即可通过，也不能被用来追踪访客。
+
+开启过程分两步：先在 Cloudflare 控制台申请一对密钥，再把密钥配置到 Worker 环境变量。密钥不属于后台设置项，不需要写进数据库。
+
+## 申请密钥
+
+### 前提条件
+
+- 一个 Cloudflare 账号（使用邮箱即可注册，[官网地址](https://www.cloudflare.com/)）
+- 评论页面所在的域名
+
+域名不要求托管在 Cloudflare 上，Turnstile 可以独立使用，也不要求站点流量经过 Cloudflare。
+
+### 创建 Widget
+
+1. 登录 [Cloudflare 控制台](https://dash.cloudflare.com/)，在左侧菜单选择 **Turnstile**，也可以直接访问 `https://dash.cloudflare.com/?to=/:account/turnstile`
+2. 点击 **Add widget**
+3. 填写表单：
+	- **Widget name**：自定义名称，例如 `CWD Comments`
+	- **Hostname management**：评论页面所在的域名，例如 `blog.example.com`，可以添加多个
+	- **Widget mode**：选择 **Managed**（推荐）
+4. 点击 **Create**
+5. 页面会显示 **Sitekey** 和 **Secret Key**，Secret Key 只在创建时完整显示，请立即妥善保存
+
+Widget mode 的可选项：
+
+| 模式           | 说明                                                     |
+| -------------- | -------------------------------------------------------- |
+| Managed        | 根据访客风险自动选择无感验证或勾选框验证，推荐使用       |
+| Non-Interactive | 只显示加载状态，不要求访客点击                          |
+| Invisible      | 完全在后台运行，需要同时在隐私政策中引用 Cloudflare 的相关条款 |
+
+### 免费额度
+
+免费计划足够个人站点和大多数生产环境使用，无需付费升级：
+
+| 项目         | 免费计划             |
+| ------------ | -------------------- |
+| Widget 数量  | 每个账号最多 20 个   |
+| Hostname 数量 | 每个 Widget 最多 10 个 |
+| 验证次数     | 不限                 |
+| 数据分析     | 保留 7 天            |
+
+## 配置到评论系统
+
+拿到密钥后，在 Worker 中配置以下环境变量：
+
+| 变量名                        | 对应控制台字段       | 配置方式                              |
+| ----------------------------- | -------------------- | ------------------------------------- |
+| `TURNSTILE_SITE_KEY`          | Sitekey              | 普通变量，写在 `wrangler.jsonc` 的 `vars` |
+| `TURNSTILE_SECRET_KEY`        | Secret Key           | Wrangler Secret 或控制台加密变量      |
+| `TURNSTILE_ALLOWED_HOSTNAMES` | Hostname management  | 可选，普通变量，多个域名以逗号分隔     |
+
+私密密钥建议使用 Wrangler Secret 保存，不会出现在配置文件中：
+
+```bash
+cd cwd-api
+npx wrangler secret put TURNSTILE_SECRET_KEY
+```
+
+站点密钥和允许域名可以写在 `wrangler.jsonc` 的 `vars` 中：
+
+```jsonc
+{
+	"vars": {
+		"TURNSTILE_SITE_KEY": "0x4AAAAAAA...",
+		"TURNSTILE_ALLOWED_HOSTNAMES": "blog.example.com,www.example.com"
+	}
+}
+```
+
+修改 `wrangler.jsonc` 后需要重新执行 `npx wrangler deploy` 才会生效，`wrangler secret put` 则会立即生效。
+
+### 前端无需额外配置
+
+服务端同时配置站点密钥和私密密钥后，评论组件会从 `/api/config/comments` 自动读取 `turnstileSiteKey`，并在提交新评论和回复前渲染验证码。只有在需要覆盖后端配置时，才需要在前端实例化时传入 `turnstileSiteKey`，参见[前端配置](/guide/frontend-config)。
+
+## 本地调试
+
+Cloudflare 提供了一组官方测试密钥，可以在本地和测试环境使用，不消耗额度也不会影响真实访客：
+
+| Sitekey                | Secret Key                           | 效果         |
+| ---------------------- | ------------------------------------ | ------------ |
+| `1x00000000000000000000AA` | `1x0000000000000000000000000000000AA` | 永远验证通过 |
+| `2x00000000000000000000AB` | `2x0000000000000000000000000000000AA` | 永远验证失败 |
+
+测试密钥在任意域名（包括 `localhost`）都可以使用。测试 token 的 hostname 不是你的真实域名，因此使用测试密钥时不要配置 `TURNSTILE_ALLOWED_HOSTNAMES`，否则服务端会因为域名不匹配而拒绝评论。
+
+本地开发可以写在 `cwd-api/.dev.vars` 中（该文件已在 `.gitignore` 中忽略，不会提交）：
+
+```
+TURNSTILE_SITE_KEY=1x00000000000000000000AA
+TURNSTILE_SECRET_KEY=1x0000000000000000000000000000000AA
+```
+
+## 校验规则
+
+开启后，服务端会在写入评论前依次完成以下检查：
+
+1. 请求必须携带 Turnstile token，缺失或不合法时返回 403「请完成人机验证后再提交评论」
+2. 调用 Siteverify 接口校验 token，token 是一次性的，重复使用会被判为无效
+3. 校验结果中的 `action` 必须为 `comment`，该动作由评论组件固定传入，无需手动配置
+4. 配置了 `TURNSTILE_ALLOWED_HOSTNAMES` 时，token 中的 hostname 必须与列表中的某一项完全一致
+
+Siteverify 接口不可用时返回 503「人机验证服务暂时不可用，请稍后再试」。同一 IP 的冷却检查在校验之前执行，冷却期内的重复提交不会浪费一次性的 token。
+
+## 常见问题
+
+### 评论全部提示「请完成人机验证后再提交评论」
+
+通常是只配置了 `TURNSTILE_SECRET_KEY` 而漏配 `TURNSTILE_SITE_KEY`。服务端检测到私密密钥后就会强制校验，而前端拿不到站点密钥、无法渲染验证码，于是所有提交都会被拒绝。两个密钥必须成对配置。
+
+### 配置了允许域名后评论被拒绝
+
+`TURNSTILE_ALLOWED_HOSTNAMES` 是精确匹配，不支持通配子域名。`example.com`、`www.example.com`、`comments.example.com` 需要分别列出，并且要与 Widget 的 Hostname management 保持一致。
+
+### 如何关闭人机验证
+
+删除 Worker 中的 `TURNSTILE_SECRET_KEY` 即可。服务端会跳过校验，前端也不再渲染验证码，无需改动前端代码。

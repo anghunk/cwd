@@ -1,0 +1,80 @@
+---
+title: "API 概览"
+image: "https://cwd.js.org/icon.png"
+---
+
+> Documentation Index
+> Fetch the complete documentation index at: https://cwd.js.org/llms.txt
+> Use this file to discover all available pages before exploring further.
+
+# API 概览
+
+## 基础信息
+
+- **接口地址**：`https://your-worker-api.workers.dev` 或你的自定义域名
+- **数据格式**：JSON
+- **字符编码**：UTF-8
+
+所有 API 均为 RESTful 风格，无会话 Cookie，认证全部通过 `Authorization` 请求头完成。
+
+## 功能特性
+
+### 评论点赞
+
+- 支持对单条评论进行点赞
+- 每个用户对同一条评论只能点赞一次（通过 localStorage 本地记录用户 ID 和点赞状态）
+- 点赞数实时更新
+- 可通过管理员后台功能设置页面开启/关闭评论点赞功能
+
+### 文章点赞
+
+- 支持对整篇文章进行点赞
+- 每个用户对同一篇文章只能点赞一次
+- 点赞数实时显示
+- 可通过管理员后台功能设置页面开启/关闭文章点赞功能
+
+## 版本信息
+部署成功后，直接访问 Base URL，成功时返回 HTML，其中包含类似文案：
+
+```json
+{
+  "version": "0.0.0",
+  "data": "成功部署 CWD 评论系统 API！文档地址 https://cwd.js.org"
+}
+```
+
+## 鉴权方式
+
+公开接口与管理员接口的鉴权要求不同：
+
+- 公开接口（Public API）
+  - `/api/comments`
+  - `/api/config/comments`
+  - 默认无需认证，可直接访问。
+- 管理员接口（Admin API）
+  - 路径前缀：`/admin/*`
+  - 除 `/admin/login` 外，其余接口都需要携带管理员 Token。
+
+管理员接口需要使用 Bearer Token 认证：
+
+```http
+Authorization: Bearer <token>
+```
+
+Token 通过登录接口获取，有效期为 48 小时，服务端会在 KV 中存储会话信息并在每次请求时进行校验。
+
+## HTTP 状态码
+
+常见状态码及含义如下：
+
+| 状态码 | 说明                         | 典型场景                                            |
+| ------ | ---------------------------- | --------------------------------------------------- |
+| 200    | 请求成功                     | 正常查询、操作成功                                  |
+| 400    | 请求参数错误                 | 缺少必填字段、格式不正确等                          |
+| 401    | 未授权                       | 未携带 Token 或 Token 失效                          |
+| 403    | 禁止访问                     | 登录失败次数过多导致 IP 被暂时封禁                  |
+| 404    | 资源不存在（当前未显式使用） | 预留给未来可能的资源不存在场景                      |
+| 429    | 请求过于频繁                 | 评论频率超过限制（默认同一 IP 10 秒内只能评论一次） |
+| 500    | 服务器内部错误               | 未捕获异常、数据库错误等                            |
+
+Source: https://cwd.js.org/api/overview/index.mdx

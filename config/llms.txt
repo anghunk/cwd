@@ -1,0 +1,6 @@
+# Config
+
+## Pages
+
+- [站点隔离](https://cwd.js.org/config/site-isolation/index.md)
+- [页面浏览量](https://cwd.js.org/config/views-display/index.md)

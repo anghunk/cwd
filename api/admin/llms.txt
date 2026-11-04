@@ -1,0 +1,15 @@
+# 管理员 API
+
+## Pages
+
+- [管理员 API](https://cwd.js.org/api/admin/index.md)
+- [访问统计](https://cwd.js.org/api/admin/analytics/index.md)
+- [身份认证相关](https://cwd.js.org/api/admin/auth/index.md)
+- [评论管理相关](https://cwd.js.org/api/admin/comments/index.md)
+- [评论数据导入导出](https://cwd.js.org/api/admin/data-migration/index.md)
+- [邮件通知](https://cwd.js.org/api/admin/email-notify/index.md)
+- [功能设置相关](https://cwd.js.org/api/admin/feature-settings/index.md)
+- [S3 备份](https://cwd.js.org/api/admin/s3-backup/index.md)
+- [评论设置](https://cwd.js.org/api/admin/settings/index.md)
+- [统计数据](https://cwd.js.org/api/admin/stats/index.md)
+- [Telegram 通知设置](https://cwd.js.org/api/admin/telegram-notify/index.md)

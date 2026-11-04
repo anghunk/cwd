@@ -1,0 +1,22 @@
+---
+title: "页面浏览量"
+image: "https://cwd.js.org/icon.png"
+---
+
+> Documentation Index
+> Fetch the complete documentation index at: https://cwd.js.org/llms.txt
+> Use this file to discover all available pages before exploring further.
+
+# 页面浏览量
+
+前端组件支持在网站中显示当前页面的访问量，使用方法: 在指定位置写入以下 html 标签。
+
+```html
+<div>已有 <span id="cwd-page-pv">0</span> 人阅读本文！</div>
+```
+
+---
+
+*最低支持版本：0.1.9*
+
+Source: https://cwd.js.org/config/views-display/index.mdx

@@ -1,0 +1,11 @@
+# Function
+
+## Pages
+
+- [后台设置](https://cwd.js.org/function/admin-panel/index.md)
+- [数据管理](https://cwd.js.org/function/data-migration/index.md)
+- [数据看板](https://cwd.js.org/function/data-statistics/index.md)
+- [邮箱提醒](https://cwd.js.org/function/email-reminder/index.md)
+- [功能开关](https://cwd.js.org/function/feature-settings/index.md)
+- [安全设置](https://cwd.js.org/function/security-settings/index.md)
+- [Telegram 通知与交互](https://cwd.js.org/function/telegram-notify/index.md)

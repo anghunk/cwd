@@ -1,0 +1,37 @@
+# Hashed build files never change, so browsers keep them for a year without
+# asking again. Hosts that don't read _headers ignore this file.
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Nimbus agent discovery (generated)
+/
+  Link: <https://cwd.js.org/.well-known/ard.json>; rel="ard"
+  Link: <https://cwd.js.org/llms.txt>; rel="describedby"; type="text/plain"
+  Link: <https://cwd.js.org/index.md>; rel="alternate"; type="text/markdown"
+
+/.well-known/ard.json
+  Content-Type: application/json
+  Access-Control-Allow-Origin: *
+
+/.well-known/ai-catalog.json
+  Content-Type: application/json
+  Access-Control-Allow-Origin: *
+
+/index.md
+  Content-Type: text/markdown; charset=utf-8
+
+/llms.txt
+  Content-Type: text/plain; charset=utf-8
+
+/llms-full.txt
+  Content-Type: text/plain; charset=utf-8
+
+/robots.txt
+  Content-Type: text/plain; charset=utf-8
+
+/*/llms.txt
+  Content-Type: text/plain; charset=utf-8
+
+/*/index.md
+  Content-Type: text/markdown; charset=utf-8
+# End Nimbus agent discovery

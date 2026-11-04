@@ -1,0 +1,14 @@
+# CWD 评论系统文档
+
+基于 Cloudflare Workers 与全球边缘网络的免服务器、极速安全、即插即用评论系统。
+
+Full documentation (discoverable current pages, one document): https://cwd.js.org/llms-full.txt
+
+## Pages
+
+- [CWD 评论系统](https://cwd.js.org/index.md) — 基于 Cloudflare Workers 与全球边缘网络的免服务器、极速安全、即插即用评论系统。
+- [Api](https://cwd.js.org/api/llms.txt)
+- [常见问题](https://cwd.js.org/common-problems/index.md)
+- [Config](https://cwd.js.org/config/llms.txt)
+- [Function](https://cwd.js.org/function/llms.txt)
+- [Guide](https://cwd.js.org/guide/llms.txt)
