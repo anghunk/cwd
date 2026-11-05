@@ -4342,7 +4342,7 @@ Source: https://cwd.js.org/guide/frontend-config/ · Markdown: https://cwd.js.or
 
 **这里仅提供一套开箱即用的方案，如果是个人开发者可以根据 [API 文档](/api/overview) 自行编写前端评论组件。**
 
-组件源码目录：`/docs/widget`
+组件源码目录：`/docs-nimbus/widget`
 
 ## 组件特性
 
@@ -4352,6 +4352,8 @@ CWD 评论组件采用 **Shadow DOM** 技术构建，基于独立根节点渲染
 - **DOM 隔离**：组件内部 DOM 结构与外部页面完全隔离，互不干扰
 - **即插即用**：无需担心现有网站的样式框架（如 Bootstrap、Tailwind 等）影响组件显示
 - **自定义样式**：通过 `customCssUrl` 参数注入自定义样式表，灵活调整外观
+
+评论框和回复框打开表情弹窗后，点击弹窗及表情按钮以外的区域即可关闭；切换表情分组会保持弹窗打开，选择表情后会自动关闭。
 
 ## 评论组件初始化
 
@@ -4816,4 +4818,4 @@ npm run build
 
 ### 评论端
 
-更新 api 时同步修改引入文件的版本号，源码文件 `/docs/widget`.
+更新 api 时同步修改引入文件的版本号，源码目录为 `/docs-nimbus/widget`。

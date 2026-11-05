@@ -45,6 +45,6 @@ npm run build
 
 ### 评论端
 
-更新 api 时同步修改引入文件的版本号，源码文件 `/docs/widget`.
+更新 api 时同步修改引入文件的版本号，源码目录为 `/docs-nimbus/widget`。
 
 Source: https://cwd.js.org/guide/update-version/index.mdx
