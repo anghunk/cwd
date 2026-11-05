@@ -23,12 +23,13 @@ function escapeAttribute(value: string): string {
 }
 
 /**
- * 输出 GitHub Pages 可直接托管的跳转页；启用 JavaScript 时保留查询参数和锚点，并替换当前历史记录。
+ * 输出 GitHub Pages 可直接托管的跳转页；目标使用目录地址，避免无后缀地址再次匹配当前 .html 文件。
+ * 启用 JavaScript 时保留查询参数和锚点，并替换当前历史记录。
  * @param context 静态路径生成器提供的路由参数及站点配置。
  * @returns 含规范地址、无脚本回退和可点击链接的 HTML 响应。
  */
 export const GET: APIRoute = ({ params, site }) => {
-	const destination = withBase(`/${[params.legacy, params.page].filter(Boolean).join('/')}`, import.meta.env.BASE_URL);
+	const destination = withBase(`/${[params.legacy, params.page].filter(Boolean).join('/')}/`, import.meta.env.BASE_URL);
 	const canonical = site ? new URL(destination, site).href : destination;
 	const href = escapeAttribute(destination);
 	const scriptDestination = JSON.stringify(destination).replace(/</g, '\\u003c');

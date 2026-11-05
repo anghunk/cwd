@@ -47,12 +47,6 @@ GitHub Pages 从 `gh-pages` 分支的根目录发布。工作流通过 `cname: c
 
 页眉、移动导航和分享卡片统一使用项目自带的 `public/icon.png`。浏览器标签页使用同一图片的 `public/favicon.png` 副本，由 Nimbus 自动识别；不保留脚手架默认的 SVG 和 ICO 图标。
 
-## 旧链接兼容
-
-构建会为文档内页生成旧 VitePress 地址的跳转页，例如 `/guide/getting-started.html` 跳转到 `/guide/getting-started`。这些实际的 `.html` 文件可以直接部署到 GitHub Pages，无需服务器重写规则，也不依赖旧 `docs/` 目录。
-
-启用 JavaScript 时，跳转保留查询参数和锚点，并替换当前历史记录；禁用 JavaScript 时仍有自动跳转和可点击的新地址。新站会在旧锚点无法直接定位时，忽略标点和分隔符差异，尝试滚动到唯一匹配的正文标题。首页继续由已有 `index.html` 提供。
-
 ## Widget 测试
 
 在 `widget/` 中执行 `npm test`，使用 Node.js 内置测试运行器运行从旧目录保留的 3 个测试文件，覆盖 API 错误处理、表情处理和 Turnstile 生命周期。修改组件后同时执行 `npm run build` 验证发布产物。

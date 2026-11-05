@@ -86,6 +86,7 @@ const nimbusConfig = defineNimbusConfig({
 
 export default defineConfig({
 	output: 'static',
+	trailingSlash: 'always',
 	vite: { plugins: [tailwindcss()] },
 	prefetch: { prefetchAll: true, defaultStrategy: 'hover' },
 	integrations: [
