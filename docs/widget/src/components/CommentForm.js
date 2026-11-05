@@ -45,6 +45,8 @@ export class CommentForm extends Component {
 	}
 
 	render() {
+		this.emotionPicker?.destroy();
+		this.emotionPicker = null;
 		this.turnstileWidget?.destroy();
 		this.turnstileWidget = null;
 		this.turnstileToken = '';
@@ -554,6 +556,8 @@ export class CommentForm extends Component {
 	}
 
 	destroy() {
+		this.emotionPicker?.destroy();
+		this.emotionPicker = null;
 		this.turnstileWidget?.destroy();
 		this.turnstileWidget = null;
 		super.destroy();

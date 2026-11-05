@@ -30,21 +30,21 @@
 
 以下后台截图均使用虚构演示数据，邮箱、域名和 IP 均为示例值。
 
-![后台评论管理（浅色模式）](docs/public/screenshots/admin-comments-light.jpg)
+![后台评论管理（浅色模式）](docs-nimbus/public/screenshots/admin-comments-light.jpg)
 
 <details><summary>更多截图</summary>
 
 **评论管理 · 深色模式**
 
-![后台评论管理（深色模式）](docs/public/screenshots/admin-comments-dark.jpg)
+![后台评论管理（深色模式）](docs-nimbus/public/screenshots/admin-comments-dark.jpg)
 
 **数据看板**
 
-![后台数据看板（演示统计数据）](docs/public/screenshots/admin-dashboard.jpg)
+![后台数据看板（演示统计数据）](docs-nimbus/public/screenshots/admin-dashboard.jpg)
 
 **网站设置**
 
-![后台网站设置（演示配置）](docs/public/screenshots/admin-settings.jpg)
+![后台网站设置（演示配置）](docs-nimbus/public/screenshots/admin-settings.jpg)
 
 </details>
 

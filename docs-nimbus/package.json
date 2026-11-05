@@ -34,7 +34,7 @@
 		"tailwindcss": "^4.1.4",
 		"typescript": "^5.8.3"
 	},
-	"description": "CWD 评论系统文档的 Nimbus 独立预览版",
+	"description": "CWD 评论系统的 Nimbus 正式文档站",
 	"engines": {
 		"node": ">=22.12.0"
 	}

@@ -5,8 +5,9 @@
 - 根目录只放仓库元信息；没有统一的安装、运行、测试脚本，不要在根目录执行业务构建命令。
 - `cwd-api/` 是 Cloudflare Workers + Hono + D1 后端。路由入口在 `src/index.ts`，接口处理器在 `src/api/**`，共享工具在 `src/utils/**`，D1 表结构在 `schemas/comment.sql`，Wrangler 配置示例是 `wrangler.jsonc.example`。
 - `cwd-admin/` 是 Vue 3 + Vite 后台。页面在 `src/views/**`，接口封装在 `src/api/**`，全局样式在 `src/styles/**`，多语言文案在 `src/locales/*.json`。
-- `docs/` 是 VitePress 文档。文档内容在 `docs/**/*.md`，构建脚本是 `build.js`。
-- `docs/widget/` 是可发布的评论组件包。核心逻辑在 `src/core/**`，组件在 `src/components/**`，样式在 `src/styles/**`，语言包在 `src/locales/**`。
+- `docs-nimbus/` 是当前维护和部署的 Nimbus + Astro 文档站。文档内容在 `src/content/docs/**/*.mdx`，站点配置在 `astro.config.ts`，静态资源复制脚本是 `build.js`；构建产物在 `dist/`。
+- `docs-nimbus/widget/` 是当前维护和发布到 npm 的评论组件包。核心逻辑在 `src/core/**`，组件在 `src/components/**`，样式在 `src/styles/**`，语言包在 `src/locales/**`。
+- `docs/` 是保留作迁移参考的旧 VitePress 文档及 Widget 副本，后续文档和组件改动以 `docs-nimbus/` 为准；当前发布流程不再依赖该目录。
 
 ## 运行命令
 
@@ -14,16 +15,18 @@
 - 后端类型生成：`cd cwd-api && pnpm cf-typegen`。
 - 后台本地运行：`cd cwd-admin && npm install && npm run dev`。
 - 后台构建：`cd cwd-admin && npm run build`。
-- 文档本地运行：`cd docs && npm install && npm run dev`。
-- 文档完整构建：`cd docs && npm run build`；该命令会进入 `docs/widget` 安装依赖并构建组件。
-- Widget 单独运行：`cd docs/widget && npm install && npm run dev`。
-- Widget 单独构建：`cd docs/widget && npm run build`。
+- 文档本地运行：`cd docs-nimbus && npm install && npm run dev`，需要 Node.js 22.12 或更高版本。
+- 文档完整构建：`cd docs-nimbus && npm run build`；该命令会进入 `widget/` 安装依赖并构建组件，然后构建文档和复制发布资源。
+- 文档预览：`cd docs-nimbus && npm run preview`。
+- Widget 单独运行：`cd docs-nimbus/widget && npm install && npm run dev`。
+- Widget 单独构建：`cd docs-nimbus/widget && npm run build`。
 
 ## 测试命令
 
 - 后端测试：`cd cwd-api && pnpm test`。测试使用 `@cloudflare/vitest-pool-workers`，依赖 `wrangler.jsonc`。
 - 后端改动必须补充或更新相邻的 `*.spec.ts`；现有测试位置参考 `cwd-api/src/api/**/*.spec.ts`。
-- `cwd-admin`、`docs`、`docs/widget` 当前没有测试脚本；相关改动至少运行对应的 `npm run build`。
+- Widget 测试：`cd docs-nimbus/widget && npm test`，使用 Node.js 内置测试运行器，覆盖 API 错误、表情处理和 Turnstile 生命周期。
+- `cwd-admin` 和 `docs-nimbus` 当前没有测试脚本；相关改动至少运行对应的 `npm run build`。Widget 改动运行 `npm test` 和 `npm run build`。
 - 纯文档或本文件改动无需运行测试，但要确认 Markdown 内容和命令路径准确。
 
 ## 代码风格
@@ -34,8 +37,8 @@
 - 后端处理用户内容时必须保持 XSS 防护；Markdown、HTML、邮箱、域名、IP、管理员密钥等输入变更要显式校验。
 - 后端新增配置项时，同步考虑 `Settings` 读写、导入导出、备份迁移、后台接口和文档。
 - Vue 后台改 UI 文案时必须走 `vue-i18n`，新增 key 要同步所有 `cwd-admin/src/locales/*.json`。
-- Widget 改可见文案时同步 `docs/widget/src/locales/**`；公共 API 变更要同步 `docs/widget/src/index.d.ts`、`package.json` 导出和文档。
-- 样式按所在子项目现有组织维护：后台优先改 `cwd-admin/src/styles/**`，Widget 优先改 `docs/widget/src/styles/**`，避免散落内联样式。
+- Widget 改可见文案时同步 `docs-nimbus/widget/src/locales/**`；公共 API 变更要同步 `docs-nimbus/widget/src/index.d.ts`、`package.json` 导出和文档。
+- 样式按所在子项目现有组织维护：后台优先改 `cwd-admin/src/styles/**`，Widget 优先改 `docs-nimbus/widget/src/styles/**`，避免散落内联样式。
 
 ## 禁止事项
 

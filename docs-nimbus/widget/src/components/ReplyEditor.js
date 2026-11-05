@@ -38,6 +38,8 @@ export class ReplyEditor extends Component {
 	}
 
 	render() {
+		this.emotionPicker?.destroy();
+		this.emotionPicker = null;
 		this.turnstileWidget?.destroy();
 		this.turnstileWidget = null;
 		this.turnstileToken = '';
@@ -520,6 +522,8 @@ export class ReplyEditor extends Component {
 	}
 
 	destroy() {
+		this.emotionPicker?.destroy();
+		this.emotionPicker = null;
 		this.turnstileWidget?.destroy();
 		this.turnstileWidget = null;
 		super.destroy();

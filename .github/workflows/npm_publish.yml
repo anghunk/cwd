@@ -34,7 +34,7 @@ jobs:
 
       - name: Get local package info
         id: pkg
-        working-directory: docs/widget
+        working-directory: docs-nimbus/widget
         run: |
           name=$(node -p "require('./package.json').name")
           version=$(node -p "require('./package.json').version")
@@ -62,15 +62,15 @@ jobs:
 
       - name: Install dependencies
         if: steps.decision.outputs.should_publish == 'true'
-        working-directory: docs/widget
+        working-directory: docs-nimbus/widget
         run: npm install
 
       - name: Build widget
         if: steps.decision.outputs.should_publish == 'true'
-        working-directory: docs/widget
+        working-directory: docs-nimbus/widget
         run: npm run build
 
       - name: Publish to npm
         if: steps.decision.outputs.should_publish == 'true'
-        working-directory: docs/widget
+        working-directory: docs-nimbus/widget
         run: npm publish --access public

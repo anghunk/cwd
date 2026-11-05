@@ -19,9 +19,11 @@ export class EmotionPicker extends Component {
 			open: false,
 			activeGroup: props.groups?.[0]?.name || '',
 		};
+		this.handleDocumentClick = this.handleDocumentClick.bind(this);
 	}
 
 	render() {
+		this.container.ownerDocument.removeEventListener('click', this.handleDocumentClick, true);
 		const groups = Array.isArray(this.props.groups) ? this.props.groups : [];
 		if (!groups.length) {
 			this.elements.root = null;
@@ -77,6 +79,21 @@ export class EmotionPicker extends Component {
 		this.elements.root = root;
 		this.empty(this.container);
 		this.container.appendChild(root);
+		if (this.state.open) {
+			this.container.ownerDocument.addEventListener('click', this.handleDocumentClick, true);
+		}
+	}
+
+	/**
+	 * 点击选择器外部时关闭弹窗，使用事件路径识别 Shadow DOM 内部点击。
+	 *
+	 * @param {MouseEvent} event - 文档捕获阶段的点击事件
+	 */
+	handleDocumentClick(event) {
+		if (this.state.open && !event.composedPath().includes(this.elements.root)) {
+			this.state.open = false;
+			this.render();
+		}
 	}
 
 	/**
@@ -176,5 +193,14 @@ export class EmotionPicker extends Component {
 		}
 		this.state.open = false;
 		this.render();
+	}
+
+	/**
+	 * 销毁选择器并移除文档点击监听。
+	 */
+	destroy() {
+		this.container.ownerDocument.removeEventListener('click', this.handleDocumentClick, true);
+		this.state.open = false;
+		super.destroy();
 	}
 }

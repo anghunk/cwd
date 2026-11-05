@@ -1,6 +1,6 @@
-# CWD 文档 · Nimbus 预览
+# CWD 文档 · Nimbus
 
-这是从根目录 `docs/` 复制并适配的独立文档站，使用 Nimbus 和 Astro 渲染。原有 VitePress 文档保留在 `docs/`，GitHub Actions 通过 `.github/workflows/docs.yml` 构建本目录，并将 `docs-nimbus/dist/` 发布到 `gh-pages` 分支。
+这是 CWD 当前维护和部署的正式文档站，使用 Nimbus 和 Astro 渲染。文档和 Widget 源码统一在本目录维护；根目录 `docs/` 仅保留为旧 VitePress 版本的迁移参考。GitHub Actions 通过 `.github/workflows/docs.yml` 构建本目录，并将 `docs-nimbus/dist/` 发布到 `gh-pages` 分支；`.github/workflows/npm_publish.yml` 从 `docs-nimbus/widget/` 构建并发布 npm 包。
 
 ## 本地查看
 
@@ -34,18 +34,28 @@ GitHub Pages 从 `gh-pages` 分支的根目录发布。工作流通过 `cname: c
 
 ## 目录说明
 
-- `src/content/docs/`：原文档的副本，保留 `guide/`、`function/`、`config/`、`api/` 路径。
-- `public/`：从原文档复制的图标和截图。
-- `widget/`：原 `docs/widget/` 的独立源码副本，供 Nimbus 构建；后续不会自动同步原目录的改动。
+- `src/content/docs/`：正式文档内容，保留 `guide/`、`function/`、`config/`、`api/` 路径。
+- `public/`：站点使用的图标和截图。
+- `widget/`：评论组件的维护和 npm 发布源码，供本站构建 `/cwd.js`。
 - `build.js`：将 Widget 产物和根目录表情资源复制到 `public/` 或 `dist/`。
 - `astro.config.ts`：站点信息和中文栏目顺序。
 - `src/components/`、`src/layouts/`、`src/styles/`：Nimbus 官方脚手架生成的组件、布局和样式。
 
-适配内容包括页面标题 frontmatter、提示框、文档链接与首页功能卡片；首页采用无侧栏的宽布局，文档内页保留侧栏和阅读宽度。后续修改此副本不会自动同步到 `docs/`。
+适配内容包括页面标题 frontmatter、提示框、文档链接与首页功能卡片；首页采用无侧栏的宽布局，文档内页保留侧栏和阅读宽度。后续文档和 Widget 改动直接修改本目录，不再同步到旧 `docs/` 副本。
 
 顶部主导航的站内链接在当前标签页跳转；外部链接显示右上箭头，并在新标签页打开。
 
-页眉、移动导航和分享卡片统一使用项目自带的 `public/icon.png`（与 `docs/public/icon.png` 相同）。浏览器标签页使用同一图片的 `public/favicon.png` 副本，由 Nimbus 自动识别；不保留脚手架默认的 SVG 和 ICO 图标。
+页眉、移动导航和分享卡片统一使用项目自带的 `public/icon.png`。浏览器标签页使用同一图片的 `public/favicon.png` 副本，由 Nimbus 自动识别；不保留脚手架默认的 SVG 和 ICO 图标。
+
+## 旧链接兼容
+
+构建会为文档内页生成旧 VitePress 地址的跳转页，例如 `/guide/getting-started.html` 跳转到 `/guide/getting-started`。这些实际的 `.html` 文件可以直接部署到 GitHub Pages，无需服务器重写规则，也不依赖旧 `docs/` 目录。
+
+启用 JavaScript 时，跳转保留查询参数和锚点，并替换当前历史记录；禁用 JavaScript 时仍有自动跳转和可点击的新地址。新站会在旧锚点无法直接定位时，忽略标点和分隔符差异，尝试滚动到唯一匹配的正文标题。首页继续由已有 `index.html` 提供。
+
+## Widget 测试
+
+在 `widget/` 中执行 `npm test`，使用 Node.js 内置测试运行器运行从旧目录保留的 3 个测试文件，覆盖 API 错误处理、表情处理和 Turnstile 生命周期。修改组件后同时执行 `npm run build` 验证发布产物。
 
 ## 评论系统
 

@@ -333,6 +333,7 @@
 @media (max-width: 640px) {
   .cwd-emotion-popover {
     position: fixed;
+    top: auto;
     left: 12px;
     right: 12px;
     bottom: 12px;
