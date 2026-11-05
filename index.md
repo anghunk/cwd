@@ -11,8 +11,8 @@ image: "https://cwd.js.org/icon.png"
 # CWD 评论系统
 
 <div class="cwd-home-actions">
-	<a class="cwd-home-primary" href="/guide/getting-started">开始使用 →</a>
-	<a href="/api/overview">API 文档</a>
+	<a class="cwd-home-primary" href="/guide/getting-started/">开始使用 →</a>
+	<a href="/api/overview/">API 文档</a>
 	<a href="https://github.com/anghunk/cwd">GitHub ↗</a>
 </div>
 
