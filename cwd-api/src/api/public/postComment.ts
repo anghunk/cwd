@@ -15,6 +15,7 @@ import {
 import { loadTelegramSettings, sendTelegramMessage } from '../../utils/telegram';
 import { decodePostSlug } from '../../utils/decodePostSlug';
 import { verifyTurnstileToken } from '../../utils/turnstile';
+import { hasMXRecord } from '../../utils/emailMx';
 
 export function checkContent(content: string): string {
     return content.replace(/<script[\s\S]*?<\/script>/g, "");
@@ -55,6 +56,14 @@ export const postComment = async (c: Context<{ Bindings: Bindings }>) => {
 
   if (lastComment && Date.now() - lastComment.created < 10 * 1000) {
     return c.json({ message: "评论频繁，等10s后再试", turnstileConsumed: false }, 429);
+  }
+
+  const emailDomain = email.slice(email.lastIndexOf('@') + 1);
+  if (await hasMXRecord(emailDomain) === false) {
+    return c.json({
+      message: '邮箱域名未配置有效的 MX 记录，请检查邮箱是否填写正确',
+      turnstileConsumed: false,
+    }, 400);
   }
 
   const turnstileResult = await verifyTurnstileToken(c.env, turnstileToken, ip);
